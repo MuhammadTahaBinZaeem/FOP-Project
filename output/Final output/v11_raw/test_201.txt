@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : x / ( x + y ) + y / ( x + y )
+Normalized Tokens: x / ( x + y ) + y / ( x + y )
+Postfix Tokens   : x x y + / y x y + / +
+Initial AST Expr : x / (x + y) + y / (x + y)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : (x + y) / (x + y)
+After Identity Reduction         : 1
+Final Optimized Expr             : 1
+
+[Phase 3 Output]
+Stringified Result: 1
+Numeric Result   : 1
+==============================================================

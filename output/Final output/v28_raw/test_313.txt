@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : cot ( x ) / csc ( x )
+Normalized Tokens: cot ( x ) / csc ( x )
+Postfix Tokens   : x cot x csc /
+Initial AST Expr : cot(x) / csc(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : cot(x) / csc(x)
+
+[Phase 3 Output]
+Stringified Result: cot(x) / csc(x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: cot(x) / csc(x)
+==============================================================

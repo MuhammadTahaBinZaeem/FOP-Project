@@ -1,0 +1,30 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x + 1 ) * ( x + 2 ) * ( x + 3 )
+Normalized Tokens: ( x + 1 ) * ( x + 2 ) * ( x + 3 )
+Postfix Tokens   : x 1 + x 2 + * x 3 + *
+Initial AST Expr : (x + 1) * (x + 2) * (x + 3)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : x * (x + 2) * (x + 3) + 1 * (x + 2) * (x + 3)
+After CSE                        : x * (x + 2) * (x + 3) + 1 * (x + 2) * (x + 3)
+After Identity Reduction         : x * (x + 2) * (x + 3) + (x + 2) * (x + 3)
+After Algebraic Simplification   : xx * (x + 3) + x2 * (x + 3) + x * (x + 3) + 2 * (x + 3)
+After Algebraic Simplification   : 11x + 3x ^ 2 + 6 + x ^ (1 + 1)x + x ^ (1 + 1)3
+After CSE                        : 11x + 3x ^ 2 + 6 + x ^ (1 + 1)x + x ^ (1 + 1)3
+After Constant Folding           : 11x + 3x ^ 2 + 6 + x ^ 2x + x ^ 23
+After Algebraic Simplification   : 11x + 6x ^ 2 + 6 + x ^ (2 + 1)
+After CSE                        : 11x + 6x ^ 2 + 6 + x ^ (2 + 1)
+After Constant Folding           : 11x + 6x ^ 2 + 6 + x ^ 3
+After Algebraic Simplification   : 11x + 6x ^ 2 + x ^ 3 + 6
+After CSE                        : 11x + 6x ^ 2 + x ^ 3 + 6
+Final Optimized Expr             : 11x + 6x ^ 2 + x ^ 3 + 6
+
+[Phase 3 Output]
+Stringified Result: 11x + 6x ^ 2 + x ^ 3 + 6
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: 11x + 6x ^ 2 + x ^ 3 + 6
+==============================================================

@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : sin ( x ) / tan ( x )
+Normalized Tokens: sin * ( x ) / tan * ( x )
+Postfix Tokens   : sin x * tan / x *
+Initial AST Expr : sin * x / tan * x
+
+[Phase 2 Output]
+Running optimizer passes...
+After CSE                        : sin * x / tan * x
+Final Optimized Expr             : sin * x / tan * x
+
+[Phase 3 Output]
+Stringified Result: sin * x / tan * x
+Variables found  : sin, tan, x
+Enter value for sin: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: sin * x / tan * x
+==============================================================

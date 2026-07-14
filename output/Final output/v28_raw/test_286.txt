@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( a * b * c ) / ( c * b * a )
+Normalized Tokens: ( a * b * c ) / ( c * b * a )
+Postfix Tokens   : a b * c * c b * a * /
+Initial AST Expr : ab * c / (cb * a)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : (ab * c) ^ (1 - 1)
+After Constant Folding           : (ab * c) ^ 0
+After Identity Reduction         : 1
+Final Optimized Expr             : 1
+
+[Phase 3 Output]
+Stringified Result: 1
+Numeric Result   : 1
+==============================================================

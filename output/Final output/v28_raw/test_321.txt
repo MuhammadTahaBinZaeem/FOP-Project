@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : sin ( 1.5708 - x )
+Normalized Tokens: sin ( 1.5708 - x )
+Postfix Tokens   : 1.5708 x - sin
+Initial AST Expr : sin(1.5708 - x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : sin(-x + 1.5708)
+Final Optimized Expr             : sin(-x + 1.5708)
+
+[Phase 3 Output]
+Stringified Result: sin(-x + 1.5708)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: sin(-x + 1.5708)
+==============================================================

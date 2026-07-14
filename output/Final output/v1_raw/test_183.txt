@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : tan ( x ) * cos ( x )
+Normalized Tokens: tan * ( x ) * cos * ( x )
+Postfix Tokens   : tan x * cos * x *
+Initial AST Expr : tan * x * cos * x
+
+[Phase 2 Output]
+Running optimizer passes...
+After CSE                        : tan * x * cos * x
+Final Optimized Expr             : tan * x * cos * x
+
+[Phase 3 Output]
+Stringified Result: tan * x * cos * x
+Variables found  : cos, tan, x
+Enter value for cos: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: tan * x * cos * x
+==============================================================

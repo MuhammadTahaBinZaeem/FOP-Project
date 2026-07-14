@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : cos ( 2 * x ) + 2 * sin ( x ) ^ 2
+Normalized Tokens: cos ( 2 * x ) + 2 * sin ( x ) ^ 2
+Postfix Tokens   : 2 x * cos 2 x sin 2 ^ * +
+Initial AST Expr : cos(2x) + 2 * sin(x) ^ 2
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : cos(2x) + 2 * sin(x) ^ 2
+
+[Phase 3 Output]
+Stringified Result: cos(2x) + 2 * sin(x) ^ 2
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: cos(2x) + 2 * sin(x) ^ 2
+==============================================================

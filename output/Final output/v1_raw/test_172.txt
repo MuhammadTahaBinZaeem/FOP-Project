@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : e ^ ( ln ( x ) )
+Normalized Tokens: e ^ ( ln * ( x ) )
+Postfix Tokens   : e ln x * ^
+Initial AST Expr : e ^ (ln * x)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : e ^ (ln * x)
+
+[Phase 3 Output]
+Stringified Result: e ^ (ln * x)
+Variables found  : e, ln, x
+Enter value for e: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: e ^ (ln * x)
+==============================================================

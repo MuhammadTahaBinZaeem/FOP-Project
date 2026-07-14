@@ -1,0 +1,7 @@
+/project
+/project_test_runner
+/project.exe
+/project_gui.exe
+/project_test_runner.exe
+*.o
+*.obj

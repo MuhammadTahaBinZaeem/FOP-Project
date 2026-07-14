@@ -1,0 +1,20 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( a - b ) * ( a + b ) + ( b - c ) * ( b + c ) + ( c - a ) * ( c + a )
+Normalized Tokens: ( a - b ) * ( a + b ) + ( b - c ) * ( b + c ) + ( c - a ) * ( c + a )
+Postfix Tokens   : a b - a b + * b c - b c + * + c a - c a + * +
+Initial AST Expr : (a - b) * (a + b) + (b - c) * (b + c) + (c - a) * (c + a)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : (a + b) * a - (a + b) * b + (b + c) * b - (b + c) * c - (c + a) * a + (c + a) * c
+After Algebraic Simplification   : -(ac) - cc + cc + ac
+After Algebraic Simplification   : -(c ^ (1 + 1)) - ac + c ^ (1 + 1) + ac
+After Constant Folding           : -(c ^ 2) - ac + c ^ 2 + ac
+Final Optimized Expr             : 0
+
+[Phase 3 Output]
+Stringified Result: 0
+Numeric Result   : 0
+==============================================================

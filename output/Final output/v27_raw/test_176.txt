@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : log ( ( ( x ) ^ ( 0.5 ) ) )
+Normalized Tokens: log ( ( ( x ) ^ ( 0.5 ) ) )
+Postfix Tokens   : x 0.5 ^ log
+Initial AST Expr : log(x ^ 0.5)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : log(x ^ 0.5)
+
+[Phase 3 Output]
+Stringified Result: log(x ^ 0.5)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: log(x ^ 0.5)
+==============================================================

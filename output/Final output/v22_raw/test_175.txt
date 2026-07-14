@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : 10 ^ ( log ( x ) / log ( 10 ) )
+Normalized Tokens: 10 ^ ( log ( x ) / log ( 10 ) )
+Postfix Tokens   : 10 x log 10 log / ^
+Initial AST Expr : 10 ^ (log(x) / log(10))
+
+[Phase 2 Output]
+Running optimizer passes...
+After Constant Folding           : 10 ^ (log(x) / 2.302585093)
+Final Optimized Expr             : 10 ^ (log(x) / 2.302585093)
+
+[Phase 3 Output]
+Stringified Result: 10 ^ (log(x) / 2.302585093)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: 10 ^ (log(x) / 2.302585093)
+==============================================================

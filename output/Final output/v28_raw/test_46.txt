@@ -1,0 +1,15 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : x / 0
+Normalized Tokens: x / 0
+Postfix Tokens   : x 0 /
+Initial AST Expr : x / 0
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : x / 0
+
+[Phase 3 Output]
+Evaluation Error : Division by zero detected in expression
+==============================================================

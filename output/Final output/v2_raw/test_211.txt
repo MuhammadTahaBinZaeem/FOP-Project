@@ -1,0 +1,23 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x - y ) * ( x ^ 2 + x * y + y ^ 2 )
+Normalized Tokens: ( x - y ) * ( x ^ 2 + x * y + y ^ 2 )
+Postfix Tokens   : x y - x 2 ^ x y * + y 2 ^ + *
+Initial AST Expr : (x - y) * (x ^ 2 + x * y + y ^ 2)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : x * (x ^ 2 + y ^ 2 + x * y) - y * (x ^ 2 + y ^ 2 + x * y)
+After CSE                        : x * (x ^ 2 + y ^ 2 + x * y) - y * (x ^ 2 + y ^ 2 + x * y)
+After Algebraic Simplification   : x * (x ^ 2 + y ^ 2) + x * x * y - y * (x ^ 2 + y ^ 2) - y * x * y
+After Algebraic Simplification   : x ^ 3 - y ^ 3 + x * y ^ 2 + x * x * y - y * x ^ 2 - y * x * y
+After CSE                        : x ^ 3 - y ^ 3 + x * y ^ 2 + x * x * y - y * x ^ 2 - y * x * y
+Final Optimized Expr             : x ^ 3 - y ^ 3 + x * y ^ 2 + x * x * y - y * x ^ 2 - y * x * y
+
+[Phase 3 Output]
+Stringified Result: x ^ 3 - y ^ 3 + x * y ^ 2 + x * x * y - y * x ^ 2 - y * x * y
+Variables found  : x, y
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: x ^ 3 - y ^ 3 + x * y ^ 2 + x * x * y - y * x ^ 2 - y * x * y
+==============================================================

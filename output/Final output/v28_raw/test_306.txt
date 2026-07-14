@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : cot ( x ) * sin ( x )
+Normalized Tokens: cot ( x ) * sin ( x )
+Postfix Tokens   : x cot x sin *
+Initial AST Expr : cot(x) * sin(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : cot(x) * sin(x)
+
+[Phase 3 Output]
+Stringified Result: cot(x) * sin(x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: cot(x) * sin(x)
+==============================================================

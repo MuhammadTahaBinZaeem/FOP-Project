@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : a / b + c / d
+Normalized Tokens: a / b + c / d
+Postfix Tokens   : a b / c d / +
+Initial AST Expr : a / b + c / d
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : a / b + c / d
+
+[Phase 3 Output]
+Stringified Result: a / b + c / d
+Variables found  : a, b, c, d
+Enter value for a: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: a / b + c / d
+==============================================================

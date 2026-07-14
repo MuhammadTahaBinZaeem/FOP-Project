@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ln ( exp ( sin ( x ) ) )
+Normalized Tokens: ln ( exp ( sin ( x ) ) )
+Postfix Tokens   : x sin exp ln
+Initial AST Expr : ln(exp(sin(x)))
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : ln(exp(sin(x)))
+
+[Phase 3 Output]
+Stringified Result: ln(exp(sin(x)))
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: ln(exp(sin(x)))
+==============================================================

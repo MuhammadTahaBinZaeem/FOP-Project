@@ -1,0 +1,17 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( log ( 8 ) / log ( 2 ) )
+Normalized Tokens: ( log ( 8 ) / log ( 2 ) )
+Postfix Tokens   : 8 log 2 log /
+Initial AST Expr : log(8) / log(2)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Constant Folding           : 3
+Final Optimized Expr             : 3
+
+[Phase 3 Output]
+Stringified Result: 3
+Numeric Result   : 3
+==============================================================

@@ -1,0 +1,17 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : sin ( x ) * csc ( x )
+Normalized Tokens: sin ( x ) * csc ( x )
+Postfix Tokens   : x sin x csc *
+Initial AST Expr : sin(x) * csc(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : 1
+Final Optimized Expr             : 1
+
+[Phase 3 Output]
+Stringified Result: 1
+Numeric Result   : 1
+==============================================================

@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : n * log ( x )
+Normalized Tokens: n * log ( x )
+Postfix Tokens   : n x log *
+Initial AST Expr : nlog(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : log(x ^ n)
+Final Optimized Expr             : log(x ^ n)
+
+[Phase 3 Output]
+Stringified Result: log(x ^ n)
+Variables found  : n, x
+Enter value for n: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: log(x ^ n)
+==============================================================

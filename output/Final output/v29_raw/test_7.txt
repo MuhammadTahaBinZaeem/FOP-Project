@@ -1,0 +1,17 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : 100 / ( 10 / 2 )
+Normalized Tokens: 100 / ( 10 / 2 )
+Postfix Tokens   : 100 10 2 / /
+Initial AST Expr : 100 / (10 / 2)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Constant Folding           : 20
+Final Optimized Expr             : 20
+
+[Phase 3 Output]
+Stringified Result: 20
+Numeric Result   : 20
+==============================================================

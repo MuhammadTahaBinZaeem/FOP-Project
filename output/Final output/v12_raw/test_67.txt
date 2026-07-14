@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : log ( a ) + log ( b )
+Normalized Tokens: log ( a ) + log ( b )
+Postfix Tokens   : a log b log +
+Initial AST Expr : log(a) + log(b)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : log(ab)
+Final Optimized Expr             : log(ab)
+
+[Phase 3 Output]
+Stringified Result: log(ab)
+Variables found  : a, b
+Enter value for a: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: log(ab)
+==============================================================

@@ -1,0 +1,22 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( a + b ) * ( c - d ) + ( a - b ) * ( c + d )
+Normalized Tokens: ( a + b ) * ( c - d ) + ( a - b ) * ( c + d )
+Postfix Tokens   : a b + c d - * a b - c d + * +
+Initial AST Expr : (a + b) * (c - d) + (a - b) * (c + d)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : a * (c - d) + b * (c - d) + a * (c + d) - b * (c + d)
+After CSE                        : a * (c - d) + b * (c - d) + a * (c + d) - b * (c + d)
+After Algebraic Simplification   : a * c - a * d + b * c - b * d + a * c + a * d - b * c - b * d
+After CSE                        : a * c - a * d + b * c - b * d + a * c + a * d - b * c - b * d
+Final Optimized Expr             : a * c - a * d + b * c - b * d + a * c + a * d - b * c - b * d
+
+[Phase 3 Output]
+Stringified Result: a * c - a * d + b * c - b * d + a * c + a * d - b * c - b * d
+Variables found  : a, b, c, d
+Enter value for a: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: a * c - a * d + b * c - b * d + a * c + a * d - b * c - b * d
+==============================================================

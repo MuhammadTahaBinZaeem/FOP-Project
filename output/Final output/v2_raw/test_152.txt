@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x ^ 3 - 1 ) / ( x - 1 )
+Normalized Tokens: ( x ^ 3 - 1 ) / ( x - 1 )
+Postfix Tokens   : x 3 ^ 1 - x 1 - /
+Initial AST Expr : (x ^ 3 - 1) / (x - 1)
+
+[Phase 2 Output]
+Running optimizer passes...
+After CSE                        : (x ^ 3 - 1) / (x - 1)
+Final Optimized Expr             : (x ^ 3 - 1) / (x - 1)
+
+[Phase 3 Output]
+Stringified Result: (x ^ 3 - 1) / (x - 1)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: (x ^ 3 - 1) / (x - 1)
+==============================================================

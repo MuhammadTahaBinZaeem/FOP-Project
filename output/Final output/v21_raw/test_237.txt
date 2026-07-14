@@ -1,0 +1,29 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : x ^ 4 - y ^ 4
+Normalized Tokens: x ^ 4 - y ^ 4
+Postfix Tokens   : x 4 ^ y 4 ^ -
+Initial AST Expr : x ^ 4 - y ^ 4
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : (x - y) * (x + y) * (x ^ 2 + y ^ 2)
+After Algebraic Simplification   : x * (x + y) * (x ^ 2 + y ^ 2) - y * (x + y) * (x ^ 2 + y ^ 2)
+After Algebraic Simplification   : (x ^ 2 + y ^ 2) * x * x - (x ^ 2 + y ^ 2) * y * y
+After Algebraic Simplification   : x ^ 2x * x - x ^ 2y * y + y ^ 2x * x - y ^ 2y * y
+After Algebraic Simplification   : -(x ^ 2y * y) + x ^ (2 + 1 + 1) + y ^ 2x * x - y ^ (2 + 1 + 1)
+After Constant Folding           : -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+After Algebraic Simplification   : -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+After Algebraic Simplification   : -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+After Algebraic Simplification   : -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+After Algebraic Simplification   : -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+After Algebraic Simplification   : -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+Final Optimized Expr             : -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+
+[Phase 3 Output]
+Stringified Result: -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+Variables found  : x, y
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: -(x ^ 2y * y) + x ^ 4 + y ^ 2x * x - y ^ 4
+==============================================================

@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : abs ( x ) / x
+Normalized Tokens: abs ( x ) / x
+Postfix Tokens   : x abs x /
+Initial AST Expr : abs(x) / x
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : sgn(x)
+Final Optimized Expr             : sgn(x)
+
+[Phase 3 Output]
+Stringified Result: sgn(x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: sgn(x)
+==============================================================

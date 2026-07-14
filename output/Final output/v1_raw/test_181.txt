@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : 1 - cos ( x ) ^ 2
+Normalized Tokens: 1 - cos * ( x ) ^ 2
+Postfix Tokens   : 1 cos x 2 ^ * -
+Initial AST Expr : 1 - cos * x ^ 2
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : 1 - cos * x ^ 2
+
+[Phase 3 Output]
+Stringified Result: 1 - cos * x ^ 2
+Variables found  : cos, x
+Enter value for cos: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: 1 - cos * x ^ 2
+==============================================================

@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x + 1 ) ^ 2 - ( x - 1 ) ^ 2
+Normalized Tokens: ( x + 1 ) ^ 2 - ( x - 1 ) ^ 2
+Postfix Tokens   : x 1 + 2 ^ x 1 - 2 ^ -
+Initial AST Expr : (x + 1) ^ 2 - (x - 1) ^ 2
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : (x + 1) ^ 2 - (x - 1) ^ 2
+
+[Phase 3 Output]
+Stringified Result: (x + 1) ^ 2 - (x - 1) ^ 2
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: (x + 1) ^ 2 - (x - 1) ^ 2
+==============================================================

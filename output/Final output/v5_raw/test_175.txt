@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : 10 ^ log10 ( x )
+Normalized Tokens: 10 ^ log10 * ( x )
+Postfix Tokens   : 10 log10 ^ x *
+Initial AST Expr : 10 ^ log10x
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : 10 ^ log10x
+
+[Phase 3 Output]
+Stringified Result: 10 ^ log10x
+Variables found  : log10, x
+Enter value for log10: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: 10 ^ log10x
+==============================================================

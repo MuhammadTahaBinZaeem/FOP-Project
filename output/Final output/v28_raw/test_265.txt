@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : sec ( x ) / csc ( x )
+Normalized Tokens: sec ( x ) / csc ( x )
+Postfix Tokens   : x sec x csc /
+Initial AST Expr : sec(x) / csc(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : sec(x) / csc(x)
+
+[Phase 3 Output]
+Stringified Result: sec(x) / csc(x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: sec(x) / csc(x)
+==============================================================

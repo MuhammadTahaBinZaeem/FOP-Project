@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x / y ) / ( z / w )
+Normalized Tokens: ( x / y ) / ( z / w )
+Postfix Tokens   : x y / z w / /
+Initial AST Expr : x / y / (z / w)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : x / y / (z / w)
+
+[Phase 3 Output]
+Stringified Result: x / y / (z / w)
+Variables found  : w, x, y, z
+Enter value for w: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: x / y / (z / w)
+==============================================================

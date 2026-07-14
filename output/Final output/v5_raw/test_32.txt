@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : 2 x + 3 x
+Normalized Tokens: 2 * x + 3 * x
+Postfix Tokens   : 2 x * 3 x * +
+Initial AST Expr : 2x + 3x
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : 5x
+Final Optimized Expr             : 5x
+
+[Phase 3 Output]
+Stringified Result: 5x
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: 5x
+==============================================================

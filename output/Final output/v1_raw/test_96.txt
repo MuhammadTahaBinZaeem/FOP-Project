@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : x + 2 y - ( 2 y + x )
+Normalized Tokens: x + 2 * y - ( 2 * y + x )
+Postfix Tokens   : x 2 y * + 2 y * x + -
+Initial AST Expr : x + 2 * y - (2 * y + x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : x + 2 * y - (x + 2 * y)
+After CSE                        : x + 2 * y - (x + 2 * y)
+After Identity Reduction         : 0
+Final Optimized Expr             : 0
+
+[Phase 3 Output]
+Stringified Result: 0
+Numeric Result   : 0
+==============================================================

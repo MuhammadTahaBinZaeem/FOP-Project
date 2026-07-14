@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : x ^ pi * x ^ - pi
+Normalized Tokens: x ^ pi * x ^ ( -1 * pi )
+Postfix Tokens   : x pi ^ x -1 pi * ^ *
+Initial AST Expr : x ^ pix ^ (-pi)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : x ^ (pi + -pi)
+After Algebraic Simplification   : x ^ 0
+After Identity Reduction         : 1
+Final Optimized Expr             : 1
+
+[Phase 3 Output]
+Stringified Result: 1
+Numeric Result   : 1
+==============================================================

@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : abs ( - x )
+Normalized Tokens: abs ( -1 * x )
+Postfix Tokens   : -1 x * abs
+Initial AST Expr : abs(-x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Identity Reduction         : abs(x)
+Final Optimized Expr             : abs(x)
+
+[Phase 3 Output]
+Stringified Result: abs(x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: abs(x)
+==============================================================

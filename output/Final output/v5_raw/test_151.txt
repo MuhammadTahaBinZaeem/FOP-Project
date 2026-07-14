@@ -1,0 +1,22 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x ^ 2 + 2 x + 1 ) / ( x + 1 )
+Normalized Tokens: ( x ^ 2 + 2 * x + 1 ) / ( x + 1 )
+Postfix Tokens   : x 2 ^ 2 x * + 1 + x 1 + /
+Initial AST Expr : (x ^ 2 + 2x + 1) / (x + 1)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : (x + 1) ^ (2 - 1)
+After CSE                        : (x + 1) ^ (2 - 1)
+After Constant Folding           : (x + 1) ^ 1
+After Identity Reduction         : x + 1
+Final Optimized Expr             : x + 1
+
+[Phase 3 Output]
+Stringified Result: x + 1
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: x + 1
+==============================================================

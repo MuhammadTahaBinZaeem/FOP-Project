@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : sqrt ( x ) ^ 4
+Normalized Tokens: sqrt ( x ) ^ 4
+Postfix Tokens   : x sqrt 4 ^
+Initial AST Expr : sqrt(x) ^ 4
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : x ^ 2
+Final Optimized Expr             : x ^ 2
+
+[Phase 3 Output]
+Stringified Result: x ^ 2
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: x ^ 2
+==============================================================

@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( 1 + 1 / x ) / ( 1 - 1 / x )
+Normalized Tokens: ( 1 + 1 / x ) / ( 1 - 1 / x )
+Postfix Tokens   : 1 1 x / + 1 1 x / - /
+Initial AST Expr : (1 + 1 / x) / (1 - 1 / x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After CSE                        : (1 + 1 / x) / (1 - 1 / x)
+Final Optimized Expr             : (1 + 1 / x) / (1 - 1 / x)
+
+[Phase 3 Output]
+Stringified Result: (1 + 1 / x) / (1 - 1 / x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: (1 + 1 / x) / (1 - 1 / x)
+==============================================================

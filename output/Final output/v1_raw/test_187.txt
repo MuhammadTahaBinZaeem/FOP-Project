@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : cot ( x ) * tan ( x )
+Normalized Tokens: cot * ( x ) * tan * ( x )
+Postfix Tokens   : cot x * tan * x *
+Initial AST Expr : cot * x * tan * x
+
+[Phase 2 Output]
+Running optimizer passes...
+After CSE                        : cot * x * tan * x
+Final Optimized Expr             : cot * x * tan * x
+
+[Phase 3 Output]
+Stringified Result: cot * x * tan * x
+Variables found  : cot, tan, x
+Enter value for cot: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: cot * x * tan * x
+==============================================================

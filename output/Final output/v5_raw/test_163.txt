@@ -1,0 +1,20 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x ^ n / x ^ m ) ^ p
+Normalized Tokens: ( x ^ n / x ^ m ) ^ p
+Postfix Tokens   : x n ^ x m ^ / p ^
+Initial AST Expr : (x ^ n / x ^ m) ^ p
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : x ^ ((n - m) * p)
+After Algebraic Simplification   : x ^ (-m * p + np)
+Final Optimized Expr             : x ^ (-m * p + np)
+
+[Phase 3 Output]
+Stringified Result: x ^ (-m * p + np)
+Variables found  : m, n, p, x
+Enter value for m: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: x ^ (-m * p + np)
+==============================================================

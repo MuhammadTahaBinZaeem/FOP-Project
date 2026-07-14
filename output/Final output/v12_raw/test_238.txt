@@ -1,0 +1,20 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( x ^ 2 + 1 ) ^ 2 - ( x ^ 2 - 1 ) ^ 2
+Normalized Tokens: ( x ^ 2 + 1 ) ^ 2 - ( x ^ 2 - 1 ) ^ 2
+Postfix Tokens   : x 2 ^ 1 + 2 ^ x 2 ^ 1 - 2 ^ -
+Initial AST Expr : (x ^ 2 + 1) ^ 2 - (x ^ 2 - 1) ^ 2
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : 4 * x ^ 2 * 1
+After Identity Reduction         : 4 * x ^ 2
+Final Optimized Expr             : 4 * x ^ 2
+
+[Phase 3 Output]
+Stringified Result: 4 * x ^ 2
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: 4 * x ^ 2
+==============================================================

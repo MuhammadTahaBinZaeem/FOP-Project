@@ -1,0 +1,2 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): [Phase 1 - Lexing Error] Invalid character found: '!'

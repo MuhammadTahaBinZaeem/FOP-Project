@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : cos ( x ) / sin ( x )
+Normalized Tokens: cos ( x ) / sin ( x )
+Postfix Tokens   : x cos x sin /
+Initial AST Expr : cos(x) / sin(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : cos(x) / sin(x)
+
+[Phase 3 Output]
+Stringified Result: cos(x) / sin(x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: cos(x) / sin(x)
+==============================================================

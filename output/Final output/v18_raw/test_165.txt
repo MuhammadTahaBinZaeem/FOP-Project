@@ -1,0 +1,21 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( ( x ^ 6 ) ^ ( 1 / ( 3 ) ) )
+Normalized Tokens: ( ( x ^ 6 ) ^ ( 1 / ( 3 ) ) )
+Postfix Tokens   : x 6 ^ 1 3 / ^
+Initial AST Expr : x ^ 6 ^ (1 / 3)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Constant Folding           : x ^ 6 ^ 0.3333333333
+After Algebraic Simplification   : x ^ (6 * 0.3333333333)
+After Constant Folding           : x ^ 2
+Final Optimized Expr             : x ^ 2
+
+[Phase 3 Output]
+Stringified Result: x ^ 2
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: x ^ 2
+==============================================================

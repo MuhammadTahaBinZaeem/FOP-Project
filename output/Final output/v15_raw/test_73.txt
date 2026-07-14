@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : a * ( b - c ) + b * ( c - a ) + c * ( a - b )
+Normalized Tokens: a * ( b - c ) + b * ( c - a ) + c * ( a - b )
+Postfix Tokens   : a b c - * b c a - * + c a b - * +
+Initial AST Expr : a * (b - c) + b * (c - a) + c * (a - b)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : -(ac) + bc + ca - cb
+After Algebraic Simplification   : (a - b) * c - ac + bc
+After Algebraic Simplification   : 0
+Final Optimized Expr             : 0
+
+[Phase 3 Output]
+Stringified Result: 0
+Numeric Result   : 0
+==============================================================

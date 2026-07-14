@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : log ( sqrt ( x ) )
+Normalized Tokens: log * ( sqrt * ( x ) )
+Postfix Tokens   : log sqrt x * *
+Initial AST Expr : log * sqrt * x
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : log * sqrt * x
+
+[Phase 3 Output]
+Stringified Result: log * sqrt * x
+Variables found  : log, sqrt, x
+Enter value for log: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: log * sqrt * x
+==============================================================

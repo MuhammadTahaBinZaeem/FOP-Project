@@ -1,0 +1,17 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : ( log ( 25 ) / log ( 5 ) )
+Normalized Tokens: ( log ( 25 ) / log ( 5 ) )
+Postfix Tokens   : 25 log 5 log /
+Initial AST Expr : log(25) / log(5)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Constant Folding           : 2
+Final Optimized Expr             : 2
+
+[Phase 3 Output]
+Stringified Result: 2
+Numeric Result   : 2
+==============================================================

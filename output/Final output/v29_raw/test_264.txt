@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : tan ( x ) * cos ( x ) / sin ( x )
+Normalized Tokens: tan ( x ) * cos ( x ) / sin ( x )
+Postfix Tokens   : x tan x cos * x sin /
+Initial AST Expr : tan(x) * cos(x) / sin(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : sin(x) ^ (1 - 1)
+After Constant Folding           : sin(x) ^ 0
+After Identity Reduction         : 1
+Final Optimized Expr             : 1
+
+[Phase 3 Output]
+Stringified Result: 1
+Numeric Result   : 1
+==============================================================

@@ -1,0 +1,18 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : log ( x ^ 2 ) - 2 * log ( x )
+Normalized Tokens: log ( x ^ 2 ) - 2 * log ( x )
+Postfix Tokens   : x 2 ^ log 2 x log * -
+Initial AST Expr : log(x ^ 2) - 2 * log(x)
+
+[Phase 2 Output]
+Running optimizer passes...
+Final Optimized Expr             : log(x ^ 2) - 2 * log(x)
+
+[Phase 3 Output]
+Stringified Result: log(x ^ 2) - 2 * log(x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: log(x ^ 2) - 2 * log(x)
+==============================================================

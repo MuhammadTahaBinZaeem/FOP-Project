@@ -1,0 +1,17 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : log ( sin ( x ) ^ 2 + cos ( x ) ^ 2 )
+Normalized Tokens: log ( sin ( x ) ^ 2 + cos ( x ) ^ 2 )
+Postfix Tokens   : x sin 2 ^ x cos 2 ^ + log
+Initial AST Expr : log(sin(x) ^ 2 + cos(x) ^ 2)
+
+[Phase 2 Output]
+Running optimizer passes...
+After Algebraic Simplification   : 0
+Final Optimized Expr             : 0
+
+[Phase 3 Output]
+Stringified Result: 0
+Numeric Result   : 0
+==============================================================

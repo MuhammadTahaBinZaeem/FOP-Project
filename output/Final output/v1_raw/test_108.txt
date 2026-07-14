@@ -1,0 +1,19 @@
+================ Algebraic Expression Solver ================
+Enter an expression (type 'quit' to exit): 
+[Phase 1 Output]
+Raw Tokens       : x / ( x ^ 2 / x )
+Normalized Tokens: x / ( x ^ 2 / x )
+Postfix Tokens   : x x 2 ^ x / /
+Initial AST Expr : x / (x ^ 2 / x)
+
+[Phase 2 Output]
+Running optimizer passes...
+After CSE                        : x / (x ^ 2 / x)
+Final Optimized Expr             : x / (x ^ 2 / x)
+
+[Phase 3 Output]
+Stringified Result: x / (x ^ 2 / x)
+Variables found  : x
+Enter value for x: No value entered. Skipping numeric evaluation.
+Final Simplified Expression: x / (x ^ 2 / x)
+==============================================================
