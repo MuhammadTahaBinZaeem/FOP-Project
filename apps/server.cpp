@@ -14,6 +14,9 @@
 #include <string_view>
 
 #ifdef _WIN32
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
 #define WIN32_LEAN_AND_MEAN
 #include <winsock2.h>
 #include <ws2tcpip.h>
@@ -49,7 +52,8 @@ bool send_all(socket_handle client,std::string_view text) {
     std::size_t sent{};
     while(sent<text.size()) {
         const auto remaining=text.size()-sent;
-        const int count=send(client,text.data()+sent,static_cast<int>(std::min<std::size_t>(remaining,static_cast<std::size_t>(std::numeric_limits<int>::max()))),0);
+        const auto chunk=(std::min)(remaining,static_cast<std::size_t>(std::numeric_limits<int>::max()));
+        const int count=send(client,text.data()+sent,static_cast<int>(chunk),0);
         if(count<=0) return false;
         sent+=static_cast<std::size_t>(count);
     }
