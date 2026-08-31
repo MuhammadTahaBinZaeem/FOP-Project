@@ -10,7 +10,11 @@ option(PE_ENABLE_IPO "Enable link-time optimization for Release builds when supp
 
 add_library(pocket_engineer_core src/engine.cpp)
 target_include_directories(pocket_engineer_core PUBLIC include)
-target_compile_options(pocket_engineer_core PRIVATE -Wall -Wextra -Wpedantic -Wconversion)
+if(MSVC)
+    target_compile_options(pocket_engineer_core PRIVATE /W4 /permissive-)
+else()
+    target_compile_options(pocket_engineer_core PRIVATE -Wall -Wextra -Wpedantic -Wconversion)
+endif()
 set_target_properties(pocket_engineer_core PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 function(pe_configure_target target)
