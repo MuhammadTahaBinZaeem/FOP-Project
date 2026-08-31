@@ -29,7 +29,7 @@ pocket-engineer-server 8080 share/pocket-engineer/www
 
 Then open http://127.0.0.1:8080. The package needs no network permission or online API key. Windows uses WinSock, while Linux and macOS use POSIX sockets.
 
-The GitHub Actions workflow builds, tests, smoke-compares, packages, and uploads a ZIP artifact on Ubuntu, Windows, and macOS after the repository is pushed. The Linux package is built locally in this workspace; Windows and macOS binaries must be produced by their corresponding GitHub runner because this Linux workspace does not contain those operating systems' toolchains.
+The GitHub Actions workflow builds, tests, smoke-compares, packages, and uploads a ZIP artifact on Ubuntu, Windows, and macOS after the repository is pushed. [Run 33416606640](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/33416606640) passed all three desktop package jobs. The Linux package is also built locally in this workspace; Windows and macOS binaries are produced by their corresponding GitHub runners because this Linux workspace does not contain those operating systems' toolchains.
 
 ## Android
 
@@ -49,7 +49,7 @@ cd android
 gradle :app:assembleRelease
 ~~~
 
-The resulting APK is at android/app/build/outputs/apk/release. The project supports API 24 and newer. This workspace does not have the Android SDK, NDK, Java, or Gradle installed, so an APK cannot be honestly claimed as locally built here; the native bridge and Android project are included for Android Studio/CI builds.
+The resulting APK is at android/app/build/outputs/apk/release. The project supports API 24 and newer. This workspace does not have the Android SDK, NDK, Java, or Gradle installed, so an APK cannot be honestly claimed as locally built here; however, [GitHub Actions run 33416606640](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/33416606640) compiled it with the pinned Android toolchain and uploaded the release APK artifact.
 
 ## PWA and web assets
 
