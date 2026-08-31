@@ -8,6 +8,11 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 option(PE_ENABLE_IPO "Enable link-time optimization for Release builds when supported" ON)
 
+# MSVC otherwise reads UTF-8 source literals using the active Windows code page.
+if(MSVC)
+    add_compile_options(/utf-8)
+endif()
+
 add_library(pocket_engineer_core src/engine.cpp)
 target_include_directories(pocket_engineer_core PUBLIC include)
 if(MSVC)
