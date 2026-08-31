@@ -34,7 +34,7 @@ ctest --test-dir build-release --output-on-failure
 
 The machine-readable per-topic comparison is [CORPUS_COMPARISON.json](generated/CORPUS_COMPARISON.json). Every one of the 55 declared topics has 15,000 cases and reports 15,000 answer matches, 15,000 verification matches, and zero solver errors.
 
-The generated Linux package was PocketEngineer-0.2.0-Linux.zip with SHA-256 635328b7bea3f091b92f1bb369d7273643813adfaedf4d86b1bc1d8927bd0e5b. Its ZIP contents include the native CLI, local server, corpus tools, website, PNG assets, and platform documentation.
+The generated Linux package was PocketEngineer-0.2.0-Linux.zip with SHA-256 f3c17857116ad04c723ab72ba3e1bacc70bc28ab0125f076a873a18ae01fbcbc. Its ZIP contents include the native CLI, local server, corpus tools, website, PNG assets, comparison report, and platform documentation.
 
 Expected verifier distribution in the comparison:
 

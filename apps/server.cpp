@@ -136,7 +136,7 @@ int main(int argc,char** argv) {
     address.sin_family=AF_INET;
     address.sin_addr.s_addr=htonl(INADDR_ANY);
     address.sin_port=htons(static_cast<std::uint16_t>(port));
-    if(bind(server,reinterpret_cast<sockaddr*>(&address),sizeof(address))<0||listen(server,16)<0) {
+    if(bind(server,reinterpret_cast<sockaddr*>(&address),sizeof(address))!=0||listen(server,16)!=0) {
         std::cerr<<"Cannot listen on port "<<port<<"\n";
         close_socket(server);
 #ifdef _WIN32

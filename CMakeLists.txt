@@ -74,7 +74,7 @@ if(NOT ANDROID)
     install(TARGETS pocket-engineer pocket-engineer-server pe-generate-tests pe-verify-corpus pe-generate-explanations
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
     install(DIRECTORY www/ DESTINATION ${CMAKE_INSTALL_DATADIR}/pocket-engineer/www)
-    install(FILES README.md docs/CURRICULUM_COVERAGE.md docs/INPUT_REFERENCE.md docs/PLATFORM_SUPPORT.md docs/EXPLANATION_CORPUS.md docs/TEST_HISTORY.md
+    install(FILES README.md docs/CURRICULUM_COVERAGE.md docs/INPUT_REFERENCE.md docs/PLATFORM_SUPPORT.md docs/EXPLANATION_CORPUS.md docs/TEST_HISTORY.md docs/generated/CORPUS_COMPARISON.json
         DESTINATION ${CMAKE_INSTALL_DOCDIR})
 
     set(CPACK_PACKAGE_NAME "PocketEngineer")
