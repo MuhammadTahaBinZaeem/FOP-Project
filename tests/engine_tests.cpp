@@ -34,7 +34,7 @@ int main() {
     auto comparator=e.solve({"logic","combinational_logic","comparator 17 9"});expect(comparator.answer=="A > B","comparator");
     auto conversion=e.solve({"logic","number_systems","FF hex decimal"});expect(conversion.answer.find("255")!=std::string::npos,"base conversion");
     auto signed_sum=e.solve({"logic","signed_arithmetic","twos_add 4 0111 0001"});expect(signed_sum.answer.find("1000 (-8); overflow = 1")!=std::string::npos,"two's-complement arithmetic");
-    auto pos=e.solve({"logic","canonical_pos","A & B"});expect(pos.answer=="F = ΠM(0, 1, 2)","canonical POS");
+    auto pos=e.solve({"logic","canonical_pos","A & B"});expect(pos.answer==std::string("F = \xCE\xA0M(0, 1, 2)"),"canonical POS");
     auto tff=e.solve({"logic","sequential_logic","tff 1 1"});expect(tff.answer=="Qnext = 0","T flip-flop");
     auto jkff=e.solve({"logic","sequential_logic","jkff 1 1 0"});expect(jkff.answer=="Qnext = 1","JK flip-flop");
     auto circuit=e.solve({"circuit","voltage_divider","12 1000 2000"});expect(circuit.answer.find("8 V")!=std::string::npos,"voltage divider");
