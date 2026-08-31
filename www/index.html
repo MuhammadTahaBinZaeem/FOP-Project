@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#13243a">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+  <title>Pocket Engineer — Offline verified solver</title>
+</head>
+<body>
+  <main>
+    <nav><a class="brand" href="#top">Pocket<span>Engineer</span></a><span class="offline"><i></i> Offline core ready</span><button id="install" class="quiet" hidden>Install</button></nav>
+    <section id="top" class="hero">
+      <div><p class="eyebrow">VERIFIED • PRIVATE • OFFLINE</p><h1>Understand every answer.</h1><p class="lead">A native C++ engineering tutor that shows real working, assumptions, and a verification result—without needing the internet.</p><div class="chips"><button data-domain="algebra" data-topic="simplify" data-input="(x^2 - 1)/(x - 1)">Simplify an expression</button><button data-domain="logic" data-topic="truth_table" data-input="A & !B | C">Make a truth table</button><button data-domain="circuit" data-topic="voltage_divider" data-input="12 1000 2000">Solve a divider</button></div></div>
+      <img src="assets/algebra.png" alt="Flat illustration of a friendly algebra workspace">
+    </section>
+    <section class="solver" aria-labelledby="solver-title"><div class="section-title"><p class="eyebrow">UNIVERSAL SOLVER</p><h2 id="solver-title">What are you working on?</h2></div><form id="solve-form"><label>Subject<select id="domain"><option value="algebra">Algebra</option><option value="calculus">Calculus</option><option value="linear_algebra">Linear algebra</option><option value="differential_equations">Differential equations</option><option value="logic">Digital logic</option><option value="circuit">Circuit analysis</option><option value="engineering">Engineering units</option><option value="programming">C++ fundamentals</option></select></label><label>Topic<input id="topic" value="simplify" autocomplete="off"></label><label class="problem">Problem<input id="input" value="(x^2 - 1)/(x - 1)" autocomplete="off"></label><button class="solve" type="submit">Identify → confirm → solve <b>→</b></button></form><div id="result" class="result empty" aria-live="polite"><p>Your verified answer and reasoning will appear here.</p></div></section>
+    <section class="subjects" aria-labelledby="subjects-title"><div class="section-title"><p class="eyebrow">CURRICULUM CORE</p><h2 id="subjects-title">Built for the first tough semesters.</h2></div><div class="grid"><article><img src="assets/algebra.png" alt="Algebra workspace illustration"><span>01</span><h3>Algebra & calculus</h3><p>Exact simplification, equations, derivatives, and limits.</p></article><article><img src="assets/linear-algebra.png" alt="Matrix and vector illustration"><span>02</span><h3>Linear algebra</h3><p>Row operations you can replay and residual checks.</p></article><article><img src="assets/logic.png" alt="Digital logic and K-map illustration"><span>03</span><h3>Digital logic</h3><p>Truth tables, canonical forms, and K-map foundations.</p></article><article><img src="assets/circuit.png" alt="Circuit analysis illustration"><span>04</span><h3>Circuits</h3><p>Dividers, KCL/KVL evidence, and units that stay visible.</p></article></div></section>
+  </main><footer>Made to keep working when Wi‑Fi does not.</footer><script src="app.js"></script>
+</body>
+</html>

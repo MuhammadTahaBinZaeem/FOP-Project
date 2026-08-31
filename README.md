@@ -1,122 +1,119 @@
-# Algebraic Expression Solver
+# Pocket Engineer
 
-An iterative C++ algebraic expression solver that works like a small compiler pipeline: it lexes input, normalizes tokens, parses to an AST, runs repeated symbolic simplification passes, then prints both symbolic and numeric results where possible.
+> **AI interprets. Mathematics computes. Verification decides.**
 
-This project was developed through a long sequence of refinement waves documented directly in `project.cpp`. The comments in the source show the evolution from a baseline lexer/parser/evaluator into a more capable symbolic algebra engine with support for trigonometric identities, logarithms, powers, roots, division rewrites, compact input canonicalization, and final-stage cleanup.
+Pocket Engineer is an offline-first, verified engineering tutor for Computer Engineering students. Its C++20 core runs locally: no account, API key, cloud solver, remote fonts, or CDN is required.
 
-## What It Does
+## SemPPEC project widget
 
-- Accepts a single algebraic expression from standard input.
-- Parses the expression into tokens and an abstract syntax tree.
-- Applies multiple optimization and simplification stages.
-- Preserves symbolic output while also supporting numeric evaluation when variables are provided.
-- Handles user-friendly shorthand such as compact multiplication and function-style inputs that are normalized before parsing.
+### The problem
 
-## Pipeline Overview
+Cloud tutors fail exactly when many students need them most: on older phones, with unreliable internet, or without a paid subscription. A generic chat window also makes it easy to enter a K-map, matrix, circuit, or differential equation ambiguously—and to receive plausible but wrong steps.
 
-The main solver flow is documented in the source as a compiler-style pipeline:
+### The answer
 
-1. Preprocess the raw input expression.
-2. Lex the input into typed tokens.
-3. Normalize tokens for parser safety and canonical form.
-4. Convert infix tokens to postfix notation using shunting-yard logic.
-5. Build an AST from the postfix stream.
-6. Run repeated symbolic simplification passes.
-7. Apply cleanup and round-trip stabilization passes.
-8. Print the final symbolic result and any available numeric evaluation.
+Pocket Engineer identifies an engineering problem family, asks the student to confirm its interpretation, solves a validated structured form in native C++, explains real calculation steps, and independently verifies the result.
 
-The source comments describe the implementation as a rewrite/evaluation engine rather than a formal proof assistant.
+~~~
+Typed question / guided form / optional online photo input
+                          ↓
+      Offline problem identifier proposes a course + problem type
+                          ↓
+          Student confirms or corrects the interpretation
+                          ↓
+        C++ solver → educational steps → domain verifier
+                          ↓
+       Answer • Why • assumptions • graph/diagram • Verified
+~~~
 
-## Supported Input and Rewrite Behavior
+The green **Verified** state is earned only by a domain-specific check. AI may help interpret messy text or photos, but it never becomes the authoritative calculator.
 
-The documented evolution in `project.cpp` shows support for:
+## Native coverage: 100% of the declared bounded taxonomy
 
-- Basic arithmetic and operator precedence.
-- Power expressions and right-associative exponent parsing.
-- Trigonometric functions such as `sin`, `cos`, `tan`, `cot`, `sec`, and `csc`.
-- Logarithmic and exponential forms such as `log`, `ln`, `exp`, and `log10` handling in the runner.
-- Square roots and general `root(n, expr)` normalization.
-- Implicit multiplication and compact symbolic input such as `yx`, `ab`, `2pi`, `cosx`, and `sqrtyx` after preprocessing.
-- Algebraic identities, including commutative and associative normalization, cancellation, quotient reductions, perfect-square and perfect-power recognition, and selected trig/log inverse rules.
+The project contains **55 solver-backed subcategories**, each with a confirmed input contract, C++ solver, verifier, and deterministic golden tests. This is a precise completion claim—not a claim that arbitrary free-form engineering questions are already solved.
 
-The comment history in `project.cpp` also documents incremental support for:
+| Course family | Completed native routes |
+| --- | --- |
+| Algebra | evaluation, cancellation, factorisation, linear/quadratic equations, trig identity, numeric logs |
+| Calculus | monomial derivatives, tangent lines, integrals, definite integrals, removable limits, monomial curve analysis |
+| Linear algebra | RREF, determinant, inverse, systems, multiply, transpose, rank, 2×2 real eigenvalues, vectors |
+| Differential equations | separable, first-order linear, exact, Bernoulli, homogeneous, constant-coefficient second-order, IVP, Euler, RK4 |
+| DLD | number systems, two's complement, truth table/SOP/POS, 2–4 variable K-map, combinational and sequential families |
+| LCA / ENA | divider, DC MNA, two-mesh KVL, source transforms, superposition, Thevenin/Norton, maximum power, RC/RL |
+| Programming | bounded C++ trace, branches, loops, arrays, functions, factorial recursion |
+| Units | supported electrical SI-prefix conversions |
 
-- Difference-of-squares quotient handling.
-- Fraction and denominator normalization.
-- Conjugate-based rewriting.
-- Power expansion in bounded cases.
-- Root and square-root simplification.
-- Sign cleanup in rendered output.
-- Readability-focused canonical output formatting.
+The complete input grammar, verification method, and explicit limits are in [the curriculum coverage contract](docs/CURRICULUM_COVERAGE.md) and [native input reference](docs/INPUT_REFERENCE.md).
 
-## Version History Summary
+## 825,000-case golden corpus
 
-The source contains a reconstructed change ledger with 21 major tracked waves:
+Every subcategory has **5,000 easy + 5,000 medium + 5,000 hard** deterministic cases:
 
-- v1: baseline lex/parse/optimize/eval pipeline.
-- v2: broader function support and stronger algebra rules.
-- v3: readability improvements and multi-letter input flexibility.
-- v4: precedence fixes, exponent canonicalization, and fallback evaluation.
-- v5: normalization improvements for compact symbolic forms.
-- v6: deeper commutative/associative cancellation stabilization.
-- v7: bounded power-variant exploration.
-- v8: multinomial power expansion and identity corrections.
-- v9: additive numerator division cancellation.
-- v10: formula-division pipeline coupling enhancements.
-- v11: generalized perfect-power detection.
-- v12: root/sqrt and division-formula stabilization.
-- v13: associative/commutative factor cancellation in division.
-- v14: symmetric quotient coverage for difference of squares.
-- v15: sqrt multiplication stability and render-safe tokens.
-- v16: open-form fraction, trig, log, and quotient reinforcement.
-- v17: remaining targeted canonicalization closures.
-- v18: pipeline documentation and worked examples.
-- v19: standalone input canonicalization parity.
-- v20: basic trig coverage and additive conjugate exposure.
-- v21: quotient preservation and numeric log semantics split.
+**55 × 3 × 5,000 = 825,000 solver-backed golden cases.**
 
-## Main Files
+Each JSONL row stores the exact native input, expected answer, and expected verification state. The corpus is generated by C++ and can be replayed by the C++ verifier:
 
-- `project.cpp`: main solver implementation and primary documentation source.
-- `project_test_runner.cpp`: runner used for solver validation and comparison.
-- `project_gui.cpp`: GUI-oriented variant.
-- `project.cpp.bak`: backup copy of the solver source.
-- `output/`: generated reports and historical result artifacts.
+~~~
+./build/pe-generate-tests test-data 5000
+./build/pe-verify-corpus test-data
+~~~
 
-## Build
+The previous v1 input-only fixture set was retained as the recoverable directory test-data-v1-input-fixtures when the golden corpus replaced it.
 
-The project appears to be a straightforward C++17 codebase. A typical build from this folder is:
+## Comparison report and explanation-training corpus
 
-```bash
-g++ -std=c++17 -O2 project.cpp -o project
-g++ -std=c++17 -O2 project_test_runner.cpp -o project_test_runner
-```
+The C++ comparison tool reports answer matches, verification-state matches, incorrect results, and solver errors. It can write a small machine-readable release report:
 
-If your environment requires additional libraries or platform flags, keep the same source files and adapt the compile command accordingly.
+~~~
+./build/pe-verify-corpus test-data 0 docs/generated/CORPUS_COMPARISON.json
+~~~
 
-## Run
+The current result is **825,000 correct answers, 0 incorrect answers, 825,000 matching verification states, and 0 solver errors**. See [test history](docs/TEST_HISTORY.md) and the [machine-readable comparison](docs/generated/CORPUS_COMPARISON.json).
 
-Run the solver binary and enter an expression at the prompt:
+The C++ explanation generator writes **550,000 generic step-by-step rows**: interpret, prepare, transform, present, and verify guidance for every native topic.
 
-```bash
-./project
-```
+~~~
+./build/pe-generate-explanations explanation-data 10000
+~~~
 
-Example interaction:
+The local explanation-data output is excluded from Git because it is 180 MB and fully reproducible. The source, intended use, and guardrails are in [EXPLANATION_CORPUS.md](docs/EXPLANATION_CORPUS.md).
 
-```text
-================ Algebraic Expression Solver ================
-Enter an expression (type 'quit' to exit):
-```
+## Offline desktop and Android delivery
 
-The solver accepts `quit` or `exit` to close immediately.
+- CPack emits a downloadable offline ZIP on Windows, macOS, and Linux. Each package contains the C++ server and the complete local website.
+- GitHub Actions builds, tests, smoke-compares, packages, and uploads each desktop target after push.
+- The Android app is an offline WebView shell with a JNI bridge to this same C++ core. It does not request INTERNET permission.
+- The website has a service worker that caches local interface assets. Desktop calculations use the packaged local C++ server, while Android calls C++ through JNI.
 
-## Validation
+See [PLATFORM_SUPPORT.md](docs/PLATFORM_SUPPORT.md) for platform-specific build instructions and platform-validation status.
 
-The repository includes a test runner and a final test harness under `project_test_runner.cpp` and `output/Final tests/`. Those files are intended for regression checking and result comparison against the saved corpus in `output/`.
+## Build, test, and run
 
-## Notes
+~~~
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j
+ctest --test-dir build --output-on-failure
 
-- The source comments are unusually detailed and intentionally describe the implementation as a staged pipeline.
-- The README mirrors that documentation so the project can be understood without reading the full source first.
-- Historical result summaries and walkthrough notes live in the `output/` tree.
+./build/pocket-engineer identify 'Use a K-map to simplify F(A,B,C,D) = Σm(0,1,2,3)'
+./build/pocket-engineer solve logic kmap 'vars=3; minterms=1,3,5,7'
+./build/pocket-engineer solve circuit mesh 'mesh 12 6 1000 1000 1000'
+./build/pocket-engineer solve differential_equations bernoulli 'bernoulli 2 4 2'
+
+./build/pocket-engineer-server 8080 www
+~~~
+
+Open http://127.0.0.1:8080 for the offline local website.
+
+## Architecture
+
+1. **Identify and confirm:** deterministic keyword/grammar routing proposes a family; the student confirms it.
+2. **Normalize and validate:** the chosen form rejects invalid units, matrices, circuit topology, Boolean bounds, and incomplete values.
+3. **Solve in C++:** every supported route emits structured educational steps.
+4. **Verify independently:** the result carries a residual, substitution, equivalence, or exhaustive-truth-table check.
+5. **Visualize locally:** the core emits data for matrices, K-maps, circuits, and truth tables; the browser UI remains a thin offline shell.
+
+The local web interface uses flat colors and four generated PNG illustrations in www/assets. It contains no SVG assets.
+
+## Research basis
+
+The taxonomy is aligned to CEME/NUST Computer Engineering material and standard first/second-year engineering problem families. The NUST DLD outline includes combinational and sequential circuits such as arithmetic circuits, comparators, decoders, encoders, multiplexers, latches, flip-flops, counters, and registers. The precise course sources and implementation limits are in [docs/CURRICULUM_COVERAGE.md](docs/CURRICULUM_COVERAGE.md).

@@ -1,0 +1,43 @@
+name: build-and-package
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Build
+        run: cmake --build build --config Release --parallel
+      - name: Unit tests
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Generate and compare smoke corpus
+        if: runner.os != 'Windows'
+        run: |
+          ./build/pe-generate-tests test-data-smoke-ci 25
+          ./build/pe-verify-corpus test-data-smoke-ci 0 corpus-comparison.json
+        shell: bash
+      - name: Generate and compare smoke corpus on Windows
+        if: runner.os == 'Windows'
+        run: |
+          .\build\Release\pe-generate-tests.exe test-data-smoke-ci 25
+          .\build\Release\pe-verify-corpus.exe test-data-smoke-ci 0 corpus-comparison.json
+      - name: Package offline desktop site
+        run: cpack --config build/CPackConfig.cmake -G ZIP -C Release
+      - name: Upload package
+        uses: actions/upload-artifact@v4
+        with:
+          name: pocket-engineer-${{ matrix.os }}
+          path: |
+            '*.zip'
+            corpus-comparison.json
