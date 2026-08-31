@@ -28,9 +28,9 @@ Java_com_pocketengineer_app_MainActivity_00024PocketEngineerBridge_identify(JNIE
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_pocketengineer_app_MainActivity_00024PocketEngineerBridge_solve(JNIEnv* environment,jobject,jstring request) {
     const auto input=native_string(environment,request);
-    const char* response=pe_solve_json(input.c_str());
+    const char* response=pocket_engineer::pe_solve_json(input.c_str());
     if(response==nullptr) return java_string(environment,R"({"schema_version":"1.0","status":"error","answer":{"text":"Native solver request failed"}})");
     const std::string result(response);
-    pe_free_string(response);
+    pocket_engineer::pe_free_string(response);
     return java_string(environment,result);
 }
