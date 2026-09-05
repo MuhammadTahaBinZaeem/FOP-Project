@@ -56,6 +56,8 @@ The package contains native CLI/server executables, the website, corpus tools an
 
 Windows and macOS binaries are compiled by their respective GitHub runners. GitHub Actions also uploads a self-contained website artifact after compiling the browser engine. Download links in the UI distinguish release assets from development build artifacts.
 
+The 0.3.0 Linux CI package is an x86_64 Ubuntu build, not a static all-distribution binary. Inspection found glibc 2.38 and GLIBCXX_3.4.31 symbol requirements. It did not launch unmodified on this NixOS host (generic ELF loader unavailable); local C++ builds and the browser/PWA path work here. Use those paths on NixOS instead of assuming Ubuntu binaries are portable. Windows/macOS downloads are not code-signed/notarized.
+
 ## Test interpretation
 
 See [TEST_HISTORY.md](TEST_HISTORY.md) for completed runs. A successful earlier 0.2.0 build is not proof that the changed 0.3.0 application passed; consult the source commit and run attached to each result.

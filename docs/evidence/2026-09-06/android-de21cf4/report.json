@@ -1,0 +1,26 @@
+{
+  "serial": "emulator-5556",
+  "model": "Android SDK built for x86_64",
+  "engine": "android-jni",
+  "renderer": "host",
+  "rounds": 10,
+  "catalog_examples": 55,
+  "independent_expected_answers": 10,
+  "errors": [],
+  "solve_ui_ms": [
+    357,
+    280,
+    379,
+    767,
+    1950,
+    385,
+    231,
+    309,
+    375,
+    242
+  ],
+  "android_release": "15",
+  "webview": "Current WebView Update Service state\n  Current WebView package (name, version): (com.android.webview, 124.0.6367.219)\n  Minimum targetSdkVersion: 33\n  Minimum WebView version code: 636771907\n  Number of relros started: 1\n  Number of relros finished: 1\n  WebView package dirty: false\n  Any WebView package installed: true\n  Preferred WebView package (name, version): (com.android.webview, 124.0.6367.219)\n  WebView packages:\n    Valid package com.android.webview (versionName: 124.0.6367.219, versionCode: 636771907, targetSdkVersion: 34) is  installed/enabled for all users\n",
+  "meminfo_scope": "App process only; shared renderer and system overhead may be additional",
+  "limitations": "Debug APK on x86_64 Android emulator; not physical ARM or release performance. Catalog examples are smoke checks, not independent expected answers. Document picker and print dialog opened; no OS file write/print job claimed by this script."
+}

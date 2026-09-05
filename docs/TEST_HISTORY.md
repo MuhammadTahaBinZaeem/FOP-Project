@@ -26,6 +26,16 @@ The APK was also installed and exercised locally in an API 35 x86_64 emulator wi
 
 Android screenshot review caught squeezed chart labels caused by mismatched canvas and CSS aspect ratios. Responsive, bounded-resolution drawing replaced the fixed bitmap dimensions; two new resize/navigation regression tests passed locally. The screenshot that exposed the issue is retained, not replaced with a fabricated clean result.
 
+Download inspection: the Ubuntu-built native executable from `de21cf4` cannot launch directly on this NixOS host because its generic ELF loader is not available. `readelf` also identified glibc 2.38 and GLIBCXX_3.4.31 requirements. The release notes now disclose that distribution boundary and point NixOS users to the local source build or website/PWA; this failure is not reported as a successful cross-distribution package run.
+
+Chart-fix rerun on `de21cf4`: the full local browser suite passed 28/28 in 3.5 minutes, including 800 actual UI solves (600 independent expected answers plus 200 rejected invalid inputs), with zero page errors. CI website run 33990843528 passed all 28 tests at the default shorter endurance count. Both old and new evidence are retained separately.
+
+Package run 33990843529 passed Windows, universal macOS, Linux and both Android instrumentation tests on `de21cf4`. The final local native CTest rerun passed 2/2 in 1.05 seconds, and `npm audit` reported zero vulnerabilities. Four actual Render-site checks passed in 23.9 seconds; the deployed and packaged `app.js` hashes matched the source checkout.
+
+Release validation: SHA-256 checks passed for every staged asset; the four ZIP distributions passed archive integrity checks. Info-ZIP's general-purpose APK check complained about extra-field entries on native libraries. Android SDK `apksigner verify --verbose` verified the APK's v2 signature, `zipalign -c -p 4` passed, and Android successfully installed and launched it. The APK is 8,587,630 bytes; the self-contained website ZIP is 326,354 bytes. The packaging helper was also checked to reject an existing output directory without overwriting its contents.
+
+Final APK run on `de21cf4`: all 55 catalog examples plus 10/10 independent arithmetic answers passed locally with connectivity disabled and zero page errors. The responsive chart dimensions/font were asserted inside the actual Android WebView and the corrected screenshot was inspected. Main-process PSS was 97,592 KiB, reported jank 32.13%; no physical-device smoothness claim is made. Development signing keys differed from the earlier CI build, requiring replacement of only the disposable emulator's test installation; previous evidence remained intact.
+
 ## 2026-09-06 — 0.3.0 workbench and offline engine
 
 Completed during development:

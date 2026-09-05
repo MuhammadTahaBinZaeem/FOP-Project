@@ -60,7 +60,13 @@ if(!serial?.startsWith('emulator-'))throw new Error('Set PE_ANDROID_SERIAL to th
           await expect(page.locator('#verification')).not.toContainText('Input could not be solved');
           await expect(page.locator('#steps li').first()).toBeVisible();catalogExamples++;
           if(topic==='kmap_minimization')await capture('kmap');
-          if(topic==='rk4')await capture('rk4');
+          if(topic==='rk4'){
+            await expect.poll(()=>page.locator('canvas').evaluate(c=>{
+              const r=c.getBoundingClientRect(),scale=Math.min(devicePixelRatio||1,2);
+              return c.width===Math.round(r.width*scale)&&c.height===Math.round(r.height*scale)&&c.getContext('2d').font==='11px monospace';
+            })).toBe(true);
+            await page.locator('canvas').scrollIntoViewIfNeeded();await capture('rk4');
+          }
         }
       }
       expect(catalogExamples).toBe(55);console.log('All 55 catalog examples solved through Android WebView/JNI controls');

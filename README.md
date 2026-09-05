@@ -30,6 +30,8 @@ Both interfaces include subject search, explicit type selection, example inputs,
 
 See [platform instructions and limitations](docs/PLATFORM_SUPPORT.md).
 
+[0.3.0-rc1 downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/tag/v0.3.0-rc1) include the development-signed offline Android APK, Windows/macOS/Linux native packages and complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/releases/v0.3.0-rc1.md) for signing, Linux-distribution and device-validation limits.
+
 The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB; the critical offline bundle, including WASM, is approximately 745 KB. See [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
 
 ## Build and test
@@ -71,7 +73,7 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 [Test history](docs/TEST_HISTORY.md) records results, failures and corrections. Legacy reports with fields named “correct” mean **snapshot matches**, not proven mathematical correctness. A solver verification label describes a method check; numerical sampling is not a proof for all inputs.
 
-The deeper run passed **1,606,929 independent/edge checks**. The extended local browser run passed **24/24 tests**, including **800 endurance UI solves**: 600 independently expected answers and 200 intentional invalid inputs. Later CI passed the expanded 26-test suite; two additional responsive-chart checks passed locally. The actual offline APK was run locally: all 55 topic examples completed, and three runs matched 160 independently expected arithmetic answers in total. [Measured emulator jank and remaining limits](docs/UI_ANDROID_STRESS.md) are disclosed. This is measured coverage, not a universal “100% correct” claim.
+The deeper run passed **1,606,929 independent/edge checks**. The latest full local browser run passed **28/28 tests**, including **800 endurance UI solves**: 600 independently expected answers and 200 intentional invalid inputs. CI also passed all 28 tests with its shorter default endurance setting. The actual offline APK was run locally: all 55 topic examples completed, and four runs matched 170 independently expected arithmetic answers in total. [Measured emulator jank and remaining limits](docs/UI_ANDROID_STRESS.md) are disclosed. This is measured coverage, not a universal “100% correct” claim.
 
 ## C++ ownership and efficiency
 
