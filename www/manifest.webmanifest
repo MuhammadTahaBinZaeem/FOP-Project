@@ -1,1 +1,14 @@
-{"name":"Pocket Engineer","short_name":"PocketEngineer","start_url":"/","display":"standalone","background_color":"#f7f5ef","theme_color":"#13243a","icons":[{"src":"assets/algebra.png","sizes":"1024x1024","type":"image/png"}]}
+{
+  "id": "./",
+  "name": "Pocket Engineer",
+  "short_name": "Pocket Engineer",
+  "description": "An offline C++ engineering study workbench.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5f5ee",
+  "theme_color": "#1b4538",
+  "icons": [{"src": "assets/algebra.png", "sizes": "any", "type": "image/png", "purpose": "any"}],
+  "categories": ["education", "utilities"],
+  "lang": "en"
+}

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <random>
+#include <set>
 #include <stdexcept>
 #include <string>
 #include <vector>
@@ -101,7 +102,7 @@ int main(int argc, char** argv) {
     if(per_difficulty<1){std::cerr<<"count must be positive\n";return 2;}
     std::filesystem::create_directories(output);
     std::ofstream manifest(output/"manifest.json");
-    manifest<<"{\n  \"schema_version\": \"2.0\",\n  \"per_topic_per_difficulty\": "<<per_difficulty<<",\n  \"difficulty_levels\": [\"easy\", \"medium\", \"hard\"],\n  \"oracle\": \"native Pocket Engineer solver plus verifier\",\n  \"topics\": [\n";
+    manifest<<"{\n  \"schema_version\": \"2.0\",\n  \"per_topic_per_difficulty\": "<<per_difficulty<<",\n  \"difficulty_levels\": [\"easy\", \"medium\", \"hard\"],\n  \"oracle\": \"same-engine regression snapshot; NOT an independent correctness oracle\",\n  \"topics\": [\n";
     pocket_engineer::Engine engine;
     std::uint64_t total{};
     for(std::size_t t=0;t<topics.size();++t) {
@@ -111,19 +112,22 @@ int main(int argc, char** argv) {
         for(std::size_t d=0;d<difficulties.size();++d) {
             std::ofstream file(directory/(std::string(difficulties[d])+".jsonl"));
             std::mt19937_64 rng(0x50450000ULL+(t*1000)+(d*100));
+            std::set<std::string> unique_inputs;
             for(int i=0;i<per_difficulty;++i) {
                 const auto input=problem_for(topic,rng,static_cast<int>(d));
+                unique_inputs.insert(input);
                 const auto result=engine.solve({topic.domain,topic.id,input,{}});
-                if(result.status!="success" || result.verification.status==pocket_engineer::VerificationStatus::not_verified || result.verification.status==pocket_engineer::VerificationStatus::verification_failed) {
-                    throw std::runtime_error("Fixture has no verified native result: "+topic.domain+"/"+topic.id+" input="+input+" error="+result.answer);
+                if(result.status!="success") {
+                    throw std::runtime_error("Fixture failed to solve: "+topic.domain+"/"+topic.id+" input="+input+" error="+result.answer);
                 }
                 file<<"{\"id\":\""<<topic.domain<<'.'<<topic.id<<'.'<<difficulties[d]<<'.'<<i
                     <<"\",\"domain\":\""<<topic.domain<<"\",\"topic\":\""<<topic.id<<"\",\"difficulty\":\""<<difficulties[d]
-                    <<"\",\"source\":\"deterministic_native_oracle\",\"input\":\""<<esc(input)
+                    <<"\",\"source\":\"deterministic_regression_snapshot\",\"input\":\""<<esc(input)
                     <<"\",\"expected_answer\":\""<<esc(result.answer)
                     <<"\",\"expected_verification\":\""<<pocket_engineer::verification_name(result.verification.status)<<"\"}\n";
             }
             total+=static_cast<std::uint64_t>(per_difficulty);
+            std::cout<<topic.domain<<'/'<<topic.id<<'/'<<difficulties[d]<<": "<<unique_inputs.size()<<" distinct inputs / "<<per_difficulty<<" rows\n";
         }
         manifest<<"    {\"domain\": \""<<topic.domain<<"\", \"topic\": \""<<topic.id<<"\", \"solver_backed\": true}"<<(t+1==topics.size()?"\n":",\n");
     }

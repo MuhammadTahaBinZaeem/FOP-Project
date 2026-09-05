@@ -1,0 +1,68 @@
+name: website-and-browser-tests
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: website-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - uses: mymindstorm/setup-emsdk@v14
+        with:
+          version: '5.0.7'
+          actions-cache-folder: emsdk-cache
+      - name: Compile C++ to WebAssembly
+        run: |
+          emcmake cmake -S . -B build-wasm -DCMAKE_BUILD_TYPE=Release -DPE_ENABLE_IPO=OFF
+          cmake --build build-wasm --parallel 2
+          cp build-wasm/web/engine.js build-wasm/web/engine.wasm www/
+      - name: Compile local test server
+        run: |
+          cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+          cmake --build build --parallel 2
+          ctest --test-dir build --output-on-failure
+      - name: Browser tests including offline reload
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+          npm test
+      - name: Upload browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-evidence
+          path: test-results/
+      - name: Upload downloadable offline website
+        uses: actions/upload-artifact@v4
+        with:
+          name: pocket-engineer-offline-website
+          path: www/
+      - uses: actions/upload-pages-artifact@v3
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        with:
+          path: www
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: web
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy tested website
+        id: deployment
+        uses: actions/deploy-pages@v4

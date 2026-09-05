@@ -39,7 +39,7 @@ jobs:
         with:
           name: pocket-engineer-${{ matrix.os }}
           path: |
-            '*.zip'
+            *.zip
             corpus-comparison.json
 
   android:
@@ -62,10 +62,31 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
-      - name: Assemble offline release APK
-        run: gradle -p android :app:assembleRelease --no-daemon
+      - name: Assemble installable debug APK and unsigned release
+        run: gradle -p android :app:assembleDebug :app:assembleRelease --no-daemon
+      - name: Enable KVM for offline emulator tests
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Exercise bundled app on Android 35
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          script: gradle -p android :app:connectedDebugAndroidTest --no-daemon
       - name: Upload offline Android APK
         uses: actions/upload-artifact@v4
         with:
           name: pocket-engineer-android-apk
-          path: android/app/build/outputs/apk/release/*.apk
+          path: |
+            android/app/build/outputs/apk/debug/*.apk
+            android/app/build/outputs/apk/release/*.apk
+      - name: Upload Android test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-test-evidence
+          path: android/app/build/reports/androidTests/

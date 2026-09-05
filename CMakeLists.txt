@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(PocketEngineer VERSION 0.2.0 LANGUAGES CXX)
+project(PocketEngineer VERSION 0.3.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -13,7 +13,7 @@ if(MSVC)
     add_compile_options(/utf-8)
 endif()
 
-add_library(pocket_engineer_core src/engine.cpp)
+add_library(pocket_engineer_core src/engine.cpp src/catalog.cpp src/request.cpp src/polynomial.cpp)
 target_include_directories(pocket_engineer_core PUBLIC include)
 if(MSVC)
     target_compile_options(pocket_engineer_core PRIVATE /W4 /permissive-)
@@ -49,7 +49,21 @@ if(PE_ENABLE_IPO)
     endif()
 endif()
 
-if(NOT ANDROID)
+if(EMSCRIPTEN)
+    add_executable(pocket-engineer-web apps/wasm.cpp)
+    target_link_libraries(pocket-engineer-web PRIVATE pocket_engineer_core)
+    target_compile_options(pocket_engineer_core PRIVATE -fexceptions)
+    target_link_options(pocket-engineer-web PRIVATE
+        --no-entry -fexceptions -sDISABLE_EXCEPTION_CATCHING=0 -sMODULARIZE=1
+        -sEXPORT_NAME=createPocketEngineer -sENVIRONMENT=web,worker,node
+        -sALLOW_MEMORY_GROWTH=1 -sMAXIMUM_MEMORY=134217728 -sSTACK_SIZE=1048576
+        "-sEXPORTED_FUNCTIONS=['_pe_solve_json','_pe_identify_json','_pe_catalog_json','_pe_free_string']"
+        "-sEXPORTED_RUNTIME_METHODS=['ccall','UTF8ToString']")
+    set_target_properties(pocket-engineer-web PROPERTIES OUTPUT_NAME engine SUFFIX .js
+        RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/web")
+endif()
+
+if(NOT ANDROID AND NOT EMSCRIPTEN)
     add_executable(pocket-engineer apps/cli.cpp)
     target_link_libraries(pocket-engineer PRIVATE pocket_engineer_core)
     pe_configure_target(pocket-engineer)
@@ -78,6 +92,11 @@ if(NOT ANDROID)
     target_link_libraries(pe-tests PRIVATE pocket_engineer_core)
     pe_configure_target(pe-tests)
     add_test(NAME engine COMMAND pe-tests)
+    add_executable(pe-independent-tests tests/independent_tests.cpp)
+    target_link_libraries(pe-independent-tests PRIVATE pocket_engineer_core)
+    pe_configure_target(pe-independent-tests)
+    add_test(NAME independent COMMAND pe-independent-tests)
+    set_tests_properties(independent PROPERTIES TIMEOUT 180)
 
     include(GNUInstallDirs)
     install(TARGETS pocket-engineer pocket-engineer-server pe-generate-tests pe-verify-corpus pe-generate-explanations

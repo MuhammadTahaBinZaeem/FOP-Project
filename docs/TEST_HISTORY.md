@@ -1,6 +1,21 @@
 # Test history and result comparison
 
-This file records reproducible evidence for the current Pocket Engineer release candidate. A green unit test alone is not treated as evidence that all generated answers are correct: the full corpus comparison re-runs every stored input through the C++ solver and compares both the answer text and verification status.
+This file separates independent correctness comparisons, same-engine regression snapshots, and platform execution. Re-running answers produced by the same engine cannot independently establish mathematical correctness. Historical “correct” counts below mean snapshot matches.
+
+## 2026-09-06 — 0.3.0 workbench and offline engine
+
+Completed during development:
+
+- Fresh baseline c1b7685: native Release build and original CTest passed.
+- First independent suite: 98,235 checks, 16 failures from exact string expectations for near-zero linear-system outputs. Changed the oracle to compare numerical values at a declared tolerance; did not suppress tiny valid output values.
+- Re-run: 98,235/98,235 checks passed. Added polynomial comparisons afterward; the current machine-readable run is [INDEPENDENT_V3.json](generated/INDEPENDENT_V3.json).
+- AddressSanitizer + UndefinedBehaviorSanitizer: both CTest suites passed, 11.10 seconds total on the development machine. Compiler emitted GCC standard-library regex warnings; no sanitizer finding was reported in the exercised paths.
+- First browser subset: 6/6 passed in desktop and 390×844 phone viewports using native-server fallback (selection, matrix rank cases, history, injection, keyboard and JSON export). These are not WASM-offline or Android-device results.
+- Full WASM browser checks and changed Android emulator build are separate workflow gates; their results must be recorded after they complete.
+
+Fixed defects include unary-minus/power precedence, scientific notation formatting, non-finite arithmetic, recursive/iteration input bounds, signed and unsigned overflow, JSON escape handling, K-map don't-care dominance ties, empty ON sets, incompatible unit dimensions, milli/mega case, inconsistent/dependent linear systems, and actual inverse/system residual checks. Euler/RK4 results outside reference tolerance now disclose that state rather than claiming verified accuracy.
+
+Reproduce the new independent suite with `./build/pe-independent-tests`, and browser checks with `npm test` after building WASM. Browser screenshots and structured results are uploaded with the workflow. No physical low-end Android benchmark or universal “100% correctness” claim is made.
 
 ## 2026-08-31 — release candidate 0.2.0
 

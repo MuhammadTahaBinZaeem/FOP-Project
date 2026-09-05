@@ -154,6 +154,6 @@ int main(int argc,char** argv) {
         if(maximum&&report.checked>=maximum) break;
     }
     if(!report_path.empty()) write_report(report_path,report);
-    std::cout<<"Compared "<<report.checked<<" golden corpus cases: "<<report.overall_correct<<" correct, "<<report.checked-report.overall_correct<<" incorrect; answers "<<report.answer_correct<<"/"<<report.checked<<", verifications "<<report.verification_correct<<"/"<<report.checked<<".\n";
+    std::cout<<"Compared "<<report.checked<<" golden corpus cases: "<<report.overall_correct<<" matching, "<<report.checked-report.overall_correct<<" mismatching; answers "<<report.answer_correct<<"/"<<report.checked<<", verifications "<<report.verification_correct<<"/"<<report.checked<<".\n";
     return (!malformed&&report.checked>0&&report.overall_correct==report.checked)?0:(malformed?2:1);
 }

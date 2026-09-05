@@ -1,0 +1,7 @@
+{
+  "name": "pocket-engineer-browser-tests",
+  "private": true,
+  "version": "0.3.0",
+  "scripts": {"test": "playwright test", "test:browser": "playwright test", "audit:source": "node tools/source_audit.mjs"},
+  "devDependencies": {"@playwright/test": "1.63.0"}
+}

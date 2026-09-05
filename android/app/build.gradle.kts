@@ -12,8 +12,9 @@ android {
         applicationId = "com.pocketengineer.app"
         minSdk = 24
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.2.0"
+        versionCode = 3
+        versionName = "0.3.0"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         externalNativeBuild {
             cmake {
@@ -47,4 +48,11 @@ android {
     sourceSets {
         getByName("main").assets.srcDir("../../www")
     }
+}
+
+dependencies {
+    implementation("androidx.webkit:webkit:1.12.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:rules:1.6.1")
 }

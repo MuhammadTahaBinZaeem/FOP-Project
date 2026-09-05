@@ -57,7 +57,16 @@ public:
 // C ABI designed for JNI / browser-WASM bindings. Call pe_free_string for every returned pointer.
 extern "C" const char* pe_solve_json(const char* request_json);
 extern "C" const char* pe_capabilities_json();
+extern "C" const char* pe_identify_json(const char* input);
+extern "C" const char* pe_catalog_json();
 extern "C" void pe_free_string(const char* value);
+
+struct TopicInfo {
+    std::string_view domain, topic, title, example, syntax, scope;
+};
+[[nodiscard]] const std::vector<TopicInfo>& topic_catalog();
+[[nodiscard]] std::string catalog_json();
+[[nodiscard]] ProblemSpec parse_request(std::string_view json);
 
 [[nodiscard]] std::string json_escape(std::string_view value);
 [[nodiscard]] std::string verification_name(VerificationStatus status);

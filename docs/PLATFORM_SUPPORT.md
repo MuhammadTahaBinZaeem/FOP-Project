@@ -1,58 +1,61 @@
-# Offline platform support and packages
+# Platforms, offline operation and downloads
 
-Pocket Engineer keeps its solving, verification, corpus generation, and comparison logic in C++20. The browser page is only a local presentation layer; it never sends a problem to a cloud solver.
+## Website / PWA
 
-## Desktop packages
+The published site is https://muhammadtahabinzaeem.github.io/FOP-Project/.
 
-The CMake install package contains:
+A Web Worker loads an Emscripten build of the C++ engine. The service worker caches a versioned, bounded list including engine.js and engine.wasm. No solve request goes to a remote API. Assets use relative URLs for subpath deployment.
 
-- pocket-engineer, the native CLI;
-- pocket-engineer-server, the local HTTP server;
-- the complete static website under share/pocket-engineer/www;
-- corpus and explanation-data generators;
-- corpus comparison tool and core documentation.
+1. Open the site once online.
+2. Open “Get the app” and wait for “Ready offline.”
+3. Install with Chrome/Edge's install option, or use Android Chrome's Install app / Add to home screen.
+4. Disconnect and reopen the same address. The browser test suite exercises this cold reload and a fresh solve.
 
-Build a package on each target operating system:
+A standalone desktop PWA can be installed using Chrome/Edge on Windows, macOS or Linux. Modern Firefox can run the website but does not offer the same desktop installation UI. Private mode, storage eviction, user-cleared site data, restrictive browser policies, or insufficient space can remove/prevent offline availability. First-ever use requires the solver download. Do not open index.html as a file:// page.
 
-~~~
+Requirements: JavaScript, WebAssembly, Web Workers, and HTTPS or localhost for service workers. The C++ browser heap has a 128 MiB maximum and grows on demand; that is a safety cap, not a measured total browser memory footprint. Main-thread UI work remains small, and graph data is sampled.
+
+## Native Android
+
+The Gradle application supports Android API 24+ with an updated Android System WebView. ABI builds use the NDK; Java/Kotlin source targets JDK 17. The app has no INTERNET permission and bundles the C++ solver and website, so it works on first launch without a prior website visit.
+
+Security/lifecycle:
+
+- WebViewAssetLoader serves trusted assets at an HTTPS-style local origin.
+- File/content access and mixed content are disabled.
+- Third-party subresources are blocked, and allowed GitHub links open outside the WebView.
+- The JNI boundary uses standard UTF-8 byte arrays, not Modified UTF-8.
+- Calculation runs on a single native-work executor and returns through a JSON-safe callback.
+- Insets, WebView pause/resume/destruction and back navigation are handled.
+
+Build with Android Studio, or the pinned SDK/NDK/CMake/Gradle versions in the workflow:
+
+```sh
+gradle -p android :app:assembleDebug :app:assembleRelease
+gradle -p android :app:connectedDebugAndroidTest
+```
+
+The **debug APK is installable and development-signed**. The release APK is **unsigned** until an owner-controlled release signing key is configured; it must not be advertised as a signed production release. Never commit a private signing key.
+
+Instrumentation launches the real WebView, waits for the JNI engine, solves arithmetic and an inconsistent linear system, then recreates the activity and checks local history. The manifest's absent INTERNET permission makes a remote solver unavailable during this test.
+
+A build or emulator pass is not evidence that every old physical Android device performs well. No low-end physical phone benchmark is claimed.
+
+## Native Windows / macOS / Linux
+
+```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build --config Release --parallel
 ctest --test-dir build -C Release --output-on-failure
 cpack --config build/CPackConfig.cmake -G ZIP -C Release
-~~~
+```
 
-Run the downloaded package without an internet connection:
+The package contains native CLI/server executables, the website, corpus tools and documentation. Launch the server executable and visit the printed 127.0.0.1 address. It serves only loopback, not a public production endpoint. The website uses native HTTP fallback if WASM assets are not included; keep the server running in that mode.
 
-~~~
-pocket-engineer-server 8080 share/pocket-engineer/www
-~~~
+Windows and macOS binaries are compiled by their respective GitHub runners. GitHub Actions also uploads a self-contained website artifact after compiling the browser engine. Download links in the UI distinguish release assets from development build artifacts.
 
-Then open http://127.0.0.1:8080. The package needs no network permission or online API key. Windows uses WinSock, while Linux and macOS use POSIX sockets.
+## Test interpretation
 
-The GitHub Actions workflow builds, tests, smoke-compares, packages, and uploads a ZIP artifact on Ubuntu, Windows, and macOS after the repository is pushed. [Run 33416606640](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/33416606640) passed all three desktop package jobs. The Linux package is also built locally in this workspace; Windows and macOS binaries are produced by their corresponding GitHub runners because this Linux workspace does not contain those operating systems' toolchains.
+See [TEST_HISTORY.md](TEST_HISTORY.md) for completed runs. A successful earlier 0.2.0 build is not proof that the changed 0.3.0 application passed; consult the source commit and run attached to each result.
 
-## Android
-
-The android directory is a Gradle Android application project with:
-
-- a Kotlin WebView shell;
-- the same static local webpage from www, bundled as application assets;
-- a JNI bridge that calls the C++ engine directly; and
-- no INTERNET permission.
-
-The webpage detects the PocketEngineerAndroid bridge. On Android it calls native C++ directly; on desktop it calls the local C++ server. The application therefore remains offline in both cases.
-
-Open android in Android Studio, install the Android SDK/NDK requested by the project, then assemble:
-
-~~~
-cd android
-gradle :app:assembleRelease
-~~~
-
-The resulting APK is at android/app/build/outputs/apk/release. The project supports API 24 and newer. This workspace does not have the Android SDK, NDK, Java, or Gradle installed, so an APK cannot be honestly claimed as locally built here; however, [GitHub Actions run 33416606640](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/33416606640) compiled it with the pinned Android toolchain and uploaded the release APK artifact.
-
-## PWA and web assets
-
-The site includes a web manifest and service worker that cache the interface, JavaScript, CSS, manifest, and PNG illustrations after the first local server visit. It contains no SVG files, CDN requests, remote fonts, or external runtime dependencies.
-
-For a fully functional desktop web install, keep the packaged native server running; the service worker preserves the interface assets, while the local server supplies the C++ solver API.
+Technical basis: [Android local-content guidance](https://developer.android.com/develop/ui/views/layout/webapps/load-local-content), [Emscripten modular output](https://emscripten.org/docs/compiling/Modularized-Output.html), and [C++/JavaScript interoperation](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html).

@@ -1,22 +1,58 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#13243a">
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="stylesheet" href="styles.css">
-  <title>Pocket Engineer — Offline verified solver</title>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1b4538"><meta name="description" content="Your offline engineering workbench. Algebra, calculus, circuits, matrices and digital logic with a local C++ solver.">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="assets/algebra.png" type="image/png"><link rel="apple-touch-icon" href="assets/algebra.png">
+<link rel="stylesheet" href="styles.css"><script src="app.js" defer></script><title>Pocket Engineer — A little clarity, every step.</title>
 </head>
 <body>
-  <main>
-    <nav><a class="brand" href="#top">Pocket<span>Engineer</span></a><span class="offline"><i></i> Offline core ready</span><button id="install" class="quiet" hidden>Install</button></nav>
-    <section id="top" class="hero">
-      <div><p class="eyebrow">VERIFIED • PRIVATE • OFFLINE</p><h1>Understand every answer.</h1><p class="lead">A native C++ engineering tutor that shows real working, assumptions, and a verification result—without needing the internet.</p><div class="chips"><button data-domain="algebra" data-topic="simplify" data-input="(x^2 - 1)/(x - 1)">Simplify an expression</button><button data-domain="logic" data-topic="truth_table" data-input="A & !B | C">Make a truth table</button><button data-domain="circuit" data-topic="voltage_divider" data-input="12 1000 2000">Solve a divider</button></div></div>
-      <img src="assets/algebra.png" alt="Flat illustration of a friendly algebra workspace">
-    </section>
-    <section class="solver" aria-labelledby="solver-title"><div class="section-title"><p class="eyebrow">UNIVERSAL SOLVER</p><h2 id="solver-title">What are you working on?</h2></div><form id="solve-form"><label>Subject<select id="domain"><option value="algebra">Algebra</option><option value="calculus">Calculus</option><option value="linear_algebra">Linear algebra</option><option value="differential_equations">Differential equations</option><option value="logic">Digital logic</option><option value="circuit">Circuit analysis</option><option value="engineering">Engineering units</option><option value="programming">C++ fundamentals</option></select></label><label>Topic<input id="topic" value="simplify" autocomplete="off"></label><label class="problem">Problem<input id="input" value="(x^2 - 1)/(x - 1)" autocomplete="off"></label><button class="solve" type="submit">Identify → confirm → solve <b>→</b></button></form><div id="result" class="result empty" aria-live="polite"><p>Your verified answer and reasoning will appear here.</p></div></section>
-    <section class="subjects" aria-labelledby="subjects-title"><div class="section-title"><p class="eyebrow">CURRICULUM CORE</p><h2 id="subjects-title">Built for the first tough semesters.</h2></div><div class="grid"><article><img src="assets/algebra.png" alt="Algebra workspace illustration"><span>01</span><h3>Algebra & calculus</h3><p>Exact simplification, equations, derivatives, and limits.</p></article><article><img src="assets/linear-algebra.png" alt="Matrix and vector illustration"><span>02</span><h3>Linear algebra</h3><p>Row operations you can replay and residual checks.</p></article><article><img src="assets/logic.png" alt="Digital logic and K-map illustration"><span>03</span><h3>Digital logic</h3><p>Truth tables, canonical forms, and K-map foundations.</p></article><article><img src="assets/circuit.png" alt="Circuit analysis illustration"><span>04</span><h3>Circuits</h3><p>Dividers, KCL/KVL evidence, and units that stay visible.</p></article></div></section>
-  </main><footer>Made to keep working when Wi‑Fi does not.</footer><script src="app.js"></script>
+<a class="skip" href="#workspace">Skip to workspace</a>
+<aside class="sidebar">
+<a class="brand" href="./" aria-label="Pocket Engineer home"><span class="brand-mark">pe<span>·</span></span><span>Pocket<br>Engineer</span></a>
+<p class="eyebrow">YOUR STUDY SPACE</p>
+<nav aria-label="Main navigation">
+<button class="nav active" data-view="workbench" aria-current="page"><span>⌘</span> Workbench</button>
+<button class="nav" data-view="subjects"><span>▦</span> All subjects</button>
+<button class="nav" data-view="history"><span>↺</span> Recent work</button>
+<button class="nav" data-view="downloads"><span>↓</span> Get the app</button>
+</nav>
+<div class="sidebar-bottom"><span class="local-dot"></span> Private by design<p>Your questions stay on this device.<br>No account. No cloud solver.</p><a href="https://github.com/MuhammadTahaBinZaeem/FOP-Project" target="_blank" rel="noopener">Open-source · C++ core ↗</a></div>
+</aside>
+<main id="workspace">
+<header class="topbar"><span class="breadcrumb">Your pocket-sized engineering companion</span><span class="status" id="engine-status" role="status">Starting local engine…</span></header>
+<section id="workbench" class="view">
+<div class="welcome"><div><p class="eyebrow">LESS GUESSWORK. MORE UNDERSTANDING.</p><h1>A little clarity,<br>every step.</h1><p class="intro">From your first equation to your next circuit.<br>Work it through, wherever you are.</p></div><div class="hero-art"><img src="assets/linear-algebra.png" alt="A colorful illustrated engineering study workspace" width="230" height="190" decoding="async"><span class="art-note">Big ideas. Pocket-sized.</span></div></div>
+<div class="work-grid">
+<section class="card input-card" aria-labelledby="problem-heading">
+<div class="section-heading"><h2 id="problem-heading">What are we solving?</h2><span class="tag">01 / INPUT</span></div>
+<form id="solve-form">
+<div class="select-grid"><div><label for="domain">Subject</label><select id="domain" disabled></select></div><div><label for="topic">Problem type</label><select id="topic" disabled></select></div></div>
+<div class="label-row"><label for="input">Your problem</label><button type="button" class="text-button" id="example">Try an example ↗</button></div>
+<textarea id="input" rows="4" maxlength="4096" placeholder="The local engine is loading…" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="syntax"></textarea>
+<p id="syntax" class="hint"></p>
+<div class="actions"><button class="primary" id="solve" type="submit" disabled>Show me the steps <span>→</span></button><button type="button" class="secondary" id="identify" disabled>Identify type</button></div>
+<p id="notice" class="notice" role="status" aria-live="polite"></p>
+</form>
+<details class="scope"><summary>What this solver supports</summary><p id="scope"></p><p>Identification suggests a type; it does not translate arbitrary prose into equations. Check the syntax above. Calculations use floating-point arithmetic unless stated otherwise.</p></details>
+</section>
+<aside class="side-notes"><div class="note lime"><span class="note-symbol">↗</span><h3>Learn the “why.”</h3><p>Follow the method, inspect each step, then check the result. Understanding goes further than an answer.</p></div><div class="note white"><p class="eyebrow">MADE TO GO WITH YOU</p><h3>Small screen.<br>Same C++ engine.</h3><p id="offline-status">The website downloads its solver once. Android bundles it from the start.</p><button class="text-button" data-view="downloads">Set up offline access →</button></div></aside>
+</div>
+<section id="result" class="card result" hidden aria-labelledby="answer-heading" tabindex="-1">
+<div class="section-heading"><h2 id="answer-heading">Here’s the working.</h2><span class="tag" id="result-topic"></span></div>
+<div class="answer-box"><p class="eyebrow">RESULT</p><pre id="answer"></pre></div><div id="verification" class="verification"></div>
+<div id="visual"></div><ol id="steps" class="steps"></ol><div id="caveats" class="hint"></div>
+<div class="result-actions"><button class="secondary" id="copy">Copy solution</button><button class="secondary" id="export">Save JSON</button><button class="text-button" id="print">Print / save PDF</button></div>
+</section>
+<footer>Built for curiosity. Designed to work locally. <span>Always check assumptions and numerical tolerances.</span></footer>
+</section>
+<section id="subjects" class="view" hidden><p class="eyebrow">FIND YOUR NEXT CHALLENGE</p><h1>Your engineering toolkit.</h1><p class="intro">55 focused problem types. Clear examples. Honest boundaries.</p><label for="search">Find a topic</label><input id="search" type="search" placeholder="Try matrices, circuits, differential equations…"><div id="subject-list" class="subject-list"></div></section>
+<section id="history" class="view" hidden><p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p><h1>Recent work.</h1><p class="intro">The last 30 problems, saved only on this device.</p><button id="clear-history" class="secondary">Clear recent work</button><div id="history-list" class="history-list"></div></section>
+<section id="downloads" class="view" hidden><p class="eyebrow">A WORKBENCH THAT GOES WITH YOU</p><h1>Online. Offline.<br>In your pocket.</h1><p class="intro">The same solver, without an account or a subscription.</p>
+<div class="download-grid"><article class="card"><span class="note-symbol">↓</span><h2>Install this website</h2><p>On Android, use Chrome’s “Install app” or “Add to home screen.” On Windows, macOS and Linux, use the install option in Chrome or Edge. Other modern browsers can run the website offline after it finishes caching.</p><button id="install" class="primary" hidden>Install Pocket Engineer</button><p id="cache-status" role="status">Preparing offline files…</p><button id="retry-cache" class="secondary">Check offline readiness</button><p>Open once online and wait for “Ready offline.” Then reopen the same address without a connection. Browser storage can be cleared or evicted; a native Android install does not depend on browser caching.</p></article>
+<article class="card"><span class="note-symbol">⌘</span><h2>Native & portable builds</h2><p>Android uses the C++ engine through JNI. Windows, macOS and Linux packages include the native command-line engine and local website server.</p><a class="primary link-button" href="https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases" target="_blank" rel="noopener">Download releases ↗</a><p>Development builds and test reports are available in GitHub Actions. Check the platform notes before installing an APK.</p><a href="https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions" target="_blank" rel="noopener">Builds & test evidence ↗</a></article></div>
+<p class="hint">Requires JavaScript and a browser with WebAssembly and Web Workers. Offline website installation requires HTTPS or localhost. No promise is made for every device or browser version.</p>
+</section>
+</main>
 </body>
 </html>

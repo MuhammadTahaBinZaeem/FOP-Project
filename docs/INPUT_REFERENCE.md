@@ -16,6 +16,8 @@ Every solve receives a confirmed domain/topic pair. The forms below are the enti
 
 ## Calculus
 
+Version 0.3.0 extends differentiation, tangent lines, indefinite integrals and definite integrals to real polynomials of expanded degree at most 32. Supported operators are +, -, *, division by a nonzero constant, parentheses, nonnegative integer powers, and implicit multiplication before x or a parenthesis. Examples: `3x^4-2x+7`, `(x+1)(x-1)`, `integrate (x+1)^2 from 0 to 2`. Transcendental functions and variable denominators are not polynomial inputs. The monomial examples below remain valid.
+
 | Topic | Input form | Example |
 | --- | --- | --- |
 | differentiation | a*x^n monomial | 3x^4 |
