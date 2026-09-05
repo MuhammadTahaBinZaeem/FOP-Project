@@ -98,6 +98,10 @@ class OfflineAppTest {
             }
             device.setOrientationLeft()
             waitFor(scenario,"innerWidth > innerHeight")
+            device.waitForIdle()
+            // Allow the emulator's rotation compositor to finish before capture.
+            // Correctness predicates above still determine pass/fail.
+            Thread.sleep(500)
             assertTrue("Landscape content overflow",evaluate(scenario,"document.documentElement.scrollWidth <= innerWidth + 1")=="true")
             screenshot("android-landscape")
             device.setOrientationNatural()

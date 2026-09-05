@@ -51,6 +51,7 @@ class MainActivity : Activity() {
         // Apply insets to a native container, not WebView padding: fixed-position
         // HTML controls must use the actual unobscured child viewport dimensions.
         val container = android.widget.FrameLayout(this)
+        container.setBackgroundColor(Color.rgb(245, 245, 238))
         container.addView(webView, android.widget.FrameLayout.LayoutParams(
             android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT))
         container.setOnApplyWindowInsetsListener { view, insets ->
@@ -82,6 +83,11 @@ class MainActivity : Activity() {
         webView.webChromeClient = WebChromeClient()
         webView.addJavascriptInterface(Bridge(), "PocketEngineerAndroid")
         setContentView(container)
+        // The app is always light-themed; system-bar icons must stay readable.
+        @Suppress("DEPRECATION")
+        window.decorView.systemUiVisibility = window.decorView.systemUiVisibility or
+            android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR or
+            (if (android.os.Build.VERSION.SDK_INT >= 26) android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR else 0)
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html")
     }
 

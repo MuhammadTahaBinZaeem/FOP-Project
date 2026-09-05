@@ -1,10 +1,10 @@
 {
   "scope": "Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files",
   "cpp": 135361,
-  "other_runtime_code": 28588,
+  "other_runtime_code": 29033,
   "html_css": 20722,
-  "cpp_percent_runtime": 82.5628701608427,
-  "cpp_percent_including_html_css": 73.29846050543941,
+  "cpp_percent_runtime": 82.33937978271713,
+  "cpp_percent_including_html_css": 73.12225847576654,
   "files": [
     {
       "file": "src/catalog.cpp",
@@ -58,7 +58,7 @@
     },
     {
       "file": "android/app/src/main/java/com/pocketengineer/app/MainActivity.kt",
-      "bytes": 8716,
+      "bytes": 9161,
       "kind": "other_runtime_code"
     },
     {
