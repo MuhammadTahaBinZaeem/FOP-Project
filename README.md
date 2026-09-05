@@ -2,7 +2,7 @@
 
 A local engineering study workbench, built around a C++20 solver. Flat-color, responsive interfaces for Android and the web; no account, API key, remote font, or cloud calculation.
 
-[Open the website](https://muhammadtahabinzaeem.github.io/FOP-Project/) · [Downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases) · [Builds and test artifacts](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions)
+[Open the website — Render](https://pocket-engineer.onrender.com/) · [Downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases) · [Builds and test artifacts](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions)
 
 ## What is implemented
 
@@ -30,6 +30,8 @@ Both interfaces include subject search, explicit type selection, example inputs,
 
 See [platform instructions and limitations](docs/PLATFORM_SUPPORT.md).
 
+The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB; the critical offline bundle, including WASM, is approximately 745 KB. See [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
+
 ## Build and test
 
 Native desktop:
@@ -46,15 +48,13 @@ Open http://127.0.0.1:8080. Without built WASM assets this local website uses th
 Browser/WASM (Emscripten 5.0.7):
 
 ```sh
-emcmake cmake -S . -B build-wasm -DCMAKE_BUILD_TYPE=Release -DPE_ENABLE_IPO=OFF
-cmake --build build-wasm --parallel 2
-cp build-wasm/web/engine.js build-wasm/web/engine.wasm www/
+bash tools/build_web.sh
 npm ci
 npx playwright install chromium
 npm test
 ```
 
-Publish the resulting `www` directory on HTTPS. Relative paths support GitHub Pages subdirectories. The website workflow publishes only after native and browser checks pass.
+Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a static site. The script uses pinned Emscripten 5.0.7, enforces an offline bundle budget and versions the cache from asset contents. GitHub Pages remains a secondary tested preview; relative paths also support subdirectory hosting. GitHub Actions separately gates native and browser test artifacts.
 
 ## Test evidence: three different things
 
@@ -64,11 +64,14 @@ Publish the resulting `www` directory on HTTPS. Relative paths support GitHub Pa
 
 ```sh
 ./build/pe-independent-tests docs/generated/INDEPENDENT_V3.json
+./build/pe-independent-tests docs/generated/INDEPENDENT_STRESS_V3.json --stress
 ./build/pe-generate-tests test-data 5000
 ./build/pe-verify-corpus test-data 0 docs/generated/REGRESSION_V3.json
 ```
 
 [Test history](docs/TEST_HISTORY.md) records results, failures and corrections. Legacy reports with fields named “correct” mean **snapshot matches**, not proven mathematical correctness. A solver verification label describes a method check; numerical sampling is not a proof for all inputs.
+
+The deeper run passed **1,606,929 independent/edge checks**. The local browser run passed **24/24 tests**, including **800 endurance UI solves**: 600 independently expected answers and 200 intentional invalid inputs. This is measured coverage, not a universal “100% correct” claim.
 
 ## C++ ownership and efficiency
 

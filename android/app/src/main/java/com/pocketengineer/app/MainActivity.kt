@@ -35,6 +35,7 @@ class MainActivity : Activity() {
         val assets = WebViewAssetLoader.Builder()
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this)).build()
         webView = WebView(this)
+        webView.tag = "pocket-engineer-web"
         // Debug APK only: enables local adb/CDP inspection. Release stays closed.
         WebView.setWebContentsDebuggingEnabled(
             applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0)
@@ -47,12 +48,17 @@ class MainActivity : Activity() {
             setSupportMultipleWindows(false)
             mixedContentMode = android.webkit.WebSettings.MIXED_CONTENT_NEVER_ALLOW
         }
-        // Edge-to-edge target SDK 35: keep the content clear of system bars and IME.
-        webView.setOnApplyWindowInsetsListener { view, insets ->
+        // Apply insets to a native container, not WebView padding: fixed-position
+        // HTML controls must use the actual unobscured child viewport dimensions.
+        val container = android.widget.FrameLayout(this)
+        container.addView(webView, android.widget.FrameLayout.LayoutParams(
+            android.view.ViewGroup.LayoutParams.MATCH_PARENT, android.view.ViewGroup.LayoutParams.MATCH_PARENT))
+        container.setOnApplyWindowInsetsListener { view, insets ->
             @Suppress("DEPRECATION")
             view.setPadding(insets.systemWindowInsetLeft, insets.systemWindowInsetTop,
                 insets.systemWindowInsetRight, insets.systemWindowInsetBottom)
-            insets
+            @Suppress("DEPRECATION")
+            insets.consumeSystemWindowInsets()
         }
         webView.webViewClient = object : WebViewClient() {
             override fun shouldInterceptRequest(view: WebView, request: WebResourceRequest): WebResourceResponse? {
@@ -75,7 +81,7 @@ class MainActivity : Activity() {
         }
         webView.webChromeClient = WebChromeClient()
         webView.addJavascriptInterface(Bridge(), "PocketEngineerAndroid")
-        setContentView(webView)
+        setContentView(container)
         webView.loadUrl("https://appassets.androidplatform.net/assets/index.html")
     }
 

@@ -24,7 +24,7 @@ class OfflineAppTest {
         val output=AtomicReference("")
         scenario.onActivity { activity ->
             val root=activity.findViewById<android.view.ViewGroup>(android.R.id.content)
-            val web=root.getChildAt(0) as WebView
+            val web=root.findViewWithTag<WebView>("pocket-engineer-web")
             web.evaluateJavascript(js) { value -> output.set(value);latch.countDown() }
         }
         assertTrue("JavaScript callback timed out", latch.await(10,TimeUnit.SECONDS))
@@ -36,6 +36,7 @@ class OfflineAppTest {
             if(evaluate(scenario,predicate)=="true")return
             Thread.sleep(100)
         }
+        screenshot("failure")
         throw AssertionError("Offline app did not reach: $predicate")
     }
     @Test fun bundledAppSolvesWithNativeCpp() {
@@ -61,7 +62,7 @@ class OfflineAppTest {
         val point=JSONArray(JSONTokener(raw).nextValue() as String)
         val coordinates=IntArray(2)
         scenario.onActivity { activity ->
-            val web=activity.findViewById<android.view.ViewGroup>(android.R.id.content).getChildAt(0) as WebView
+            val web=activity.findViewById<android.view.ViewGroup>(android.R.id.content).findViewWithTag<WebView>("pocket-engineer-web")
             web.getLocationOnScreen(coordinates)
             val scale=(web.width-web.paddingLeft-web.paddingRight)/point.getDouble(2)
             coordinates[0]+=(web.paddingLeft+point.getDouble(0)*scale).toInt()

@@ -2,6 +2,16 @@
 
 This file separates independent correctness comparisons, same-engine regression snapshots, and platform execution. Re-running answers produced by the same engine cannot independently establish mathematical correctness. Historical “correct” counts below mean snapshot matches.
 
+## 2026-09-06 — responsive UI, branding and deeper stress
+
+Commit `6e42a81`: local browser suite 24/24 passed (800 endurance UI solves plus all 55 topics through actual controls in both layouts). Native deeper checks: 1,606,929 passed, 0 failed. Full snapshot replay: 825,000 matching, 0 mismatching. Rebuilt ASan/UBSan CTests: 2/2 passed in 16.17 seconds. Seven viewport sizes, native touch tests and Render deployment are documented with explicit evidence boundaries in [UI_ANDROID_STRESS.md](UI_ANDROID_STRESS.md).
+
+The image preparation tool initially selected sharp 0.34.5. `npm audit` detected a high-severity inherited libvips advisory; the dependency was updated to pinned 0.35.4 before processing final assets. The resulting dependency audit reported zero vulnerabilities. No untrusted image upload processor is exposed by the app.
+
+The new touch-driven Android test in CI run 33988785167 failed opening the Subjects tab, although the existing JavaScript-driven native solve test passed. WebView padding was replaced with a padded native parent so fixed HTML navigation uses the unobscured viewport. Failure screenshots/logs are now retained even when instrumentation fails. The correction requires its own rerun; it is not marked passed based on source changes alone.
+
+The first maximum-input browser test expected an equals sign in an RK4 answer that correctly uses “≈”; both viewport tests failed in the test parser with NaN. The actual result was `y(10) ≈ 1.10517091808`, matching `exp(0.1)`. Corrected the parser, retaining the independent numerical comparison and asserting the output format.
+
 ## 2026-09-06 — 0.3.0 workbench and offline engine
 
 Completed during development:

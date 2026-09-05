@@ -30,12 +30,16 @@ On NixOS, set `PE_BROWSER_PATH` to a locally working Chromium/Brave executable. 
 
 ## Android evidence boundary
 
+Local browser result: **24/24 passed in 2.7 minutes** at commit `6e42a81`, with `PE_STRESS_ROUNDS=100`. The endurance subset performed **800 actual UI solves**, comprising 600 independent expected-answer checks and 200 intentional failures. No page errors were recorded. Average four-solve rounds were 510 ms desktop / 479 ms mobile-layout on this development machine, including UI automation. Foreground JS heap at completion was 7.7 MB / 10.2 MB before forced garbage collection; these are not total process memory or worker-heap measurements. Machine-readable reports and unedited screenshots are under [evidence/2026-09-06](evidence/2026-09-06).
+
+The rebuilt AddressSanitizer/UndefinedBehaviorSanitizer suite passed both CTests in 16.17 seconds, with no sanitizer finding. Its flags were explicitly confirmed in the generated compiler flags file; the project does not have a `PE_ENABLE_SANITIZERS` CMake option. To reproduce, configure with `-DCMAKE_CXX_FLAGS='-fsanitize=address,undefined -fno-omit-frame-pointer -O1'`.
+
 The earlier `ed1eb18` CI build ran an API 35 emulator successfully, but its test mainly drove JavaScript inside the WebView. The newer test uses real Android touch injection, accessibility text entry, native clipboard inspection, portrait/landscape screenshots and back navigation. Debug builds enable adb WebView inspection; release builds do not. CI uploads screenshots, instrumentation reports, memory and frame diagnostics.
 
 Local APK/emulator execution and the new test run are still being verified; do not infer a successful run from the presence of test code. Physical low-memory ARM phones, OEM WebView variations, release signing, OS document-picker completion and actual PWA installation remain separate validation work.
 
 ## Hosting
 
-The user selected Render's “My Workspace”. The website is a static site with C++ compiled to WASM from the deployed Git commit using pinned Emscripten 5.0.7. No paid solver server, database, or cloud computation is required. GitHub Pages remains a secondary preview while Render is brought online.
+The user selected Render's “My Workspace”. [Pocket Engineer is live on Render](https://pocket-engineer.onrender.com/), service `srv-dae79mon74is73cm11ug`. Initial deployment `dep-dae79n8n74is73cm13fg` built commit `6e42a81` and reached `live`. The homepage and WASM returned HTTP 200; WASM has the correct `application/wasm` MIME type; the error-log scan was empty. C++ is compiled to WASM from the deployed Git commit using pinned Emscripten 5.0.7. No paid solver server, database, or cloud computation is required. GitHub Pages remains a secondary preview.
 
 Build references: [Render static sites](https://render.com/docs/static-sites), [Emscripten SDK installation](https://emscripten.org/docs/getting_started/downloads.html). Local emulator references: [Nixpkgs Android composition](https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/android.section.md), [Android emulator command line](https://developer.android.com/studio/run/emulator-commandline).

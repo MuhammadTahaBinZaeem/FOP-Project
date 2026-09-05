@@ -2,7 +2,7 @@
 
 ## Website / PWA
 
-The published site is https://muhammadtahabinzaeem.github.io/FOP-Project/.
+The primary published site is https://pocket-engineer.onrender.com/. GitHub Pages remains a secondary preview at https://muhammadtahabinzaeem.github.io/FOP-Project/.
 
 A Web Worker loads an Emscripten build of the C++ engine. The service worker caches a versioned, bounded list including engine.js and engine.wasm. No solve request goes to a remote API. Assets use relative URLs for subpath deployment.
 
