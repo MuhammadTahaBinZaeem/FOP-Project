@@ -3,6 +3,8 @@ package com.pocketengineer.app
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Intent
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
@@ -23,6 +25,7 @@ class MainActivity : Activity() {
     private lateinit var webView: WebView
     private val solver = Executors.newSingleThreadExecutor()
     @Volatile private var destroyed = false
+    private var pendingExport: String? = null
     private external fun nativeDispatch(method: Int, input: ByteArray): ByteArray
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -74,6 +77,35 @@ class MainActivity : Activity() {
 
     private inner class Bridge {
         @JavascriptInterface
+        fun copySolution(text: String) {
+            if (text.length > 1000000) return
+            runOnUiThread { if (!destroyed) (getSystemService(CLIPBOARD_SERVICE) as ClipboardManager)
+                .setPrimaryClip(ClipData.newPlainText("Pocket Engineer solution", text)) }
+        }
+
+        @JavascriptInterface
+        fun saveSolution(json: String) {
+            if (json.length > 1000000) return
+            runOnUiThread {
+                if (!destroyed && pendingExport == null) {
+                    pendingExport = json
+                    @Suppress("DEPRECATION")
+                    startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                        addCategory(Intent.CATEGORY_OPENABLE)
+                        type = "application/json"
+                        putExtra(Intent.EXTRA_TITLE, "pocket-engineer-solution.json")
+                    }, 30)
+                }
+            }
+        }
+
+        @JavascriptInterface
+        fun printSolution() {
+            runOnUiThread { if (!destroyed) (getSystemService(PRINT_SERVICE) as android.print.PrintManager)
+                .print("Pocket Engineer", webView.createPrintDocumentAdapter("Pocket Engineer"), null) }
+        }
+
+        @JavascriptInterface
         fun request(id: Int, method: String, payload: String) {
             if (destroyed || id <= 0) return
             val operation = when (method) { "solve" -> 0; "identify" -> 1; "catalog" -> 2; else -> -1 }
@@ -101,6 +133,17 @@ class MainActivity : Activity() {
     }
     override fun onPause() { if (::webView.isInitialized) webView.onPause(); super.onPause() }
     override fun onResume() { super.onResume(); if (::webView.isInitialized) webView.onResume() }
+    @Deprecated("Compatibility with API 24 document picker")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode != 30) return
+        val text = pendingExport
+        pendingExport = null
+        if (resultCode == RESULT_OK && text != null && data?.data != null) {
+            try { contentResolver.openOutputStream(data.data!!)?.use { it.write(text.toByteArray(Charsets.UTF_8)) } }
+            catch (_: Exception) { android.widget.Toast.makeText(this, "Could not save the solution", android.widget.Toast.LENGTH_LONG).show() }
+        }
+    }
     override fun onDestroy() {
         destroyed = true
         solver.shutdownNow()

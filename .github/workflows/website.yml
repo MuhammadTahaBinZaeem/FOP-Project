@@ -35,6 +35,7 @@ jobs:
       - name: Browser tests including offline reload
         run: |
           npm ci
+          npm run audit:source
           npx playwright install --with-deps chromium
           npm test
       - name: Upload browser evidence

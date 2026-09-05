@@ -12,6 +12,9 @@ Completed during development:
 - AddressSanitizer + UndefinedBehaviorSanitizer: both CTest suites passed, 11.10 seconds total on the development machine. Compiler emitted GCC standard-library regex warnings; no sanitizer finding was reported in the exercised paths.
 - First browser subset: 6/6 passed in desktop and 390×844 phone viewports using native-server fallback (selection, matrix rank cases, history, injection, keyboard and JSON export). These are not WASM-offline or Android-device results.
 - Full WASM browser checks and changed Android emulator build are separate workflow gates; their results must be recorded after they complete.
+- CI run 33987351873 initially failed Android dependency validation because the newly used AndroidX WebView loader required `android.useAndroidX=true`. Added the missing Gradle property; the failure was a real configuration defect, not ignored.
+- Full local C++/WASM browser suite: 14/14 passed in 24.0 seconds, including offline cold reload and a fresh divider solve at both viewport sizes. No HTTP solver fallback was allowed in the WebAssembly checks.
+- Expanded independent suite: 99,326/99,326 checks passed. The regenerated 825,000-row corpus replayed with 825,000 answer and verification-state matches; repeated rows are disclosed by the generator, and this is still snapshot consistency, not 825,000 independent oracles.
 
 Fixed defects include unary-minus/power precedence, scientific notation formatting, non-finite arithmetic, recursive/iteration input bounds, signed and unsigned overflow, JSON escape handling, K-map don't-care dominance ties, empty ON sets, incompatible unit dimensions, milli/mega case, inconsistent/dependent linear systems, and actual inverse/system residual checks. Euler/RK4 results outside reference tolerance now disclose that state rather than claiming verified accuracy.
 

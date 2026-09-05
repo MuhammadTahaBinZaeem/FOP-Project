@@ -158,9 +158,9 @@ function renderVisual(raw) {
 function solutionText() {
  const r=state.result;return [state.problem.input,'',r.answer.text,'',...(r.steps||[]).map((s,i)=>(i+1)+'. '+s.explanation+'\n'+s.expression),'',r.verification.method,r.verification.evidence,...(r.assumptions||[]),...(r.warnings||[])].join('\n');
 }
-$('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(solutionText());$('copy').textContent='Copied';}catch{$('copy').textContent='Select the result to copy';}});
-$('export').addEventListener('click',()=>{if(!state.result)return;const url=URL.createObjectURL(new Blob([JSON.stringify({problem:state.problem,result:state.result},null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download='pocket-engineer-solution.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
-$('print').addEventListener('click',()=>window.print());
+$('copy').addEventListener('click',async()=>{try{if(state.mode==='android')window.PocketEngineerAndroid.copySolution(solutionText());else await navigator.clipboard.writeText(solutionText());$('copy').textContent='Copied';}catch{$('copy').textContent='Select the result to copy';}});
+$('export').addEventListener('click',()=>{if(!state.result)return;if(state.mode==='android'){window.PocketEngineerAndroid.saveSolution(JSON.stringify({problem:state.problem,result:state.result},null,2));return;}const url=URL.createObjectURL(new Blob([JSON.stringify({problem:state.problem,result:state.result},null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download='pocket-engineer-solution.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
+$('print').addEventListener('click',()=>state.mode==='android'?window.PocketEngineerAndroid.printSolution():window.print());
 let installPrompt;
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('install').hidden=false;});
 $('install').addEventListener('click',async()=>{if(installPrompt){await installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('install').hidden=true;}});

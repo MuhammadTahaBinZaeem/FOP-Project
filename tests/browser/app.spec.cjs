@@ -51,3 +51,13 @@ test('bounded input failure leaves engine available for next solve',async({page}
   await ready(page);await select(page,'differential_equations','rk4','1 1 0.1 2147483647');await expect(page.locator('#answer')).toContainText('10000');
   await select(page,'algebra','numeric_evaluation','sqrt(81)');await expect(page.locator('#answer')).toHaveText('9');
 });
+test('all 55 C++ catalog examples solve in WebAssembly',async({page})=>{
+  await ready(page);
+  const results=await page.evaluate(async()=>{
+    const catalog=await request('catalog');const outputs=[];
+    for(const t of catalog.topics){const result=await request('solve',JSON.stringify({domain:t.domain,topic:t.topic,input:t.example}));outputs.push({topic:t.topic,status:result.status,steps:result.steps?.length||0});}
+    return outputs;
+  });
+  expect(results).toHaveLength(55);
+  expect(results.filter(r=>r.status!=='success'||r.steps===0)).toEqual([]);
+});
