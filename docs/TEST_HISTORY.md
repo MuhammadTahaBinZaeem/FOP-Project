@@ -18,6 +18,8 @@ Render's first cold deployment succeeded, but a subsequent auto-deploy restored 
 
 Android touch tests passed after the native-parent inset fix in runs 33989208751 and 33989237051. The first evidence download revealed that Gradle uninstalled the app before screenshots were pulled; its memory file said “No process found”, so it is not a memory benchmark. The test wrapper now retains test APKs using the [AndroidX test configuration](https://github.com/androidx/androidx/blob/androidx-main/gradle.properties), requires screenshot retrieval and relaunches the foreground app before collecting diagnostics.
 
+Run 33989562232 passed and retained the real Android screenshots. A later run, 33989958245, hit an asynchronous accessibility-tree race: immediate `findObject` did not yet see the input after navigation/keyboard reflow. The test now waits for the workbench and polls for the actual native EditText, recording a screenshot if it remains unavailable. This does not replace the real touch event with JavaScript.
+
 ## 2026-09-06 — 0.3.0 workbench and offline engine
 
 Completed during development:

@@ -6,6 +6,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.By
+import androidx.test.uiautomator.Until
 import org.json.JSONArray
 import org.json.JSONTokener
 import java.io.File
@@ -83,8 +84,12 @@ class OfflineAppTest {
             tap(scenario,".nav[data-view=subjects]")
             waitFor(scenario,"document.body.dataset.view === 'subjects'")
             tap(scenario,".topic-link")
+            waitFor(scenario,"document.body.dataset.view === 'workbench'")
             tap(scenario,"#input")
-            val input=requireNotNull(device.findObject(By.clazz("android.widget.EditText"))) { "Native accessibility input was not found" }
+            // WebView's accessibility tree updates asynchronously after its DOM
+            // and keyboard viewport. Wait for the real input, not a stale tree.
+            val input=device.wait(Until.findObject(By.clazz("android.widget.EditText")),10000)
+                ?: run { screenshot("missing-input");error("Native accessibility input was not found") }
             input.text="7*8"
             device.pressBack() // dismiss the actual Android keyboard
             tap(scenario,"#solve")
