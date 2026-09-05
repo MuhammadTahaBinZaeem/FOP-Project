@@ -12,6 +12,8 @@ The new touch-driven Android test in CI run 33988785167 failed opening the Subje
 
 The first maximum-input browser test expected an equals sign in an RK4 answer that correctly uses “≈”; both viewport tests failed in the test parser with NaN. The actual result was `y(10) ≈ 1.10517091808`, matching `exp(0.1)`. Corrected the parser, retaining the independent numerical comparison and asserting the output format.
 
+The next boundary run also assumed the scientific calculator accepted the global 4096-byte request maximum. Its deliberately stricter expression-module limit is 512 bytes. The test now solves an exactly 512-byte expression, checks rejection of a 4095-byte input, then verifies recovery with `2+2`.
+
 ## 2026-09-06 — 0.3.0 workbench and offline engine
 
 Completed during development:

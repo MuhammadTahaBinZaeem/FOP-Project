@@ -14,6 +14,8 @@ test('maximum-size supported matrix, ODE, polynomial and expression through the 
   expect(value).toBeCloseTo(Math.exp(0.1),8);await expect(page.locator('canvas')).toBeVisible();
   expect(await page.locator('#steps li').count()).toBeLessThanOrEqual(512);
   await solve('calculus','differentiation','x^32');await expect(page.locator('#answer')).toHaveText('32x^31');
-  await solve('algebra','numeric_evaluation',Array(2048).fill('1').join('+'));await expect(page.locator('#answer')).toHaveText('2048');
+  await solve('algebra','numeric_evaluation','+'+Array(256).fill('1').join('+'));await expect(page.locator('#answer')).toHaveText('256');
+  await solve('algebra','numeric_evaluation',Array(2048).fill('1').join('+'));await expect(page.locator('#answer')).toContainText('at most 512 bytes');
+  await solve('algebra','numeric_evaluation','2+2');await expect(page.locator('#answer')).toHaveText('4');
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBeTruthy();
 });
