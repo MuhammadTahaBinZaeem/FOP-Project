@@ -3,8 +3,15 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 if ! command -v emcmake >/dev/null 2>&1; then
-  if [ ! -d build-emsdk ]; then
-    git clone --depth 1 --branch 5.0.7 https://github.com/emscripten-core/emsdk.git build-emsdk
+  # Render can restore cached subdirectories without the SDK launcher/source.
+  # Test the required file, not merely the directory. Extraction also recovers
+  # that partial-cache state without deleting already downloaded compiler data.
+  if [ ! -f build-emsdk/emsdk ]; then
+    mkdir -p build-emsdk
+    curl --fail --location --retry 3 --max-time 120 \
+      https://codeload.github.com/emscripten-core/emsdk/tar.gz/41190c21c662e9cc1962aea94e71cbae9fd2fc87 \
+      --output build-emsdk-source.tar.gz
+    tar -xzf build-emsdk-source.tar.gz --strip-components=1 -C build-emsdk
   fi
   ./build-emsdk/emsdk install 5.0.7
   ./build-emsdk/emsdk activate 5.0.7
