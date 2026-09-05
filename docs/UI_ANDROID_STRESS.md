@@ -36,10 +36,39 @@ The rebuilt AddressSanitizer/UndefinedBehaviorSanitizer suite passed both CTests
 
 The earlier `ed1eb18` CI build ran an API 35 emulator successfully, but its test mainly drove JavaScript inside the WebView. The newer test uses real Android touch injection, accessibility text entry, native clipboard inspection, portrait/landscape screenshots and back navigation. Debug builds enable adb WebView inspection; release builds do not. CI uploads screenshots, instrumentation reports, memory and frame diagnostics.
 
-Local APK/emulator execution and the new test run are still being verified; do not infer a successful run from the presence of test code. Physical low-memory ARM phones, OEM WebView variations, release signing, OS document-picker completion and actual PWA installation remain separate validation work.
+The APK was installed and run **locally on this NixOS machine** in an Android 15/API 35 x86_64 AVD, emulator 36.6.11, WebView 124.0.6367.219. KVM was active; Wi-Fi and mobile data were disabled. Although 1536 MB was initially requested, the emulator raised guest RAM to **2560 MB**; there is no 1.5 GB-device claim. Two guest CPU cores were used. The unaccelerated-graphics cold app launch reported 1361 ms; the host-graphics run reported 863 ms. These are individual debug/emulator observations, not a controlled physical-device startup benchmark.
+
+Native Android touch injection, actual keyboard entry, copy feedback, opening the document picker and opening print preview were exercised locally. A JSON save was completed through Android's real document picker; [the exported JSON](evidence/2026-09-06/android-software/saved-solution.json) contains input `100*(3+7)` and answer `1000`. The print preview was visually inspected and displayed the solution; no physical print job is claimed. The screenshot review found light status-bar icons on a light background; the native theme now explicitly requests dark system-bar icons.
+
+| Local debug APK run | Expected arithmetic answers | UI solve median / p95 | Main process PSS after run | Reported janky frames |
+| --- | ---: | ---: | ---: | ---: |
+| SwiftShader software graphics | 100/100 | 679 / 1134 ms | 97,053 KiB | 1365/1862 (73.31%) |
+| Host graphics (Mesa Intel UHD) | 30/30 | 282 / 545 ms | 94,270 KiB | 221/695 (31.80%) |
+| Host graphics, system-bar fix (`247c703`) | 30/30 + 55 catalog smoke examples | 290 / 739 ms | 97,001 KiB | 526/1596 (32.96%) |
+
+All three runs had zero page errors. Timings include automation, scrolling and keyboard/layout transitions, not just C++ computation. The first host-graphics comparison used the same app build and two guest CPU cores but a shorter run; it is evidence that graphics configuration materially affects these observations, not proof of smooth rendering everywhere. **Jank remains a performance concern in this emulator**, even with host graphics. Main-process PSS excludes separate renderer/system overhead. Physical low-memory ARM phones, OEM WebView variations, production release signing, and actual browser PWA installation remain separate validation work. Raw measurements and screenshots are linked in the evidence directory; no bad result was relabeled as a pass.
+
+The third run's [home](evidence/2026-09-06/android-final/home.png), [K-map](evidence/2026-09-06/android-final/kmap.png) and [RK4](evidence/2026-09-06/android-final/rk4.png) screenshots were visually inspected. The system-bar icon contrast fix is visible. This run used the APK from `247c703`; `8825bfc` changed only the accessibility wait in the test. All 55 catalog examples exercised actual dropdown/example/solve controls through WebView/JNI, but are smoke checks, not 55 independent oracles. The 30 repeated arithmetic answers have separate expected values.
+
+Visual review also exposed distorted graph labels: a fixed 900×280 bitmap was stretched to a narrow, taller CSS box. The chart now draws in CSS-pixel coordinates with a device-pixel backing store capped at 2×, measures label margins, and redraws on resize. Its observer is disconnected on replacement. Two new browser regressions check font/backing-store dimensions across phone, landscape, desktop and hidden-view navigation. They passed locally (2/2); an APK rebuild is required to validate that change on Android.
+
+Run [33990241649](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/33990241649) on `8825bfc` passed Windows, macOS, Linux and real-touch Android instrumentation. Its [landscape screenshot](evidence/2026-09-06/android-ci/android-landscape.png) was inspected after waiting for rotation to settle. Website run [33990241648](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/33990241648) passed all 26 then-current browser tests. Those CI runs use the default shorter endurance setting; the separate 800-solve local run above is not attributed to CI.
+
+To repeat local APK testing on an explicitly selected disposable emulator:
+
+```sh
+PE_ANDROID_SERIAL=emulator-5556 PE_ANDROID_ROUNDS=100 PE_ANDROID_CATALOG=1 \
+  PE_ANDROID_RENDERER=host node tools/android_ui_check.cjs
+```
+
+Install and launch the debug APK first. The script does not choose or clear a physical phone. The native-touch portion uses adb input; the endurance/catalog portion drives actual WebView controls via Playwright/CDP. It opens the native document and print dialogs but does not claim to complete their OS operations. The separately saved JSON linked above was completed manually.
+
+APK size comparison: `ed1eb18` debug APK = 16,797,239 bytes; `11db5af` debug APK = 8,587,254 bytes (48.9% smaller), chiefly from removing original oversized PNGs from the bundle. These are development-signed universal APKs, not production-signed releases.
 
 ## Hosting
 
 The user selected Render's “My Workspace”. [Pocket Engineer is live on Render](https://pocket-engineer.onrender.com/), service `srv-dae79mon74is73cm11ug`. Initial deployment `dep-dae79n8n74is73cm13fg` built commit `6e42a81` and reached `live`. The homepage and WASM returned HTTP 200; WASM has the correct `application/wasm` MIME type; the error-log scan was empty. C++ is compiled to WASM from the deployed Git commit using pinned Emscripten 5.0.7. No paid solver server, database, or cloud computation is required. GitHub Pages remains a secondary preview.
+
+The partial-cache rebuild defect was corrected in `d157e23`. Deployment `dep-dae7ff49v7es73av8cu0` then reached `live`, and the subsequent cache-reuse deployment `dep-dae7gouq1p3s73cs0qq0` of `1b4c031` also reached `live`. Hosted-site checks passed: cold offline reload, all 55 examples through actual UI controls, clipboard/JSON export and navigation (3/3 tests).
 
 Build references: [Render static sites](https://render.com/docs/static-sites), [Emscripten SDK installation](https://emscripten.org/docs/getting_started/downloads.html). Local emulator references: [Nixpkgs Android composition](https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/android.section.md), [Android emulator command line](https://developer.android.com/studio/run/emulator-commandline).

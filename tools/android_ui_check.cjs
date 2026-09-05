@@ -50,12 +50,27 @@ if(!serial?.startsWith('emulator-'))throw new Error('Set PE_ANDROID_SERIAL to th
       await expect(page.locator('#answer')).toHaveText(String(i*10));latencies.push(Date.now()-start);
       if(i%10===0)console.log(`Android native WebView: ${i}/${rounds} expected answers matched`);
     }
+    let catalogExamples=0;
+    if(process.env.PE_ANDROID_CATALOG==='1'){
+      for(const domain of await page.locator('#domain option').evaluateAll(rows=>rows.map(r=>r.value))){
+        await page.locator('#domain').selectOption(domain);
+        for(const topic of await page.locator('#topic option').evaluateAll(rows=>rows.map(r=>r.value))){
+          await page.locator('#topic').selectOption(topic);await page.locator('#example').click();await page.locator('#solve').click();
+          await expect(page.locator('#solve-form')).toHaveAttribute('aria-busy','false');
+          await expect(page.locator('#verification')).not.toContainText('Input could not be solved');
+          await expect(page.locator('#steps li').first()).toBeVisible();catalogExamples++;
+          if(topic==='kmap_minimization')await capture('kmap');
+          if(topic==='rk4')await capture('rk4');
+        }
+      }
+      expect(catalogExamples).toBe(55);console.log('All 55 catalog examples solved through Android WebView/JNI controls');
+    }
     await nativeTap('.nav[data-view=history]');expect(await page.locator('.history-item').count()).toBeLessThanOrEqual(30);await capture('history');
     await shell('input keyevent 4');await expect(page.locator('#workbench')).toBeVisible();
     expect(errors).toEqual([]);
     const memory=await shell('dumpsys meminfo com.pocketengineer.app');await fs.writeFile(`${output}/memory-after.txt`,memory);
     const frames=await shell('dumpsys gfxinfo com.pocketengineer.app');await fs.writeFile(`${output}/frames.txt`,frames);
-    const report={serial,model:device.model(),engine:'android-jni',rounds,independent_expected_answers:rounds,errors,solve_ui_ms:latencies,android_release:(await shell('getprop ro.build.version.release')).trim(),webview:await shell('dumpsys webviewupdate'),meminfo_scope:'App process only; shared renderer and system overhead may be additional',limitations:'Debug APK on x86_64 Android emulator with software rendering; not physical ARM or release performance. Document picker and print dialog opened; no OS file write/print job claimed.'};
+    const report={serial,model:device.model(),engine:'android-jni',renderer:process.env.PE_ANDROID_RENDERER||'unspecified',rounds,catalog_examples:catalogExamples,independent_expected_answers:rounds,errors,solve_ui_ms:latencies,android_release:(await shell('getprop ro.build.version.release')).trim(),webview:await shell('dumpsys webviewupdate'),meminfo_scope:'App process only; shared renderer and system overhead may be additional',limitations:'Debug APK on x86_64 Android emulator; not physical ARM or release performance. Catalog examples are smoke checks, not independent expected answers. Document picker and print dialog opened; no OS file write/print job claimed by this script.'};
     await fs.writeFile(`${output}/report.json`,JSON.stringify(report,null,2));console.log(JSON.stringify(report));
   }catch(error){try{await device.screenshot({path:`${output}/failure.png`});}catch{}throw error;}
   finally{await device.close();}

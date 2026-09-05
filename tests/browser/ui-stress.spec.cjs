@@ -58,6 +58,22 @@ test('spacing and touch targets across phone, landscape, tablet and desktop view
   await page.locator('.nav[data-view="workbench"]').click();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1)).toBeTruthy();
 });
+test('trajectory labels retain CSS size after phone resize and hidden-view navigation',async({page},info)=>{
+  await ready(page);await page.emulateMedia({reducedMotion:'reduce'});
+  await solve(page,'differential_equations','rk4','1 1 0.1 10');
+  for(const [width,height] of [[320,568],[390,844],[667,375],[1440,1000]]){
+    await page.setViewportSize({width,height});
+    await expect.poll(()=>page.locator('canvas').evaluate(c=>{
+      const r=c.getBoundingClientRect(),scale=Math.min(devicePixelRatio||1,2),ctx=c.getContext('2d');
+      return c.width===Math.round(r.width*scale)&&c.height===Math.round(r.height*scale)&&ctx.font==='11px monospace'&&ctx.getTransform().a===scale;
+    })).toBe(true);
+    await page.locator('canvas').scrollIntoViewIfNeeded();
+    if(width===390)await page.screenshot({path:`test-results/chart-${info.project.name}.png`});
+  }
+  await page.locator('.nav[data-view="subjects"]').click();await page.setViewportSize({width:360,height:640});
+  await page.locator('.nav[data-view="workbench"]').click();
+  await expect.poll(()=>page.locator('canvas').evaluate(c=>c.width===Math.round(c.getBoundingClientRect().width*Math.min(devicePixelRatio||1,2)))).toBe(true);
+});
 test('copy, save, print, identify, empty input, navigation and install feedback',async({page,context})=>{
   await context.grantPermissions(['clipboard-read','clipboard-write']);await ready(page);
   await page.locator('#input').fill('');await page.locator('#solve').click();await expect(page.locator('#notice')).toContainText('Enter a problem');

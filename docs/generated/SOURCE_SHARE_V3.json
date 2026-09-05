@@ -1,10 +1,10 @@
 {
   "scope": "Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files",
   "cpp": 135361,
-  "other_runtime_code": 29033,
+  "other_runtime_code": 29895,
   "html_css": 20722,
-  "cpp_percent_runtime": 82.33937978271713,
-  "cpp_percent_including_html_css": 73.12225847576654,
+  "cpp_percent_runtime": 81.9098852689161,
+  "cpp_percent_including_html_css": 72.78333996494209,
   "files": [
     {
       "file": "src/catalog.cpp",
@@ -63,7 +63,7 @@
     },
     {
       "file": "www/app.js",
-      "bytes": 16679,
+      "bytes": 17541,
       "kind": "other_runtime_code"
     },
     {

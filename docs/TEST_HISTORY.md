@@ -20,6 +20,12 @@ Android touch tests passed after the native-parent inset fix in runs 33989208751
 
 Run 33989562232 passed and retained the real Android screenshots. A later run, 33989958245, hit an asynchronous accessibility-tree race: immediate `findObject` did not yet see the input after navigation/keyboard reflow. The test now waits for the workbench and polls for the actual native EditText, recording a screenshot if it remains unavailable. This does not replace the real touch event with JavaScript.
 
+The rerun on `8825bfc` passed: package run 33990241649 (Windows, universal macOS, Linux, Android real-touch instrumentation) and website run 33990241648 (26 browser tests). Render deployment `dep-dae7n449v7es73avfbc0` of that commit reached `live`.
+
+The APK was also installed and exercised locally in an API 35 x86_64 emulator with connectivity disabled. Three runs matched 100, 30 and 30 independently expected arithmetic answers, respectively; the last also solved all 55 catalog examples through UI controls. These are different coverage categories, not 215 independent topic checks. Actual JSON saving and print preview were inspected. Software rendering showed 73.31% reported jank; host rendering showed 31.80% and 32.96%. This is a remaining performance concern, not a silently discarded failure. Detailed environment, screenshots, timing and memory scope are in [UI_ANDROID_STRESS.md](UI_ANDROID_STRESS.md).
+
+Android screenshot review caught squeezed chart labels caused by mismatched canvas and CSS aspect ratios. Responsive, bounded-resolution drawing replaced the fixed bitmap dimensions; two new resize/navigation regression tests passed locally. The screenshot that exposed the issue is retained, not replaced with a fabricated clean result.
+
 ## 2026-09-06 — 0.3.0 workbench and offline engine
 
 Completed during development:

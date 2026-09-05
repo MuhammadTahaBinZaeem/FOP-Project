@@ -71,7 +71,7 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 [Test history](docs/TEST_HISTORY.md) records results, failures and corrections. Legacy reports with fields named “correct” mean **snapshot matches**, not proven mathematical correctness. A solver verification label describes a method check; numerical sampling is not a proof for all inputs.
 
-The deeper run passed **1,606,929 independent/edge checks**. The local browser run passed **24/24 tests**, including **800 endurance UI solves**: 600 independently expected answers and 200 intentional invalid inputs. This is measured coverage, not a universal “100% correct” claim.
+The deeper run passed **1,606,929 independent/edge checks**. The extended local browser run passed **24/24 tests**, including **800 endurance UI solves**: 600 independently expected answers and 200 intentional invalid inputs. Later CI passed the expanded 26-test suite; two additional responsive-chart checks passed locally. The actual offline APK was run locally: all 55 topic examples completed, and three runs matched 160 independently expected arithmetic answers in total. [Measured emulator jank and remaining limits](docs/UI_ANDROID_STRESS.md) are disclosed. This is measured coverage, not a universal “100% correct” claim.
 
 ## C++ ownership and efficiency
 

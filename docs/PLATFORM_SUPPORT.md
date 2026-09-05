@@ -37,7 +37,9 @@ gradle -p android :app:connectedDebugAndroidTest
 
 The **debug APK is installable and development-signed**. The release APK is **unsigned** until an owner-controlled release signing key is configured; it must not be advertised as a signed production release. Never commit a private signing key.
 
-Instrumentation launches the real WebView, waits for the JNI engine, solves arithmetic and an inconsistent linear system, then recreates the activity and checks local history. The manifest's absent INTERNET permission makes a remote solver unavailable during this test.
+Instrumentation launches the real WebView, waits for the JNI engine, solves arithmetic and an inconsistent linear system, then recreates the activity and checks local history. A second test injects real Android touches, enters text through accessibility, checks the native clipboard, rotates the activity and checks back navigation. CI retains screenshots, reports and foreground process diagnostics. The manifest's absent INTERNET permission makes a remote solver unavailable during these tests.
+
+Local API 35 emulator runs additionally exercised all 55 topic examples, repeated expected-answer checks, real keyboard entry, native JSON saving and print preview. [The evidence report](UI_ANDROID_STRESS.md) distinguishes native touch injection, CDP-driven WebView controls, smoke examples and independent expected answers. It also records remaining emulator jank; these are not low-end physical phone benchmarks.
 
 A build or emulator pass is not evidence that every old physical Android device performs well. No low-end physical phone benchmark is claimed.
 

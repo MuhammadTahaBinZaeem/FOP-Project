@@ -1,0 +1,32 @@
+{
+  "problem": {
+    "domain": "algebra",
+    "topic": "numeric_evaluation",
+    "input": "100*(3+7)"
+  },
+  "result": {
+    "schema_version": "1.0",
+    "status": "success",
+    "domain": "algebra",
+    "topic": "numeric_evaluation",
+    "answer": {
+      "text": "1000"
+    },
+    "steps": [
+      {
+        "rule_id": "ALG_EVALUATE",
+        "explanation": "Respect parentheses, powers, multiplication/division, then addition/subtraction.",
+        "expression": "1000"
+      }
+    ],
+    "assumptions": [],
+    "warnings": [],
+    "verification": {
+      "status": "verified_exact",
+      "method": "independent parser evaluation",
+      "evidence": "no variables present"
+    },
+    "visual": "",
+    "duration_ms": 0
+  }
+}

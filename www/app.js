@@ -139,7 +139,9 @@ function renderResult(r) {
   $('caveats').replaceChildren(...[...(r.assumptions||[]),...(r.warnings||[])].map(t=>node('p',t)));
   renderVisual(r.visual);
 }
+let visualObserver;
 function renderVisual(raw) {
+  visualObserver?.disconnect();visualObserver=null;
   $('visual').replaceChildren();let v;try{v=JSON.parse(raw||'{}');}catch{return;}
   if(v.kind==='kmap'&&Array.isArray(v.cells)){
     const rowBits=Math.floor(v.variables/2),colBits=v.variables-rowBits,table=node('table',undefined,'kmap');
@@ -150,12 +152,22 @@ function renderVisual(raw) {
     $('visual').append(table);
   }
   if(v.kind==='trajectory'&&Array.isArray(v.points)&&v.points.length>1){
-    const canvas=node('canvas');canvas.width=900;canvas.height=280;canvas.setAttribute('role','img');canvas.setAttribute('aria-label',v.label||'Numerical solution trajectory; exact endpoint and error are listed in the steps.');$('visual').append(canvas);
+    const canvas=node('canvas');canvas.setAttribute('role','img');canvas.setAttribute('aria-label',v.label||'Numerical solution trajectory; exact endpoint and error are listed in the steps.');$('visual').append(canvas);
     const ctx=canvas.getContext('2d'),points=v.points.filter(p=>p.length===2&&p.every(Number.isFinite));if(!ctx||points.length<2)return;
     const xs=points.map(p=>p[0]),ys=points.map(p=>p[1]),xmin=Math.min(...xs),xmax=Math.max(...xs),ymin=Math.min(...ys),ymax=Math.max(...ys),dx=xmax-xmin||1,dy=ymax-ymin||1;
-    ctx.strokeStyle='#cbd5c0';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(65,20);ctx.lineTo(65,240);ctx.lineTo(870,240);ctx.stroke();
-    ctx.fillStyle='#536553';ctx.font='13px monospace';ctx.fillText(ymax.toPrecision(4),4,26);ctx.fillText(ymin.toPrecision(4),4,237);ctx.fillText(xmin.toPrecision(3),65,264);ctx.fillText(xmax.toPrecision(3),803,264);ctx.fillText('x',882,243);
-    ctx.strokeStyle='#1b4538';ctx.lineWidth=3;ctx.beginPath();points.forEach(([x,y],i)=>{const px=65+800*(x-xmin)/dx,py=235-205*(y-ymin)/dy;i?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();
+    const draw=()=>{
+      const {width,height}=canvas.getBoundingClientRect();if(width<1||height<1)return;
+      // Draw in CSS pixels; cap the backing-store scale to bound bitmap memory.
+      // A fixed 900px bitmap stretched to a phone previously squashed its labels.
+      const scale=Math.min(devicePixelRatio||1,2),w=Math.round(width*scale),h=Math.round(height*scale);
+      if(canvas.width===w&&canvas.height===h)return;canvas.width=w;canvas.height=h;ctx.setTransform(scale,0,0,scale,0,0);
+      ctx.font='11px monospace';const high=ymax.toPrecision(4),low=ymin.toPrecision(4);
+      const left=Math.max(ctx.measureText(high).width,ctx.measureText(low).width)+14,right=width-12,top=18,bottom=height-30;
+      ctx.strokeStyle='#cbd5c0';ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(left,top);ctx.lineTo(left,bottom);ctx.lineTo(right,bottom);ctx.stroke();
+      ctx.fillStyle='#536553';ctx.fillText(high,4,top+4);ctx.fillText(low,4,bottom);ctx.fillText(xmin.toPrecision(3),left,height-10);ctx.textAlign='right';ctx.fillText(xmax.toPrecision(3),right,height-10);ctx.textAlign='left';
+      ctx.strokeStyle='#1b4538';ctx.lineWidth=2;ctx.beginPath();points.forEach(([x,y],i)=>{const px=left+(right-left)*(x-xmin)/dx,py=bottom-(bottom-top)*(y-ymin)/dy;i?ctx.lineTo(px,py):ctx.moveTo(px,py);});ctx.stroke();
+    };
+    draw();visualObserver=new ResizeObserver(draw);visualObserver.observe(canvas);
   }
 }
 function solutionText() {
