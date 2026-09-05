@@ -162,7 +162,7 @@ void independent_random(unsigned count) {
         check(close(rhs(loop.answer),sum),"explicit accumulation vs triangular formula");
     }
 }
-void exhaustive_logic() {
+void exhaustive_logic(bool stress) {
     // All 256 three-variable functions, plus every disjoint ON/DC assignment
     // for three variables (3^8 = 6561). No core answer is used as expected data.
     for(unsigned code=0;code<6561;++code) {
@@ -176,7 +176,7 @@ void exhaustive_logic() {
     for(unsigned mask=0;mask<65536;++mask) {
         // Deterministically stride through the 4-variable function space, plus
         // the full ON set; keep sanitizer CI bounded.
-        if(mask%97!=0&&mask!=65535)continue;
+        if(!stress&&mask%97!=0&&mask!=65535)continue;
         const auto result=solve("logic","kmap","vars=4; minterms="+minterms(mask,4));
         check(result.status=="success","4-variable K-map sample");
         if(result.status=="success")for(int row=0;row<16;++row)check(dnf(result.answer.substr(4),row,4)==static_cast<bool>(mask&(1u<<row)),"4-variable emitted DNF oracle");
@@ -186,7 +186,8 @@ void exhaustive_logic() {
 } // namespace
 
 int main(int argc,char** argv) {
-    regression_edges();catalog_examples();polynomial_cases();independent_random(5000);exhaustive_logic();
+    const bool stress=argc>2&&std::string(argv[2])=="--stress";
+    regression_edges();catalog_examples();polynomial_cases();independent_random(stress?50000:5000);exhaustive_logic(stress);
     std::sort(times.begin(),times.end());
     const double p50=times[times.size()/2],p95=times[times.size()*95/100],maximum=times.back();
     std::ostringstream report;report<<"{\"suite\":\"independent-v3\",\"seed\":5260595,\"checks\":"<<checks<<",\"passed\":"<<checks-failures<<",\"failed\":"<<failures<<",\"timings_us\":{\"p50\":"<<p50<<",\"p95\":"<<p95<<",\"max\":"<<maximum<<"},\"limitations\":\"Independent oracles cover selected families and edge cases, not every supported topic. Catalog checks only establish runnable examples. Timing is machine-specific; not an Android benchmark.\"}";

@@ -1,4 +1,4 @@
-import {readdir,stat,readFile} from 'node:fs/promises';
+import {readdir,stat,writeFile} from 'node:fs/promises';
 import path from 'node:path';
 // Audit only the maintained product, not the archived original Qt application,
 // generated corpora, Emscripten runtime, third-party libraries or build outputs.
@@ -24,5 +24,6 @@ for(const root of roots)await walk(root);
 const runtime=totals.cpp+totals.other_runtime_code;
 const result={scope:'Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files',...totals,cpp_percent_runtime:100*totals.cpp/runtime,cpp_percent_including_html_css:100*totals.cpp/(runtime+totals.html_css),files};
 console.log(JSON.stringify(result,null,2));
+if(process.argv[2])await writeFile(process.argv[2],JSON.stringify(result,null,2)+'\n');
 // HTML and CSS are separately reported so the denominator is never hidden.
 if(result.cpp_percent_runtime<80)process.exitCode=1;

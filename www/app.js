@@ -11,9 +11,11 @@ function view(id) {
   document.querySelectorAll('.view').forEach(n=>n.hidden=n.id!==id);
   document.querySelectorAll('.nav').forEach(n=>{const active=n.dataset.view===id;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});
   if(id==='history')renderHistory();
+  document.body.dataset.view=id;
   window.scrollTo(0,0);
 }
-document.querySelectorAll('[data-view]').forEach(n=>n.addEventListener('click',()=>view(n.dataset.view)));
+document.querySelectorAll('[data-view]').forEach(n=>n.addEventListener('click',event=>{event.preventDefault();view(n.dataset.view);}));
+window.peHandleBack=()=>{if(document.body.dataset.view&&document.body.dataset.view!=='workbench'){view('workbench');return true;}return false;};
 function currentTopic() { return state.catalog.find(t=>t.domain===$('domain').value&&t.topic===$('topic').value); }
 function updateTopics(preferred) {
   const list=state.catalog.filter(t=>t.domain===$('domain').value);
@@ -22,7 +24,7 @@ function updateTopics(preferred) {
   updateHint();
 }
 function updateHint() { const t=currentTopic();if(!t)return;$('syntax').textContent=t.syntax;$('scope').textContent=t.scope;$('input').placeholder=t.example; }
-function selectTopic(t,example=true) { $('domain').value=t.domain;updateTopics(t.topic);if(example)$('input').value=t.example;view('workbench');$('input').focus(); }
+function selectTopic(t,example=true) { if(state.busy)return; $('domain').value=t.domain;updateTopics(t.topic);if(example)$('input').value=t.example;view('workbench');$('input').focus(); }
 $('domain').addEventListener('change',()=>updateTopics());
 $('topic').addEventListener('change',updateHint);
 $('example').addEventListener('click',()=>{const t=currentTopic();if(t){$('input').value=t.example;tell('Example loaded. You can change the values before solving.');$('input').focus();}});
@@ -65,7 +67,7 @@ function workerCall(method,payload) {
 }
 async function request(method,payload) {
   if(state.mode==='http') {
-    const response=await fetch('api/'+method,{method:method==='catalog'?'GET':'POST',headers:{'Content-Type':'application/json'},body:method==='catalog'?undefined:method==='identify'?JSON.stringify({input:payload}):payload});
+    const response=await fetch('api/'+method,{signal:AbortSignal.timeout(15000),method:method==='catalog'?'GET':'POST',headers:{'Content-Type':'application/json'},body:method==='catalog'?undefined:method==='identify'?JSON.stringify({input:payload}):payload});
     if(!response.ok)throw new Error('Local server returned '+response.status);
     return response.json();
   }
@@ -92,7 +94,7 @@ async function boot() {
     state.catalog=catalog.topics;
     $('domain').replaceChildren(...Object.entries(subjects).map(([value,label])=>new Option(label,value)));
     updateTopics();$('input').value=currentTopic().example;
-    ['domain','topic','solve','identify'].forEach(id=>$(id).disabled=false);
+    ['domain','topic','solve','identify','example'].forEach(id=>$(id).disabled=false);
     document.body.dataset.engine=state.mode;
     $('engine-status').textContent=state.mode==='wasm'?'C++ · on your device':state.mode==='android'?'Native C++ · offline':'Native C++ · local server';
     $('engine-status').classList.add('ready');renderSubjects();loadHistory();setupOffline();
@@ -102,12 +104,13 @@ async function boot() {
     $('cache-status').textContent='Solver not loaded; offline solving is not ready.';
   }
 }
-function setBusy(value){state.busy=value;$('solve').disabled=value;$('identify').disabled=value;$('solve-form').setAttribute('aria-busy',String(value));}
+function setBusy(value){state.busy=value;['solve','identify','domain','topic','example'].forEach(id=>$(id).disabled=value);$('input').readOnly=value;$('solve-form').setAttribute('aria-busy',String(value));}
 $('solve-form').addEventListener('submit',async event=>{
   event.preventDefault();if(state.busy)return;
   const problem={domain:$('domain').value,topic:$('topic').value,input:$('input').value.trim()};
   if(!problem.input){tell('Enter a problem or load an example first.');$('input').focus();return;}
   setBusy(true);tell('Working locally…');
+  $('input').blur();
   try {
     const result=await request('solve',JSON.stringify(problem));state.problem=problem;state.result=result;
     renderResult(result);tell(result.status==='error'?'Check your input against the example and supported syntax.':'');
@@ -122,12 +125,12 @@ $('identify').addEventListener('click',async()=>{
   try {
     const r=await request('identify',$('input').value);
     const c=r.candidates&&r.candidates[0], t=c&&state.catalog.find(t=>t.domain===c.domain&&t.topic===c.topic);
-    if(t){selectTopic(t,false);tell('Suggested: '+t.title+'. Confirm the selected type and input syntax, then press “Show me the steps.” '+r.reason);}
+    if(t){$('domain').value=t.domain;updateTopics(t.topic);tell('Suggested: '+t.title+'. Confirm the selected type and input syntax, then press “Show me the steps.” '+r.reason);}
     else tell((r.reason||'No precise type found.')+' Choose a subject and problem type manually.');
   }catch(e){tell(e.message);}finally{setBusy(false);}
 });
 function renderResult(r) {
-  $('result').hidden=false;$('result-topic').textContent=currentTopic()?.title||r.topic;
+  $('result').hidden=false;$('copy').textContent='Copy solution';$('result-topic').textContent=state.catalog.find(t=>t.domain===state.problem?.domain&&t.topic===state.problem?.topic)?.title||r.topic;
   $('answer').textContent=r.answer?.text||'No answer returned.';
   const v=r.verification||{},ok=r.status==='success'&&v.status!=='not_verified'&&v.status!=='verification_failed';
   $('verification').className='verification'+(ok?'':' warning');
@@ -156,14 +159,14 @@ function renderVisual(raw) {
   }
 }
 function solutionText() {
- const r=state.result;return [state.problem.input,'',r.answer.text,'',...(r.steps||[]).map((s,i)=>(i+1)+'. '+s.explanation+'\n'+s.expression),'',r.verification.method,r.verification.evidence,...(r.assumptions||[]),...(r.warnings||[])].join('\n');
+ const r=state.result;return [state.problem.input,'',r.answer?.text||'','',...(r.steps||[]).map((s,i)=>(i+1)+'. '+s.explanation+'\n'+s.expression),'',r.verification?.method||'',r.verification?.evidence||'',...(r.assumptions||[]),...(r.warnings||[])].join('\n');
 }
 $('copy').addEventListener('click',async()=>{try{if(state.mode==='android')window.PocketEngineerAndroid.copySolution(solutionText());else await navigator.clipboard.writeText(solutionText());$('copy').textContent='Copied';}catch{$('copy').textContent='Select the result to copy';}});
 $('export').addEventListener('click',()=>{if(!state.result)return;if(state.mode==='android'){window.PocketEngineerAndroid.saveSolution(JSON.stringify({problem:state.problem,result:state.result},null,2));return;}const url=URL.createObjectURL(new Blob([JSON.stringify({problem:state.problem,result:state.result},null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download='pocket-engineer-solution.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 $('print').addEventListener('click',()=>state.mode==='android'?window.PocketEngineerAndroid.printSolution():window.print());
 let installPrompt;
 window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('install').hidden=false;});
-$('install').addEventListener('click',async()=>{if(installPrompt){await installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$('install').hidden=true;}});
+$('install').addEventListener('click',async()=>{if(installPrompt){try{await installPrompt.prompt();await installPrompt.userChoice;}catch{$('cache-status').textContent='Installation was not completed. Use your browser’s install menu to retry.';}finally{installPrompt=null;$('install').hidden=true;}}});
 window.addEventListener('appinstalled',()=>{$('install').hidden=true;});
 async function checkCache(){
   if(state.mode==='android'){$('cache-status').textContent='Ready offline · native engine and interface bundled in the APK.';return;}

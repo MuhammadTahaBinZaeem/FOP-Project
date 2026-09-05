@@ -31,9 +31,13 @@ class MainActivity : Activity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        pendingExport = savedInstanceState?.getString("pendingExport")
         val assets = WebViewAssetLoader.Builder()
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this)).build()
         webView = WebView(this)
+        // Debug APK only: enables local adb/CDP inspection. Release stays closed.
+        WebView.setWebContentsDebuggingEnabled(
+            applicationInfo.flags and android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE != 0)
         webView.setBackgroundColor(Color.rgb(245, 245, 238))
         webView.settings.apply {
             javaScriptEnabled = true
@@ -90,11 +94,14 @@ class MainActivity : Activity() {
                 if (!destroyed && pendingExport == null) {
                     pendingExport = json
                     @Suppress("DEPRECATION")
-                    startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                    try { startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
                         addCategory(Intent.CATEGORY_OPENABLE)
                         type = "application/json"
                         putExtra(Intent.EXTRA_TITLE, "pocket-engineer-solution.json")
-                    }, 30)
+                    }, 30) } catch (_: android.content.ActivityNotFoundException) {
+                        pendingExport = null
+                        android.widget.Toast.makeText(this@MainActivity, "No document picker is available", android.widget.Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -129,7 +136,16 @@ class MainActivity : Activity() {
 
     @Deprecated("Platform back compatibility for API 24+")
     override fun onBackPressed() {
-        if (::webView.isInitialized && webView.canGoBack()) webView.goBack() else super.onBackPressed()
+        if (!::webView.isInitialized) { super.onBackPressed(); return }
+        webView.evaluateJavascript("Boolean(window.peHandleBack && window.peHandleBack())") { handled ->
+            if (!destroyed && handled != "true") {
+                if (webView.canGoBack()) webView.goBack() else finish()
+            }
+        }
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        pendingExport?.let { outState.putString("pendingExport", it) }
+        super.onSaveInstanceState(outState)
     }
     override fun onPause() { if (::webView.isInitialized) webView.onPause(); super.onPause() }
     override fun onResume() { super.onResume(); if (::webView.isInitialized) webView.onResume() }

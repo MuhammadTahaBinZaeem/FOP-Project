@@ -1,0 +1,41 @@
+{
+  "mode": "Built-in image generation, followed by sharp raster compression",
+  "outputs": [
+    {
+      "path": "www/assets/icon-32.png",
+      "bytes": 346
+    },
+    {
+      "path": "www/assets/icon-180.png",
+      "bytes": 1851
+    },
+    {
+      "path": "www/assets/icon-192.png",
+      "bytes": 2961
+    },
+    {
+      "path": "www/assets/icon-512.png",
+      "bytes": 43975
+    },
+    {
+      "path": "www/assets/logo.webp",
+      "bytes": 1828
+    },
+    {
+      "path": "www/assets/algebra.webp",
+      "bytes": 20180
+    },
+    {
+      "path": "www/assets/circuit.webp",
+      "bytes": 13168
+    },
+    {
+      "path": "www/assets/linear-algebra.webp",
+      "bytes": 8800
+    },
+    {
+      "path": "www/assets/logic.webp",
+      "bytes": 10608
+    }
+  ]
+}

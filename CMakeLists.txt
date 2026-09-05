@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
 
 option(PE_ENABLE_IPO "Enable link-time optimization for Release builds when supported" ON)
 
@@ -102,8 +103,8 @@ if(NOT ANDROID AND NOT EMSCRIPTEN)
     install(TARGETS pocket-engineer pocket-engineer-server pe-generate-tests pe-verify-corpus pe-generate-explanations
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
     install(DIRECTORY www/ DESTINATION ${CMAKE_INSTALL_DATADIR}/pocket-engineer/www)
-    install(FILES README.md docs/CURRICULUM_COVERAGE.md docs/INPUT_REFERENCE.md docs/PLATFORM_SUPPORT.md docs/EXPLANATION_CORPUS.md docs/TEST_HISTORY.md docs/generated/CORPUS_COMPARISON.json
-        DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    install(FILES README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
+    install(DIRECTORY docs/ DESTINATION ${CMAKE_INSTALL_DOCDIR}/docs)
 
     set(CPACK_PACKAGE_NAME "PocketEngineer")
     set(CPACK_PACKAGE_VENDOR "Pocket Engineer")

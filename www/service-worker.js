@@ -1,7 +1,7 @@
 'use strict';
-const VERSION='pocket-engineer-v3-20260906';
+const VERSION='pocket-engineer-b3b4d8731a82ce70f419';
 const ROOT=new URL('./',self.location.href);
-const FILES=['./','index.html','styles.css','app.js','solver-worker.js','engine.js','engine.wasm','manifest.webmanifest','assets/algebra.png','assets/linear-algebra.png'];
+const FILES=['./','index.html','styles.css','app.js','solver-worker.js','engine.js','engine.wasm','manifest.webmanifest','assets/logo.webp','assets/icon-32.png','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png','assets/linear-algebra.webp'];
 const URLS=FILES.map(file=>new URL(file,ROOT).href);
 self.addEventListener('install',event=>{
   event.waitUntil((async()=>{const cache=await caches.open(VERSION);try{await cache.addAll(URLS);}catch(error){await caches.delete(VERSION);throw error;}})());

@@ -1,0 +1,90 @@
+{
+  "scope": "Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files",
+  "cpp": 135361,
+  "other_runtime_code": 28149,
+  "html_css": 20721,
+  "cpp_percent_runtime": 82.7845391719161,
+  "cpp_percent_including_html_css": 73.47351965738665,
+  "files": [
+    {
+      "file": "src/catalog.cpp",
+      "bytes": 11600,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/engine.cpp",
+      "bytes": 84348,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/polynomial.cpp",
+      "bytes": 16771,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/request.cpp",
+      "bytes": 5536,
+      "kind": "cpp"
+    },
+    {
+      "file": "include/pocket_engineer/engine.hpp",
+      "bytes": 2533,
+      "kind": "cpp"
+    },
+    {
+      "file": "include/pocket_engineer/polynomial.hpp",
+      "bytes": 322,
+      "kind": "cpp"
+    },
+    {
+      "file": "apps/cli.cpp",
+      "bytes": 1589,
+      "kind": "cpp"
+    },
+    {
+      "file": "apps/server.cpp",
+      "bytes": 11188,
+      "kind": "cpp"
+    },
+    {
+      "file": "apps/wasm.cpp",
+      "bytes": 119,
+      "kind": "cpp"
+    },
+    {
+      "file": "android/app/src/main/cpp/jni_bridge.cpp",
+      "bytes": 1355,
+      "kind": "cpp"
+    },
+    {
+      "file": "android/app/src/main/java/com/pocketengineer/app/MainActivity.kt",
+      "bytes": 8277,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/app.js",
+      "bytes": 16679,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/index.html",
+      "bytes": 7964,
+      "kind": "html_css"
+    },
+    {
+      "file": "www/service-worker.js",
+      "bytes": 1867,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/solver-worker.js",
+      "bytes": 1326,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/styles.css",
+      "bytes": 12757,
+      "kind": "html_css"
+    }
+  ]
+}

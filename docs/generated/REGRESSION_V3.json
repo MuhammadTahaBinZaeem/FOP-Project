@@ -12,10 +12,10 @@
     "solver_errors": 0
   },
   "expected_verification_statuses": {
-    "not_verified": 28098,
+    "not_verified": 23354,
     "verified_exact": 420000,
     "verified_exhaustive": 75000,
-    "verified_numerical": 301902
+    "verified_numerical": 306646
   },
   "topics": [
     {"topic": "algebra/factorisation", "checked": 15000, "answers_correct": 15000, "verification_correct": 15000, "overall_correct": 15000, "solver_errors": 0},

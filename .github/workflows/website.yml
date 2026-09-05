@@ -23,10 +23,7 @@ jobs:
           version: '5.0.7'
           actions-cache-folder: emsdk-cache
       - name: Compile C++ to WebAssembly
-        run: |
-          emcmake cmake -S . -B build-wasm -DCMAKE_BUILD_TYPE=Release -DPE_ENABLE_IPO=OFF
-          cmake --build build-wasm --parallel 2
-          cp build-wasm/web/engine.js build-wasm/web/engine.wasm www/
+        run: bash tools/build_web.sh
       - name: Compile local test server
         run: |
           cmake -S . -B build -DCMAKE_BUILD_TYPE=Release

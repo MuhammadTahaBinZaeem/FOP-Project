@@ -16,7 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure
+        if: runner.os != 'macOS'
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Configure universal macOS package
+        if: runner.os == 'macOS'
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release '-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64' -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
       - name: Build
         run: cmake --build build --config Release --parallel
       - name: Unit tests
@@ -76,7 +80,11 @@ jobs:
           arch: x86_64
           profile: pixel_2
           disable-animations: true
-          script: gradle -p android :app:connectedDebugAndroidTest --no-daemon
+          script: |
+            gradle -p android :app:connectedDebugAndroidTest --no-daemon
+            adb pull /sdcard/Android/data/com.pocketengineer.app/files/evidence android/app/build/reports/androidTests/screenshots
+            adb shell dumpsys meminfo com.pocketengineer.app > android/app/build/reports/androidTests/memory.txt
+            adb shell dumpsys gfxinfo com.pocketengineer.app > android/app/build/reports/androidTests/frames.txt
       - name: Upload offline Android APK
         uses: actions/upload-artifact@v4
         with:
