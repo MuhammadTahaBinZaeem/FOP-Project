@@ -16,6 +16,8 @@ The next boundary run also assumed the scientific calculator accepted the global
 
 Render's first cold deployment succeeded, but a subsequent auto-deploy restored a partial `build-emsdk` cache with no `emsdk` launcher. Checking only directory existence incorrectly skipped SDK source setup. The build now checks the launcher and restores source from the pinned official SDK commit while preserving downloaded compiler data. This fixes the observed missing-file error; both a rebuilt deployment and a later cache-reuse deployment must be checked.
 
+Android touch tests passed after the native-parent inset fix in runs 33989208751 and 33989237051. The first evidence download revealed that Gradle uninstalled the app before screenshots were pulled; its memory file said “No process found”, so it is not a memory benchmark. The test wrapper now retains test APKs using the [AndroidX test configuration](https://github.com/androidx/androidx/blob/androidx-main/gradle.properties), requires screenshot retrieval and relaunches the foreground app before collecting diagnostics.
+
 ## 2026-09-06 — 0.3.0 workbench and offline engine
 
 Completed during development:
