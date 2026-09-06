@@ -58,6 +58,7 @@ int main(){
     answer("K-map with 3 variables, maxterms=(0,2,4,6)","F = C");
     answer("Full adder 1 1 1","Sum = 1; Cout = 1");
     answer("JK flip flop 1 1 0","Qnext = 1");
+    answer("Canonical POS for A'B+AB'","F = ΠM(0, 3)");
     answer("Voltage divider Vin=12V, R1=1kOhm, R2=2kOhm","Vout = 8 V; I = 0.004 A");
     answer("Voltage divider Vin=12 volts and R1=1000 ohms and R2=2 kiloohms","Vout = 8 V; I = 0.004 A");
     answer("Voltage divider Vin=12 R1=1000 R2=2000","Vout = 8 V; I = 0.004 A");

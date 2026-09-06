@@ -53,7 +53,7 @@ Physical-phone validation and Apple/Windows code-signing are still separate work
 ## Completed local checks before release CI
 
 - Native CTest: 3/3 suites passed.
-- Natural-input suite: 4,111 checks, zero failures; 55 are catalog auto/manual
+- Natural-input suite: 4,112 checks, zero failures; 55 are catalog auto/manual
   equivalence checks, the rest have explicit success/failure/answer expectations.
 - Independent stress: 1,606,929 checks, zero failures; timing p50 11.767 µs,
   p95 65.890 µs in this run, not an Android timing claim.
@@ -67,3 +67,14 @@ Physical-phone validation and Apple/Windows code-signing are still separate work
 See [INDEPENDENT_STRESS_V4.json](generated/INDEPENDENT_STRESS_V4.json) and
 [SOURCE_SHARE_V4.json](generated/SOURCE_SHARE_V4.json). Public-download and actual
 new-APK results are recorded separately after those steps complete.
+
+The extended 50-round-per-layout browser run passed 34/34 in 1.9 minutes:
+400 endurance UI solves, comprising 300 independent expected answers and 100
+intentional rejection cases. All 825,000 existing regression snapshots still
+match answers and verification states. ASan/UBSan CTests passed 3/3 in 16.82 s.
+
+The Ubuntu-built static Linux ZIP from CI run 34063775917 was downloaded as an
+artifact and executed **unmodified on NixOS**. Its CLI, server, bundled UI,
+natural-input correction and cross-origin checks passed. This resolves the old
+generic ELF-loader failure for that tested x86_64 package; public-release download
+validation remains a separate gate.

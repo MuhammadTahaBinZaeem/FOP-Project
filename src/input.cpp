@@ -254,7 +254,7 @@ std::string vector_input(const std::string& raw,std::string body){
 std::string boolean_input(std::string body){
     static const std::regex assignment(R"(^\s*F(?:\([^)]*\))?\s*=\s*)",std::regex::icase);body=std::regex_replace(body,assignment,"");
     words(body,"not","!");words(body,"and","&");words(body,"xor","^");words(body,"or","|");
-    static const std::regex prime(R"(\b([A-Za-z])')");const bool shorthand=body.find('\'')!=std::string::npos;body=std::regex_replace(body,prime,"!$1");
+    static const std::regex prime(R"(([A-Za-z])')");const bool shorthand=body.find('\'')!=std::string::npos;body=std::regex_replace(body,prime,"!$1");
     if(shorthand){static const std::regex product(R"(([A-Za-z\)])\s*([A-Za-z!\(]))");for(unsigned i=0;i<4;++i)body=std::regex_replace(body,product,"$1&$2");}
     return trim(body);
 }
