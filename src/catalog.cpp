@@ -9,9 +9,9 @@ namespace pocket_engineer {
 const std::vector<TopicInfo>& topic_catalog() {
     static const std::vector<TopicInfo> topics{
         {"algebra", "numeric_evaluation", "Scientific calculator", "2*(3+4)^2", "Numbers, + − * / ^, parentheses, sin, cos, tan, sqrt, ln, log, pi, e", "Real-valued arithmetic; angles in radians. Powers associate to the right."},
-        {"algebra", "simplify", "Simplify an expression", "(x^2 - 1)/(x - 1)", "(x^2-a^2)/(x-a), or a numeric expression", "Difference-of-squares cancellation with the excluded point retained; not a general symbolic algebra system."},
+        {"algebra", "simplify", "Simplify an expression", "(x^2 - 1)/(x - 1)", "Polynomial sums/products/powers; a(x²−1)/(x−1); numeric expressions", "Polynomial expansion and collection through degree 32; supported cancellation retains its excluded point. Not a general symbolic algebra system."},
         {"algebra", "factorisation", "Factor a quadratic", "x^2-5x+6", "x^2 + bx + c", "Real quadratic factors in the supported coefficient syntax."},
-        {"algebra", "linear_equation", "Linear equations", "2x+3=11", "ax+b=c", "One variable, numeric coefficients, one equation."},
+        {"algebra", "linear_equation", "Linear equations", "2x+3=11", "Linear polynomials on either side, e.g. 2(x+3)=x+11", "One real variable; parentheses and coefficients on both sides. Natural multi-variable equations route to the linear-system solver."},
         {"algebra", "quadratic_equation", "Quadratic equations", "x^2-5x+6=0", "ax^2+bx+c=0", "Real roots using the quadratic formula; complex roots are outside this module."},
         {"algebra", "trigonometry", "Trigonometry", "sin(pi/6)", "sin(expression), cos(expression), tan(expression)", "Numeric radian evaluation and the sin(x)^2+cos(x)^2 identity."},
         {"algebra", "logarithms", "Logarithms", "log(1000)", "log(value) or ln(value)", "Positive real arguments; log is base 10 and ln is base e."},
@@ -24,7 +24,7 @@ const std::vector<TopicInfo>& topic_catalog() {
         {"linear_algebra", "rref", "Row reduction", "1,2,5;3,4,11", "Comma-separated entries; semicolon-separated rows", "Gauss–Jordan elimination with partial pivoting; up to 16 rows and 17 columns."},
         {"linear_algebra", "determinant", "Determinants", "1,2;3,4", "A square matrix", "Real square matrices up to 16 by 16. Floating-point pivot tolerance applies."},
         {"linear_algebra", "inverse", "Matrix inverses", "1,2;3,4", "A nonsingular square matrix", "Gauss–Jordan inversion with an actual A times inverse residual check."},
-        {"linear_algebra", "linear_system", "Linear systems", "1,1,3;2,-1,0", "Augmented matrix [A|b]: 1,1,3;2,-1,0", "Unique, inconsistent and dependent systems; coefficient rank determines whether a unique answer exists."},
+        {"linear_algebra", "linear_system", "Linear systems", "1,1,3;2,-1,0", "Augmented matrix, or automatic input: x+y=3 and 2x-y=0", "Unique, inconsistent and dependent systems; named-variable columns are shown when equations are translated to a matrix."},
         {"linear_algebra", "multiply", "Matrix multiplication", "1,2;3,4|2,0;1,2", "A|B with columns(A) = rows(B)", "Rectangular real matrix products within the matrix budget."},
         {"linear_algebra", "transpose", "Transpose", "1,2,3;4,5,6", "A rectangular matrix", "Exchange row and column indices."},
         {"linear_algebra", "rank", "Matrix rank", "1,2;2,4", "A rectangular matrix", "Numerical rank through row reduction; near-singular inputs can depend on tolerance."},
@@ -69,7 +69,7 @@ const std::vector<TopicInfo>& topic_catalog() {
 
 std::string catalog_json() {
     std::ostringstream out;
-    out << "{\"version\":\"0.3.0\",\"topics\":[";
+    out << "{\"version\":\"0.4.0\",\"topics\":[";
     bool first = true;
     for (const auto& entry : topic_catalog()) {
         if (!first) out << ',';

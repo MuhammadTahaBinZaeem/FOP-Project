@@ -1,0 +1,26 @@
+Pocket Engineer 0.4 - offline desktop app
+
+1. Extract the ENTIRE ZIP to a folder you can write to. Do not run inside the ZIP.
+2. Open Start-Pocket-Engineer.cmd (Windows), .command (macOS), or .sh (Linux).
+   Linux file managers may require "Run as program" or launching the .sh in a terminal.
+3. Your default browser opens the local app. If it does not, copy the localhost
+   address printed in the terminal into a modern browser.
+4. Keep the terminal open while using the app. Close it or press Ctrl+C to stop.
+
+No Python, Node, internet connection, installer, administrator access, or online
+account is required. The solver is compiled C++; the browser displays its UI.
+The server listens ONLY on your computer's loopback interface, not your LAN.
+Port 8765 is preferred; if another app uses it, an available port is selected.
+History is browser-local and tied to the address/port; a different port has a
+separate history. The server must run whenever you use this desktop package.
+
+Linux: x86_64, statically linked C/C++ executable; no Ubuntu ELF loader, glibc,
+libstdc++ or Nix compatibility wrapper required. A desktop browser is required.
+macOS: universal arm64/x86_64, macOS 11+. Not Apple-signed or notarized.
+Windows: x64. Not Authenticode-signed. OS security prompts may appear.
+Verify SHA256SUMS.txt from the matching GitHub release before using a download.
+Do not disable your system's security globally to run this application.
+
+The separate offline-website ZIP is for localhost/HTTPS hosting, not file://.
+For a ready-to-launch computer app, use this platform-specific desktop package.
+For Android, use the APK or install the published website as a PWA.

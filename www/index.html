@@ -29,17 +29,20 @@
 <form id="solve-form">
 <div class="select-grid"><div><label for="domain">Subject</label><select id="domain" disabled></select></div><div><label for="topic">Problem type</label><select id="topic" disabled></select></div></div>
 <div class="label-row"><label for="input">Your problem</label><button type="button" class="text-button" id="example" disabled>Try an example ↗</button></div>
-<textarea id="input" rows="4" maxlength="4096" placeholder="The local engine is loading…" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="syntax"></textarea>
+<textarea id="input" rows="5" maxlength="4096" placeholder="The local engine is loading…" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="input-help syntax"></textarea>
+<p id="input-help" class="hint">Ask naturally: “Find the determinant of [[1,2],[3,4]]” or “Solve 2(x+3)=x+11”. You can paste equations and use ×, ÷, π and ².</p>
+<label class="auto-option"><input id="auto-type" type="checkbox" checked><span>Automatically interpret my question and correct the problem type</span></label>
 <p id="syntax" class="hint"></p>
 <div class="actions"><button class="primary" id="solve" type="submit" disabled>Show me the steps <span>→</span></button><button type="button" class="secondary" id="identify" disabled>Identify type</button></div>
 <p id="notice" class="notice" role="status" aria-live="polite"></p>
 </form>
-<details class="scope"><summary>What this solver supports</summary><p id="scope"></p><p>Identification suggests a type; it does not translate arbitrary prose into equations. Check the syntax above. Calculations use floating-point arithmetic unless stated otherwise.</p></details>
+<details class="scope"><summary>What this solver supports</summary><p id="scope"></p><p>Natural input uses bounded, offline C++ grammars, not an online language model. State the operation and its values. Missing or unsupported details need clarification; arbitrary word problems are not supported. Turn off automatic interpretation to use the selected type and exact syntax. Calculations use floating-point arithmetic unless stated otherwise.</p></details>
 </section>
 <aside class="side-notes"><div class="note lime"><span class="note-symbol">↗</span><h3>Learn the “why.”</h3><p>Follow the method, inspect each step, then check the result. Understanding goes further than an answer.</p></div><div class="note white"><p class="eyebrow">MADE TO GO WITH YOU</p><h3>Small screen.<br> Same C++ engine.</h3><p id="offline-status">The website downloads its solver once. Android bundles it from the start.</p><button class="text-button" data-view="downloads">Set up offline access →</button></div></aside>
 </div>
 <section id="result" class="card result" hidden aria-labelledby="answer-heading" tabindex="-1">
 <div class="section-heading"><h2 id="answer-heading">Here’s the working.</h2><span class="tag" id="result-topic"></span></div>
+<div id="interpretation" class="interpretation" hidden aria-live="polite"></div>
 <div class="answer-box"><p class="eyebrow">RESULT</p><pre id="answer"></pre></div><div id="verification" class="verification"></div>
 <div id="visual"></div><ol id="steps" class="steps"></ol><div id="caveats" class="hint"></div>
 <div class="result-actions"><button class="secondary" id="copy">Copy solution</button><button class="secondary" id="export">Save JSON</button><button class="text-button" id="print">Print / save PDF</button></div>

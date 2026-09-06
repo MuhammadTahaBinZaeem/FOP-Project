@@ -2,7 +2,9 @@
 # Keep diagnostics even when instrumentation fails, before CI stops the emulator.
 set -uo pipefail
 pe_test_status=0
-gradle -p android :app:connectedDebugAndroidTest --no-daemon \
+pe_variant="${PE_ANDROID_TEST_TYPE:-debug}"
+if [ "$pe_variant" = release ]; then pe_task=connectedReleaseAndroidTest; else pe_task=connectedDebugAndroidTest; fi
+gradle -p android ":app:$pe_task" "-PpeTestBuildType=$pe_variant" --no-daemon \
   -Pandroid.injected.androidTest.leaveApksInstalledAfterRun=true || pe_test_status=$?
 mkdir -p android/app/build/reports/androidTests/screenshots
 adb pull /sdcard/Android/data/com.pocketengineer.app/files/evidence android/app/build/reports/androidTests/screenshots || pe_test_status=1

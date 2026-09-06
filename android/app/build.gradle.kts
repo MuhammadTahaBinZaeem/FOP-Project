@@ -12,20 +12,37 @@ android {
         applicationId = "com.pocketengineer.app"
         minSdk = 24
         targetSdk = 35
-        versionCode = 3
-        versionName = "0.3.0"
+        versionCode = 4
+        versionName = "0.4.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         externalNativeBuild {
             cmake {
                 cppFlags += listOf("-std=c++20")
+                // A single JNI shared library owns the entire C++ runtime.
+                // Avoid the 4KB-aligned libc++_shared from older NDKs.
+                arguments += listOf("-DANDROID_STL=c++_static")
             }
         }
     }
 
+    val releaseKey = System.getenv("PE_ANDROID_KEYSTORE")
+    testBuildType = providers.gradleProperty("peTestBuildType").getOrElse("debug")
+    signingConfigs {
+        if (!releaseKey.isNullOrBlank()) {
+            create("projectRelease") {
+                storeFile = file(releaseKey)
+                storePassword = System.getenv("PE_ANDROID_STORE_PASSWORD")
+                keyAlias = System.getenv("PE_ANDROID_KEY_ALIAS")
+                keyPassword = System.getenv("PE_ANDROID_KEY_PASSWORD")
+            }
+        }
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
+            if (!releaseKey.isNullOrBlank()) signingConfig = signingConfigs.getByName("projectRelease")
+            else if (System.getenv("PE_ALLOW_DEVELOPMENT_SIGNATURE") == "true") signingConfig = signingConfigs.getByName("debug")
         }
     }
 

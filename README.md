@@ -26,13 +26,13 @@ The website compiles the same engine to WebAssembly and runs it inside a Web Wor
 
 The Android application bundles the interface and calls native C++ through an asynchronous JNI bridge. It has no INTERNET permission. Trusted assets use an HTTPS-style local origin; arbitrary remote navigation and file access are blocked.
 
-Both interfaces include subject search, explicit type selection, example inputs, numbered calculation steps, numerical-check evidence, warnings, sampled charts/K-map tables, and the last 30 inputs in device-only history. There are no SVG assets in the maintained website.
+Both interfaces include subject search, natural question input, automatic correction of clearly wrong type selections, a manual-mode switch, example inputs, numbered calculation steps, numerical-check evidence, warnings, sampled charts/K-map tables, and the last 30 inputs in device-only history. The interpretation is shown and the original text is preserved. See [natural input examples and boundaries](docs/NATURAL_INPUT.md). There are no SVG assets in the maintained website.
 
 See [platform instructions and limitations](docs/PLATFORM_SUPPORT.md).
 
 [0.3.0-rc1 downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/tag/v0.3.0-rc1) include the development-signed offline Android APK, Windows/macOS/Linux native packages and complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/releases/v0.3.0-rc1.md) for signing, Linux-distribution and device-validation limits.
 
-The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB; the critical offline bundle, including WASM, is approximately 745 KB. See [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
+The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB; the expanded 0.4 critical offline bundle, including WASM and natural-input parsing, is approximately 922 KB (1.5 MB enforced budget). See [current hardening record](docs/JANK_INPUT_DOWNLOADS_V4.md), [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
 
 ## Build and test
 
@@ -45,7 +45,7 @@ ctest --test-dir build -C Release --output-on-failure
 ./build/pocket-engineer-server 8080 www
 ```
 
-Open http://127.0.0.1:8080. Without built WASM assets this local website uses the native server. CPack creates portable ZIP/TGZ distributions; packaged executables find the website relative to their installation.
+Open http://127.0.0.1:8080. Without built WASM assets this local website uses the native server. CPack creates ZIP/TGZ distributions with a `Start-Pocket-Engineer` launcher; packaged executables find the website relative to their installation. Linux release CI uses `-DPE_STATIC_LINUX=ON` to remove host C/C++ shared-runtime and ELF-loader requirements. The launcher opens a loopback-only server and your browser; no Python or Node is needed to run a desktop package.
 
 Browser/WASM (Emscripten 5.0.7):
 

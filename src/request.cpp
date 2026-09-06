@@ -22,7 +22,7 @@ public:
         if (!take('}')) {
             do {
                 const auto key = string();
-                if (key != "domain" && key != "topic" && key != "input" && key != "payload")
+                if (key != "domain" && key != "topic" && key != "input" && key != "payload" && key != "mode")
                     fail("Unknown request field");
                 expect(':');
                 if (!fields.emplace(key, string()).second) fail("Duplicate request field");
@@ -34,9 +34,11 @@ public:
         whitespace();
         if (cursor_ != source_.size()) fail("Unexpected data after request");
         if (!fields.contains("input")) fail("Request requires a string input field");
-        return {fields.contains("domain") ? fields.at("domain") : "algebra",
-                fields.contains("topic") ? fields.at("topic") : "simplify",
-                fields.at("input"), fields.contains("payload") ? fields.at("payload") : ""};
+        const auto mode=fields.contains("mode")?fields.at("mode"):"auto";
+        if(mode!="auto"&&mode!="manual")fail("Mode must be auto or manual");
+        return {fields.contains("domain") ? fields.at("domain") : "auto",
+                fields.contains("topic") ? fields.at("topic") : "auto",
+                fields.at("input"), fields.contains("payload") ? fields.at("payload") : "",mode};
     }
 
 private:

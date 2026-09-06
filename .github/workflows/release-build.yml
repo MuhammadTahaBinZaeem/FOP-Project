@@ -16,8 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Configure
-        if: runner.os != 'macOS'
+        if: runner.os == 'Windows'
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+      - name: Configure portable static Linux package
+        if: runner.os == 'Linux'
+        run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DPE_STATIC_LINUX=ON
       - name: Configure universal macOS package
         if: runner.os == 'macOS'
         run: cmake -S . -B build -DCMAKE_BUILD_TYPE=Release '-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64' -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
@@ -38,6 +41,18 @@ jobs:
           .\build\Release\pe-verify-corpus.exe test-data-smoke-ci 0 corpus-comparison.json
       - name: Package offline desktop site
         run: cpack --config build/CPackConfig.cmake -G ZIP -C Release
+      - name: Test extracted desktop ZIP
+        shell: bash
+        run: |
+          pe_package=$(find . -maxdepth 1 -name 'PocketEngineer-0.4.0-*.zip' -print -quit)
+          node tools/test_desktop_package.mjs "$pe_package" build-package-test
+      - name: Verify Linux package has no dynamic loader or library dependencies
+        if: runner.os == 'Linux'
+        run: |
+          ! readelf -l build/pocket-engineer-server | grep INTERP
+          ! readelf -d build/pocket-engineer-server | grep NEEDED
+          ! readelf -l build/pocket-engineer | grep INTERP
+          ! readelf -d build/pocket-engineer | grep NEEDED
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
@@ -45,10 +60,13 @@ jobs:
           path: |
             *.zip
             corpus-comparison.json
+            build-package-test/download-test.json
 
   android:
     name: android-release
     runs-on: ubuntu-latest
+    env:
+      PE_ALLOW_DEVELOPMENT_SIGNATURE: 'true'
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 17
@@ -66,8 +84,32 @@ jobs:
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: '8.7'
-      - name: Assemble installable debug APK and unsigned release
+      - name: Restore project signing key when configured
+        env:
+          PE_KEYSTORE_BASE64: ${{ secrets.PE_ANDROID_KEYSTORE_BASE64 }}
+          PE_STORE_PASSWORD: ${{ secrets.PE_ANDROID_STORE_PASSWORD }}
+          PE_KEY_ALIAS: ${{ secrets.PE_ANDROID_KEY_ALIAS }}
+          PE_KEY_PASSWORD: ${{ secrets.PE_ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -n "$PE_KEYSTORE_BASE64" ]; then
+            printf '%s' "$PE_KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/pocket-engineer-release.jks"
+            chmod 600 "$RUNNER_TEMP/pocket-engineer-release.jks"
+            echo "PE_ANDROID_KEYSTORE=$RUNNER_TEMP/pocket-engineer-release.jks" >> "$GITHUB_ENV"
+            echo "PE_ANDROID_STORE_PASSWORD=$PE_STORE_PASSWORD" >> "$GITHUB_ENV"
+            echo "PE_ANDROID_KEY_ALIAS=$PE_KEY_ALIAS" >> "$GITHUB_ENV"
+            echo "PE_ANDROID_KEY_PASSWORD=$PE_KEY_PASSWORD" >> "$GITHUB_ENV"
+            echo 'project-release-key' > android-signing-status.txt
+          else
+            echo 'development-key; optimized release build, not production signed' > android-signing-status.txt
+          fi
+      - name: Assemble diagnostic debug and optimized installable release APK
         run: gradle -p android :app:assembleDebug :app:assembleRelease --no-daemon
+      - name: Check release signature and 16KB packaging
+        run: |
+          "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose android/app/build/outputs/apk/release/app-release.apk
+          "$ANDROID_HOME/build-tools/35.0.0/zipalign" -c -P 16 4 android/app/build/outputs/apk/release/app-release.apk
+          unzip -q android/app/build/outputs/apk/release/app-release.apk 'lib/*' -d "$RUNNER_TEMP/pe-apk-alignment"
+          python3 tools/check_android_alignment.py "$RUNNER_TEMP/pe-apk-alignment/lib"
       - name: Enable KVM for offline emulator tests
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
@@ -80,7 +122,7 @@ jobs:
           arch: x86_64
           profile: pixel_2
           disable-animations: true
-          script: bash tools/android_device_test.sh
+          script: bash tools/android_device_test.sh && PE_ANDROID_TEST_TYPE=release bash tools/android_device_test.sh
       - name: Upload offline Android APK
         if: always()
         uses: actions/upload-artifact@v4
@@ -89,6 +131,8 @@ jobs:
           path: |
             android/app/build/outputs/apk/debug/*.apk
             android/app/build/outputs/apk/release/*.apk
+            android-signing-status.txt
+            android/app/build/outputs/apk/androidTest/release/*.apk
       - name: Upload Android test evidence
         if: always()
         uses: actions/upload-artifact@v4

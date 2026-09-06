@@ -29,6 +29,7 @@ struct SolutionBundle {
     std::vector<std::string> warnings;
     Verification verification;
     std::string visual_json;
+    std::string interpretation_json;
     std::uint64_t duration_ms{};
     [[nodiscard]] std::string to_json() const;
 };
@@ -38,17 +39,20 @@ struct ProblemSpec {
     std::string topic;
     std::string input;
     std::string payload;
+    std::string mode{"manual"};
 };
 struct Identification {
     std::string status{"needs_confirmation"};
     std::vector<ProblemSpec> candidates;
     std::string reason;
+    std::string confidence{"none"};
     [[nodiscard]] std::string to_json() const;
 };
 
 class Engine {
 public:
-    // Classification is advisory only: a UI must show the candidate and obtain confirmation before solve().
+    // Automatic mode resolves clear operations and returns its interpretation.
+    // Ambiguous data does not authorize inventing an operation or missing values.
     [[nodiscard]] Identification identify(std::string_view raw_input) const;
     [[nodiscard]] SolutionBundle solve(const ProblemSpec& problem, const SolveOptions& options = {}) const;
     [[nodiscard]] std::string capabilities_json() const;

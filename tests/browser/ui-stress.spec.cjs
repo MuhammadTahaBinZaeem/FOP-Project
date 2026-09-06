@@ -77,7 +77,7 @@ test('trajectory labels retain CSS size after phone resize and hidden-view navig
 test('copy, save, print, identify, empty input, navigation and install feedback',async({page,context})=>{
   await context.grantPermissions(['clipboard-read','clipboard-write']);await ready(page);
   await page.locator('#input').fill('');await page.locator('#solve').click();await expect(page.locator('#notice')).toContainText('Enter a problem');
-  await page.locator('#input').fill('2x+4=10');await page.locator('#identify').click();await expect(page.locator('#notice')).toContainText('Suggested:');
+  await page.locator('#input').fill('2x+4=10');await page.locator('#identify').click();await expect(page.locator('#notice')).toContainText('Recognized:');await expect(page.locator('#topic')).toHaveValue('linear_equation');
   await solve(page,'algebra','numeric_evaluation','7*8');await page.locator('#copy').click();
   expect(await page.evaluate(()=>navigator.clipboard.readText())).toContain('56');
   const download=page.waitForEvent('download');await page.locator('#export').click();

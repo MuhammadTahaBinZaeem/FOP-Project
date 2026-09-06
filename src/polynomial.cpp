@@ -213,6 +213,48 @@ void integral_steps(SolutionBundle& s,const Polynomial& p) {
 }
 } // namespace
 
+unsigned polynomial_equation_degree(std::string_view expression) {
+    const std::string text(expression);const auto equal=text.find('=');
+    if(equal==std::string::npos||text.find('=',equal+1)!=std::string::npos)throw std::runtime_error("Provide exactly one equals sign");
+    const auto difference=Parser(text.substr(0,equal)).read().plus(Parser(text.substr(equal+1)).read(),-1);
+    if(difference.degree()>2)throw std::runtime_error("Equation solving supports real linear and quadratic polynomials, not higher-degree equations");
+    return static_cast<unsigned>(difference.degree());
+}
+
+SolutionBundle solve_polynomial_algebra(const ProblemSpec& problem) {
+    SolutionBundle s;s.domain="algebra";s.topic=problem.topic;
+    const auto equal=problem.input.find('=');
+    if(equal==std::string::npos){
+        const auto p=Parser(problem.input).read();s.answer=p.text();
+        s.steps={{"POLY_EXPAND","Expand products and integer powers without changing the polynomial.",problem.input},
+            {"POLY_COLLECT","Add coefficients belonging to the same power of x.",s.answer}};
+        const auto replay=Parser(s.answer).read();double residual=0;
+        for(std::size_t i=0;i<p.coefficients.size();++i)residual=std::max(residual,std::abs(p.coefficients[i]-(i<replay.coefficients.size()?replay.coefficients[i]:0))/std::max(1.0,std::abs(p.coefficients[i])));
+        s.verification={residual<=1e-10?VerificationStatus::verified_numerical:VerificationStatus::verification_failed,"formatted-polynomial coefficient round-trip","Maximum scaled coefficient residual = "+format(residual)+"; tolerance = 1e-10. This checks the emitted polynomial, not arbitrary symbolic identities."};
+        return s;
+    }
+    if(problem.input.find('=',equal+1)!=std::string::npos)throw std::runtime_error("Provide one equation at a time or choose linear systems");
+    const auto lhs=Parser(problem.input.substr(0,equal)).read(),rhs=Parser(problem.input.substr(equal+1)).read(),p=lhs.plus(rhs,-1);
+    if(p.degree()>2)throw std::runtime_error("Equation solving is limited to degree two");
+    s.steps={{"ALG_EXPAND_BOTH_SIDES","Expand products and collect like terms separately on both sides.",lhs.text()+" = "+rhs.text()},
+        {"ALG_MOVE_TO_ZERO","Subtract the right side from both sides; this preserves the solution set.",p.text()+" = 0"}};
+    if(p.degree()==0){s.answer=p.coefficients[0]==0?"All real x satisfy the equation":"No solution";s.steps.push_back({"ALG_CONSTANT_EQUATION",p.coefficients[0]==0?"The two sides are identical for every real x.":"The remaining nonzero constant cannot equal zero.",s.answer});s.verification={VerificationStatus::verified_exact,"constant polynomial comparison",p.text()+" = 0"};return s;}
+    std::vector<double> roots;
+    if(p.degree()==1){s.topic="linear_equation";const double a=p.coefficients[1],b=p.coefficients[0];roots.push_back(finite(-b/a));s.answer="x = "+format(roots[0]);s.steps.push_back({"ALG_ISOLATE_AND_DIVIDE","Move the constant to the right, then divide by the nonzero coefficient of x.",format(a)+"x = "+format(-b)+"; "+s.answer});}
+    else{
+        s.topic="quadratic_equation";const double a=p.coefficients[2],b=p.coefficients[1],c=p.coefficients[0],disc=finite(b*b-4*a*c);
+        s.steps.push_back({"ALG_DISCRIMINANT","Read a, b and c from the collected equation, then calculate b²−4ac.","a = "+format(a)+", b = "+format(b)+", c = "+format(c)+"; discriminant = "+format(disc)});
+        if(disc<0)throw std::runtime_error("No real roots; complex-root output is not implemented for this algebra module");
+        const double q=-0.5*(b+std::copysign(std::sqrt(disc),b));
+        if(disc==0)roots={finite(-b/(2*a))};else if(q!=0)roots={finite(q/a),finite(c/q)};else roots={0};
+        s.answer=roots.size()==1?"x = "+format(roots[0]):"x₁ = "+format(roots[0])+", x₂ = "+format(roots[1]);
+        s.steps.push_back({"ALG_STABLE_QUADRATIC","Apply the quadratic formula using a cancellation-resistant evaluation for distinct roots.",s.answer});
+    }
+    double residual=0;
+    for(double x:roots){const double left=lhs.evaluate(x),right=rhs.evaluate(x),error=std::abs(left-right)/std::max({1.0,std::abs(left),std::abs(right)});residual=std::max(residual,error);s.steps.push_back({"ALG_SUBSTITUTE_ROOT","Substitute this root into both original sides.","x = "+format(x)+": left = "+format(left)+", right = "+format(right)});}
+    s.verification={residual<=1e-8?VerificationStatus::verified_numerical:VerificationStatus::verification_failed,"original-equation substitution","Maximum scaled residual = "+format(residual)+"; tolerance = 1e-8"};return s;
+}
+
 SolutionBundle solve_polynomial_calculus(const ProblemSpec& problem) {
     SolutionBundle solution;solution.domain="calculus";solution.topic=problem.topic;
     const auto input=trim(problem.input);

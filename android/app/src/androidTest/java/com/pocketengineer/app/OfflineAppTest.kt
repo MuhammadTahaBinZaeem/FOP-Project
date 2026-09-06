@@ -117,4 +117,35 @@ class OfflineAppTest {
             device.unfreezeRotation()
         }
     }
+    @Test fun naturalQuestionCorrectsWrongTypeAndProfilesRealScrolling() {
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            waitFor(scenario,"document.body.dataset.engine === 'android'")
+            evaluate(scenario,"document.getElementById('domain').value='logic'; document.getElementById('domain').dispatchEvent(new Event('change')); document.getElementById('topic').value='truth_table';")
+            tap(scenario,"#input")
+            val input=device.wait(Until.findObject(By.clazz("android.widget.EditText")),10000)
+                ?: error("Android question input unavailable")
+            val question="Please find the determinant of [[1,2],[3,4]]"
+            input.text=question
+            device.pressBack()
+            tap(scenario,"#solve")
+            waitFor(scenario,"document.getElementById('answer').textContent === 'det(A) = -2'")
+            assertTrue(evaluate(scenario,"document.getElementById('topic').value === 'determinant'")=="true")
+            assertTrue(evaluate(scenario,"document.getElementById('input').value === '$question'")=="true")
+            assertTrue(evaluate(scenario,"document.getElementById('interpretation').textContent.includes('Problem type corrected')")=="true")
+            screenshot("android-natural-question")
+            tap(scenario,".nav[data-view=subjects]")
+            device.executeShellCommand("dumpsys gfxinfo com.pocketengineer.app reset")
+            val x=device.displayWidth/2
+            for(index in 0 until 10){
+                val top=device.displayHeight/3
+                val bottom=device.displayHeight*3/4
+                device.swipe(x,if(index%2==0)bottom else top,x,if(index%2==0)top else bottom,20)
+            }
+            device.waitForIdle()
+            val directory=File(InstrumentationRegistry.getInstrumentation().targetContext.getExternalFilesDir(null),"evidence")
+            directory.mkdirs()
+            File(directory,"scroll-frames.txt").writeText(device.executeShellCommand("dumpsys gfxinfo com.pocketengineer.app framestats"))
+            assertTrue(evaluate(scenario,"document.documentElement.scrollWidth <= innerWidth + 1")=="true")
+        }
+    }
 }

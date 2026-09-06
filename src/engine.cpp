@@ -1,5 +1,6 @@
 #include "pocket_engineer/engine.hpp"
 #include "pocket_engineer/polynomial.hpp"
+#include "pocket_engineer/input.hpp"
 
 #include <algorithm>
 #include <array>
@@ -66,11 +67,11 @@ private:
     };
     static double finite(double value) { if(!std::isfinite(value)) throw std::runtime_error("Undefined real expression or numeric overflow"); return value; }
     double expression() { double v = term(); while (true) { skip(); if (take('+')) v += term(); else if (take('-')) v -= term(); else return v; } }
-    double term() { double v = unary(); while (true) { skip(); if (take('*')) v = finite(v * unary()); else if (take('/')) { const auto d = unary(); if (d == 0) throw std::runtime_error("Division by zero"); v = finite(v / d); } else return v; } }
+    double term() { double v = unary(); while (true) { skip(); if (take('*')) v = finite(v * unary()); else if (take('/')) { const auto d = unary(); if (d == 0) throw std::runtime_error("Division by zero"); v = finite(v / d); } else if(peek()=='('||std::isalpha(static_cast<unsigned char>(peek())))v=finite(v*unary());else return v; } }
     double power() { double v = primary(); skip(); if (take('^')) { const double exponent=unary(); if(v==0&&exponent<=0) throw std::runtime_error("Zero to a nonpositive power is undefined"); v=finite(std::pow(v,exponent)); } return v; }
     double unary() { DepthGuard guard(depth_); skip(); if (take('+')) return unary(); if (take('-')) return -unary(); return power(); }
     double primary() { skip(); if (take('(')) { auto v=expression(); expect(')'); return v; } if (std::isalpha(static_cast<unsigned char>(peek()))) return finite(function()); return number(); }
-    double function() { std::string id; while (std::isalpha(peek())) id.push_back(input_[pos_++]); skip(); if (id == "pi") return std::numbers::pi; if (id == "e") return std::numbers::e; expect('('); const double arg=expression(); expect(')'); if(id=="sin") return std::sin(arg); if(id=="cos") return std::cos(arg); if(id=="tan") return std::tan(arg); if(id=="sqrt") return std::sqrt(arg); if(id=="ln") return std::log(arg); if(id=="log") return std::log10(arg); throw std::runtime_error("Unknown function: " + id); }
+    double function() { std::string id; while (std::isalpha(static_cast<unsigned char>(peek()))) id.push_back(input_[pos_++]); skip(); if (id == "pi") return std::numbers::pi; if (id == "e") return std::numbers::e; expect('('); const double arg=expression(); expect(')'); if(id=="sin") return std::sin(arg); if(id=="cos") return std::cos(arg); if(id=="tan") return std::tan(arg); if(id=="asin") return std::asin(arg); if(id=="acos") return std::acos(arg); if(id=="atan") return std::atan(arg); if(id=="sqrt") return std::sqrt(arg); if(id=="abs") return std::abs(arg); if(id=="exp") return std::exp(arg); if(id=="ln") return std::log(arg); if(id=="log") return std::log10(arg); throw std::runtime_error("Unknown function: " + id); }
     double number() { skip(); const char* start=input_.c_str()+pos_; char* end=nullptr; const double v=std::strtod(start,&end); if(end==start) throw std::runtime_error("Expected a number"); pos_ += static_cast<std::size_t>(end-start); return finite(v); }
     char peek() const { return pos_ < input_.size() ? input_[pos_] : '\0'; }
     void skip(){ while(std::isspace(static_cast<unsigned char>(peek()))) ++pos_; }
@@ -441,14 +442,16 @@ SolutionBundle solve_algebra(const ProblemSpec& p) {
     static const std::regex cancellation(R"(^\(?([+-]?(?:[0-9]+(?:\.[0-9]+)?)?)x\^2([+-][0-9]+(?:\.[0-9]+)?)\)?/\(x-1\)$)");
     if(std::regex_match(compact,match,cancellation)){const double a=coefficient(match[1].str()),constant=std::stod(match[2].str());if(std::abs(constant+a)>1e-12)throw std::runtime_error("Cancellation form requires a·(x²−1)/(x−1)");s.answer=linear_text(a,a)+", with x ≠ 1";s.steps={{"ALG_FACTOR_DIFFERENCE_SQUARES","Factor a(x² − 1) as a(x − 1)(x + 1).","a(x − 1)(x + 1)/(x − 1)"},{"ALG_CANCEL_FACTOR","Cancel the common non-zero factor x − 1.",linear_text(a,a)}};s.assumptions.push_back("x ≠ 1 (the original denominator cannot be zero)");s.verification={VerificationStatus::verified_exact,"symbolic equivalence with domain tracking","factored numerator and excluded value checked"};return s;}
     const auto factor_prefix=compact.rfind("factor",0)==0;const auto quadratic_text=factor_prefix?compact.substr(6):compact;
+    if((p.topic=="simplify"||p.topic=="simplification")&&compact.find('=')==std::string::npos&&compact.find('x')!=std::string::npos&&compact.find("sin")==std::string::npos&&compact.find("cos")==std::string::npos&&compact.find("exp")==std::string::npos)return solve_polynomial_algebra(p);
     static const std::regex quadratic(R"(^([+-]?(?:[0-9]+(?:\.[0-9]+)?)?)x\^2([+-](?:[0-9]+(?:\.[0-9]+)?)?)x([+-](?:[0-9]+(?:\.[0-9]+)?)?)(?:=0)?$)");
     if(std::regex_match(quadratic_text,match,quadratic)){const double a=coefficient(match[1].str()),b=coefficient(match[2].str()),c=coefficient(match[3].str());if(std::abs(a)<1e-15)throw std::runtime_error("Quadratic coefficient cannot be zero");const double disc=b*b-4*a*c;if(disc<0)throw std::runtime_error("This offline quadratic solver currently returns real roots only");const double root=std::sqrt(disc),x1=(-b+root)/(2*a),x2=(-b-root)/(2*a);
         if(factor_prefix||lower(p.topic)=="factorisation"||lower(p.topic)=="factorization"){const auto term=[](double root){return root<0?"(x + "+pretty(-root)+")":"(x - "+pretty(root)+")";};const auto scale=std::abs(a-1)<1e-12?"":pretty(a);s.topic="factorisation";s.answer=scale+term(x1)+term(x2);s.steps={{"ALG_FIND_ROOTS","Find the real roots of the quadratic.", "x = "+pretty(x1)+", "+pretty(x2)},{"ALG_FACTOR_QUADRATIC","Write a(x−x₁)(x−x₂).",s.answer}};s.verification={VerificationStatus::verified_exact,"expanded-factor comparison","coefficients a, b, c reconstructed"};return s;}
         s.topic="quadratic_equation";s.answer=std::abs(x1-x2)<1e-12?"x = "+pretty(x1):"x₁ = "+pretty(x1)+", x₂ = "+pretty(x2);s.steps={{"ALG_QUADRATIC_FORMULA","Apply x = (−b ± √(b²−4ac)) / (2a).","Δ = "+pretty(disc)},{"ALG_QUADRATIC_ROOTS","Substitute the coefficients and simplify.",s.answer}};s.verification={VerificationStatus::verified_exact,"Vieta and substitution","sum = "+pretty(x1+x2)+", product = "+pretty(x1*x2)};return s;
     }
     static const std::regex linear(R"(^([+-]?(?:[0-9]+(?:\.[0-9]+)?)?)x([+-](?:[0-9]+(?:\.[0-9]+)?)?)?=(.+)$)");
-    if(std::regex_match(compact,match,linear)){const double a=coefficient(match[1].str()),b=match[2].matched?std::stod(match[2].str()):0.0,c=ArithmeticParser(match[3].str()).parse();if(std::abs(a)<1e-15)throw std::runtime_error("Not a solvable linear equation");const double x=(c-b)/a;s.topic="linear_equation";s.answer="x = "+pretty(x);s.steps={{"ALG_ISOLATE_VARIABLE","Move the constant term to the right-hand side.",pretty(a)+"x = "+pretty(c-b)},{"ALG_DIVIDE_COEFFICIENT","Divide both sides by the coefficient of x.",s.answer}};s.verification={VerificationStatus::verified_exact,"substitution",pretty(a)+"·"+pretty(x)+" + "+pretty(b)+" = "+pretty(c)};return s;}
+    if(std::regex_match(compact,match,linear)&&match[3].str().find('x')==std::string::npos){const double a=coefficient(match[1].str()),b=match[2].matched?std::stod(match[2].str()):0.0,c=ArithmeticParser(match[3].str()).parse();if(std::abs(a)<1e-15)throw std::runtime_error("Not a solvable linear equation");const double x=(c-b)/a;s.topic="linear_equation";s.answer="x = "+pretty(x);s.steps={{"ALG_ISOLATE_VARIABLE","Move the constant term to the right-hand side.",pretty(a)+"x = "+pretty(c-b)},{"ALG_DIVIDE_COEFFICIENT","Divide both sides by the coefficient of x.",s.answer}};s.verification={VerificationStatus::verified_exact,"substitution",pretty(a)+"·"+pretty(x)+" + "+pretty(b)+" = "+pretty(c)};return s;}
     if(compact=="sin(x)^2+cos(x)^2"||compact=="cos(x)^2+sin(x)^2"){s.answer="1";s.steps.push_back({"TRIG_PYTHAGOREAN_IDENTITY","Use sin²(x) + cos²(x) = 1.","1"});s.verification={VerificationStatus::verified_exact,"trigonometric identity","Pythagorean identity"};return s;}
+    if(raw.find('=')!=std::string::npos||((lower(p.topic)=="simplify"||lower(p.topic)=="simplification")&&raw.find('x')!=std::string::npos&&raw.find("exp")==std::string::npos))return solve_polynomial_algebra(p);
     const double value=ArithmeticParser(raw).parse();s.answer=pretty(value);s.steps.push_back({"ALG_EVALUATE","Respect parentheses, powers, multiplication/division, then addition/subtraction.",s.answer});s.verification={VerificationStatus::verified_exact,"independent parser evaluation","no variables present"};return s;
 }
 
@@ -462,55 +465,14 @@ const char* own_string(const std::string& value) {
 
 std::string json_escape(std::string_view value) { std::string out;out.reserve(value.size()+8);for(char c:value){switch(c){case '\\':out+="\\\\";break;case '\"':out+="\\\"";break;case '\n':out+="\\n";break;case '\r':out+="\\r";break;case '\t':out+="\\t";break;default:if(static_cast<unsigned char>(c)<32){constexpr char hex[]="0123456789abcdef";out+="\\u00";out+=hex[(static_cast<unsigned char>(c)>>4)&15];out+=hex[static_cast<unsigned char>(c)&15];}else out+=c;}}return out; }
 std::string verification_name(VerificationStatus s){switch(s){case VerificationStatus::verified_exact:return "verified_exact";case VerificationStatus::verified_exhaustive:return "verified_exhaustive";case VerificationStatus::verified_numerical:return "verified_numerical";case VerificationStatus::verification_failed:return "verification_failed";default:return "not_verified";}}
-std::string SolutionBundle::to_json() const {std::ostringstream out;out<<"{\"schema_version\":\"1.0\",\"status\":"<<quote(status)<<",\"domain\":"<<quote(domain)<<",\"topic\":"<<quote(topic)<<",\"answer\":{\"text\":"<<quote(answer)<<"},\"steps\":[";for(std::size_t i=0;i<steps.size();++i){if(i)out<<',';out<<"{\"rule_id\":"<<quote(steps[i].rule_id)<<",\"explanation\":"<<quote(steps[i].explanation)<<",\"expression\":"<<quote(steps[i].expression)<<"}";}out<<"],\"assumptions\":[";for(std::size_t i=0;i<assumptions.size();++i){if(i)out<<',';out<<quote(assumptions[i]);}out<<"],\"warnings\":[";for(std::size_t i=0;i<warnings.size();++i){if(i)out<<',';out<<quote(warnings[i]);}out<<"],\"verification\":{\"status\":"<<quote(verification_name(verification.status))<<",\"method\":"<<quote(verification.method)<<",\"evidence\":"<<quote(verification.evidence)<<"},\"visual\":"<<quote(visual_json)<<",\"duration_ms\":"<<duration_ms<<"}";return out.str();}
-std::string Identification::to_json() const { std::ostringstream out;out<<"{\"schema_version\":\"1.0\",\"status\":"<<quote(status)<<",\"reason\":"<<quote(reason)<<",\"candidates\":[";for(std::size_t i=0;i<candidates.size();++i){if(i)out<<',';out<<"{\"domain\":"<<quote(candidates[i].domain)<<",\"topic\":"<<quote(candidates[i].topic)<<"}";}out<<"]}";return out.str(); }
+std::string SolutionBundle::to_json() const {std::ostringstream out;out<<"{\"schema_version\":\"1.0\",\"status\":"<<quote(status)<<",\"domain\":"<<quote(domain)<<",\"topic\":"<<quote(topic)<<",\"answer\":{\"text\":"<<quote(answer)<<"},\"steps\":[";for(std::size_t i=0;i<steps.size();++i){if(i)out<<',';out<<"{\"rule_id\":"<<quote(steps[i].rule_id)<<",\"explanation\":"<<quote(steps[i].explanation)<<",\"expression\":"<<quote(steps[i].expression)<<"}";}out<<"],\"assumptions\":[";for(std::size_t i=0;i<assumptions.size();++i){if(i)out<<',';out<<quote(assumptions[i]);}out<<"],\"warnings\":[";for(std::size_t i=0;i<warnings.size();++i){if(i)out<<',';out<<quote(warnings[i]);}out<<"],\"verification\":{\"status\":"<<quote(verification_name(verification.status))<<",\"method\":"<<quote(verification.method)<<",\"evidence\":"<<quote(verification.evidence)<<"},\"visual\":"<<quote(visual_json)<<",\"duration_ms\":"<<duration_ms;if(!interpretation_json.empty())out<<",\"interpretation\":"<<interpretation_json;out<<"}";return out.str();}
+std::string Identification::to_json() const { std::ostringstream out;out<<"{\"schema_version\":\"1.0\",\"status\":"<<quote(status)<<",\"reason\":"<<quote(reason)<<",\"confidence\":"<<quote(confidence)<<",\"candidates\":[";for(std::size_t i=0;i<candidates.size();++i){if(i)out<<',';out<<"{\"domain\":"<<quote(candidates[i].domain)<<",\"topic\":"<<quote(candidates[i].topic)<<",\"input\":"<<quote(candidates[i].input)<<"}";}out<<"]}";return out.str(); }
 
 Identification Engine::identify(std::string_view raw) const {
-    const auto text=lower(std::string(raw));Identification result;result.reason="Matched deterministic curriculum keywords; confirm the candidate before solving.";
-    const auto add=[&](std::string domain,std::string topic){result.candidates.push_back({std::move(domain),std::move(topic),std::string(raw),{}});};
-    const auto has=[&](std::string_view word){return text.find(word)!=std::string::npos;};
-    if(has("superposition"))add("circuit","superposition");
-    else if(has("two's complement")||has("twos complement")||has("signed binary"))add("logic","signed_arithmetic");
-    else if(has("kmap")||has("k-map")||has("minterm")||has("maxterm"))add("logic","kmap_minimization");
-    else if(has("truth table")||has("boolean")||has("sop")||has("pos"))add("logic",has("pos")?"canonical_pos":"truth_table");
-    else if(has("flip-flop")||has("flip flop")||has("latch")||has("counter")||has("state table"))add("logic","sequential_logic");
-    else if(has("mux")||has("multiplexer")||has("decoder")||has("encoder")||has("adder")||has("comparator"))add("logic","combinational_logic");
-    else if(has("base conversion")||has("binary to")||has("decimal to")||has("hex"))add("logic","number_systems");
-    else if(has("determinant"))add("linear_algebra","determinant");
-    else if(has("inverse"))add("linear_algebra","inverse");
-    else if(has("eigen"))add("linear_algebra","eigenvalues");
-    else if(has("rank"))add("linear_algebra","rank");
-    else if(has("dot product")||has("cross product")||has("vector magnitude"))add("linear_algebra","vectors");
-    else if(has("rref")||has("gauss")||has("row reduce")||has("matrix"))add("linear_algebra","rref");
-    else if(has("bernoulli"))add("differential_equations","bernoulli");
-    else if(has("exact differential"))add("differential_equations","exact");
-    else if(has("homogeneous differential"))add("differential_equations","homogeneous");
-    else if(has("runge")||has("rk4"))add("differential_equations","rk4");
-    else if(has("euler method"))add("differential_equations","euler");
-    else if(has("dy/dx")||has("d2y")||has("differential equation")||has("integrating factor"))add("differential_equations",has("integrating factor")?"first_order_linear":"ode_classification");
-    else if(has("source transform"))add("circuit","source_transformation");
-    else if(has("nodal")||has("kcl")||has("node voltage"))add("circuit","dc_nodal_analysis");
-    else if(has("mesh")||has("kvl")||has("loop current"))add("circuit","mesh_analysis");
-    else if(has("thevenin")||has("norton")||has("maximum power"))add("circuit","network_theorems");
-    else if(has("rc ")||has("rl ")||has("transient")||has("capacitor")||has("inductor"))add("circuit","first_order_transient");
-    else if(has("tangent")||has("normal line"))add("calculus","tangent_line");
-    else if(has("critical point")||has("curve analysis"))add("calculus","curve_analysis");
-    else if(has("definite integral")||has("area under"))add("calculus","definite_integral");
-    else if(has("d/dx")||has("differentiate")||has("derivative"))add("calculus","differentiation");
-    else if(has("integrate")||has("integral"))add("calculus","integration");
-    else if(has("limit"))add("calculus","limits");
-    else if(has("recursion")||has("factorial"))add("programming","recursion");
-    else if(has("for (")||has("while (")||has("loop"))add("programming","loops");
-    else if(has("if (")||has("else"))add("programming","branches");
-    else if(has("array")||has("vector<"))add("programming","arrays");
-    else if(has("function")||has("return "))add("programming","functions");
-    else if(has("int "))add("programming","cpp_trace");
-    else if(has("factor"))add("algebra","factorisation");
-    else if(has("quadratic"))add("algebra","quadratic_equation");
-    else if(has("linear equation"))add("algebra","linear_equation");
-    else if(has("trig")||has("sin")||has("cos"))add("algebra","trigonometry");
-    else if(has("log"))add("algebra","logarithms");
-    else {add("algebra","simplify");result.reason="No high-confidence course marker found; algebra is only a suggested starting point. Confirm or choose a subject.";}
+    const auto parsed=resolve_input({"auto","auto",std::string(raw),{},"auto"});
+    Identification result;result.reason=parsed.reason;result.confidence=parsed.confidence;
+    result.status=parsed.status=="resolved"?"identified":"needs_confirmation";
+    if(parsed.problem.domain!="auto"&&parsed.problem.topic!="auto")result.candidates.push_back(parsed.problem);
     return result;
 }
 
@@ -521,6 +483,25 @@ SolutionBundle Engine::solve(const ProblemSpec& p,const SolveOptions& options) c
             throw std::runtime_error("Provide 1–4096 input bytes and domain/topic names of at most 64 bytes");
         if(options.max_steps==0||options.max_steps>512||options.time_budget_ms==0)
             throw std::runtime_error("Invalid solver budget (steps 1–512; positive time budget)");
+        if(p.mode!="auto"&&p.mode!="manual")throw std::runtime_error("Mode must be auto or manual");
+        if(p.mode=="auto"){
+            const auto resolution=resolve_input(p);
+            auto result=resolution.status=="resolved"?solve(resolution.problem,options):error_result(p,resolution.reason);
+            result.interpretation_json=resolution.to_json(p);
+            if(resolution.status=="resolved"){
+                result.domain=resolution.problem.domain;result.topic=resolution.problem.topic;
+                if(result.status!="error"&&(p.input!=resolution.problem.input||p.domain!=result.domain||p.topic!=result.topic)){
+                    result.steps.insert(result.steps.begin(),{"INPUT_INTERPRETATION","Read the question as "+result.domain+" / "+result.topic+". "+resolution.reason,resolution.problem.input});
+                    if(!resolution.variables.empty()){
+                        std::string mapping;for(std::size_t i=0;i<resolution.variables.size();++i){if(i)mapping+=", ";mapping+=(result.domain=="logic"?std::string(1,static_cast<char>('A'+i)):"x"+std::to_string(i+1))+" represents "+resolution.variables[i];}
+                        result.steps.insert(result.steps.begin()+1,{"INPUT_VARIABLE_ORDER","The solver uses this variable order.",mapping});
+                    }
+                }
+            }
+            if(result.steps.size()>options.max_steps){result.steps.resize(options.max_steps);result.warnings.push_back("Step display truncated to the requested budget; the answer uses the full calculation.");}
+            result.duration_ms=static_cast<std::uint64_t>(std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now()-start).count());
+            return result;
+        }
         // Regex implementations can recurse on ordinary characters as well as
         // parentheses. Keep these parsers small on mobile and WASM stacks.
         const auto domain=lower(p.domain);

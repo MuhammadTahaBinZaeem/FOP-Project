@@ -21,6 +21,7 @@
 #define WIN32_LEAN_AND_MEAN
 #include <winsock2.h>
 #include <ws2tcpip.h>
+#include <shellapi.h>
 using Socket = SOCKET;
 constexpr Socket invalid_socket = INVALID_SOCKET;
 void close_socket(Socket socket) { closesocket(socket); }
@@ -31,12 +32,34 @@ void close_socket(Socket socket) { closesocket(socket); }
 #include <sys/socket.h>
 #include <unistd.h>
 #include <csignal>
+#include <sys/wait.h>
+#include <fcntl.h>
 using Socket = int;
 constexpr Socket invalid_socket = -1;
 void close_socket(Socket socket) { close(socket); }
 #endif
 
 namespace {
+void open_browser(const std::string& url) {
+#ifdef _WIN32
+    if(reinterpret_cast<std::intptr_t>(ShellExecuteA(nullptr,"open",url.c_str(),nullptr,nullptr,SW_SHOWNORMAL))<=32)
+        std::cerr<<"Could not open your browser automatically. Open the printed address manually.\n";
+#else
+    // Fixed executable and a separately passed localhost URL: no shell command
+    // interpolation. Reap the launcher asynchronously while serving requests.
+    std::signal(SIGCHLD,SIG_IGN);
+    const auto child=fork();
+    if(child==0){
+#ifdef __APPLE__
+        execlp("open","open",url.c_str(),static_cast<char*>(nullptr));
+#else
+        execlp("xdg-open","xdg-open",url.c_str(),static_cast<char*>(nullptr));
+#endif
+        _exit(127);
+    }
+    if(child<0)std::cerr<<"Could not open your browser automatically. Open the printed address manually.\n";
+#endif
+}
 constexpr std::size_t header_budget = 16384, body_budget = 32768;
 struct Request {
     std::string method, target, body;
@@ -174,8 +197,9 @@ void handle(Socket client,const std::filesystem::path& root,unsigned port) {
 
 int main(int argc,char** argv) {
     try {
-        const unsigned port=argc>1?number(argv[1]):8080;
-        if(port==0||port>65535)throw std::runtime_error("Port must be 1–65535");
+        const bool launch=argc>1&&std::string_view(argv[1])=="--open";
+        unsigned port=launch?8765:argc>1?number(argv[1]):8080;
+        if(port>65535)throw std::runtime_error("Port must be 0–65535 (0 chooses an available port)");
         auto site=argc>2?std::filesystem::path(argv[2]):std::filesystem::path("www");
         // CPack archives are relocatable; launching the executable from another
         // working directory still finds the installed website next to bin/.
@@ -189,6 +213,9 @@ int main(int argc,char** argv) {
 #endif
         const Socket server=socket(AF_INET,SOCK_STREAM,0);
         if(server==invalid_socket)throw std::runtime_error("Cannot create socket");
+#ifndef _WIN32
+        fcntl(server,F_SETFD,FD_CLOEXEC);
+#endif
         const int reuse=1;
 #ifdef _WIN32
         setsockopt(server,SOL_SOCKET,SO_REUSEADDR,reinterpret_cast<const char*>(&reuse),sizeof(reuse));
@@ -198,10 +225,20 @@ int main(int argc,char** argv) {
         sockaddr_in address{};address.sin_family=AF_INET;
         address.sin_addr.s_addr=htonl(INADDR_LOOPBACK);
         address.sin_port=htons(static_cast<std::uint16_t>(port));
-        if(bind(server,reinterpret_cast<sockaddr*>(&address),sizeof(address))!=0||listen(server,16)!=0) {
+        int bound=bind(server,reinterpret_cast<sockaddr*>(&address),sizeof(address));
+        if(bound!=0&&launch){address.sin_port=0;bound=bind(server,reinterpret_cast<sockaddr*>(&address),sizeof(address));}
+        if(bound!=0||listen(server,16)!=0) {
             close_socket(server);throw std::runtime_error("Cannot bind localhost port");
         }
-        std::cout<<"Pocket Engineer: http://127.0.0.1:"<<port<<"\nServing "<<root<<std::endl;
+#ifdef _WIN32
+        int addressSize=sizeof(address);
+#else
+        socklen_t addressSize=sizeof(address);
+#endif
+        if(getsockname(server,reinterpret_cast<sockaddr*>(&address),&addressSize)!=0){close_socket(server);throw std::runtime_error("Cannot discover bound localhost port");}
+        port=ntohs(address.sin_port);const auto url="http://127.0.0.1:"+std::to_string(port);
+        std::cout<<"Pocket Engineer: "<<url<<"\nServing "<<root<<"\nKeep this window open. Close it or press Ctrl+C to stop the local app."<<std::endl;
+        if(launch)open_browser(url);
         for(;;) {
             const Socket client=accept(server,nullptr,nullptr);
             if(client==invalid_socket)break;

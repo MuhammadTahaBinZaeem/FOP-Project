@@ -20,3 +20,5 @@
 /PocketEngineer-*.zip
 *.user
 .DS_Store
+*.jks
+*.keystore

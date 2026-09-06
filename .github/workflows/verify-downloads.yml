@@ -1,0 +1,46 @@
+name: verify-published-downloads
+on:
+  workflow_dispatch:
+    inputs:
+      release_tag:
+        description: 'Published release tag to download and test'
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  downloaded-desktop:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            asset: PocketEngineer-0.4.0-Linux-x64.zip
+          - os: windows-latest
+            asset: PocketEngineer-0.4.0-Windows-x64.zip
+          - os: macos-latest
+            asset: PocketEngineer-0.4.0-macOS-universal.zip
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Download the public release and checksums
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PE_RELEASE_TAG: ${{ inputs.release_tag }}
+          PE_ASSET: ${{ matrix.asset }}
+        run: |
+          [[ "$PE_RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]
+          gh release download "$PE_RELEASE_TAG" --pattern "$PE_ASSET" --pattern SHA256SUMS.txt --dir downloaded
+      - name: Verify downloaded bytes and execute extracted package
+        env:
+          PE_ASSET: ${{ matrix.asset }}
+        shell: bash
+        run: node tools/test_desktop_package.mjs "downloaded/$PE_ASSET" downloaded-tested downloaded/SHA256SUMS.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: public-download-test-${{ matrix.os }}
+          path: downloaded-tested/download-test.json

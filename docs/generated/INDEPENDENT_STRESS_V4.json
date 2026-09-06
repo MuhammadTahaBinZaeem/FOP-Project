@@ -1,0 +1,1 @@
+{"suite":"independent-v3","seed":5260595,"checks":1606929,"passed":1606929,"failed":0,"timings_us":{"p50":11.767,"p95":65.89,"max":993.745},"limitations":"Independent oracles cover selected families and edge cases, not every supported topic. Catalog checks only establish runnable examples. Timing is machine-specific; not an Android benchmark."}

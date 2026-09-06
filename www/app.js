@@ -104,17 +104,18 @@ async function boot() {
     $('cache-status').textContent='Solver not loaded; offline solving is not ready.';
   }
 }
-function setBusy(value){state.busy=value;['solve','identify','domain','topic','example'].forEach(id=>$(id).disabled=value);$('input').readOnly=value;$('solve-form').setAttribute('aria-busy',String(value));}
+function setBusy(value){state.busy=value;['solve','identify','domain','topic','example','auto-type'].forEach(id=>$(id).disabled=value);$('input').readOnly=value;$('solve-form').setAttribute('aria-busy',String(value));}
 $('solve-form').addEventListener('submit',async event=>{
   event.preventDefault();if(state.busy)return;
-  const problem={domain:$('domain').value,topic:$('topic').value,input:$('input').value.trim()};
+  const problem={domain:$('domain').value,topic:$('topic').value,input:$('input').value.trim(),mode:$('auto-type').checked?'auto':'manual'};
   if(!problem.input){tell('Enter a problem or load an example first.');$('input').focus();return;}
   setBusy(true);tell('Working locally…');
   $('input').blur();
   try {
     const result=await request('solve',JSON.stringify(problem));state.problem=problem;state.result=result;
-    renderResult(result);tell(result.status==='error'?'Check your input against the example and supported syntax.':'');
-    if(result.status==='success')saveHistory(problem);
+    if(result.interpretation?.status==='resolved'&&state.catalog.some(t=>t.domain===result.domain&&t.topic===result.topic)){$('domain').value=result.domain;updateTopics(result.topic);}
+    renderResult(result);tell(result.status==='error'?'Your original question is unchanged. Review the explanation below, then adjust it or choose an example.':'');
+    if(result.status==='success')saveHistory({...problem,domain:result.domain,topic:result.topic});
     $('result').focus({preventScroll:true});$('result').scrollIntoView({block:'start',behavior:'instant'});
   } catch(error){tell(error.message);}
   finally {setBusy(false);if(state.mode==='failed'){$('solve').disabled=true;$('identify').disabled=true;}}
@@ -125,12 +126,14 @@ $('identify').addEventListener('click',async()=>{
   try {
     const r=await request('identify',$('input').value);
     const c=r.candidates&&r.candidates[0], t=c&&state.catalog.find(t=>t.domain===c.domain&&t.topic===c.topic);
-    if(t){$('domain').value=t.domain;updateTopics(t.topic);tell('Suggested: '+t.title+'. Confirm the selected type and input syntax, then press “Show me the steps.” '+r.reason);}
+    if(t){$('domain').value=t.domain;updateTopics(t.topic);tell((r.status==='identified'?'Recognized: ':'Needs clarification: ')+t.title+'. '+r.reason+' Your original question is unchanged.');}
     else tell((r.reason||'No precise type found.')+' Choose a subject and problem type manually.');
   }catch(e){tell(e.message);}finally{setBusy(false);}
 });
 function renderResult(r) {
-  $('result').hidden=false;$('copy').textContent='Copy solution';$('result-topic').textContent=state.catalog.find(t=>t.domain===state.problem?.domain&&t.topic===state.problem?.topic)?.title||r.topic;
+  $('result').hidden=false;$('copy').textContent='Copy solution';$('result-topic').textContent=state.catalog.find(t=>t.domain===r.domain&&t.topic===r.topic)?.title||r.topic;
+  const interpretation=r.interpretation,panel=$('interpretation');panel.hidden=!interpretation;panel.replaceChildren();
+  if(interpretation){panel.append(node('strong',interpretation.status==='needs_clarification'?'Please clarify your question':interpretation.type_changed?'Problem type corrected':'How I read your question'),node('p',interpretation.reason));if(interpretation.status==='resolved')panel.append(node('pre',interpretation.normalized_input));}
   $('answer').textContent=r.answer?.text||'No answer returned.';
   const v=r.verification||{},ok=r.status==='success'&&v.status!=='not_verified'&&v.status!=='verification_failed';
   $('verification').className='verification'+(ok?'':' warning');

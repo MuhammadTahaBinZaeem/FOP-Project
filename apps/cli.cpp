@@ -11,6 +11,7 @@ void usage() {
     std::cout << "Pocket Engineer — verified offline solver\n\n"
               << "Usage:\n"
               << "  pocket-engineer identify <question>\n"
+              << "  pocket-engineer auto <natural question>\n"
               << "  pocket-engineer solve <domain> <topic> <input>\n"
               << "  pocket-engineer capabilities\n\n"
               << "Examples:\n"
@@ -25,6 +26,7 @@ int main(int argc, char** argv) {
     Engine engine;
     if (argc == 2 && std::string_view(argv[1]) == "capabilities") { std::cout << engine.capabilities_json() << '\n'; return 0; }
     if (argc >= 3 && std::string_view(argv[1]) == "identify") { std::ostringstream raw; for (int i=2;i<argc;++i) { if(i>2) raw << ' '; raw << argv[i]; } std::cout << engine.identify(raw.str()).to_json() << '\n'; return 0; }
+    if (argc >= 3 && std::string_view(argv[1]) == "auto") { std::ostringstream raw; for(int i=2;i<argc;++i){if(i>2)raw<<' ';raw<<argv[i];}const auto result=engine.solve({"auto","auto",raw.str(),{},"auto"});std::cout<<result.to_json()<<'\n';return result.status=="success"?0:1; }
     if (argc < 5 || std::string_view(argv[1]) != "solve") { usage(); return argc == 1 ? 0 : 2; }
     std::ostringstream input;
     for (int i=4; i<argc; ++i) { if (i > 4) input << ' '; input << argv[i]; }

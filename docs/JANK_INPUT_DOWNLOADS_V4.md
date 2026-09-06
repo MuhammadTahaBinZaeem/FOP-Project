@@ -9,3 +9,61 @@ On this API 35, 1080×1920, two-vCPU, 2560 MB emulator, even a plain text page t
 App-side corrections remove forced keyboard opening on example/topic selection, animated long-page scrolling during IME transitions, button color animation and an unnecessary image filter. Offscreen subject cards defer their content layout and fixed navigation has layout/paint containment. An initial intrinsic-size shorthand also imposed a minimum inline width and failed the 320px overflow test; it was replaced with block-axis-only intrinsic sizing and `min-width:0`. The corrected seven-size layout regression passed in both browser projects; the focused suite passed 8/8 including all 55 examples, exports and charts.
 
 The initial full browser run containing the faulty shorthand was interrupted after its failures; it is not a passing run. A/B profiles that intercept local JS/CSS in the debug APK are explicitly marked as experiments, not rebuilt-APK tests. Some experiments overlapped browser test activity on the host; do not use their wall times as a controlled percentage speedup. Raw reports are retained in [evidence/2026-09-07/jank](evidence/2026-09-07/jank). Final rebuilt-APK validation is separate.
+
+## Natural question input
+
+`src/input.cpp` implements on-device interpretation, explicit-operation precedence,
+bounded normalization, named-parameter validation and transparent type correction.
+The UI retains the original question and offers a manual switch. Polynomial
+equations now accept parentheses and expressions on both sides; expansion is not
+misinterpreted as root finding. Named linear equations are converted to an
+augmented matrix with an explicit variable order. See [NATURAL_INPUT.md](NATURAL_INPUT.md).
+
+Initial native tests caught a legacy linear-equation fast path incorrectly
+claiming an equation with `x` on the right, and a missing “tangent line to” filler.
+Both were corrected. All 55 catalog examples preserve their manual-mode answers.
+The new native suite also uses independently specified arithmetic/equation
+families and rejection cases. The browser suite grew from 28 to 34 tests with
+wrong-selection recovery, original-input preservation, manual mode and offline
+natural-input journeys. Its first run found an obsolete “Suggested:” assertion
+after identification changed to “Recognized:”; the assertion was updated to
+check both that message and the actually selected equation type.
+
+## Download changes awaiting published-package validation
+
+Desktop ZIPs now contain `START_HERE.txt` and OS-specific launchers. The native
+server chooses a stable localhost port, falls back when occupied, opens the
+default browser and never binds to the LAN. Linux CI statically links the C/C++
+runtime and checks absence of `INTERP`/`NEEDED` entries. Extracted-package tests
+execute the actual packaged CLI/server, exercise corrected input through HTTP,
+check relocated website discovery, and reject cross-origin requests.
+
+Android release builds can use a project keystore supplied via GitHub secrets.
+Until a permanent key is approved/configured, CI explicitly labels its fallback
+as development-signed. The downloadable APK uses optimized Release native code
+with debugging off, not the diagnostic Debug configuration. Previous development
+certificates can differ, so in-place upgrades from old previews are not promised.
+
+The APK's single JNI library statically owns libc++, uses 16KB ELF alignment,
+and is checked with `zipalign -P 16` and an ELF-header validator. This follows
+[Android's native page-size guidance](https://developer.android.com/guide/practices/page-sizes).
+Alignment checks alone do not replace a 16KB device runtime test.
+Physical-phone validation and Apple/Windows code-signing are still separate work.
+
+## Completed local checks before release CI
+
+- Native CTest: 3/3 suites passed.
+- Natural-input suite: 4,111 checks, zero failures; 55 are catalog auto/manual
+  equivalence checks, the rest have explicit success/failure/answer expectations.
+- Independent stress: 1,606,929 checks, zero failures; timing p50 11.767 µs,
+  p95 65.890 µs in this run, not an Android timing claim.
+- Browser rerun: 34/34 passed in 1.6 minutes, including real controls and offline
+  reload. The earlier 32/34 run with the obsolete message assertion is not counted
+  as passing.
+- Locally produced, extracted desktop ZIP: CLI expected answer, relocatable
+  server, bundled UI, wrong-type correction and cross-origin rejection passed.
+  This is not yet a public-download test or a static Ubuntu-to-NixOS test.
+
+See [INDEPENDENT_STRESS_V4.json](generated/INDEPENDENT_STRESS_V4.json) and
+[SOURCE_SHARE_V4.json](generated/SOURCE_SHARE_V4.json). Public-download and actual
+new-APK results are recorded separately after those steps complete.

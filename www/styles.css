@@ -42,6 +42,10 @@ footer{font-size:10px;color:var(--muted);padding:25px 0;display:flex;justify-con
    while Android is also resizing the viewport for its on-screen keyboard. */
 html{scroll-behavior:auto}
 .hero-art img{filter:none}
+.auto-option{display:flex;align-items:flex-start;gap:10px;font-size:.88rem;line-height:1.5;margin:14px 0;cursor:pointer}
+.auto-option input{flex:0 0 auto;width:20px;height:20px;margin:2px 0 0;accent-color:var(--ink,#1b4538)}
+.interpretation{padding:16px;margin:0 0 18px;background:#edf2e7;border:1px solid #d3dec8;border-radius:12px;overflow-wrap:anywhere}
+.interpretation p{margin:8px 0}.interpretation pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0 0}
 .subject-card{min-width:0;content-visibility:auto;contain-intrinsic-block-size:auto 380px}
 .sidebar{contain:layout paint}
 /* Containment is structural: long labels and small screens must reflow, not clip. */
