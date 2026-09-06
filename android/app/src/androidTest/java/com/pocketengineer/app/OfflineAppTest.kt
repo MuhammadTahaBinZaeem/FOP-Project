@@ -59,6 +59,9 @@ class OfflineAppTest {
         // DOM only locates the control; UiDevice sends a real Android touch event.
         // This catches overlay/IME interception that element.click() cannot.
         evaluate(scenario,"document.querySelector('$selector').scrollIntoView({block:'center',behavior:'instant'})")
+        evaluate(scenario,"window.__peTouchFrameReady=false; requestAnimationFrame(()=>requestAnimationFrame(()=>window.__peTouchFrameReady=true));")
+        waitFor(scenario,"window.__peTouchFrameReady === true")
+        device.waitForIdle()
         val raw=evaluate(scenario,"JSON.stringify((()=>{const r=document.querySelector('$selector').getBoundingClientRect();return [(r.left+r.right)/2,(r.top+r.bottom)/2,innerWidth]})())")
         val point=JSONArray(JSONTokener(raw).nextValue() as String)
         val coordinates=IntArray(2)
@@ -122,8 +125,9 @@ class OfflineAppTest {
             waitFor(scenario,"document.body.dataset.engine === 'android'")
             evaluate(scenario,"document.getElementById('domain').value='logic'; document.getElementById('domain').dispatchEvent(new Event('change')); document.getElementById('topic').value='truth_table';")
             tap(scenario,"#input")
+            waitFor(scenario,"document.activeElement === document.getElementById('input')")
             val input=device.wait(Until.findObject(By.clazz("android.widget.EditText")),10000)
-                ?: error("Android question input unavailable")
+                ?: run { screenshot("natural-question-missing-input");error("Android question input unavailable") }
             val question="Please find the determinant of [[1,2],[3,4]]"
             input.text=question
             device.pressBack()

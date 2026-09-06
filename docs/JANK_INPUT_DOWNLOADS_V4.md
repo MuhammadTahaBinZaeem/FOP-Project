@@ -78,3 +78,11 @@ artifact and executed **unmodified on NixOS**. Its CLI, server, bundled UI,
 natural-input correction and cross-origin checks passed. This resolves the old
 generic ELF-loader failure for that tested x86_64 package; public-release download
 validation remains a separate gate.
+
+Android CI run 34063775917 failed the new keyboard-input test (the two existing
+tests passed): the accessibility input was unavailable after a scroll-and-touch.
+The harness now waits two rendering callbacks and Android idle before measuring
+touch coordinates, asserts that the actual touch focused the editor, and saves a
+failure screenshot if the EditText is still unavailable. It continues to inject
+a real UiDevice touch and use the Android accessibility editor, not a DOM click
+or a programmatic input assignment. The failed APK is not a verified release.
