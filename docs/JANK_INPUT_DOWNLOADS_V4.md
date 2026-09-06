@@ -86,3 +86,10 @@ touch coordinates, asserts that the actual touch focused the editor, and saves a
 failure screenshot if the EditText is still unavailable. It continues to inject
 a real UiDevice touch and use the Android accessibility editor, not a DOM click
 or a programmatic input assignment. The failed APK is not a verified release.
+
+The next run still failed the accessibility lookup even though a separate
+assertion confirmed that the actual touch had focused the editor. Typing is now
+performed with Android Ctrl+A/Delete/text key events, with an exact editor-value
+assertion before solving. Failure screenshots also include the accessibility
+hierarchy. Both Debug and Release tests run even if one fails, with separate
+diagnostics and clean test installations between different signing identities.

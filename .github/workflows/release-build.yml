@@ -122,7 +122,7 @@ jobs:
           arch: x86_64
           profile: pixel_2
           disable-animations: true
-          script: bash tools/android_device_test.sh && PE_ANDROID_TEST_TYPE=release bash tools/android_device_test.sh
+          script: bash tools/android_variants_test.sh
       - name: Upload offline Android APK
         if: always()
         uses: actions/upload-artifact@v4
@@ -132,7 +132,7 @@ jobs:
             android/app/build/outputs/apk/debug/*.apk
             android/app/build/outputs/apk/release/*.apk
             android-signing-status.txt
-            android/app/build/outputs/apk/androidTest/release/*.apk
+            android/app/build/outputs/apk/androidTest/*/*.apk
       - name: Upload Android test evidence
         if: always()
         uses: actions/upload-artifact@v4

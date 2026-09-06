@@ -5,8 +5,7 @@ import androidx.test.core.app.ActivityScenario
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.Until
+import android.view.KeyEvent
 import org.json.JSONArray
 import org.json.JSONTokener
 import java.io.File
@@ -79,6 +78,18 @@ class OfflineAppTest {
         val directory=File(InstrumentationRegistry.getInstrumentation().targetContext.getExternalFilesDir(null),"evidence")
         directory.mkdirs()
         assertTrue("Screenshot failed",device.takeScreenshot(File(directory,"$name.png")))
+        device.dumpWindowHierarchy(File(directory,"$name.xml"))
+    }
+    private fun typeQuestion(scenario: ActivityScenario<MainActivity>, text: String) {
+        require(text.all { it.code in 32..126 && it!='\'' && it!='\\' && it!='%' })
+        tap(scenario,"#input")
+        waitFor(scenario,"document.activeElement === document.getElementById('input')")
+        // Use Android key events, not UiObject.setText or DOM assignment. A
+        // just-created WebView's accessibility EditText can lag its real focus.
+        device.pressKeyCode(KeyEvent.KEYCODE_A,KeyEvent.META_CTRL_ON)
+        device.pressKeyCode(KeyEvent.KEYCODE_DEL)
+        device.executeShellCommand("input text '${text.replace(" ","%s")}'")
+        waitFor(scenario,"document.getElementById('input').value === '$text'")
     }
     @Test fun realTouchNavigationSolveClipboardAndRotation() {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
@@ -88,12 +99,7 @@ class OfflineAppTest {
             waitFor(scenario,"document.body.dataset.view === 'subjects'")
             tap(scenario,".topic-link")
             waitFor(scenario,"document.body.dataset.view === 'workbench'")
-            tap(scenario,"#input")
-            // WebView's accessibility tree updates asynchronously after its DOM
-            // and keyboard viewport. Wait for the real input, not a stale tree.
-            val input=device.wait(Until.findObject(By.clazz("android.widget.EditText")),10000)
-                ?: run { screenshot("missing-input");error("Native accessibility input was not found") }
-            input.text="7*8"
+            typeQuestion(scenario,"7*8")
             device.pressBack() // dismiss the actual Android keyboard
             tap(scenario,"#solve")
             waitFor(scenario,"document.getElementById('answer').textContent === '56'")
@@ -124,12 +130,8 @@ class OfflineAppTest {
         ActivityScenario.launch(MainActivity::class.java).use { scenario ->
             waitFor(scenario,"document.body.dataset.engine === 'android'")
             evaluate(scenario,"document.getElementById('domain').value='logic'; document.getElementById('domain').dispatchEvent(new Event('change')); document.getElementById('topic').value='truth_table';")
-            tap(scenario,"#input")
-            waitFor(scenario,"document.activeElement === document.getElementById('input')")
-            val input=device.wait(Until.findObject(By.clazz("android.widget.EditText")),10000)
-                ?: run { screenshot("natural-question-missing-input");error("Android question input unavailable") }
             val question="Please find the determinant of [[1,2],[3,4]]"
-            input.text=question
+            typeQuestion(scenario,question)
             device.pressBack()
             tap(scenario,"#solve")
             waitFor(scenario,"document.getElementById('answer').textContent === 'det(A) = -2'")
