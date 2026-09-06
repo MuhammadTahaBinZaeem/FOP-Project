@@ -1,0 +1,128 @@
+{
+  "serial": "emulator-5556",
+  "source": "jank-fixes-gles-A-B",
+  "local_web_assets": true,
+  "results": [
+    {
+      "name": "idle",
+      "elapsed_ms": 3264,
+      "native_frames": 1,
+      "native_janky": 1,
+      "native_jank_percent": 100,
+      "raf_median_ms": 16.699999999999818,
+      "raf_p95_ms": 16.799999999999727,
+      "raf_over_25ms": 0,
+      "raf_frames": 194,
+      "long_tasks": [],
+      "metrics": {
+        "TaskDuration": 0.10839700000000001,
+        "ScriptDuration": 0.021845,
+        "LayoutDuration": 0,
+        "RecalcStyleDuration": 0,
+        "LayoutCount": 0,
+        "RecalcStyleCount": 0
+      }
+    },
+    {
+      "name": "scroll",
+      "elapsed_ms": 5167,
+      "native_frames": 152,
+      "native_janky": 130,
+      "native_jank_percent": 85.52631578947368,
+      "raf_median_ms": 33.30000000000018,
+      "raf_p95_ms": 50,
+      "raf_over_25ms": 123,
+      "raf_frames": 160,
+      "long_tasks": [],
+      "metrics": {
+        "TaskDuration": 0.20898199999999997,
+        "ScriptDuration": 0.008306999999999998,
+        "LayoutDuration": 0,
+        "RecalcStyleDuration": 0,
+        "LayoutCount": 0,
+        "RecalcStyleCount": 0
+      }
+    },
+    {
+      "name": "navigation",
+      "elapsed_ms": 4624,
+      "native_frames": 78,
+      "native_janky": 74,
+      "native_jank_percent": 94.87179487179488,
+      "raf_median_ms": 16.700000000000728,
+      "raf_p95_ms": 33.400000000001455,
+      "raf_over_25ms": 58,
+      "raf_frames": 196,
+      "long_tasks": [],
+      "metrics": {
+        "TaskDuration": 0.8697780000000002,
+        "ScriptDuration": 0.04079800000000001,
+        "LayoutDuration": 0.15488200000000002,
+        "RecalcStyleDuration": 0.090641,
+        "LayoutCount": 12,
+        "RecalcStyleCount": 121
+      }
+    },
+    {
+      "name": "solve",
+      "elapsed_ms": 18616,
+      "native_frames": 432,
+      "native_janky": 400,
+      "native_jank_percent": 92.5925925925926,
+      "raf_median_ms": 33.20000000000073,
+      "raf_p95_ms": 66.70000000000073,
+      "raf_over_25ms": 285,
+      "raf_frames": 567,
+      "long_tasks": [],
+      "metrics": {
+        "TaskDuration": 2.640105,
+        "ScriptDuration": 0.19652199999999997,
+        "LayoutDuration": 0.15965400000000002,
+        "RecalcStyleDuration": 0.149701,
+        "LayoutCount": 92,
+        "RecalcStyleCount": 271
+      }
+    },
+    {
+      "name": "keyboard",
+      "elapsed_ms": 8825,
+      "native_frames": 49,
+      "native_janky": 49,
+      "native_jank_percent": 100,
+      "raf_median_ms": 16.69999999999709,
+      "raf_p95_ms": 49.900000000001455,
+      "raf_over_25ms": 42,
+      "raf_frames": 425,
+      "long_tasks": [],
+      "metrics": {
+        "TaskDuration": 1.356621,
+        "ScriptDuration": 0.09001400000000004,
+        "LayoutDuration": 0.026749999999999996,
+        "RecalcStyleDuration": 0.0061350000000000016,
+        "LayoutCount": 32,
+        "RecalcStyleCount": 19
+      }
+    },
+    {
+      "name": "plain-control-scroll",
+      "elapsed_ms": 5042,
+      "native_frames": 168,
+      "native_janky": 122,
+      "native_jank_percent": 72.61904761904762,
+      "raf_median_ms": 33.299999999995634,
+      "raf_p95_ms": 33.400000000001455,
+      "raf_over_25ms": 112,
+      "raf_frames": 174,
+      "long_tasks": [],
+      "metrics": {
+        "TaskDuration": 0.2087690000000002,
+        "ScriptDuration": 0.008153999999999995,
+        "LayoutDuration": 0,
+        "RecalcStyleDuration": 0,
+        "LayoutCount": 0,
+        "RecalcStyleCount": 0
+      }
+    }
+  ],
+  "limitations": "Debug APK; isolated journeys on emulator, no physical-device claim. rAF is JS callback cadence, not displayed-frame timing. Plain control is temporary DOM replacement in the same native WebView, restored by reload. Local-assets mode intercepts JS/CSS for an A/B experiment; final APK validation is separate."
+}

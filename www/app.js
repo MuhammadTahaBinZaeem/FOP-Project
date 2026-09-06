@@ -12,7 +12,7 @@ function view(id) {
   document.querySelectorAll('.nav').forEach(n=>{const active=n.dataset.view===id;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});
   if(id==='history')renderHistory();
   document.body.dataset.view=id;
-  window.scrollTo(0,0);
+  window.scrollTo({top:0,behavior:'instant'});
 }
 document.querySelectorAll('[data-view]').forEach(n=>n.addEventListener('click',event=>{event.preventDefault();view(n.dataset.view);}));
 window.peHandleBack=()=>{if(document.body.dataset.view&&document.body.dataset.view!=='workbench'){view('workbench');return true;}return false;};
@@ -24,10 +24,10 @@ function updateTopics(preferred) {
   updateHint();
 }
 function updateHint() { const t=currentTopic();if(!t)return;$('syntax').textContent=t.syntax;$('scope').textContent=t.scope;$('input').placeholder=t.example; }
-function selectTopic(t,example=true) { if(state.busy)return; $('domain').value=t.domain;updateTopics(t.topic);if(example)$('input').value=t.example;view('workbench');$('input').focus(); }
+function selectTopic(t,example=true) { if(state.busy)return; $('domain').value=t.domain;updateTopics(t.topic);if(example)$('input').value=t.example;view('workbench');$('input').scrollIntoView({block:'center',behavior:'instant'}); }
 $('domain').addEventListener('change',()=>updateTopics());
 $('topic').addEventListener('change',updateHint);
-$('example').addEventListener('click',()=>{const t=currentTopic();if(t){$('input').value=t.example;tell('Example loaded. You can change the values before solving.');$('input').focus();}});
+$('example').addEventListener('click',()=>{const t=currentTopic();if(t){$('input').value=t.example;tell('Example loaded. You can change the values before solving.');}});
 function renderSubjects() {
   const query=$('search').value.trim().toLowerCase();$('subject-list').replaceChildren();
   for(const [domain,title] of Object.entries(subjects)) {
@@ -115,7 +115,7 @@ $('solve-form').addEventListener('submit',async event=>{
     const result=await request('solve',JSON.stringify(problem));state.problem=problem;state.result=result;
     renderResult(result);tell(result.status==='error'?'Check your input against the example and supported syntax.':'');
     if(result.status==='success')saveHistory(problem);
-    $('result').focus({preventScroll:true});$('result').scrollIntoView({block:'start'});
+    $('result').focus({preventScroll:true});$('result').scrollIntoView({block:'start',behavior:'instant'});
   } catch(error){tell(error.message);}
   finally {setBusy(false);if(state.mode==='failed'){$('solve').disabled=true;$('identify').disabled=true;}}
 });
