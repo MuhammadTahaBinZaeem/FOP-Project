@@ -35,9 +35,22 @@ gradle -p android :app:assembleDebug :app:assembleRelease
 gradle -p android :app:connectedDebugAndroidTest
 ```
 
-The **debug APK is installable and development-signed**. The release APK is **unsigned** until an owner-controlled release signing key is configured; it must not be advertised as a signed production release. Never commit a private signing key.
+The **debug APK is installable and development-signed**. By default a local
+Release build is unsigned until an owner-controlled keystore is supplied. CI
+explicitly opts into a development-signed, optimized **Release preview** when
+that key is absent. It is non-debuggable, but is not a production-signed release
+or a stable update identity. See [signing setup](ANDROID_SIGNING.md). Never commit
+a private signing key. Replacing a differently signed preview requires removing
+the old installation, which clears its local history; export important solutions
+first. No automatic uninstall is performed on a user's device.
 
-Instrumentation launches the real WebView, waits for the JNI engine, solves arithmetic and an inconsistent linear system, then recreates the activity and checks local history. A second test injects real Android touches, enters text through accessibility, checks the native clipboard, rotates the activity and checks back navigation. CI retains screenshots, reports and foreground process diagnostics. The manifest's absent INTERNET permission makes a remote solver unavailable during these tests.
+Instrumentation launches the real WebView, waits for the JNI engine, solves
+arithmetic and an inconsistent linear system, then recreates the activity and
+checks local history. Touch tests enter text using native key events, check the
+native clipboard, rotate, check back navigation, and correct a wrong topic from
+a naturally worded determinant question. Both Debug and Release are tested with
+separate reports, screenshots and foreground diagnostics. The manifest's absent
+INTERNET permission makes a remote solver unavailable during these tests.
 
 Local API 35 emulator runs additionally exercised all 55 topic examples, repeated expected-answer checks, real keyboard entry, native JSON saving and print preview. [The evidence report](UI_ANDROID_STRESS.md) distinguishes native touch injection, CDP-driven WebView controls, smoke examples and independent expected answers. It also records remaining emulator jank; these are not low-end physical phone benchmarks.
 
@@ -52,14 +65,30 @@ ctest --test-dir build -C Release --output-on-failure
 cpack --config build/CPackConfig.cmake -G ZIP -C Release
 ```
 
-The package contains native CLI/server executables, the website, corpus tools and documentation. Launch the server executable and visit the printed 127.0.0.1 address. It serves only loopback, not a public production endpoint. The website uses native HTTP fallback if WASM assets are not included; keep the server running in that mode.
+The package contains native CLI/server executables, the website, corpus tools
+and documentation. Extract the entire ZIP, then open its `Start-Pocket-Engineer`
+launcher (`.cmd`, `.command` or `.sh`). It opens the default browser; if browser
+launch is unavailable, visit the printed 127.0.0.1 address. Keep the terminal
+running. No Python or Node runtime is required. Port 8765 is preferred, with an
+available-port fallback; browser history belongs to that address and port.
+It serves only loopback, not a public production endpoint. The website uses
+native HTTP fallback if WASM assets are not included.
 
 Windows and macOS binaries are compiled by their respective GitHub runners. GitHub Actions also uploads a self-contained website artifact after compiling the browser engine. Download links in the UI distinguish release assets from development build artifacts.
 
-The 0.3.0 Linux CI package is an x86_64 Ubuntu build, not a static all-distribution binary. Inspection found glibc 2.38 and GLIBCXX_3.4.31 symbol requirements. It did not launch unmodified on this NixOS host (generic ELF loader unavailable); local C++ builds and the browser/PWA path work here. Use those paths on NixOS instead of assuming Ubuntu binaries are portable. Windows/macOS downloads are not code-signed/notarized.
+The historical 0.3.0 Linux ZIP required an Ubuntu-style ELF loader, glibc 2.38 and
+GLIBCXX_3.4.31, and failed to launch unmodified on NixOS. **0.4.0 Linux CI packages
+statically link the C/C++ runtime** and require no dynamic ELF loader. The
+downloaded Ubuntu-built artifact was run unmodified on NixOS and passed CLI,
+local-server, website and natural-input checks. This is tested x86_64 Linux
+portability, not a promise for every kernel/architecture. Public-release checks
+are recorded separately in the release notes. Windows/macOS executables are
+still not code-signed/notarized; do not disable system-wide security protections.
 
 ## Test interpretation
 
-See [TEST_HISTORY.md](TEST_HISTORY.md) for completed runs. A successful earlier 0.2.0 build is not proof that the changed 0.3.0 application passed; consult the source commit and run attached to each result.
+See [TEST_HISTORY.md](TEST_HISTORY.md) and the [0.4 hardening record](JANK_INPUT_DOWNLOADS_V4.md)
+for completed runs. An earlier build is not proof that a changed application
+passed; consult the source commit and run attached to each result.
 
 Technical basis: [Android local-content guidance](https://developer.android.com/develop/ui/views/layout/webapps/load-local-content), [Emscripten modular output](https://emscripten.org/docs/compiling/Modularized-Output.html), and [C++/JavaScript interoperation](https://emscripten.org/docs/porting/connecting_cpp_and_javascript/Interacting-with-code.html).

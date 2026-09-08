@@ -30,7 +30,12 @@ Both interfaces include subject search, natural question input, automatic correc
 
 See [platform instructions and limitations](docs/PLATFORM_SUPPORT.md).
 
-[0.3.0-rc1 downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/tag/v0.3.0-rc1) include the development-signed offline Android APK, Windows/macOS/Linux native packages and complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/releases/v0.3.0-rc1.md) for signing, Linux-distribution and device-validation limits.
+[0.4.0-rc1 downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/tag/v0.4.0-rc1)
+include the optimized, non-debuggable, development-signed Android preview,
+Windows/macOS desktop launchers, a static Linux ZIP that runs on NixOS, and the
+complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/releases/v0.4.0-rc1.md)
+for installation, signing and device-validation limits. The website's “Get the
+app” page has direct, labelled downloads for each platform.
 
 The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB; the expanded 0.4 critical offline bundle, including WASM and natural-input parsing, is approximately 922 KB (1.5 MB enforced budget). See [current hardening record](docs/JANK_INPUT_DOWNLOADS_V4.md), [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
 
@@ -73,7 +78,14 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 [Test history](docs/TEST_HISTORY.md) records results, failures and corrections. Legacy reports with fields named “correct” mean **snapshot matches**, not proven mathematical correctness. A solver verification label describes a method check; numerical sampling is not a proof for all inputs.
 
-The deeper run passed **1,606,929 independent/edge checks**. The latest full local browser run passed **28/28 tests**, including **800 endurance UI solves**: 600 independently expected answers and 200 intentional invalid inputs. CI also passed all 28 tests with its shorter default endurance setting. The actual offline APK was run locally: all 55 topic examples completed, and four runs matched 170 independently expected arithmetic answers in total. [Measured emulator jank and remaining limits](docs/UI_ANDROID_STRESS.md) are disclosed. This is measured coverage, not a universal “100% correct” claim.
+The 0.4 run passed **1,606,929 independent/edge checks**, **4,112 natural-input checks**,
+and all **825,000 regression snapshot comparisons**. The extended browser run
+passed **34/34 tests**, including **400 endurance UI solves**: 300 independently
+expected answers and 100 intentional invalid inputs. ASan/UBSan passed all three
+native suites. These are distinct coverage categories, not one inflated total.
+[Current Android, jank and download evidence](docs/JANK_INPUT_DOWNLOADS_V4.md)
+records failures and remaining limits; the [0.3 evidence](docs/UI_ANDROID_STRESS.md)
+is retained as history. No universal “100% correct” claim is made.
 
 ## C++ ownership and efficiency
 

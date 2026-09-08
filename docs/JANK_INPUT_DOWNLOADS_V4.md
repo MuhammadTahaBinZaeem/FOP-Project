@@ -93,3 +93,58 @@ performed with Android Ctrl+A/Delete/text key events, with an exact editor-value
 assertion before solving. Failure screenshots also include the accessibility
 hierarchy. Both Debug and Release tests run even if one fails, with separate
 diagnostics and clean test installations between different signing identities.
+
+## 2026-09-08 continuation
+
+Run 34064469956 failed two keyboard tests in each Android variant. The retained
+screenshots show literal apostrophes surrounding the complete typed question.
+Unlike adb's shell, UiAutomation's command execution does not consume shell
+quotes. The harness now passes the space-encoded question as one unquoted
+argument; it still requires exact text equality before pressing Solve. This was
+a test injection defect, not an excuse to skip the real keyboard journey.
+
+The confirmed-scroll local profile on the rebuilt 84da66a Debug APK measured
+149/149 janky app scroll frames and 170/172 janky plain-control frames (98.84%).
+Both pages actually moved; the profiler now asserts scroll displacement so that
+a blocking system overlay cannot yield a misleading zero-frame pass. App scroll
+layout work was 0.00364 seconds, with no recorded long JavaScript tasks.
+These emulator results do **not** establish an app smoothness improvement. A
+SwiftShader experiment showed a System UI ANR dialog and was discarded as an
+invalid interaction run, not counted as a smooth result. Host graphics was
+restored. Real-device and representative release-performance validation remain
+open; a static alignment check is not a 16KB-page runtime test.
+
+After restoring host graphics, the local Debug APK completed 50/50 independently
+expected arithmetic answers and all 55 catalog examples through actual
+WebView/JNI controls, with zero page errors. Native touches, keyboard entry,
+clipboard, document-picker opening, print-preview opening and back navigation
+also passed. The solution and responsive RK4 chart screenshots were inspected.
+This functional run used 84da66a, not the final published release; it is not a
+production-signing or physical-phone benchmark.
+
+The fixed source `de7fa4eb1d49208338dd447b790b358fe432c57b` passed
+[package CI 34261473560](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34261473560)
+on all three desktop platforms and Android (3/3 Debug and 3/3 Release tests).
+[Website CI 34261473717](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34261473717)
+passed 34/34 browser tests. Live Render natural-input/offline checks passed 6/6.
+The release APK's natural-question and landscape screenshots were inspected.
+
+CI release scroll diagnostics still report 186/215 janky frames (86.51%);
+Debug reports 188/222 (84.68%) in that software-rendered CI environment. Release
+foreground app-process PSS was 58,375 KiB, excluding separately accounted shared
+renderer/system processes. None of these measurements demonstrate physical-phone
+smoothness or a causal Debug-to-Release speedup. See
+[release evidence](evidence/2026-09-08/android-release-ci).
+
+[0.4.0-rc1](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/tag/v0.4.0-rc1)
+was published from those unchanged artifacts. All five packages and source
+metadata were downloaded from the release and matched SHA-256 checksums.
+The published Linux ZIP passed unmodified on NixOS from a relocated path with
+spaces. Public-download execution on the other desktop OSes and downloaded-APK
+instrumentation are separate post-publication checks, recorded below when done.
+
+The website now has five direct platform download buttons, per-platform launch
+instructions, signing/upgrade warnings and a checksum link. The modified local
+browser suite passed 34/34 in 56.7 seconds. The release's embedded website remains
+the tested de7fa4e version; the deployed site's download-page additions are a
+separate presentation-only change and do not rewrite published binaries.

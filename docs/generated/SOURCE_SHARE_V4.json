@@ -1,10 +1,10 @@
 {
   "scope": "Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files",
-  "cpp": 184170,
+  "cpp": 184168,
   "other_runtime_code": 30735,
-  "html_css": 22002,
-  "cpp_percent_runtime": 85.6983318210372,
-  "cpp_percent_including_html_css": 77.73936608036065,
+  "html_css": 24339,
+  "cpp_percent_runtime": 85.69819872221422,
+  "cpp_percent_including_html_css": 76.97979451768502,
   "files": [
     {
       "file": "src/catalog.cpp",
@@ -18,7 +18,7 @@
     },
     {
       "file": "src/input.cpp",
-      "bytes": 41925,
+      "bytes": 41923,
       "kind": "cpp"
     },
     {
@@ -78,7 +78,7 @@
     },
     {
       "file": "www/index.html",
-      "bytes": 8567,
+      "bytes": 10621,
       "kind": "html_css"
     },
     {
@@ -93,7 +93,7 @@
     },
     {
       "file": "www/styles.css",
-      "bytes": 13435,
+      "bytes": 13718,
       "kind": "html_css"
     }
   ]

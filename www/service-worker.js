@@ -1,5 +1,5 @@
 'use strict';
-const VERSION='pocket-engineer-7e47589972c7750dad70';
+const VERSION='pocket-engineer-507116a6f12213c7fd8d';
 const ROOT=new URL('./',self.location.href);
 const FILES=['./','index.html','styles.css','app.js','solver-worker.js','engine.js','engine.wasm','manifest.webmanifest','assets/logo.webp','assets/icon-32.png','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png','assets/linear-algebra.webp'];
 const URLS=FILES.map(file=>new URL(file,ROOT).href);

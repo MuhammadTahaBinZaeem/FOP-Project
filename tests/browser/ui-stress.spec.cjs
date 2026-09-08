@@ -90,7 +90,12 @@ test('copy, save, print, identify, empty input, navigation and install feedback'
   // Verify the application event lifecycle, separately from actual PWA install.
   await page.evaluate(()=>{const event=new Event('beforeinstallprompt');event.prompt=async()=>{window.installRequested=true;};event.userChoice=Promise.resolve({outcome:'dismissed'});window.dispatchEvent(event);});
   await page.locator('#install').click();expect(await page.evaluate(()=>window.installRequested)).toBe(true);await expect(page.locator('#install')).toBeHidden();
-  for(const link of await page.locator('#downloads a').all()){expect(await link.getAttribute('href')).toMatch(/^https:\/\/github.com\/MuhammadTahaBinZaeem\/FOP-Project\/(releases|actions)$/);}
+  for(const link of await page.locator('#downloads a').all()){expect(await link.getAttribute('href')).toMatch(/^https:\/\/github.com\/MuhammadTahaBinZaeem\/FOP-Project\/(actions|releases(?:\/tag\/v0\.4\.0-rc1|\/download\/v0\.4\.0-rc1\/[\w.-]+)?)$/);}
+  await expect(page.locator('[data-download]')).toHaveCount(5);
+  for(const link of await page.locator('[data-download]').all()){
+    expect(await link.getAttribute('href')).toContain('/'+await link.getAttribute('data-download'));
+    expect((await link.boundingBox()).height).toBeGreaterThanOrEqual(44);
+  }
 });
 test('UI endurance with independent expected answers, failures, offline reload and bounded history',async({page,context},info)=>{
   const rounds=Number(process.env.PE_STRESS_ROUNDS||6);test.setTimeout(Math.max(180000,rounds*16000));
