@@ -1,0 +1,42 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "checked_at": "2026-09-08T18:25:08.970Z",
+  "downloads": [
+    {
+      "name": "PocketEngineer-0.4.0-android-preview.apk",
+      "bytes": 7057978,
+      "sha256": "12ef9180908249fab151ea3ea3b7d613dfa3f06ca5d8c8dc2ad7e9d0ffb41668",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.4.0-Windows-x64.zip",
+      "bytes": 3698149,
+      "sha256": "5c6721d4749f0062ee1ed2a9d916402a7062395c41655aa9597f19efa060926d",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.4.0-macOS-universal.zip",
+      "bytes": 4420670,
+      "sha256": "6c4d35346d15cda1b5dc476cf79177353838e45052383b4863e0e06cba407c05",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.4.0-Linux-x64.zip",
+      "bytes": 6859220,
+      "sha256": "baaaf2e01d406695c1036fc34a6fc9135e6fcd5356b7a51f83c262c088f7af9d",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.4.0-offline-website.zip",
+      "bytes": 381390,
+      "sha256": "8069e287c74b524c56fddbd98396ed38feb936a0bb96093941f833bda318b725",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    }
+  ],
+  "limitations": "Desktop Chromium download interactions and SHA-256 integrity; platform execution and Android installation are tested separately."
+}

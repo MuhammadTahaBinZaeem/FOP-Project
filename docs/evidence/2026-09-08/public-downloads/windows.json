@@ -1,0 +1,14 @@
+{
+  "archive": "PocketEngineer-0.4.0-Windows-x64.zip",
+  "sha256": "5c6721d4749f0062ee1ed2a9d916402a7062395c41655aa9597f19efa060926d",
+  "published_checksum_verified": true,
+  "platform": "win32",
+  "architecture": "x64",
+  "cli": true,
+  "relocatable_server": true,
+  "bundled_ui": true,
+  "natural_input": true,
+  "wrong_type_correction": true,
+  "cross_origin_rejected": true,
+  "localhost_url": "http://127.0.0.1:64360"
+}

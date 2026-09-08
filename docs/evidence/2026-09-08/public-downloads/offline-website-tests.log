@@ -1,0 +1,15 @@
+
+Running 6 tests using 1 worker
+
+(node:16043) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [desktop] › tests/browser/natural-input.spec.cjs:2:1 › human question corrects a wrong type and preserves the original text (1.3s)
+  ✓  2 [desktop] › tests/browser/natural-input.spec.cjs:14:1 › manual mode stays explicit, then automatic interpretation can recover (614ms)
+  ✓  3 [desktop] › tests/browser/natural-input.spec.cjs:20:1 › natural input works offline and ambiguity is visible without an invented answer (809ms)
+(node:16262) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  4 [android-layout] › tests/browser/natural-input.spec.cjs:2:1 › human question corrects a wrong type and preserves the original text (658ms)
+  ✓  5 [android-layout] › tests/browser/natural-input.spec.cjs:14:1 › manual mode stays explicit, then automatic interpretation can recover (588ms)
+  ✓  6 [android-layout] › tests/browser/natural-input.spec.cjs:20:1 › natural input works offline and ambiguity is visible without an invented answer (711ms)
+
+  6 passed (6.9s)

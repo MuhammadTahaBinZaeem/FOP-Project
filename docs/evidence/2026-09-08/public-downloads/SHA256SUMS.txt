@@ -1,0 +1,6 @@
+58d7147dd111420d3965fb6c2b9de7a46127a65344726c831860f8462e7aaf76  BUILD_SOURCE.txt
+baaaf2e01d406695c1036fc34a6fc9135e6fcd5356b7a51f83c262c088f7af9d  PocketEngineer-0.4.0-Linux-x64.zip
+5c6721d4749f0062ee1ed2a9d916402a7062395c41655aa9597f19efa060926d  PocketEngineer-0.4.0-Windows-x64.zip
+12ef9180908249fab151ea3ea3b7d613dfa3f06ca5d8c8dc2ad7e9d0ffb41668  PocketEngineer-0.4.0-android-preview.apk
+6c4d35346d15cda1b5dc476cf79177353838e45052383b4863e0e06cba407c05  PocketEngineer-0.4.0-macOS-universal.zip
+8069e287c74b524c56fddbd98396ed38feb936a0bb96093941f833bda318b725  PocketEngineer-0.4.0-offline-website.zip

@@ -1,0 +1,14 @@
+{
+  "archive": "PocketEngineer-0.4.0-macOS-universal.zip",
+  "sha256": "6c4d35346d15cda1b5dc476cf79177353838e45052383b4863e0e06cba407c05",
+  "published_checksum_verified": true,
+  "platform": "darwin",
+  "architecture": "arm64",
+  "cli": true,
+  "relocatable_server": true,
+  "bundled_ui": true,
+  "natural_input": true,
+  "wrong_type_correction": true,
+  "cross_origin_rejected": true,
+  "localhost_url": "http://127.0.0.1:49167"
+}

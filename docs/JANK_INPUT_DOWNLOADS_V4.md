@@ -148,3 +148,51 @@ instructions, signing/upgrade warnings and a checksum link. The modified local
 browser suite passed 34/34 in 56.7 seconds. The release's embedded website remains
 the tested de7fa4e version; the deployed site's download-page additions are a
 separate presentation-only change and do not rewrite published binaries.
+
+## Completed public-download checks
+
+[Published-download CI 34262496068](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34262496068)
+passed actual GitHub-release download, SHA-256 verification and execution on
+Windows x64, Ubuntu x64 and macOS arm64. The Linux download also passed on NixOS.
+All five platform buttons on the live Render page downloaded the expected files
+in Chromium, with matching checksums. The extracted public website ZIP passed
+6/6 natural-input/offline browser tests using the downloaded native server.
+See [download evidence](evidence/2026-09-08/public-downloads).
+
+The exact public APK (`12ef9180908249fab151ea3ea3b7d613dfa3f06ca5d8c8dc2ad7e9d0ffb41668`)
+installed and passed 3/3 instrumentation tests on three consecutive local API 35
+x86_64 host-rendered emulator runs, with connectivity disabled. Version 0.4.0
+was confirmed installed without DEBUGGABLE or INTERNET flags/permission. Android
+signature and 16KB ZIP-alignment checks passed on the downloaded bytes.
+
+| Local release scroll run | Frames | Reported jank | Frame median / p95 |
+| --- | ---: | ---: | --- |
+| 1 | 261 | 6 (2.30%) | 31 / 36 ms |
+| 2 | 219 | 4 (1.83%) | 31 / 32 ms |
+| 3 | 240 | 6 (2.50%) | 31 / 34 ms |
+
+Legacy jank counters remain 60.15%, 69.86% and 75.83%, respectively. These
+deadline-aware and legacy counters must not be conflated. The frame median
+does **not** demonstrate 60 fps. This isolated release workload is not comparable
+to the earlier combined approximately 32% debug run, nor proof that physical
+phones are smooth. The unfavorable CI and control experiments remain above.
+The first release run's foreground app-process PSS was 67,544 KiB; separate
+renderer/system memory is additional. [Raw repeat evidence](evidence/2026-09-08/public-apk)
+is retained. Some immediate local in-test screenshots preceded the compositor's
+visible result frame; those are not presented as result screenshots. The CI
+release natural-question screenshot shows the rendered correction and answer.
+
+Remaining boundaries: stable owner-controlled Android signing, Windows signing,
+Apple notarization, physical low-end phones, 16KB-page Android runtime validation,
+and mathematical/natural-input families outside the documented grammar.
+
+The extracted public Linux launcher was executed directly on NixOS from outside
+its package directory. It served the bundled site at localhost:8765; four real
+browser natural-input/manual-mode checks passed through that packaged native
+server. [Launcher UI log](evidence/2026-09-08/public-downloads/linux-launcher-ui.log).
+
+The presentation-only download-page revision `1b0360c` also passed
+[website CI 34262624967](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34262624967)
+(34/34) and [all-platform package CI 34262624978](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34262624978),
+including all six Android Debug/Release tests. Render deployment
+`dep-dag54l8ae00c738f9k90` reached live; the actual-download tests used that site.

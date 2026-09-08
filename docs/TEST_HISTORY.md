@@ -2,6 +2,70 @@
 
 This file separates independent correctness comparisons, same-engine regression snapshots, and platform execution. Re-running answers produced by the same engine cannot independently establish mathematical correctness. Historical “correct” counts below mean snapshot matches.
 
+## 2026-09-07–08 — natural input, jank investigation and downloaded packages
+
+Shared C++ interpretation now handles documented human wording and corrects
+clearly mistaken topic selections. The raw question remains in the editor,
+history and export; the normalized interpretation is visible. Unsupported or
+ambiguous constraints produce clarification instead of guessed answers.
+
+- Native CTest: 3/3; natural-input checks: 4,112, zero failures.
+- Independent stress: 1,606,929 checks, zero failures. Regression snapshots:
+  825,000 matching answers/verification states. These are not equivalent counts.
+- ASan/UBSan: 3/3 suites. Extended browser test: 34/34, including 400 endurance
+  solves (300 independently expected answers, 100 intentional rejections).
+- [Package run 34261473560](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34261473560)
+  passed Windows, macOS, Linux and 3/3 Android tests in each of Debug and Release.
+  [Website run 34261473717](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34261473717)
+  passed all 34 browser tests. Source: `de7fa4e`.
+- [Published-download run 34262496068](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34262496068)
+  downloaded the actual 0.4.0-rc1 ZIPs and checksums and executed their CLI/server
+  on Windows x64, Ubuntu x64 and macOS arm64. All three passed. The universal
+  macOS archive contains both slices; this run executed arm64, not Intel.
+- The public Linux ZIP also passed unmodified on NixOS in a relocated path with
+  spaces, resolving the observed 0.3 Ubuntu-loader failure. Checks include
+  expected CLI answers, bundled UI, wrong-type recovery and cross-origin denial.
+- The public APK installed on the explicitly selected API 35 x86_64 emulator
+  with Wi-Fi/data disabled. Three consecutive instrumentation runs each passed
+  3/3: real typing/touches, solution/clipboard, rotation/back navigation,
+  wrong-selection recovery, recreation/history and native JNI solving. The
+  installed package is version 0.4.0, non-debuggable, development-signed.
+- All five live Render download buttons were clicked in an actual Chromium
+  browser; all five downloads matched the published SHA-256 manifest. This is
+  an actual download test, not just checking an HTTP link or archive name.
+- The public website ZIP was extracted, served with the downloaded static
+  server, and passed 6/6 natural-input tests including offline cold reload and
+  fresh WASM solves. Native desktop packages need their localhost server running.
+- The downloaded Linux ZIP's actual launcher was executed directly on NixOS
+  from outside the extracted folder; four browser natural-input/manual-mode
+  checks passed through its packaged native server at localhost:8765.
+- The direct-download UI revision `1b0360c` passed
+  [website run 34262624967](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34262624967)
+  (34/34) and [all-platform package run 34262624978](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34262624978),
+  including six Android Debug/Release tests. Render deployment
+  `dep-dag54l8ae00c738f9k90` reached live.
+
+The local published Release APK's isolated ten-swipe journeys reported 6/261
+(2.30%), 4/219 (1.83%) and 6/240 (2.50%) janky frames. All three had a 31 ms frame
+median; legacy jank counters remained 60.15–75.83%. **This is not a 60 fps result
+or a controlled reduction from the older combined approximately 32% figure.**
+The CI emulator's Release scroll reported 86.51%, and prior local debug/plain
+control experiments also performed poorly. All are retained. Real phones and
+16KB-page runtime devices remain untested; production signing/notarization remain
+open. See [hardening details and failure history](JANK_INPUT_DOWNLOADS_V4.md).
+
+Earlier Android runs failed because of transient accessibility lookup/IME
+coordinates, then literal shell quotes injected by UiAutomation. Exact text
+assertions, rendering synchronization and correctly encoded native key injection
+fixed the tests; failures were not relabelled as passing builds. The failed
+software-renderer experiment with a System UI ANR was rejected, not counted as
+smooth. The local pre-update disposable emulator's test data was backed up before
+replacing its differently signed installation; no physical device was cleared.
+
+Evidence: [download checks](evidence/2026-09-08/public-downloads),
+[published APK repeats](evidence/2026-09-08/public-apk),
+[release notes](releases/v0.4.0-rc1.md), [input grammar](NATURAL_INPUT.md).
+
 ## 2026-09-06 — responsive UI, branding and deeper stress
 
 Commit `6e42a81`: local browser suite 24/24 passed (800 endurance UI solves plus all 55 topics through actual controls in both layouts). Native deeper checks: 1,606,929 passed, 0 failed. Full snapshot replay: 825,000 matching, 0 mismatching. Rebuilt ASan/UBSan CTests: 2/2 passed in 16.17 seconds. Seven viewport sizes, native touch tests and Render deployment are documented with explicit evidence boundaries in [UI_ANDROID_STRESS.md](UI_ANDROID_STRESS.md).

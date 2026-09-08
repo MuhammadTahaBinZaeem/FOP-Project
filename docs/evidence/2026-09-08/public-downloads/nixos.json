@@ -1,0 +1,14 @@
+{
+  "archive": "PocketEngineer-0.4.0-Linux-x64.zip",
+  "sha256": "baaaf2e01d406695c1036fc34a6fc9135e6fcd5356b7a51f83c262c088f7af9d",
+  "published_checksum_verified": true,
+  "platform": "linux",
+  "architecture": "x64",
+  "cli": true,
+  "relocatable_server": true,
+  "bundled_ui": true,
+  "natural_input": true,
+  "wrong_type_correction": true,
+  "cross_origin_rejected": true,
+  "localhost_url": "http://127.0.0.1:35233"
+}
