@@ -42,14 +42,21 @@ if(!serial?.startsWith('emulator-'))throw new Error('Select a disposable emulato
     }
     await page.locator('.nav[data-view=workbench]').click();await page.locator('#domain').selectOption('algebra');await page.locator('#topic').selectOption('numeric_evaluation');
     await phase('idle',()=>delay(3000));
-    await phase('scroll',async()=>{for(let i=0;i<10;i++)await shell(`input swipe 550 ${i%2?500:1450} 550 ${i%2?1450:500} 350`);});
+    await page.locator('.nav[data-view=subjects]').click();
+    const scrollPositions=[];
+    await phase('scroll',async()=>{for(let i=0;i<10;i++){await shell(`input swipe 550 ${i%2?500:1450} 550 ${i%2?1450:500} 350`);scrollPositions.push(await page.evaluate(()=>scrollY));}});
+    results.at(-1).scroll_positions=scrollPositions;
+    expect(Math.max(...scrollPositions)-Math.min(...scrollPositions),'Android swipes must actually move the page; a system overlay invalidates this profile').toBeGreaterThan(20);
     await phase('navigation',async()=>{for(let i=0;i<12;i++)await page.locator(`.nav[data-view=${i%2?'workbench':'subjects'}]`).click();});
     await page.locator('.nav[data-view=workbench]').click();
     await phase('solve',async()=>{for(let i=1;i<=12;i++){await page.locator('#input').fill(`${i}*(3+7)`);await page.locator('#solve').click();await expect(page.locator('#answer')).toHaveText(String(i*10));}});
     await phase('keyboard',async()=>{for(let i=0;i<8;i++){await page.locator('#input').click();await delay(300);await shell('input keyevent 4');await delay(300);}});
     if(process.env.PE_PROFILE_CONTROL==='1'){
       await page.evaluate(()=>{document.head.querySelectorAll('style,link[rel=stylesheet]').forEach(e=>e.remove());document.body.replaceChildren(...Array.from({length:120},(_,i)=>{const p=document.createElement('p');p.textContent=`Control paragraph ${i}: plain text without the application UI.`;p.style.padding='20px';return p;}));});
-      await phase('plain-control-scroll',async()=>{for(let i=0;i<10;i++)await shell(`input swipe 550 ${i%2?500:1450} 550 ${i%2?1450:500} 350`);});
+      const controlPositions=[];
+      await phase('plain-control-scroll',async()=>{for(let i=0;i<10;i++){await shell(`input swipe 550 ${i%2?500:1450} 550 ${i%2?1450:500} 350`);controlPositions.push(await page.evaluate(()=>scrollY));}});
+      results.at(-1).scroll_positions=controlPositions;
+      expect(Math.max(...controlPositions)-Math.min(...controlPositions),'Plain control must actually scroll').toBeGreaterThan(20);
       await page.reload();await expect(page.locator('body')).toHaveAttribute('data-engine','android');
     }
     const report={serial,source:process.env.PE_PROFILE_SOURCE||'unspecified',local_web_assets:process.env.PE_PROFILE_LOCAL_ASSETS==='1',results,limitations:'Debug APK; isolated journeys on emulator, no physical-device claim. rAF is JS callback cadence, not displayed-frame timing. Plain control is temporary DOM replacement in the same native WebView, restored by reload. Local-assets mode intercepts JS/CSS for an A/B experiment; final APK validation is separate.'};

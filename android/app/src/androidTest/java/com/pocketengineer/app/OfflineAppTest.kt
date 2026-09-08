@@ -88,7 +88,9 @@ class OfflineAppTest {
         // just-created WebView's accessibility EditText can lag its real focus.
         device.pressKeyCode(KeyEvent.KEYCODE_A,KeyEvent.META_CTRL_ON)
         device.pressKeyCode(KeyEvent.KEYCODE_DEL)
-        device.executeShellCommand("input text '${text.replace(" ","%s")}'")
+        // UiAutomation splits arguments directly; it does NOT interpret shell
+        // quotes. Quoting here injects literal apostrophes into the question.
+        device.executeShellCommand("input text ${text.replace(" ","%s")}")
         waitFor(scenario,"document.getElementById('input').value === '$text'")
     }
     @Test fun realTouchNavigationSolveClipboardAndRotation() {
