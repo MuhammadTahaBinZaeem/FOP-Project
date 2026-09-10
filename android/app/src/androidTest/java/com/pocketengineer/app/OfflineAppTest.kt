@@ -156,4 +156,43 @@ class OfflineAppTest {
             assertTrue(evaluate(scenario,"document.documentElement.scrollWidth <= innerWidth + 1")=="true")
         }
     }
+    @Test fun visualLabsAndStoredDemosUseOfflineNativeEngine() {
+        ActivityScenario.launch(MainActivity::class.java).use { scenario ->
+            waitFor(scenario,"document.body.dataset.engine === 'android'")
+            tap(scenario,".nav[data-view=downloads]")
+            tap(scenario,"#retry-cache")
+            waitFor(scenario,"document.body.dataset.offlineReady === 'true'")
+            tap(scenario,".nav[data-view=workbench]")
+            evaluate(scenario,"document.getElementById('domain').value='logic';document.getElementById('domain').dispatchEvent(new Event('change'));document.getElementById('topic').value='kmap_minimization';document.getElementById('topic').dispatchEvent(new Event('change'));")
+            tap(scenario,"#guided-toggle")
+            waitFor(scenario,"Boolean(document.getElementById('kmap-variables'))")
+            evaluate(scenario,"document.getElementById('kmap-variables').value='6';document.getElementById('kmap-variables').dispatchEvent(new Event('change'));")
+            waitFor(scenario,"document.querySelectorAll('.kmap-cell').length === 64 && !PEApp.state.busy")
+            tap(scenario,".kmap-cell")
+            waitFor(scenario,"document.querySelector('.kmap-cell[data-cell=\"0\"]').dataset.value === '1'")
+            screenshot("android-kmap-six")
+            tap(scenario,".tool-launcher [data-lab=circuit]")
+            waitFor(scenario,"Boolean(document.getElementById('circuit-canvas'))")
+            evaluate(scenario,"[...document.querySelectorAll('#lab-content button')].find(b=>b.textContent==='RC low-pass').id='test-rc'")
+            tap(scenario,"#test-rc")
+            waitFor(scenario,"!PEApp.state.busy && document.getElementById('circuit-netlist').value.includes('C C1')")
+            evaluate(scenario,"document.getElementById('circuit-analysis').value='ac';document.getElementById('circuit-analysis').dispatchEvent(new Event('change'));[...document.querySelectorAll('#lab-content button')].find(b=>b.textContent==='Solve this circuit').id='test-solve-network'")
+            tap(scenario,"#test-solve-network")
+            waitFor(scenario,"document.getElementById('verification').textContent.includes('KCL')")
+            screenshot("android-ac-circuit")
+            tap(scenario,".lab-tabs [data-lab=signals]")
+            waitFor(scenario,"Boolean(document.getElementById('signal-x'))")
+            evaluate(scenario,"document.getElementById('signal-x').value='1,0,0,0';[...document.querySelectorAll('#lab-content button')].find(b=>b.textContent==='Calculate locally').id='test-fft'")
+            tap(scenario,"#test-fft")
+            waitFor(scenario,"document.getElementById('verification').textContent.includes('Parseval')")
+            screenshot("android-fft")
+            tap(scenario,".nav[data-view=workbench]")
+            tap(scenario,".tool-launcher [data-view=demos]")
+            waitFor(scenario,"document.querySelectorAll('#demo-rows tr').length === 25")
+            tap(scenario,"#demo-run")
+            waitFor(scenario,"document.getElementById('demo-status').textContent.includes('Completed: 25 cases; 0 differ')")
+            screenshot("android-offline-demos")
+            assertTrue("Editor or demo page overflow",evaluate(scenario,"document.documentElement.scrollWidth <= innerWidth + 1")=="true")
+        }
+    }
 }

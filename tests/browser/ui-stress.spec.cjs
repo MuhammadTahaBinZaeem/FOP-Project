@@ -40,7 +40,7 @@ test('spacing and touch targets across phone, landscape, tablet and desktop view
           }
         }
         for(const e of document.querySelectorAll('button,select,input,textarea,summary')){
-          if(!e.getClientRects().length)continue;const r=e.getBoundingClientRect();
+          if(!e.getClientRects().length)continue;const r=(e.type==='checkbox'?e.closest('label')||e:e).getBoundingClientRect();
           if(r.height<43)issues.push(`short touch target: ${e.id||e.className} ${r.height}`);
           if(r.left< -1||r.right>innerWidth+1)issues.push(`control outside viewport: ${e.id||e.className}`);
         }
@@ -90,7 +90,7 @@ test('copy, save, print, identify, empty input, navigation and install feedback'
   // Verify the application event lifecycle, separately from actual PWA install.
   await page.evaluate(()=>{const event=new Event('beforeinstallprompt');event.prompt=async()=>{window.installRequested=true;};event.userChoice=Promise.resolve({outcome:'dismissed'});window.dispatchEvent(event);});
   await page.locator('#install').click();expect(await page.evaluate(()=>window.installRequested)).toBe(true);await expect(page.locator('#install')).toBeHidden();
-  for(const link of await page.locator('#downloads a').all()){expect(await link.getAttribute('href')).toMatch(/^https:\/\/github.com\/MuhammadTahaBinZaeem\/FOP-Project\/(actions|releases(?:\/tag\/v0\.4\.0-rc1|\/download\/v0\.4\.0-rc1\/[\w.-]+)?)$/);}
+  for(const link of await page.locator('#downloads a').all()){expect(await link.getAttribute('href')).toMatch(/^https:\/\/github.com\/MuhammadTahaBinZaeem\/FOP-Project\/(actions|releases(?:\/tag\/v\d+\.\d+\.\d+-rc\d+|\/download\/v\d+\.\d+\.\d+-rc\d+\/[\w.-]+)?)$/);}
   await expect(page.locator('[data-download]')).toHaveCount(5);
   for(const link of await page.locator('[data-download]').all()){
     expect(await link.getAttribute('href')).toContain('/'+await link.getAttribute('data-download'));

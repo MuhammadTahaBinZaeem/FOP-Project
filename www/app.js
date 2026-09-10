@@ -7,11 +7,13 @@ const storageKey = 'pocket-engineer.history.v3';
 function node(tag,text,className) { const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n; }
 function tell(message) { $('notice').textContent=message; }
 function view(id) {
-  if(!['workbench','subjects','history','downloads'].includes(id))return;
+  if(!['workbench','subjects','history','downloads','labs','demos'].includes(id))return;
+  if(id==='workbench')$('workbench').insertBefore($('result'),$('workbench').querySelector('footer'));
   document.querySelectorAll('.view').forEach(n=>n.hidden=n.id!==id);
   document.querySelectorAll('.nav').forEach(n=>{const active=n.dataset.view===id;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});
   if(id==='history')renderHistory();
   document.body.dataset.view=id;
+  window.dispatchEvent(new CustomEvent('pe-view',{detail:id}));
   window.scrollTo({top:0,behavior:'instant'});
 }
 document.querySelectorAll('[data-view]').forEach(n=>n.addEventListener('click',event=>{event.preventDefault();view(n.dataset.view);}));
@@ -23,7 +25,7 @@ function updateTopics(preferred) {
   if(list.some(t=>t.topic===preferred))$('topic').value=preferred;
   updateHint();
 }
-function updateHint() { const t=currentTopic();if(!t)return;$('syntax').textContent=t.syntax;$('scope').textContent=t.scope;$('input').placeholder=t.example; }
+function updateHint() { const t=currentTopic();if(!t)return;$('syntax').textContent=t.syntax;$('scope').textContent=t.scope;$('input').placeholder=t.example;window.dispatchEvent(new CustomEvent('pe-topic',{detail:t})); }
 function selectTopic(t,example=true) { if(state.busy)return; $('domain').value=t.domain;updateTopics(t.topic);if(example)$('input').value=t.example;view('workbench');$('input').scrollIntoView({block:'center',behavior:'instant'}); }
 $('domain').addEventListener('change',()=>updateTopics());
 $('topic').addEventListener('change',updateHint);
@@ -59,7 +61,7 @@ window.peNativeResult=(id,json)=>{try{settle(id,JSON.parse(json));}catch{settle(
 function workerCall(method,payload) {
   return new Promise((resolve,reject)=>{
     const id=++state.sequence;
-    const timer=setTimeout(()=>{settle(id,null,'The solver timed out. Reload the page to restart it, then use a smaller input.');if(state.worker){state.worker.terminate();state.worker=null;}state.mode='failed';$('solve').disabled=true;$('identify').disabled=true;$('engine-status').textContent='Engine stopped';},method==='catalog'?120000:15000);
+    const timer=setTimeout(()=>{settle(id,null,'The solver timed out. Reload the page to restart it, then use a smaller input.');if(state.worker){state.worker.terminate();state.worker=null;}state.mode='failed';$('solve').disabled=true;$('identify').disabled=true;$('engine-status').textContent='Engine stopped';},method==='catalog'?30000:15000);
     state.pending.set(id,{resolve,reject,timer});
     if(state.mode==='android')window.PocketEngineerAndroid.request(id,method,payload||'');
     else state.worker.postMessage({id,method,payload});
@@ -94,17 +96,19 @@ async function boot() {
     state.catalog=catalog.topics;
     $('domain').replaceChildren(...Object.entries(subjects).map(([value,label])=>new Option(label,value)));
     updateTopics();$('input').value=currentTopic().example;
+    try{const draft=JSON.parse(sessionStorage.getItem('pocket-engineer.draft')||'null');if(draft&&state.catalog.some(t=>t.domain===draft.domain&&t.topic===draft.topic)){$('domain').value=draft.domain;updateTopics(draft.topic);$('input').value=String(draft.input).slice(0,4096);$('auto-type').checked=draft.auto!==false;sessionStorage.removeItem('pocket-engineer.draft');}}catch{}
     ['domain','topic','solve','identify','example'].forEach(id=>$(id).disabled=false);
     document.body.dataset.engine=state.mode;
     $('engine-status').textContent=state.mode==='wasm'?'C++ · on your device':state.mode==='android'?'Native C++ · offline':'Native C++ · local server';
-    $('engine-status').classList.add('ready');renderSubjects();loadHistory();setupOffline();
+    $('engine-status').classList.add('ready');renderSubjects();loadHistory();setupOffline();$('guided-toggle').disabled=false;window.dispatchEvent(new Event('pe-ready'));
   } catch(error) {
+    state.mode='failed';window.PEOffline.setMode('failed');
     $('engine-status').textContent='Engine unavailable';
     tell('Could not start the local engine. Connect once to download the website, or use a native package. Reload to retry. '+error.message);
     $('cache-status').textContent='Solver not loaded; offline solving is not ready.';
   }
 }
-function setBusy(value){state.busy=value;['solve','identify','domain','topic','example','auto-type'].forEach(id=>$(id).disabled=value);$('input').readOnly=value;$('solve-form').setAttribute('aria-busy',String(value));}
+function setBusy(value){state.busy=value;['solve','identify','domain','topic','example','auto-type','guided-toggle'].forEach(id=>$(id).disabled=value);$('input').readOnly=value;$('solve-form').setAttribute('aria-busy',String(value));}
 $('solve-form').addEventListener('submit',async event=>{
   event.preventDefault();if(state.busy)return;
   const problem={domain:$('domain').value,topic:$('topic').value,input:$('input').value.trim(),mode:$('auto-type').checked?'auto':'manual'};
@@ -146,6 +150,7 @@ let visualObserver;
 function renderVisual(raw) {
   visualObserver?.disconnect();visualObserver=null;
   $('visual').replaceChildren();let v;try{v=JSON.parse(raw||'{}');}catch{return;}
+  if(window.PELabs?.renderVisual(v,$('visual')))return;
   if(v.kind==='kmap'&&Array.isArray(v.cells)){
     const rowBits=Math.floor(v.variables/2),colBits=v.variables-rowBits,table=node('table',undefined,'kmap');
     table.append(node('caption','Gray-code map · row variables first, column variables last. X = don’t care.'));
@@ -179,29 +184,10 @@ function solutionText() {
 $('copy').addEventListener('click',async()=>{try{if(state.mode==='android')window.PocketEngineerAndroid.copySolution(solutionText());else await navigator.clipboard.writeText(solutionText());$('copy').textContent='Copied';}catch{$('copy').textContent='Select the result to copy';}});
 $('export').addEventListener('click',()=>{if(!state.result)return;if(state.mode==='android'){window.PocketEngineerAndroid.saveSolution(JSON.stringify({problem:state.problem,result:state.result},null,2));return;}const url=URL.createObjectURL(new Blob([JSON.stringify({problem:state.problem,result:state.result},null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download='pocket-engineer-solution.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 $('print').addEventListener('click',()=>state.mode==='android'?window.PocketEngineerAndroid.printSolution():window.print());
-let installPrompt;
-window.addEventListener('beforeinstallprompt',event=>{event.preventDefault();installPrompt=event;$('install').hidden=false;});
-$('install').addEventListener('click',async()=>{if(installPrompt){try{await installPrompt.prompt();await installPrompt.userChoice;}catch{$('cache-status').textContent='Installation was not completed. Use your browser’s install menu to retry.';}finally{installPrompt=null;$('install').hidden=true;}}});
-window.addEventListener('appinstalled',()=>{$('install').hidden=true;});
-async function checkCache(){
-  if(state.mode==='android'){$('cache-status').textContent='Ready offline · native engine and interface bundled in the APK.';return;}
-  if(state.mode==='http'){$('cache-status').textContent='Native server mode: keep the local desktop server running. Install the published website for server-free offline use.';return;}
-  try {
-    const registration=await navigator.serviceWorker.getRegistration();
-    const worker=registration?.active;
-    if(!worker)throw new Error('Offline installation is still in progress. Check again in a moment.');
-    const channel=new MessageChannel();
-    const ready=await new Promise((resolve,reject)=>{const timer=setTimeout(()=>reject(new Error('Offline check timed out. Retry.')),8000);channel.port1.onmessage=e=>{clearTimeout(timer);channel.port1.close();resolve(e.data.ready);};worker.postMessage({type:'CHECK_OFFLINE'},[channel.port2]);});
-    $('cache-status').textContent=ready?'Ready offline · interface and C++ solver are cached on this device.':'Offline files are incomplete. Reconnect and reload, then check again.';
-    $('offline-status').textContent=ready?'Ready offline. Your next solution needs no connection.':'Keep this page online until the solver finishes caching.';
-    document.body.dataset.offlineReady=String(ready);
-  }catch(error){$('cache-status').textContent=error.message;}
-}
-async function setupOffline(){
-  if(state.mode==='android'||state.mode==='http'){checkCache();return;}
-  if(!('serviceWorker' in navigator)){$('cache-status').textContent='Offline caching is unavailable in this browser.';return;}
-  try {await navigator.serviceWorker.register('service-worker.js',{scope:'./'});await navigator.serviceWorker.ready;await checkCache();}
-  catch{$('cache-status').textContent='Could not cache the offline app. Check storage space, reconnect and reload.';}
-}
-$('retry-cache').addEventListener('click',checkCache);
+function setupOffline(){return window.PEOffline.setMode(state.mode);}
+window.addEventListener('pe-save-draft',()=>{try{sessionStorage.setItem('pocket-engineer.draft',JSON.stringify({domain:$('domain').value,topic:$('topic').value,input:$('input').value,auto:$('auto-type').checked}));}catch{}});
+window.addEventListener('pe-retry-engine',()=>{if(state.mode==='failed')boot();});
+window.PEApp={state,subjects,request,view,selectTopic,currentTopic,setBusy,node,tell,
+  present(result,problem,inLab=false){state.result=result;state.problem=problem;renderResult(result);if(inLab)$('lab-result').append($('result'));else view('workbench');$('result').focus({preventScroll:true});$('result').scrollIntoView({block:'start',behavior:'instant'});},
+  exportData(data,name){if(state.mode==='android'){window.PocketEngineerAndroid.saveSolution(JSON.stringify(data));return;}const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
 boot();

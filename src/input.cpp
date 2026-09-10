@@ -219,8 +219,8 @@ std::string circuit_input(ProblemSpec& p,const std::string& raw,std::string body
 }
 std::vector<int> index_list(std::string text){
     std::vector<int> out;for(char& c:text)if(c==','||c==';')c=' ';std::stringstream tokens(text);std::string token;
-    while(tokens>>token){const auto dash=token.find('-',1);const auto integer=[](const std::string& value){if(value.empty()||!std::all_of(value.begin(),value.end(),[](char c){return c>='0'&&c<='9';}))throw std::runtime_error("Minterm indices must be nonnegative integers");if(value.size()>2)throw std::runtime_error("K-map index exceeds the 4-variable range");return std::stoi(value);};
-        const int first=integer(token.substr(0,dash)),last=dash==std::string::npos?first:integer(token.substr(dash+1));if(first>last||last>15)throw std::runtime_error("K-map ranges must be increasing and between 0 and 15");for(int v=first;v<=last;++v)out.push_back(v);}
+    while(tokens>>token){const auto dash=token.find('-',1);const auto integer=[](const std::string& value){if(value.empty()||!std::all_of(value.begin(),value.end(),[](char c){return c>='0'&&c<='9';}))throw std::runtime_error("Minterm indices must be nonnegative integers");if(value.size()>2)throw std::runtime_error("K-map index exceeds the 6-variable range");return std::stoi(value);};
+        const int first=integer(token.substr(0,dash)),last=dash==std::string::npos?first:integer(token.substr(dash+1));if(first>last||last>63)throw std::runtime_error("K-map ranges must be increasing and between 0 and 63");for(int v=first;v<=last;++v)out.push_back(v);}
     return out;
 }
 std::string join_indices(const std::vector<int>& values){std::string out;for(int v:values){if(!out.empty())out+=',';out+=std::to_string(v);}return out;}
@@ -231,7 +231,7 @@ std::string kmap_input(const std::string& original,std::vector<std::string>& var
     if(std::regex_search(text,match,vars))count=static_cast<unsigned>(std::stoul(match[1].matched?match[1].str():match[2].str()));
     static const std::regex args(R"(\bF\s*\(([A-Za-z0-9_, ]+)\))",std::regex::icase);
     if(std::regex_search(text,match,args)){std::stringstream list(match[1].str());std::string name;while(std::getline(list,name,',')){name=trim(name);if(name.empty()||name.size()!=1||!std::isalpha(static_cast<unsigned char>(name[0])))throw std::runtime_error("Use distinct single-letter K-map variables");variables.push_back(name);}if(std::set<std::string>(variables.begin(),variables.end()).size()!=variables.size())throw std::runtime_error("K-map variable names must be distinct");if(count&&count!=variables.size())throw std::runtime_error("Conflicting K-map variable counts");count=static_cast<unsigned>(variables.size());}
-    if(count<2||count>4)throw std::runtime_error("Specify 2–4 K-map variables, for example F(A,B,C) or vars=3; do not infer missing high-order variables from the largest minterm");
+    if(count<2||count>6)throw std::runtime_error("Specify 2–6 K-map variables, for example F(A,B,C) or vars=3; do not infer missing high-order variables from the largest minterm");
     static const std::regex terms(R"(\b(minterms?|maxterms?)\s*(?:=|:|are)?\s*[\(\[\{]?\s*([0-9, \t\r\n-]*))",std::regex::icase);
     if(!std::regex_search(text,match,terms))throw std::runtime_error("Supply minterms or maxterms explicitly");
     const bool zeros=lower(match[1].str()).starts_with("max");auto on=index_list(match[2].str());

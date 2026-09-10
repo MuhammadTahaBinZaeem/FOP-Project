@@ -14,7 +14,8 @@ Java_com_pocketengineer_app_MainActivity_nativeDispatch(
     if (environment->ExceptionCheck()) return nullptr;
     const char* result = method == 0 ? pocket_engineer::pe_solve_json(request.c_str())
                        : method == 1 ? pocket_engineer::pe_identify_json(request.c_str())
-                       : method == 2 ? pocket_engineer::pe_catalog_json() : nullptr;
+                       : method == 2 ? pocket_engineer::pe_catalog_json()
+                       : method == 3 ? pocket_engineer::pe_workbench_json(request.c_str()) : nullptr;
     if (!result) return nullptr;
     const std::string response(result);
     pocket_engineer::pe_free_string(result);

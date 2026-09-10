@@ -43,7 +43,7 @@ const std::vector<TopicInfo>& topic_catalog() {
         {"logic", "signed_arithmetic", "Two's-complement addition", "twos_add 4 0111 0001", "twos_add bits left_binary right_binary", "2–31 bit signed addition, retained bits and overflow."},
         {"logic", "truth_table", "Truth tables", "A & !B | C", "! NOT, & AND, | OR, ^ XOR, parentheses", "Up to six distinct Boolean variables; every assignment enumerated."},
         {"logic", "canonical_pos", "Canonical product of sums", "A & B", "A Boolean expression", "Canonical maxterm indices from a complete truth table."},
-        {"logic", "kmap_minimization", "Karnaugh maps", "vars=3; minterms=1,3,5,7", "vars=2..4; minterms=...; dc=...", "Exact minimum sum of products for 2–4 variables; disjoint don't-cares; Gray-code map."},
+        {"logic", "kmap_minimization", "Karnaugh maps", "vars=3; minterms=1,3,5,7", "vars=2..6; minterms=...; dc=...", "2–6 variables with disjoint don't-cares and Gray-code maps. Exact minimum for 2–4 variables; 5–6 use bounded exact-cover search with explicit warning if optimality is not certified. Guided input has clickable cells and manual groups."},
         {"logic", "combinational_logic", "Combinational circuits", "full_adder 1 1 1", "full_adder A B Cin; mux4 S1 S0 D0 D1 D2 D3; comparator A B; decoder2 select", "Selected combinational components, not arbitrary gate-netlist synthesis."},
         {"logic", "sequential_logic", "Flip-flops", "jkff 1 1 0", "dff D Qprev; tff T Qprev; jkff J K Qprev", "One active clock edge for D, T and JK flip-flops; no arbitrary state-machine synthesis."},
         {"circuit", "voltage_divider", "Voltage dividers", "12 1000 2000", "Vin R1 R2", "Two positive resistors, unloaded output, DC ideal source. SI units."},
@@ -69,7 +69,7 @@ const std::vector<TopicInfo>& topic_catalog() {
 
 std::string catalog_json() {
     std::ostringstream out;
-    out << "{\"version\":\"0.4.0\",\"topics\":[";
+    out << "{\"version\":\"0.5.0\",\"topics\":[";
     bool first = true;
     for (const auto& entry : topic_catalog()) {
         if (!first) out << ',';

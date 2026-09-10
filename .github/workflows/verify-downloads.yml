@@ -15,11 +15,11 @@ jobs:
       matrix:
         include:
           - os: ubuntu-latest
-            asset: PocketEngineer-0.4.0-Linux-x64.zip
+            asset: PocketEngineer-0.5.0-Linux-x64.zip
           - os: windows-latest
-            asset: PocketEngineer-0.4.0-Windows-x64.zip
+            asset: PocketEngineer-0.5.0-Windows-x64.zip
           - os: macos-latest
-            asset: PocketEngineer-0.4.0-macOS-universal.zip
+            asset: PocketEngineer-0.5.0-macOS-universal.zip
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4

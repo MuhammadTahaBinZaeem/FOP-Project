@@ -2,6 +2,29 @@
 
 This file separates independent correctness comparisons, same-engine regression snapshots, and platform execution. Re-running answers produced by the same engine cannot independently establish mathematical correctness. Historical “correct” counts below mean snapshot matches.
 
+## 2026-09-09–10 — offline repair, visual editors and engineering labs
+
+Local release-candidate validation before platform packaging:
+
+| Test | Result | Evidence |
+| --- | --- | --- |
+| Release CTest | All 5 suites passed | [log](evidence/2026-09-10/ctest-final.log) |
+| ASan + UBSan Debug | All 5 suites passed | [log](evidence/2026-09-10/sanitizer-tests.log) |
+| Original independent stress | 1,606,929 checked, zero failures | [report](evidence/2026-09-10/independent-stress-v5.json) |
+| Original regression corpus | 825,000 answers and verification labels match | [report](evidence/2026-09-10/regression-v5.json) |
+| New workbench | 12,770 checked, zero failures | [log](evidence/2026-09-10/workbench-tests.log) |
+| New circuit/signal studies | 31,941 checked, zero failures | [repaired log](evidence/2026-09-10/engineering-studies-fixed.log) |
+| Actual desktop/mobile-layout browser interactions | 68/68 passed | [log](evidence/2026-09-10/browser-release-candidate.log) |
+| Full 5,000-case UI run, desktop | 1,576 ms, zero mismatches, no >50 ms main-thread tasks observed | [report](evidence/2026-09-10/demo-endurance-desktop.json) |
+| Full 5,000-case UI run, phone layout | 1,491 ms, zero mismatches, no >50 ms main-thread tasks observed | [report](evidence/2026-09-10/demo-endurance-android-layout.json) |
+| Maintained runtime C++ share | 82.457%; 77.387% including HTML/CSS | [exact denominator](evidence/2026-09-10/source-final.json) |
+
+These timings are from this desktop host, not a physical Android phone. The UI runs exercise all 5,000 records of one selected easy bank in each layout; native regression replay separately covers all 165 banks. Expanded browser tests also cover all 13 signal forms, circuit studies, six-variable K-maps, draft preservation, PNG/JSON download events, offline reload/repair, maximum FFT output and bounded failures. [Circuit](evidence/2026-09-10/lab-circuit-320.png), [signals](evidence/2026-09-10/lab-signals-320.png), [state editor](evidence/2026-09-10/lab-fsm-320.png) and [FFT result](evidence/2026-09-10/fft-result-android-layout.png) are actual narrow-browser screenshots.
+
+Failures are retained, not discarded: [offline baseline](evidence/2026-09-10/offline-before.log) reproduced missing-cache/registration defects; [initial engineering run](evidence/2026-09-10/engineering-studies-tests.log) caught two superposition residual-normalization false negatives, fixed with a scale-aware floor. The first broad UI run had 56/58 passes because its touch-target test measured the checkbox glyph instead of its clickable label; the corrected test still enforces 44-pixel target height. A subsequent version-specific download-link test was generalized to validate versioned release URLs while keeping the previous tested downloads live until new packages are published.
+
+The [v5 implementation reference](ENGINEERING_LABS_V5.md) documents algorithms, contracts, exclusions and performance safeguards. New Android instrumentation is defined but package/installed-APK results are reported separately after execution. Production signing and physical-device smoothness are not implied by these local results.
+
 ## 2026-09-07–08 — natural input, jank investigation and downloaded packages
 
 Shared C++ interpretation now handles documented human wording and corrects

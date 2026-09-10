@@ -21,7 +21,7 @@ const {createHash}=require('node:crypto');
     const rows=[];const links=page.locator('[data-download]');await expect(links).toHaveCount(5);
     for(const link of await links.all()){
       const name=await link.getAttribute('data-download');
-      if(!/^PocketEngineer-0\.4\.0-[\w.-]+\.(apk|zip)$/.test(name))throw Error('Unexpected download name');
+      if(!/^PocketEngineer-0\.5\.0-[\w.-]+\.(apk|zip)$/.test(name))throw Error('Unexpected download name');
       const event=page.waitForEvent('download',{timeout:120000});await link.click();const download=await event;
       if(download.suggestedFilename()!==name)throw Error('Unexpected suggested download filename');
       const destination=path.join(directory,name);await download.saveAs(destination);

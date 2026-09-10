@@ -59,7 +59,8 @@ int main() {
     auto branch=e.solve({"programming","branches","int x=4; if (x > 2) x += 3; else x += 9;"});expect(branch.answer=="x = 7","restricted branch trace");
     auto loop=e.solve({"programming","loops","int sum=0; for (int i=1; i<=5; ++i) sum += i;"});expect(loop.answer=="sum = 15","restricted loop trace");
     auto recursion=e.solve({"programming","recursion","fact(5)"});expect(recursion.answer=="fact(5) = 120","restricted recursion trace");
-    auto bad_kmap=e.solve({"logic","kmap","vars=5; minterms=1,2"});expect(bad_kmap.status=="error","unsupported K-map size rejected");
+    auto large_kmap=e.solve({"logic","kmap","vars=5; minterms=1,2"});expect(large_kmap.status=="success","five-variable K-map supported");
+    auto bad_kmap=e.solve({"logic","kmap","vars=7; minterms=1,2"});expect(bad_kmap.status=="error","unsupported K-map size rejected");
     auto bad_bernoulli=e.solve({"differential_equations","bernoulli","bernoulli 2 4 1"});expect(bad_bernoulli.status=="error","invalid Bernoulli exponent rejected");
     auto bad_loop=e.solve({"programming","loops","int sum=0; for (int i=1; i<=100001; ++i) sum += i;"});expect(bad_loop.status=="error","unbounded teaching loop rejected");
     if(failures){std::cerr<<failures<<" test(s) failed\n";return EXIT_FAILURE;}std::cout<<"All Pocket Engineer tests passed\n";

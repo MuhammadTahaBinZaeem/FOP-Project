@@ -12,7 +12,7 @@ function engine() {
 self.onmessage=async({data})=>{
   const {id,method,payload}=data;
   try {
-    const names={solve:'pe_solve_json',identify:'pe_identify_json',catalog:'pe_catalog_json'};
+    const names={solve:'pe_solve_json',identify:'pe_identify_json',catalog:'pe_catalog_json',workbench:'pe_workbench_json'};
     if(!Object.prototype.hasOwnProperty.call(names,method))throw new Error('Unsupported engine request');
     const m=await engine(),hasInput=method!=='catalog';
     const pointer=m.ccall(names[method],'number',hasInput?['string']:[],hasInput?[payload]:[]);

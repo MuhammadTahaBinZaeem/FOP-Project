@@ -164,8 +164,8 @@ void handle(Socket client,const std::filesystem::path& root,unsigned port) {
             &&origin->second!="http://"+host1&&origin->second!="http://"+host2) {
             response(client,"403 Forbidden","text/plain","Cross-origin solver access is disabled");return;
         }
-        if(request.method=="POST"&&request.target=="/api/solve") {
-            const char* raw=pocket_engineer::pe_solve_json(request.body.c_str());
+        if(request.method=="POST"&&(request.target=="/api/solve"||request.target=="/api/workbench")) {
+            const char* raw=request.target=="/api/workbench"?pocket_engineer::pe_workbench_json(request.body.c_str()):pocket_engineer::pe_solve_json(request.body.c_str());
             if(!raw)throw std::runtime_error("Solver allocation failed");
             const std::string result(raw);pocket_engineer::pe_free_string(raw);
             response(client,"200 OK","application/json",result);return;

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.21)
-project(PocketEngineer VERSION 0.4.0 LANGUAGES CXX)
+project(PocketEngineer VERSION 0.5.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -18,7 +18,10 @@ if(MSVC)
     add_compile_options(/utf-8)
 endif()
 
-add_library(pocket_engineer_core src/engine.cpp src/catalog.cpp src/request.cpp src/polynomial.cpp src/input.cpp)
+add_library(pocket_engineer_core src/engine.cpp src/catalog.cpp src/request.cpp src/polynomial.cpp src/input.cpp
+    src/workbench_json.cpp src/workbench.cpp src/circuit_network.cpp src/circuit_editor.cpp
+    src/kmap_workbench.cpp src/state_machine.cpp src/signals.cpp src/digital_signals.cpp
+    src/engineering_catalog.cpp)
 target_include_directories(pocket_engineer_core PUBLIC include)
 if(MSVC)
     target_compile_options(pocket_engineer_core PRIVATE /W4 /permissive-)
@@ -62,11 +65,15 @@ if(EMSCRIPTEN)
     add_executable(pocket-engineer-web apps/wasm.cpp)
     target_link_libraries(pocket-engineer-web PRIVATE pocket_engineer_core)
     target_compile_options(pocket_engineer_core PRIVATE -fexceptions)
+    # Native/JNI builds retain -O3. For the downloaded WASM engine, optimize
+    # instruction size and cold-start cost; bounded algorithms keep UI work off
+    # the main thread. Browser stress tests record throughput separately.
+    target_compile_options(pocket_engineer_core PRIVATE -Oz)
     target_link_options(pocket-engineer-web PRIVATE
-        --no-entry -fexceptions -sDISABLE_EXCEPTION_CATCHING=0 -sMODULARIZE=1
+        --no-entry -Oz -fexceptions -sDISABLE_EXCEPTION_CATCHING=0 -sMODULARIZE=1
         -sEXPORT_NAME=createPocketEngineer -sENVIRONMENT=web,worker,node
         -sALLOW_MEMORY_GROWTH=1 -sMAXIMUM_MEMORY=134217728 -sSTACK_SIZE=1048576
-        "-sEXPORTED_FUNCTIONS=['_pe_solve_json','_pe_identify_json','_pe_catalog_json','_pe_free_string']"
+        "-sEXPORTED_FUNCTIONS=['_pe_solve_json','_pe_identify_json','_pe_catalog_json','_pe_workbench_json','_pe_free_string']"
         "-sEXPORTED_RUNTIME_METHODS=['ccall','UTF8ToString']")
     set_target_properties(pocket-engineer-web PROPERTIES OUTPUT_NAME engine SUFFIX .js
         RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/web")
@@ -111,6 +118,16 @@ if(NOT ANDROID AND NOT EMSCRIPTEN)
     pe_configure_target(pe-input-tests)
     add_test(NAME natural-input COMMAND pe-input-tests)
     set_tests_properties(natural-input PROPERTIES TIMEOUT 180)
+    add_executable(pe-workbench-tests tests/workbench_tests.cpp)
+    target_link_libraries(pe-workbench-tests PRIVATE pocket_engineer_core)
+    pe_configure_target(pe-workbench-tests)
+    add_test(NAME engineering-workbench COMMAND pe-workbench-tests)
+    set_tests_properties(engineering-workbench PROPERTIES TIMEOUT 180)
+    add_executable(pe-engineering-studies-tests tests/engineering_studies_tests.cpp)
+    target_link_libraries(pe-engineering-studies-tests PRIVATE pocket_engineer_core)
+    pe_configure_target(pe-engineering-studies-tests)
+    add_test(NAME engineering-studies COMMAND pe-engineering-studies-tests)
+    set_tests_properties(engineering-studies PROPERTIES TIMEOUT 180)
 
     include(GNUInstallDirs)
     install(TARGETS pocket-engineer pocket-engineer-server pe-generate-tests pe-verify-corpus pe-generate-explanations

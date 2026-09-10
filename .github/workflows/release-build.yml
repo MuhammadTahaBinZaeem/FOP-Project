@@ -44,7 +44,7 @@ jobs:
       - name: Test extracted desktop ZIP
         shell: bash
         run: |
-          pe_package=$(find . -maxdepth 1 -name 'PocketEngineer-0.4.0-*.zip' -print -quit)
+          pe_package=$(find . -maxdepth 1 -name 'PocketEngineer-0.5.0-*.zip' -print -quit)
           node tools/test_desktop_package.mjs "$pe_package" build-package-test
       - name: Verify Linux package has no dynamic loader or library dependencies
         if: runner.os == 'Linux'

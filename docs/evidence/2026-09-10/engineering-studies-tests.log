@@ -1,0 +1,6 @@
+FAIL successful result: network_superposition Contributions to V(out)
+V1: 3.33333333333 + j0 V
+V2: 1.66666666667 + j0 V
+Sum = 
+FAIL checked result: 2 source responses checked; maximum normalized residual=8.67361737988e-07
+31941 extended engineering checks, 2 failures

@@ -29,6 +29,6 @@ pe_status=0
 "$pe_adb" -s "$pe_serial" shell dumpsys webviewupdate > "$pe_report/webview.txt"
 "$pe_adb" -s "$pe_serial" logcat -d -t 500 > "$pe_report/logcat.txt"
 # `am instrument` can return exit status 0 even when JUnit failed.
-grep -q 'OK (3 tests)' "$pe_report/instrumentation.txt" || pe_status=1
+grep -q 'OK (4 tests)' "$pe_report/instrumentation.txt" || pe_status=1
 if grep -qE 'FAILURES!!!|INSTRUMENTATION_FAILED|Process crashed' "$pe_report/instrumentation.txt"; then pe_status=1; fi
 exit "$pe_status"

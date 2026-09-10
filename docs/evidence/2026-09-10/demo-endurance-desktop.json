@@ -1,0 +1,8 @@
+{
+  "cases": 5000,
+  "mismatches": 0,
+  "elapsed_ms": 1576,
+  "ticks": 27,
+  "long_tasks_ms": [],
+  "limitations": "This browser and host only; interval callbacks and long tasks do not prove displayed-frame smoothness."
+}

@@ -25,5 +25,5 @@ const runtime=totals.cpp+totals.other_runtime_code;
 const result={scope:'Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files',...totals,cpp_percent_runtime:100*totals.cpp/runtime,cpp_percent_including_html_css:100*totals.cpp/(runtime+totals.html_css),files};
 console.log(JSON.stringify(result,null,2));
 if(process.argv[2])await writeFile(process.argv[2],JSON.stringify(result,null,2)+'\n');
-// HTML and CSS are separately reported so the denominator is never hidden.
-if(result.cpp_percent_runtime<80)process.exitCode=1;
+// Both gates are enforced: markup/styles stay in the user's denominator.
+if(result.cpp_percent_runtime<80||result.cpp_percent_including_html_css<77)process.exitCode=1;

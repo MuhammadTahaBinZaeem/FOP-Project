@@ -18,20 +18,27 @@ import androidx.webkit.WebViewAssetLoader
 import org.json.JSONObject
 import java.util.concurrent.Executors
 import java.util.concurrent.RejectedExecutionException
+import java.util.concurrent.atomic.AtomicBoolean
+import java.io.File
+import android.util.Base64
 
 /** All web assets are trusted, bundled files. No remote page receives the JNI bridge. */
 class MainActivity : Activity() {
     companion object { init { System.loadLibrary("pocketengineer_jni") } }
     private lateinit var webView: WebView
     private val solver = Executors.newSingleThreadExecutor()
+    private val exports = Executors.newSingleThreadExecutor()
+    private val preparingExport = AtomicBoolean(false)
     @Volatile private var destroyed = false
-    private var pendingExport: String? = null
+    private var pendingExportPath: String? = null
     private external fun nativeDispatch(method: Int, input: ByteArray): ByteArray
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        pendingExport = savedInstanceState?.getString("pendingExport")
+        pendingExportPath = savedInstanceState?.getString("pendingExportPath")?.takeIf {
+            it.startsWith("pe-export-") && !it.contains('/') && !it.contains('\\') && File(cacheDir, it).isFile
+        }
         val assets = WebViewAssetLoader.Builder()
             .addPathHandler("/assets/", WebViewAssetLoader.AssetsPathHandler(this)).build()
         webView = WebView(this)
@@ -101,20 +108,22 @@ class MainActivity : Activity() {
 
         @JavascriptInterface
         fun saveSolution(json: String) {
-            if (json.length > 1000000) return
-            runOnUiThread {
-                if (!destroyed && pendingExport == null) {
-                    pendingExport = json
-                    @Suppress("DEPRECATION")
-                    try { startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-                        addCategory(Intent.CATEGORY_OPENABLE)
-                        type = "application/json"
-                        putExtra(Intent.EXTRA_TITLE, "pocket-engineer-solution.json")
-                    }, 30) } catch (_: android.content.ActivityNotFoundException) {
-                        pendingExport = null
-                        android.widget.Toast.makeText(this@MainActivity, "No document picker is available", android.widget.Toast.LENGTH_LONG).show()
-                    }
-                }
+            if (json.length > 12000000) { exportNotice("Export exceeds 12 MB; save a smaller test run"); return }
+            prepareExport("application/json", "pocket-engineer-data.json") { json.toByteArray(Charsets.UTF_8) }
+        }
+
+        @JavascriptInterface
+        fun saveImage(dataUrl: String) {
+            if (!dataUrl.startsWith("data:image/png;base64,") || dataUrl.length > 8000000) {
+                exportNotice("PNG export is invalid or too large"); return
+            }
+            prepareExport("image/png", "pocket-engineer-diagram.png") {
+                val bytes = Base64.decode(dataUrl.substringAfter(','), Base64.DEFAULT)
+                require(bytes.size >= 24 && bytes.take(8).toByteArray().contentEquals(
+                    byteArrayOf(137.toByte(), 80, 78, 71, 13, 10, 26, 10)))
+                val dimensions = java.nio.ByteBuffer.wrap(bytes, 16, 8)
+                require(dimensions.int in 1..4096 && dimensions.int in 1..4096)
+                bytes
             }
         }
 
@@ -127,7 +136,7 @@ class MainActivity : Activity() {
         @JavascriptInterface
         fun request(id: Int, method: String, payload: String) {
             if (destroyed || id <= 0) return
-            val operation = when (method) { "solve" -> 0; "identify" -> 1; "catalog" -> 2; else -> -1 }
+            val operation = when (method) { "solve" -> 0; "identify" -> 1; "catalog" -> 2; "workbench" -> 3; else -> -1 }
             if (operation < 0 || payload.length > 32768) return
             try {
                 solver.execute {
@@ -146,6 +155,48 @@ class MainActivity : Activity() {
         }
     }
 
+    private fun exportNotice(message: String) {
+        runOnUiThread { if (!destroyed) android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_LONG).show() }
+    }
+
+    private fun prepareExport(mime: String, title: String, content: () -> ByteArray) {
+        if (destroyed || !preparingExport.compareAndSet(false, true)) return
+        runOnUiThread {
+            if (destroyed || pendingExportPath != null) { preparingExport.set(false); return@runOnUiThread }
+            try {
+                exports.execute {
+                    var temporary: File? = null
+                    try {
+                        val bytes = content()
+                        require(bytes.size <= 12000000)
+                        val ready = File.createTempFile("pe-export-", ".tmp", cacheDir)
+                        temporary = ready
+                        ready.writeBytes(bytes)
+                        runOnUiThread exportReady@ {
+                            preparingExport.set(false)
+                            if (destroyed) { ready.delete(); return@exportReady }
+                            pendingExportPath = ready.name
+                            @Suppress("DEPRECATION")
+                            try { startActivityForResult(Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+                                addCategory(Intent.CATEGORY_OPENABLE)
+                                type = mime
+                                putExtra(Intent.EXTRA_TITLE, title)
+                            }, 30) } catch (_: Exception) {
+                                pendingExportPath = null
+                                ready.delete()
+                                exportNotice("No document picker is available")
+                            }
+                        }
+                    } catch (_: Exception) {
+                        temporary?.delete()
+                        preparingExport.set(false)
+                        exportNotice("Could not prepare this export")
+                    }
+                }
+            } catch (_: RejectedExecutionException) { preparingExport.set(false) }
+        }
+    }
+
     @Deprecated("Platform back compatibility for API 24+")
     override fun onBackPressed() {
         if (!::webView.isInitialized) { super.onBackPressed(); return }
@@ -156,7 +207,8 @@ class MainActivity : Activity() {
         }
     }
     override fun onSaveInstanceState(outState: Bundle) {
-        pendingExport?.let { outState.putString("pendingExport", it) }
+        // Store only a tiny cache filename, never megabytes in an Android Bundle.
+        pendingExportPath?.let { outState.putString("pendingExportPath", it) }
         super.onSaveInstanceState(outState)
     }
     override fun onPause() { if (::webView.isInitialized) webView.onPause(); super.onPause() }
@@ -165,16 +217,25 @@ class MainActivity : Activity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode != 30) return
-        val text = pendingExport
-        pendingExport = null
-        if (resultCode == RESULT_OK && text != null && data?.data != null) {
-            try { contentResolver.openOutputStream(data.data!!)?.use { it.write(text.toByteArray(Charsets.UTF_8)) } }
-            catch (_: Exception) { android.widget.Toast.makeText(this, "Could not save the solution", android.widget.Toast.LENGTH_LONG).show() }
+        val path = pendingExportPath
+        pendingExportPath = null
+        if (path == null) return
+        val temporary = File(cacheDir, path)
+        if (resultCode != RESULT_OK || data?.data == null) { temporary.delete(); return }
+        val destination = data.data!!
+        exports.execute {
+            try {
+                val output = contentResolver.openOutputStream(destination) ?: error("Output stream unavailable")
+                output.use { target -> temporary.inputStream().use { source -> source.copyTo(target, 32768) } }
+                exportNotice("Export saved")
+            } catch (_: Exception) { exportNotice("Could not save the export") }
+            finally { temporary.delete() }
         }
     }
     override fun onDestroy() {
         destroyed = true
         solver.shutdownNow()
+        exports.shutdown()
         webView.removeJavascriptInterface("PocketEngineerAndroid")
         webView.stopLoading()
         webView.destroy()

@@ -63,6 +63,7 @@ extern "C" const char* pe_solve_json(const char* request_json);
 extern "C" const char* pe_capabilities_json();
 extern "C" const char* pe_identify_json(const char* input);
 extern "C" const char* pe_catalog_json();
+extern "C" const char* pe_workbench_json(const char* request_json);
 extern "C" void pe_free_string(const char* value);
 
 struct TopicInfo {

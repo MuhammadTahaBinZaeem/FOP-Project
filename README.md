@@ -14,17 +14,22 @@ The shared C++ catalog exposes 55 bounded problem types with runnable examples a
 | Calculus | polynomial differentiation, integration, definite integrals and tangents; selected removable limits and monomial curve analysis |
 | Linear algebra | RREF, determinant, inverse, unique/dependent/inconsistent systems, multiplication, transpose, rank, real 2×2 eigenvalues, vectors |
 | Differential equations | selected separable, linear, exact, Bernoulli, homogeneous and second-order families; exponential IVPs, Euler and RK4 |
-| DLD | bases, signed addition, truth tables, canonical POS, exact 2–4 variable K-maps with don't-cares, selected combinational circuits and flip-flops |
-| LCA / ENA | resistive DC nodal analysis, two-mesh circuits, dividers, source transformations, superposition, supplied Thévenin/Norton equivalents, maximum power, RC/RL step responses |
+| DLD | bases, signed addition, truth tables, canonical POS, clickable 2–6 variable K-maps with don't-cares/manual groups, selected combinational circuits and flip-flops; state-machine tables, reduction, simulation, diagrams and D-input/output equations |
+| LCA / ENA | DC/AC RLC and controlled-source MNA, schematic editor, backward-Euler RLC transients, computed Thévenin/Norton ports, superposition, AC sweeps, component sensitivities; original divider/mesh/step-response topics |
+| Signals and transforms | FFT/IFFT, convolution/correlation, waveform generation, analog/digital response, FIR/IIR difference equations, windowed-sinc FIR design, finite Z-transform and bounded inverse-Z/Laplace families |
 | Programming / units | bounded C++ teaching traces, branches, loops, arrays, functions, factorials; dimension-checked SI conversions |
 
-This is **not a general-purpose solver for every problem in these courses**. No arbitrary C++ execution, OCR, general symbolic ODE solver, AC phasor analysis, larger eigensystems or arbitrary natural-language interpretation is claimed. The topic's “What this solver supports” panel states its limits. See [input reference](docs/INPUT_REFERENCE.md) and [curriculum scope](docs/CURRICULUM_COVERAGE.md).
+This is **not a general-purpose solver for every problem in these courses**. No arbitrary C++ execution, OCR, nonlinear/SPICE circuit model, general symbolic ODE solver, larger eigensystem or unrestricted natural-language interpretation is claimed. New engineering labs use validated forms and structured inputs, not guessed circuit topology. The topic's support panel states its limits. See [visual labs and engineering reference](docs/ENGINEERING_LABS_V5.md), [input reference](docs/INPUT_REFERENCE.md) and [curriculum scope](docs/CURRICULUM_COVERAGE.md).
 
 ## Website and Android
 
 The website compiles the same engine to WebAssembly and runs it inside a Web Worker, keeping the interface responsive. Its service worker caches the interface **and solver**. Wait for **Ready offline** before disconnecting; then the same address can solve after a cold reload without a native server. Browser storage can still be evicted.
 
 The Android application bundles the interface and calls native C++ through an asynchronous JNI bridge. It has no INTERNET permission. Trusted assets use an HTTPS-style local origin; arbitrary remote navigation and file access are blocked.
+
+Use **Test demos · 825k cases** to choose subject, problem type and difficulty. All 165 compressed sets are preloaded for offline use: 5,000 easy, medium and hard cases per original topic. Only the selected set is decompressed in a separate worker; only 25 rows are rendered. Calibrate on your device for a measured time estimate, run a page or 5,000 cases, stop safely, and export expected/actual comparisons. These are stored regression snapshots, not independent proofs. New engineering labs have separate independent tests, not an invented 5,000-case bank for every new operation.
+
+**Prepare / repair offline access** registers or repairs the offline worker, verifies SHA-256 content and includes all demo sets. Once **Ready offline** appears, revisit the same Render URL in the same browser without internet. A first-ever offline visit cannot work, and clearing/evicting site storage removes that installation. The complete download is about 9.1 MB; the critical app/engine is about 1.17 MB. Browser installation and persistent-storage grants depend on the browser.
 
 Both interfaces include subject search, natural question input, automatic correction of clearly wrong type selections, a manual-mode switch, example inputs, numbered calculation steps, numerical-check evidence, warnings, sampled charts/K-map tables, and the last 30 inputs in device-only history. The interpretation is shown and the original text is preserved. See [natural input examples and boundaries](docs/NATURAL_INPUT.md). There are no SVG assets in the maintained website.
 
@@ -37,7 +42,7 @@ complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/rele
 for installation, signing and device-validation limits. The website's “Get the
 app” page has direct, labelled downloads for each platform.
 
-The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB; the expanded 0.4 critical offline bundle, including WASM and natural-input parsing, is approximately 922 KB (1.5 MB enforced budget). See [current hardening record](docs/JANK_INPUT_DOWNLOADS_V4.md), [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
+The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB. The critical offline budget remains 1.5 MB, with a separate 12 MB limit including the demo bank. See [v5 implementation and validation](docs/ENGINEERING_LABS_V5.md), [previous hardening record](docs/JANK_INPUT_DOWNLOADS_V4.md), [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
 
 ## Build and test
 
@@ -91,7 +96,7 @@ is retained as history. No universal “100% correct” claim is made.
 
 All solvers, mathematical parsing, classification, topic contracts, explanation steps, numerical checks and plot sampling are in C++. JavaScript handles presentation, caching, history and worker messaging; Kotlin hosts the native application.
 
-`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. It reports the runtime C++ share **and a second percentage including HTML/CSS**, so the denominator is explicit. The runtime-code gate is 80%; markup and styles are not executable solver code.
+`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.5% and 77.4%, respectively; run the audit for exact bytes.
 
 Input lengths, recursion depth, matrix dimensions, ODE iteration counts, history size and chart samples are bounded. The browser worker has a watchdog. The desktop server binds only to loopback and validates Host/Origin, body sizes and canonical file paths. No generated training corpus is downloaded by the app.
 
