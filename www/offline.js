@@ -21,8 +21,7 @@ window.PEOffline=(()=>{
     if(mode==='http'){display('Native server mode: keep the downloaded desktop launcher running. For server-free use, install the Render website.');return;}
     if(!isSecureContext||!('serviceWorker' in navigator))throw Error('Offline installation requires HTTPS or localhost and service-worker support.');
     let registration=await navigator.serviceWorker.getRegistration();
-    if(!registration||(!registration.active&&!registration.installing&&!registration.waiting))registration=await navigator.serviceWorker.register('service-worker.js',{scope:'./',updateViaCache:'none'});
-    if(repair&&navigator.onLine)await registration.update().catch(()=>{});
+    if((repair&&navigator.onLine)||!registration||(!registration.active&&!registration.installing&&!registration.waiting))registration=await navigator.serviceWorker.register('service-worker.js?refresh='+Date.now(),{scope:'./',updateViaCache:'none'});
     get('update-offline').hidden=!registration.waiting;
     registration.addEventListener('updatefound',()=>{const worker=registration.installing;worker?.addEventListener('statechange',()=>{get('update-offline').hidden=!registration.waiting;});});
     let worker=registration.active;

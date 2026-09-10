@@ -1,11 +1,12 @@
 'use strict';
-const VERSION='pocket-engineer-8ef2aa5cb852a580c482';
-const MANIFEST_HASH='8ef2aa5cb852a580c4825d4f2768c2a9417e278b90518c3ecd87fc2c26641a25';
+const VERSION='pocket-engineer-8d12d628099b6649549f';
+const MANIFEST_HASH='8d12d628099b6649549f2b370a25e66ac485dffd42ce411a436fad4408049f13';
 const ROOT=new URL('./',self.location.href),MANIFEST=new URL('offline-manifest.json',ROOT).href;
 let repairJob,manifestJob,imagesJob;
 const digest=async response=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await response.clone().arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('');
 async function verified(url,hash){
-  const response=await fetch(url,{cache:'reload',signal:AbortSignal.timeout(20000)});
+  const source=new URL(url);source.searchParams.set('pe',hash);
+  const response=await fetch(source,{cache:'reload',signal:AbortSignal.timeout(20000)});
   if(!response.ok)throw Error('Could not download '+new URL(url).pathname+' ('+response.status+')');
   if(await digest(response)!==hash)throw Error('Website changed during download. Check for an update, then retry.');
   return response;
