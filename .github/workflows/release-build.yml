@@ -79,7 +79,12 @@ jobs:
       - name: Install pinned native Android build tools
         run: |
           yes | sdkmanager --licenses > /dev/null || true
+          # This disposable Android-only runner does not use other NDK releases.
+          # API35's base userdata image cannot be shrunk by disk-size alone.
+          sdkmanager --list_installed | awk '$1 ~ /^ndk;[0-9.]+$/ && $1 != "ndk;26.3.11579264" {print $1}' > "$RUNNER_TEMP/pe-unused-ndks.txt"
+          while IFS= read -r pe_package; do sdkmanager --uninstall "$pe_package"; done < "$RUNNER_TEMP/pe-unused-ndks.txt"
           sdkmanager "platforms;android-35" "build-tools;35.0.0" "ndk;26.3.11579264" "cmake;3.22.1"
+          df -h /usr/local/lib/android/sdk
       - name: Set up Gradle 8.7
         uses: gradle/actions/setup-gradle@v4
         with:
@@ -119,6 +124,7 @@ jobs:
             android-signing-status.txt
       - name: Check release signature and 16KB packaging
         run: |
+          node tools/test_android_assets.mjs android/app/build/outputs/apk/release/app-release.apk
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose android/app/build/outputs/apk/release/app-release.apk
           "$ANDROID_HOME/build-tools/35.0.0/zipalign" -c -P 16 4 android/app/build/outputs/apk/release/app-release.apk
           unzip -q android/app/build/outputs/apk/release/app-release.apk 'lib/*' -d "$RUNNER_TEMP/pe-apk-alignment"
@@ -134,8 +140,8 @@ jobs:
           api-level: 35
           arch: x86_64
           profile: pixel_2
-          # Current API35 images default to a >7 GB userdata allocation. The
-          # disposable test app needs far less; avoid runner disk exhaustion.
+          # A lower request avoids additional growth, but the base image still
+          # needs >7 GB; unused SDK releases are removed above to make room.
           disk-size: 2048M
           emulator-boot-timeout: 300
           disable-animations: true

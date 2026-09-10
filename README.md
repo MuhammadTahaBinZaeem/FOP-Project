@@ -29,7 +29,7 @@ The Android application bundles the interface and calls native C++ through an as
 
 Use **Test demos · 825k cases** to choose subject, problem type and difficulty. All 165 compressed sets are preloaded for offline use: 5,000 easy, medium and hard cases per original topic. Only the selected set is decompressed in a separate worker; only 25 rows are rendered. Calibrate on your device for a measured time estimate, run a page or 5,000 cases, stop safely, and export expected/actual comparisons. These are stored regression snapshots, not independent proofs. New engineering labs have separate independent tests, not an invented 5,000-case bank for every new operation.
 
-**Prepare / repair offline access** registers or repairs the offline worker, verifies SHA-256 content and includes all demo sets. Once **Ready offline** appears, revisit the same Render URL in the same browser without internet. A first-ever offline visit cannot work, and clearing/evicting site storage removes that installation. The complete download is about 9.1 MB; the critical app/engine is about 1.17 MB. Browser installation and persistent-storage grants depend on the browser.
+**Prepare / repair offline access** registers or repairs the offline worker, verifies SHA-256 content and includes all demo sets. Once **Ready offline** appears, revisit the same Render URL in the same browser without internet. A first-ever offline visit cannot work, and clearing/evicting site storage removes that installation. The complete download is about 9.2 MB; the critical app/engine is about 1.25 MB. Browser installation and persistent-storage grants depend on the browser.
 
 Both interfaces include subject search, natural question input, automatic correction of clearly wrong type selections, a manual-mode switch, example inputs, numbered calculation steps, numerical-check evidence, warnings, sampled charts/K-map tables, and the last 30 inputs in device-only history. The interpretation is shown and the original text is preserved. See [natural input examples and boundaries](docs/NATURAL_INPUT.md). There are no SVG assets in the maintained website.
 
@@ -96,7 +96,7 @@ is retained as history. No universal “100% correct” claim is made.
 
 All solvers, mathematical parsing, classification, topic contracts, explanation steps, numerical checks and plot sampling are in C++. JavaScript handles presentation, caching, history and worker messaging; Kotlin hosts the native application.
 
-`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.5% and 77.4%, respectively; run the audit for exact bytes.
+`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.13% and 77.12%, respectively; run the audit for exact bytes.
 
 Input lengths, recursion depth, matrix dimensions, ODE iteration counts, history size and chart samples are bounded. The browser worker has a watchdog. The desktop server binds only to loopback and validates Host/Origin, body sizes and canonical file paths. No generated training corpus is downloaded by the app.
 

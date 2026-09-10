@@ -18,11 +18,15 @@ All solving, topology, validation, form definitions, minimization, state reducti
 
 ## Using the offline demo bank
 
-Press **Test demos · 825k cases**, then select subject → topic → difficulty. The 165 checked-in gzip files contain the actual original stored corpus: 55 topics × 3 difficulties × 5,000 rows. Source and compressed/expanded SHA-256 digests are recorded in `www/demo-data/manifest.json`. `tools/build_demo_bank.mjs` reproduces the files from a generated `test-data` directory.
+Press **Test demos · 825k cases**, then select subject → topic → difficulty. The 165 checked-in gzip-compressed `.pebank` files contain the actual original stored corpus: 55 topics × 3 difficulties × 5,000 rows. Source and compressed/expanded SHA-256 digests are recorded in `www/demo-data/manifest.json`. `tools/build_demo_bank.mjs` reproduces the files from a generated `test-data` directory.
 
 Only one set is decompressed at a time, off the UI thread. The visible table has 25 rows, not 825,000 DOM entries. **Calibrate** measures 25 calls on this device, discards the first warm-up call for percentiles and estimates a range for 5,000 calls. The estimate includes bridge round trips, not just numerical arithmetic. It is not a worst-case promise. **Run all 5,000** supports cancellation after the current bounded solve. Export includes each tested input, stored answer, current answer, verification labels, match decision and elapsed time.
 
 Snapshot equality is not independent mathematical verification. Some original bounded families have repeated inputs. New circuit/signal operations have independent deterministic tests and presets, but are not represented as 5,000 stored snapshots for every new operation.
+
+Actual API35 APK testing found two Android-only failures: worker fetch could not read bundled files, and Android's asset merger transparently expanded `.gz` assets while removing their suffix. `.pebank` preserves the original compressed bytes; Android asynchronously reads those bytes in the WebView and transfers the buffer to the verification/decompression worker. `tools/test_android_assets.mjs` checks all 825,000 packaged records and both hashes inside the assembled APK. Browser transport simulation is labelled separately from installed-APK evidence.
+
+Android comparisons use C++ batches of at most 25 records, reduced further when needed to stay below the 32 KB bridge budget. Cancellation is checked between batches. Results retain expected and actual answers per record; `elapsed_ms` is explicitly amortized batch round-trip time, not a claim of individually timed calls. `engine_duration_ms` measures each C++ solve. Calibration still uses serial calls and labels that distinction.
 
 ## Offline readiness and performance
 
@@ -32,7 +36,7 @@ Live deployment exposed a CDN-specific defect that localhost did not: Cloudflare
 
 Visit `https://pocket-engineer.onrender.com/` online once, wait for **Ready offline**, then use that same URL in the same browser offline. Browser installation is optional for URL revisits, but recommended. A fresh device, private session, cleared site data or evicted cache cannot already possess the files. **Protect offline storage** requests persistent storage; only the browser decides whether to grant it. Native desktop mode needs its local launcher running. Android bundles the website and solver and has no INTERNET permission.
 
-The WASM build uses `-Oz`, while native/JNI retains optimized Release settings. The first expanded `-O3` browser build exceeded its 1.5 MB gate (1,714,361 bytes); size optimization reduced the core to about 1.17 MB. The full installed set is about 9.1 MB, including 825,000 demos. Exact numbers are emitted by `node tools/verify_web_assets.mjs` for each build. Matrix LU factors are reused for transient steps, superposition and sensitivity solves. Solver/data workers, bounded searches, 25-row pagination and bounded raster sizes keep intensive calculation away from the UI thread.
+The WASM build uses `-Oz`, while native/JNI retains optimized Release settings. The first expanded `-O3` browser build exceeded its 1.5 MB gate (1,714,361 bytes); the current size-optimized core is about 1.25 MB. The full installed set is about 9.2 MB, including 825,000 demos. Exact numbers are emitted by `node tools/verify_web_assets.mjs` for each build. Matrix LU factors are reused for transient steps, superposition and sensitivity solves. Solver/data workers, bounded searches, 25-row pagination and bounded raster sizes keep intensive calculation away from the UI thread.
 
 “Smoothness established” requires measured frame presentation on specified devices and journeys, not merely passing a phone-sized browser test. Previous isolated release-emulator scrolling measured 1.83–2.50% native jank; the old combined ~32% measurement was not a comparable isolated run. The emulator and its host can stall even a plain control page. Neither these numbers nor JavaScript requestAnimationFrame timing proves physical-phone 60 FPS. Physical-device validation, production Android signing, Windows signing and macOS notarization remain separate requirements. See the immutable [v4 measurements](JANK_INPUT_DOWNLOADS_V4.md).
 
@@ -102,13 +106,13 @@ Use `topic: signals` and `operation` in the structured input. The UI renders the
 
 ## Validation record
 
-Local Release: all five CTest suites pass. Independent original-engine stress: **1,606,929 / 1,606,929** checks. Stored-corpus replay: **825,000 / 825,000** answers and verification labels match. New workbench suite: **12,770 / 12,770** checks. New engineering-studies suite: **31,941 / 31,941** checks, including 5,000 randomized AC RC cases against analytic real/imaginary formulas. AddressSanitizer + UndefinedBehaviorSanitizer: all five suites pass.
+Local Release: all five CTest suites pass. Independent original-engine stress: **1,606,929 / 1,606,929** checks. Stored-corpus replay: **825,000 / 825,000** answers and verification labels match. New workbench suite: **23,374 / 23,374** checks, including 5,000 independently expected batched arithmetic cases. New engineering-studies suite: **31,941 / 31,941** checks, including 5,000 randomized AC RC cases against analytic real/imaginary formulas. AddressSanitizer + UndefinedBehaviorSanitizer: all five suites pass after the batching changes.
 
 One real failure was caught in superposition verification: a nearly-zero residual row was normalized against its own nearly-zero magnitude. Two checks failed at approximately 8.67e-7 despite a correct linear solve. The corrected branch-law replay uses a scale-aware absolute floor for near-zero rows, while still checking all node constraints. The original failing and repaired logs are retained with test history; the verification was corrected, not disabled.
 
 The first full browser run passed 56/58: the two failures measured only the checkbox glyph, ignoring its clickable label. The test now measures the actual label target. Expanded tests cover keyboard focus, update drafts, corrupted-cache repair, 320/390/768/1440 layouts and actual controls for all 13 signals operations. Final CI/Android/download results belong in [test history](TEST_HISTORY.md); local passes do not stand in for unrun platform tests.
 
-`node tools/source_audit.mjs` gates ≥80% C++ of maintained runtime code and ≥77% including HTML/CSS. The current result is approximately 82.5% / 77.4%. Tests, generated corpora, documentation, third-party code and Emscripten-generated JavaScript are excluded from both denominators; their bytes are not disguised as C++ implementation. `node tools/verify_web_assets.mjs` independently gates actual browser download size.
+`node tools/source_audit.mjs` gates ≥80% C++ of maintained runtime code and ≥77% including HTML/CSS. The current result is approximately 82.13% / 77.12%. Tests, generated corpora, documentation, third-party code and Emscripten-generated JavaScript are excluded from both denominators; their bytes are not disguised as C++ implementation. `node tools/verify_web_assets.mjs` independently gates actual browser download size.
 
 ## Primary algorithm references
 

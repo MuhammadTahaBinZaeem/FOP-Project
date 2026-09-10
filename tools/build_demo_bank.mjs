@@ -13,7 +13,9 @@ for(const domain of (await readdir(root,{withFileTypes:true})).filter(e=>e.isDir
       if(records.length!==5000)throw Error(`Expected 5000 records: ${domain}/${topic}/${difficulty}`);
       for(const [index,r] of records.entries())if(r.id!==`${domain}.${topic}.${difficulty}.${index}`||r.domain!==domain||r.topic!==topic||r.difficulty!==difficulty||typeof r.input!=='string'||typeof r.expected_answer!=='string'||typeof r.expected_verification!=='string')throw Error('Invalid corpus row: '+r.id);
       const compact=Buffer.from(JSON.stringify(records.map(r=>[r.input,r.expected_answer,r.expected_verification]))),compressed=gzipSync(compact,{level:9});
-      const file=`${domain}.${topic}.${difficulty}.json.gz`;await writeFile(`${destination}/${file}`,compressed);rows+=records.length;bytes+=compressed.length;
+      // Android's asset merger transparently expands .gz and strips its suffix.
+      // Keep gzip bytes under an application-specific extension on every platform.
+      const file=`${domain}.${topic}.${difficulty}.pebank`;await writeFile(`${destination}/${file}`,compressed);rows+=records.length;bytes+=compressed.length;
       banks.push({domain,topic:aliases[topic]||topic,source_topic:topic,difficulty,count:records.length,file:`demo-data/${file}`,bytes:compressed.length,expanded_bytes:compact.length,sha256:digest(compressed),expanded_sha256:digest(compact),source_jsonl_sha256:digest(source)});
     }
   }

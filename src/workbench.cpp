@@ -358,26 +358,74 @@ Json guided_input(const ProblemSpec &request) {
                       {"input", input},
                       {"mode", "manual"}};
 }
+namespace {
+Json compare_demo(const Json &data) {
+  const auto start = std::chrono::steady_clock::now();
+  data.only({"domain", "topic", "input", "expected_answer", "expected_verification"});
+  const auto &info = topic(data);
+  const auto expected = data.at("expected_answer").string();
+  const auto expected_verification = data.at("expected_verification").string();
+  if (data.at("input").string().size() > 4096 || expected.size() > 12000 ||
+      expected_verification.size() > 64)
+    throw std::runtime_error("Demo record exceeds the comparison budget");
+  const auto solved = Engine{}.solve({std::string(info.domain), std::string(info.topic),
+      data.at("input").string(), {}, "manual"});
+  const auto actual_verification = verification_name(solved.verification.status);
+  const double elapsed = std::chrono::duration<double, std::milli>(
+      std::chrono::steady_clock::now() - start).count();
+  return Json::Object{{"status", "success"},
+      {"matches", solved.status == "success" && solved.answer == expected && actual_verification == expected_verification},
+      {"actual_status", solved.status}, {"actual_answer", solved.answer},
+      {"expected_answer", expected}, {"actual_verification", actual_verification},
+      {"expected_verification", expected_verification}, {"engine_duration_ms", elapsed}};
+}
+Json compare_demo_batch(const Json &data) {
+  data.only({"domain", "topic", "cases"});
+  (void)topic(data); // Reject unknown domains/topics before any work.
+  const auto &cases = data.at("cases").array();
+  if (cases.empty() || cases.size() > 25)
+    throw std::runtime_error("A demo batch contains 1–25 cases");
+  // Validate every row before solving. Unique corpus indices ensure exported
+  // expected/actual comparisons cannot silently be attached to a different row.
+  std::vector<int> indices;
+  for (const auto &row : cases) {
+    row.only({"index", "input", "expected_answer", "expected_verification"});
+    const int index = row.at("index").integer(0, 4999);
+    if (std::find(indices.begin(), indices.end(), index) != indices.end())
+      throw std::runtime_error("Duplicate demo index in batch");
+    indices.push_back(index);
+    if (row.at("input").string().size() > 4096 ||
+        row.at("expected_answer").string().size() > 12000 ||
+        row.at("expected_verification").string().size() > 64)
+      throw std::runtime_error("Demo batch record exceeds its byte budget");
+  }
+  const auto start = std::chrono::steady_clock::now();
+  Json::Array results;
+  std::size_t matched{};
+  for (std::size_t i = 0; i < cases.size(); ++i) {
+    auto item = cases[i].object();
+    item.erase("index");
+    item["domain"] = data.at("domain");
+    item["topic"] = data.at("topic");
+    auto result = compare_demo(item);
+    result.object()["index"] = indices[i];
+    result.object()["input"] = cases[i].at("input");
+    if (result.at("matches").boolean()) ++matched;
+    results.push_back(std::move(result));
+  }
+  return Json::Object{{"status", "success"}, {"results", std::move(results)},
+      {"tested", cases.size()}, {"matched", matched},
+      {"batch_duration_ms", std::chrono::duration<double, std::milli>(
+          std::chrono::steady_clock::now() - start).count()}};
+}
+} // namespace
 std::string dispatch(const ProblemSpec &request) {
   const auto start = std::chrono::steady_clock::now();
   try {
-    if (request.topic == "demo_compare") {
-      const auto data = Json::parse(request.input);
-      data.only({"domain", "topic", "input", "expected_answer", "expected_verification"});
-      const auto &info = topic(data);
-      const auto expected = data.at("expected_answer").string();
-      const auto expected_verification = data.at("expected_verification").string();
-      if (expected.size() > 12000 || expected_verification.size() > 64)
-        throw std::runtime_error("Demo expectation exceeds the comparison budget");
-      const auto solved = Engine{}.solve({std::string(info.domain), std::string(info.topic),
-          data.at("input").string(), {}, "manual"});
-      const auto actual_verification = verification_name(solved.verification.status);
-      return Json(Json::Object{{"status", "success"},
-          {"matches", solved.status == "success" && solved.answer == expected && actual_verification == expected_verification},
-          {"actual_status", solved.status}, {"actual_answer", solved.answer},
-          {"expected_answer", expected}, {"actual_verification", actual_verification},
-          {"expected_verification", expected_verification}, {"engine_duration_ms", static_cast<double>(solved.duration_ms)}}).dump();
-    }
+    if (request.topic == "demo_compare")
+      return compare_demo(Json::parse(request.input)).dump();
+    if (request.topic == "demo_batch")
+      return compare_demo_batch(Json::parse(request.input)).dump();
     if (request.topic == "schema")
       return schema(request).dump();
     if (request.topic == "engineering_schema")

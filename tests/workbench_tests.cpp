@@ -501,6 +501,36 @@ void guided_tests() {
         "shared C ABI extended K-map");
   pe_free_string(result);
 }
+void demo_batch_tests() {
+  auto run = [](Json::Array cases) {
+    return Json::parse(dispatch({"workbench", "demo_batch",
+        Json(Json::Object{{"domain", "algebra"}, {"topic", "numeric_evaluation"},
+                          {"cases", std::move(cases)}}).dump(), {}}));
+  };
+  for (int base = 0; base < 5000; base += 25) {
+    Json::Array cases;
+    for (int i = base; i < base + 25; ++i)
+      cases.push_back(Json::Object{{"index", i}, {"input", std::to_string(i)+"*(3+7)"},
+          {"expected_answer", std::to_string(10*i)}, {"expected_verification", "verified_exact"}});
+    const auto result = run(cases);
+    check(result.at("status").string() == "success", "bounded batch success");
+    check(result.at("tested").integer(1,25) == 25, "all batch rows returned");
+    check(result.at("matched").integer(0,25) == 25, "independent batch answers match");
+    const auto &rows = result.at("results").array();
+    for (int i = 0; i < 25; ++i) {
+      check(rows[static_cast<std::size_t>(i)].at("index").integer(0,4999) == base+i,
+            "batch retains exact corpus row identity");
+      check(rows[static_cast<std::size_t>(i)].at("actual_answer").string() == std::to_string(10*(base+i)),
+            "batch arithmetic independent answer");
+    }
+  }
+  const Json row = Json::Object{{"index", 0}, {"input", "7*8"},
+      {"expected_answer", "57"}, {"expected_verification", "verified_exact"}};
+  check(run({row}).at("matched").integer(0,1) == 0, "wrong expected answer stays a mismatch");
+  check(run({}).at("status").string() == "error", "empty batch rejected");
+  check(run({row,row}).at("status").string() == "error", "duplicate row identities rejected");
+  check(run(Json::Array(26,row)).at("status").string() == "error", "oversized batch rejected");
+}
 } // namespace
 int main() {
   try {
@@ -511,6 +541,7 @@ int main() {
     signals_tests();
     fsm_tests();
     guided_tests();
+    demo_batch_tests();
   } catch (const std::exception &error) {
     ++failed;
     std::cerr << "Unexpected exception: " << error.what() << '\n';

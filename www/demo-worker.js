@@ -6,10 +6,12 @@ self.onmessage=async({data})=>{
   const {id,method}=data;
   try{
     if(method==='load'){
-      const next=data.bank;if(!/^demo-data\/[a-z_]+\.[a-z_]+\.(easy|medium|hard)\.json\.gz$/.test(next.file)||next.count!==5000||next.expanded_bytes>8000000)throw Error('Invalid demo manifest entry');
+      const next=data.bank;if(!/^demo-data\/[a-z_]+\.[a-z_]+\.(easy|medium|hard)\.(pebank|json\.gz)$/.test(next.file)||next.count!==5000||next.expanded_bytes>8000000)throw Error('Invalid demo manifest entry');
       if(typeof DecompressionStream==='undefined')throw Error('This browser/WebView needs an update to load compressed demos (DecompressionStream is unavailable). Core solving is still available.');
-      const response=await fetch(next.file,{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Demo set is not cached. Prepare offline access while connected, then retry.');
-      const packed=await response.arrayBuffer();if(packed.byteLength!==next.bytes||await sha(packed)!==next.sha256)throw Error('Demo download integrity check failed; repair offline files.');
+      // Android AssetLoader serves document requests but not this worker's
+      // fetch. The WebView transfers compressed bytes; hashing/inflation stay here.
+      let packed=data.packed;if(!(packed instanceof ArrayBuffer)){const response=await fetch(next.file,{signal:AbortSignal.timeout(30000)});if(!response.ok)throw Error('Demo set is not cached. Prepare offline access while connected, then retry.');packed=await response.arrayBuffer();}
+      if(packed.byteLength!==next.bytes||await sha(packed)!==next.sha256)throw Error('Demo download integrity check failed; repair offline files.');
       const reader=new Blob([packed]).stream().pipeThrough(new DecompressionStream('gzip')).getReader(),chunks=[];let total=0;
       try{while(true){const {done,value}=await reader.read();if(done)break;total+=value.byteLength;if(total>next.expanded_bytes)throw Error('Decompressed demo data exceeds its declared size');chunks.push(value);}}finally{await reader.cancel().catch(()=>{});}
       const bytes=new Uint8Array(total);let offset=0;for(const chunk of chunks){bytes.set(chunk,offset);offset+=chunk.length;}
