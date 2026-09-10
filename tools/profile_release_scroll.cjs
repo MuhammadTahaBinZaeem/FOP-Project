@@ -1,0 +1,18 @@
+// Actual Android touches + native frame presentation counters; no debug bridge.
+const {execFileSync}=require('node:child_process');
+const fs=require('node:fs/promises');
+const path=require('node:path');
+const adb=process.env.PE_ADB||'adb',serial=process.env.PE_ANDROID_SERIAL;
+if(!/^emulator-\d+$/.test(serial||''))throw Error('Select a disposable emulator explicitly');
+const shell=(...args)=>execFileSync(adb,['-s',serial,'shell',...args],{encoding:'utf8',timeout:30000});
+async function hierarchy(){shell('uiautomator','dump','/sdcard/pe-profile-window.xml');return shell('cat','/sdcard/pe-profile-window.xml');}
+function bounds(xml,text){const node=xml.match(new RegExp(`<node[^>]+(?:text|content-desc)="[^"]*${text}[^"]*"[^>]*>`,'i'))?.[0],b=node?.match(/bounds="\[(\d+),(\d+)\]\[(\d+),(\d+)\]"/);if(!b)throw Error('Visible Android control unavailable: '+text);return b.slice(1).map(Number);}
+function frames(raw){const values=[];let header;for(const line of raw.split('\n')){if(line.startsWith('Flags,')){header=line.split(',');continue;}if(!header||!/^\d+,/.test(line))continue;const row=line.split(',').map(Number),start=row[header.indexOf('IntendedVsync')],end=row[header.indexOf('FrameCompleted')];if(row[0]===0&&end>start&&end<9e18)values.push((end-start)/1e6);}values.sort((a,b)=>a-b);return{samples:values.length,median_ms:values[Math.floor(values.length/2)]??null,p95_ms:values[Math.min(values.length-1,Math.floor(values.length*.95))]??null};}
+(async()=>{
+ const directory=process.argv[2];if(!directory)throw Error('Provide a new output directory');await fs.mkdir(directory);const pkg=shell('dumpsys','package','com.pocketengineer.app');await fs.writeFile(path.join(directory,'package.txt'),pkg);shell('am','start','-W','-n','com.pocketengineer.app/.MainActivity');
+ const first=await hierarchy(),b=bounds(first,'All subjects');shell('input','tap',String((b[0]+b[2])/2),String((b[1]+b[3])/2));let xml=await hierarchy();if(!xml.includes('Algebra'))throw Error('Subject navigation failed');
+ const report={serial,version:pkg.match(/versionName=(\S+)/)?.[1],source:process.env.PE_PROFILE_SOURCE||'unspecified',runs:[],limitations:'Release APK in one API35 emulator on this host. Native counters are distinct from legacy counters; not a physical-device or universal 60fps guarantee.'};
+ const size=shell('wm','size').match(/(\d+)x(\d+)/),w=Number(size[1]),h=Number(size[2]);
+ for(let run=1;run<=3;run++){shell('dumpsys','gfxinfo','com.pocketengineer.app','reset');for(let n=0;n<10;n++)shell('input','swipe',String(Math.round(w/2)),String(Math.round(h*(n%2?.28:.75))),String(Math.round(w/2)),String(Math.round(h*(n%2?.75:.28))),'350');const raw=shell('dumpsys','gfxinfo','com.pocketengineer.app','framestats');await fs.writeFile(path.join(directory,`scroll-${run}.txt`),raw);const count=Number(raw.match(/Total frames rendered: (\d+)/)?.[1]||0),jank=Number(raw.match(/Janky frames: (\d+)/)?.[1]||0);if(count<100)throw Error('Too few rendered frames for this journey');report.runs.push({run,total_frames:count,janky_frames:jank,jank_percent:100*jank/count,...frames(raw)});console.log(JSON.stringify(report.runs.at(-1)));}
+ await fs.writeFile(path.join(directory,'report.json'),JSON.stringify(report,null,2)+'\n');execFileSync(adb,['-s',serial,'exec-out','screencap','-p'],{stdio:['ignore',require('node:fs').openSync(path.join(directory,'subjects.png'),'w'),'inherit']});
+})().catch(e=>{console.error(e);process.exitCode=1;});

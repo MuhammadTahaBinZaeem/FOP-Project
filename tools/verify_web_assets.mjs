@@ -1,8 +1,11 @@
 import {readFile,stat,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 const assets=['index.html','styles.css','app.js','offline.js','lab-ui.js','demos.js','demo-worker.js','solver-worker.js','engine.js','engine.wasm','manifest.webmanifest','assets/logo.webp','assets/icon-32.png','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png','assets/linear-algebra.webp'];
-const files=[];let total=0;
-for(const asset of assets){const data=await readFile('www/'+asset);if(!data.length)throw new Error('Empty asset: '+asset);files.push({path:asset,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex')});total+=(await stat('www/'+asset)).size;}
+const files=[],rasters={};let total=0;
+for(const asset of assets){const data=await readFile('www/'+asset);if(!data.length)throw new Error('Empty asset: '+asset);const raster=/\.(png|webp)$/.test(asset);if(raster)rasters[asset]=data.toString('base64');files.push({path:asset,bytes:data.length,sha256:createHash('sha256').update(data).digest('hex'),...(raster?{archive:'offline-images.json',mime:asset.endsWith('.png')?'image/png':'image/webp'}:{})});total+=(await stat('www/'+asset)).size;}
+// Render/Cloudflare Polish can transform PNG bytes after deployment. Keep a
+// verified JSON transport of the original rasters; never relax asset hashes.
+const rasterData=JSON.stringify(rasters)+'\n';await writeFile('www/offline-images.json',rasterData);files.push({path:'offline-images.json',bytes:Buffer.byteLength(rasterData),sha256:createHash('sha256').update(rasterData).digest('hex')});total+=Buffer.byteLength(rasterData);
 if(total>1500000)throw new Error('Critical offline bundle exceeds the 1.5 MB budget: '+total);
 const demos=JSON.parse(await readFile('www/demo-data/manifest.json','utf8'));
 if(demos.cases!==825000||demos.sets.length!==165)throw Error('Missing complete demo bank');

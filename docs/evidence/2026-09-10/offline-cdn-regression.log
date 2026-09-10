@@ -1,0 +1,17 @@
+
+Running 8 tests using 1 worker
+
+(node:78766) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [desktop] › tests/browser/offline-repair.spec.cjs:2:1 › readiness button repairs a missing cached solver before an offline revisit (3.7s)
+  ✓  2 [desktop] › tests/browser/offline-repair.spec.cjs:11:1 › readiness retry registers again after an offline registration was removed (2.0s)
+  ✓  3 [desktop] › tests/browser/offline-repair.spec.cjs:18:1 › explicit repair replaces corrupt cached content, not just missing files (1.3s)
+  ✓  4 [desktop] › tests/browser/offline-repair.spec.cjs:24:1 › offline rasters are reconstructed exactly even when the CDN image URL changes bytes (1.2s)
+(node:79071) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  5 [android-layout] › tests/browser/offline-repair.spec.cjs:2:1 › readiness button repairs a missing cached solver before an offline revisit (3.3s)
+  ✓  6 [android-layout] › tests/browser/offline-repair.spec.cjs:11:1 › readiness retry registers again after an offline registration was removed (1.5s)
+  ✓  7 [android-layout] › tests/browser/offline-repair.spec.cjs:18:1 › explicit repair replaces corrupt cached content, not just missing files (1.3s)
+  ✓  8 [android-layout] › tests/browser/offline-repair.spec.cjs:24:1 › offline rasters are reconstructed exactly even when the CDN image URL changes bytes (1.2s)
+
+  8 passed (18.4s)

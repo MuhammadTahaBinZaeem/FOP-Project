@@ -1,8 +1,8 @@
 'use strict';
-const VERSION='pocket-engineer-89a19bded03fe6b5d497';
-const MANIFEST_HASH='89a19bded03fe6b5d497408399431ba2b9fd691d0e9cbe3df51ed4e2f2fc2eb6';
+const VERSION='pocket-engineer-ceb4e85bc4a6ee76e202';
+const MANIFEST_HASH='ceb4e85bc4a6ee76e202eef479b78859b81f4cdfa7f215b153bdb216985ef036';
 const ROOT=new URL('./',self.location.href),MANIFEST=new URL('offline-manifest.json',ROOT).href;
-let repairJob,manifestJob;
+let repairJob,manifestJob,imagesJob;
 const digest=async response=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await response.clone().arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('');
 async function verified(url,hash){
   const response=await fetch(url,{cache:'reload',signal:AbortSignal.timeout(20000)});
@@ -17,6 +17,11 @@ async function manifest(){
     const data=await response.json();if(!Array.isArray(data.files)||data.files.length>300)throw Error('Invalid offline manifest');return data;
   })().catch(error=>{manifestJob=null;throw error;});return manifestJob;
 }
+async function verifiedFile(file,data){
+  if(!file.archive)return verified(new URL(file.path,ROOT).href,file.sha256);
+  if(!imagesJob)imagesJob=(async()=>{const archive=data.files.find(f=>f.path===file.archive);if(!archive)throw Error('Missing raster archive');const cache=await caches.open(VERSION),url=new URL(archive.path,ROOT).href;let r=await cache.match(url);if(!r||await digest(r)!==archive.sha256){r=await verified(url,archive.sha256);await cache.put(url,r.clone());}return r.json();})().catch(e=>{imagesJob=null;throw e;});
+  const encoded=(await imagesJob)[file.path];if(typeof encoded!=='string'||encoded.length>300000)throw Error('Invalid raster archive');const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0)),r=new Response(bytes,{headers:{'Content-Type':file.mime}});if(bytes.length!==file.bytes||await digest(r)!==file.sha256)throw Error('Raster integrity check failed');return r;
+}
 async function status(){
   const data=await manifest(),cache=await caches.open(VERSION),missing=[];
   if(!await cache.match(MANIFEST)){manifestJob=null;await manifest();}
@@ -29,7 +34,7 @@ async function repair(checkExisting=false){
     const data=await manifest(),cache=await caches.open(VERSION);
     for(let i=0;i<data.files.length;i+=3)await Promise.all(data.files.slice(i,i+3).map(async file=>{
       const url=new URL(file.path,ROOT).href,cached=await cache.match(url);
-      if(!cached||(checkExisting&&await digest(cached)!==file.sha256))await cache.put(url,await verified(url,file.sha256));
+      if(!cached||(checkExisting&&await digest(cached)!==file.sha256))await cache.put(url,await verifiedFile(file,data));
     }));return status();
   })().finally(()=>{repairJob=null;});return repairJob;
 }
@@ -49,7 +54,7 @@ self.addEventListener('fetch',event=>{
     const data=await manifest(),file=data.files.find(f=>new URL(f.path,ROOT).href===target);
     if(!file&&target!==MANIFEST)return fetch(event.request);
     const cache=await caches.open(VERSION),cached=await cache.match(target);if(cached)return cached;
-    const response=await verified(target,file?.sha256||MANIFEST_HASH);await cache.put(target,response.clone());return response;
+    const response=file?await verifiedFile(file,data):await verified(target,MANIFEST_HASH);await cache.put(target,response.clone());return response;
   })().catch(()=>new Response('Offline files are missing. Reconnect and use Prepare / repair offline access.',{status:503,headers:{'Content-Type':'text/plain'}})));
 });
 self.addEventListener('message',event=>{

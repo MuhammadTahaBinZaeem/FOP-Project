@@ -1,0 +1,5 @@
+{"path":"assets/icon-192.png","status":200,"bytes":2712,"expected":2961,"sha":"885469ab20f02401192ca50e5842cd4fc29e6948660c0ddbb9f18612f2a47333","expectedsha":"606b2ed9b1849a9f0ff6c8e891b529748283b7de1b8c708fe94ebb81a7d4fadd","encoding":null}
+{"path":"assets/icon-32.png","status":200,"bytes":317,"expected":346,"sha":"b60a79da8832e96fe4b107ebb8da87855cce027d3ecd81f34ded1b33a24581a4","expectedsha":"1ce931414091d0eaf531d6b53ef2f7a01f00df8ef4614cb08b3c9f0292445536","encoding":null}
+{"path":"assets/icon-180.png","status":200,"bytes":1743,"expected":1851,"sha":"5782948de723869b7c7c96e15e7a0bcd2c663f63fef8b714bb0c29aebfdcc423","expectedsha":"28bb0338228b450e89e3c190d9a78f96a1e8d0ce2d799668c086b9be4f3a3833","encoding":null}
+demo-data/differential_equations.euler.easy.json.gz fetch failed
+Finished full CDN integrity comparison
