@@ -104,6 +104,19 @@ jobs:
           fi
       - name: Assemble diagnostic debug and optimized installable release APK
         run: gradle -p android :app:assembleDebug :app:assembleRelease --no-daemon
+      - name: Assemble both instrumentation APKs before emulator startup
+        run: |
+          gradle -p android :app:assembleDebugAndroidTest --no-daemon
+          gradle -p android :app:assembleReleaseAndroidTest -PpeTestBuildType=release --no-daemon
+      - name: Preserve assembled APKs even if emulator provisioning fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: pocket-engineer-android-pretest
+          path: |
+            android/app/build/outputs/apk/debug/*.apk
+            android/app/build/outputs/apk/release/*.apk
+            android/app/build/outputs/apk/androidTest/*/*.apk
+            android-signing-status.txt
       - name: Check release signature and 16KB packaging
         run: |
           "$ANDROID_HOME/build-tools/35.0.0/apksigner" verify --verbose android/app/build/outputs/apk/release/app-release.apk
@@ -121,6 +134,10 @@ jobs:
           api-level: 35
           arch: x86_64
           profile: pixel_2
+          # Current API35 images default to a >7 GB userdata allocation. The
+          # disposable test app needs far less; avoid runner disk exhaustion.
+          disk-size: 2048M
+          emulator-boot-timeout: 300
           disable-animations: true
           script: bash tools/android_variants_test.sh
       - name: Upload offline Android APK
