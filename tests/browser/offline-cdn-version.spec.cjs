@@ -9,7 +9,7 @@ test('fresh installation bypasses stale CDN worker, manifest and demo cache keys
     try{
       const url=new URL(req.url,'http://localhost'),name=url.pathname==='/'?'index.html':decodeURIComponent(url.pathname.slice(1));
       if(name.split('/').includes('..'))throw Error('Unsafe path');
-      const sensitive=name==='service-worker.js'||name==='offline-manifest.json'||name.endsWith('.pebank');
+      const sensitive=['service-worker.js','offline-manifest.json','offline.js','app.js','lab-ui.js','demos.js','styles.css'].includes(name)||name.endsWith('.pebank');
       if(sensitive&&!url.search){res.writeHead(200,{'Content-Type':name.endsWith('.js')?'application/javascript':'application/json'});res.end(name.endsWith('.js')?'throw Error("stale CDN worker");':'{"stale":true}');return;}
       if(name==='service-worker.js')seen.worker++;if(name==='offline-manifest.json')seen.manifest++;if(name.endsWith('.pebank'))seen.banks++;
       const mime={'.js':'application/javascript','.json':'application/json','.wasm':'application/wasm','.html':'text/html','.css':'text/css','.png':'image/png','.webp':'image/webp','.webmanifest':'application/manifest+json'};
