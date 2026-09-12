@@ -1,0 +1,14 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "profile": "/home/zaruka/PocketEngineer/build-evidence/2026-09-09/live-offline-da0d221/browser-profile-kyevCV",
+  "checked_at": "2026-09-12T15:14:53.879Z",
+  "checks": [
+    "actual repair/update buttons",
+    "new public Render links",
+    "unsolved draft preserved"
+  ],
+  "before": "https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/download/v0.5.0-rc1/PocketEngineer-0.5.0-android-preview.apk",
+  "after": "https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-android-preview.apk",
+  "success": false,
+  "error": "expect(locator).toHaveText(expected) failed\n\nLocator:  locator('#answer')\nExpected: \"det(A) = -2\"\nReceived: \"98\"\nTimeout:  5000ms\n\nCall log:\n  - Expect \"toHaveText\" locator('#answer') with timeout 5000ms\n  - waiting for locator('#answer')\n    - locator resolved to <pre id=\"answer\"></pre>\n    - unexpected value \"\"\n    13 × locator resolved to <pre id=\"answer\">98</pre>\n       - unexpected value \"98\"\n"
+}

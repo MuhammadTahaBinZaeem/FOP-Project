@@ -1,0 +1,19 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "recorded_at": "2026-09-12T15:13:27.266Z",
+  "checks": [
+    "live site uses WASM",
+    "explicit full cache repair",
+    "same URL after full browser restart with networking disabled",
+    "offline natural question and type correction",
+    "offline signals through actual controls",
+    "offline decompression and 5000 stored hard-case comparisons"
+  ],
+  "readiness": "Ready offline · solver and all 825,000 demos saved (184 files). Revisit https://pocket-engineer.onrender.com/ in this browser without internet.",
+  "manifest": {
+    "core_bytes": 1254213,
+    "total_bytes": 9199204,
+    "files": 184
+  },
+  "success": true
+}

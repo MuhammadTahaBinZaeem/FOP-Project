@@ -1,0 +1,31 @@
+{
+  "site": "https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/",
+  "checked_at": "2026-09-12T15:20:22.463Z",
+  "downloads": [
+    {
+      "name": "BUILD_SOURCE.txt",
+      "bytes": 650,
+      "sha256": "875d1c9a5487b4814463942381c5cc4118738e81c1915fc81b3fd1d330110ca0",
+      "anonymous": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-demo-comparisons.tar.gz",
+      "bytes": 14842846,
+      "sha256": "3be9efbef6b0a5506994427942ea1ceddcc2fdc20117edf21c036dddac5095e5",
+      "anonymous": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-test-evidence.zip",
+      "bytes": 3846272,
+      "sha256": "4ddcb617321065b813b43af08e500ab678a2e1a13f78cb6853134546e5018275",
+      "anonymous": true
+    },
+    {
+      "name": "RELEASE_NOTES.txt",
+      "bytes": 5589,
+      "sha256": "8998fb31e02d4f8b968cf70fb506660627b1dabf0a9a97fc8eb4388b6237ddd8",
+      "anonymous": true
+    }
+  ],
+  "success": true
+}

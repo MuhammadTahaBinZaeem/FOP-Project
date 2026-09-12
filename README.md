@@ -42,7 +42,7 @@ complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/rele
 for installation, signing and device-validation limits. The website's “Get the
 app” page has direct, labelled downloads for each platform.
 
-The release also includes [all 825,000 exported UI comparisons](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-demo-comparisons.tar.gz): input, expected/actual answers, verification labels, per-case timings, per-bank summaries and an export audit. These are stored-snapshot comparisons, not an independent oracle. The GitHub repository remains private; authenticated GitHub CI downloads alone do not establish anonymous public access. The corrective Render release is validated using unauthenticated download requests.
+The release also includes [all 825,000 exported UI comparisons](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-demo-comparisons.tar.gz): input, expected/actual answers, verification labels, per-case timings, per-bank summaries and an export audit. These are stored-snapshot comparisons, not an independent oracle. The GitHub repository remains private; authenticated GitHub CI downloads alone do not establish anonymous public access. All five actual Render download buttons now pass anonymous browser downloads and SHA-256 checks; the downloaded packages pass Windows/macOS/Linux execution, NixOS relocation, four Android emulator tests and 82 website tests. [Public download validation](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PUBLIC_DOWNLOAD_VALIDATION.json).
 
 The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB. The critical offline budget remains 1.5 MB, with a separate 12 MB limit including the demo bank. See [v5 implementation and validation](docs/ENGINEERING_LABS_V5.md), [previous hardening record](docs/JANK_INPUT_DOWNLOADS_V4.md), [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
 
@@ -87,8 +87,8 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 The 0.5 run passes **1,606,929 independent/edge checks**, **4,112 natural-input checks**,
 and all **825,000 regression snapshot comparisons**, plus **23,374 workbench** and
-**31,941 engineering-study checks**. The browser suite passes **80/80 tests**,
-including loading every demo bank and a hard RK4 selection regression.
+**31,941 engineering-study checks**. The browser suite passes **82/82 tests**,
+including loading every demo bank, a hard RK4 selection regression and binary-download routing.
 ASan/UBSan passes all five native suites. Windows, macOS, Linux and Android CI
 pass; Android runs four instrumentation tests in each of Debug and Release.
 These are distinct coverage categories, not one inflated independent total.

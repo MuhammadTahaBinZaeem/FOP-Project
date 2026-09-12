@@ -1,0 +1,14 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "profile": "/home/zaruka/PocketEngineer/build-evidence/2026-09-09/live-offline-7ea3378/browser-profile-cqJLVE",
+  "checked_at": "2026-09-12T15:20:09.005Z",
+  "checks": [
+    "actual repair/update buttons",
+    "new public Render links",
+    "unsolved draft preserved across the update",
+    "updated install accepts and solves a question after offline reload"
+  ],
+  "before": "https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/download/v0.4.0-rc1/PocketEngineer-0.4.0-android-preview.apk",
+  "after": "https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-android-preview.apk",
+  "success": true
+}

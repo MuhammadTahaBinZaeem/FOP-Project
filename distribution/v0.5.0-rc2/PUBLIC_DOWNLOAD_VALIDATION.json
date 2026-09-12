@@ -1,0 +1,192 @@
+{
+  "release": "v0.5.0-rc2",
+  "build_source": "81feb663ea870a998de948cfc368f1aaf564361a",
+  "site": "https://pocket-engineer.onrender.com/",
+  "checked_at": "2026-09-12T15:20:22.463Z",
+  "scope": "Actual anonymous downloads from the existing Render site; GitHub source visibility remains private. This supplement leaves all tested installer/archive bytes unchanged.",
+  "browser_downloads": [
+    {
+      "name": "PocketEngineer-0.5.0-android-preview.apk",
+      "bytes": 17642705,
+      "sha256": "4e8bfda1f66b0339c4f516a88996fe724e6ea9ea9e20c28d487cb42d839a3b35",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-Windows-x64.zip",
+      "bytes": 13529031,
+      "sha256": "af6c54092f4444c9c9a16b191b39472dc9cf694d15586c662277dfdfd4929197",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-macOS-universal.zip",
+      "bytes": 14825524,
+      "sha256": "9bdd0af00a4622806d22038161c864e7a95ae3b6bf06899efcb50485c0dfb154",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-Linux-x64.zip",
+      "bytes": 16886752,
+      "sha256": "b455cacd6459ad7c90d12cb801a9e0f28e878baae5726002a191b603b5534d1d",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-offline-website.zip",
+      "bytes": 7768377,
+      "sha256": "4349156a9181a980b91108706ed240974544f3e71ddda04bdf140a2e34c6d680",
+      "actual_browser_click": true,
+      "checksum_verified": true
+    }
+  ],
+  "downloaded_desktop_execution": {
+    "windows": {
+      "archive": "PocketEngineer-0.5.0-Windows-x64.zip",
+      "sha256": "af6c54092f4444c9c9a16b191b39472dc9cf694d15586c662277dfdfd4929197",
+      "published_checksum_verified": true,
+      "platform": "win32",
+      "architecture": "x64",
+      "cli": true,
+      "relocatable_server": true,
+      "bundled_ui": true,
+      "natural_input": true,
+      "wrong_type_correction": true,
+      "cross_origin_rejected": true,
+      "engineering_extension": true,
+      "offline_demo_bank": true
+    },
+    "macos": {
+      "archive": "PocketEngineer-0.5.0-macOS-universal.zip",
+      "sha256": "9bdd0af00a4622806d22038161c864e7a95ae3b6bf06899efcb50485c0dfb154",
+      "published_checksum_verified": true,
+      "platform": "darwin",
+      "architecture": "arm64",
+      "cli": true,
+      "relocatable_server": true,
+      "bundled_ui": true,
+      "natural_input": true,
+      "wrong_type_correction": true,
+      "cross_origin_rejected": true,
+      "engineering_extension": true,
+      "offline_demo_bank": true
+    },
+    "ubuntu": {
+      "archive": "PocketEngineer-0.5.0-Linux-x64.zip",
+      "sha256": "b455cacd6459ad7c90d12cb801a9e0f28e878baae5726002a191b603b5534d1d",
+      "published_checksum_verified": true,
+      "platform": "linux",
+      "architecture": "x64",
+      "cli": true,
+      "relocatable_server": true,
+      "bundled_ui": true,
+      "natural_input": true,
+      "wrong_type_correction": true,
+      "cross_origin_rejected": true,
+      "engineering_extension": true,
+      "offline_demo_bank": true
+    },
+    "nixos": {
+      "archive": "PocketEngineer-0.5.0-Linux-x64.zip",
+      "sha256": "b455cacd6459ad7c90d12cb801a9e0f28e878baae5726002a191b603b5534d1d",
+      "published_checksum_verified": true,
+      "platform": "linux",
+      "architecture": "x64",
+      "cli": true,
+      "relocatable_server": true,
+      "bundled_ui": true,
+      "natural_input": true,
+      "wrong_type_correction": true,
+      "cross_origin_rejected": true,
+      "engineering_extension": true,
+      "offline_demo_bank": true
+    }
+  },
+  "anonymous_desktop_ci": {
+    "url": "https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions/runs/34701574653",
+    "workflow_source": "16323a741af3ef60443c38a7bbd61132c29f9da7",
+    "passed_jobs": 3
+  },
+  "downloaded_android": {
+    "passed_tests": 4,
+    "elapsed_seconds": 49.329,
+    "device": "API35 x86_64 emulator",
+    "network": "Wi-Fi and mobile data disabled",
+    "build_type": "Release, non-debuggable, development-signed",
+    "apk_sha256": "4e8bfda1f66b0339c4f516a88996fe724e6ea9ea9e20c28d487cb42d839a3b35"
+  },
+  "downloaded_website": {
+    "passed_browser_tests": 82,
+    "server": "Unmodified publicly downloaded Linux server on NixOS",
+    "website_sha256": "4349156a9181a980b91108706ed240974544f3e71ddda04bdf140a2e34c6d680"
+  },
+  "live_offline_restart": {
+    "site": "https://pocket-engineer.onrender.com/",
+    "recorded_at": "2026-09-12T15:13:27.266Z",
+    "checks": [
+      "live site uses WASM",
+      "explicit full cache repair",
+      "same URL after full browser restart with networking disabled",
+      "offline natural question and type correction",
+      "offline signals through actual controls",
+      "offline decompression and 5000 stored hard-case comparisons"
+    ],
+    "readiness": "Ready offline · solver and all 825,000 demos saved (184 files). Revisit https://pocket-engineer.onrender.com/ in this browser without internet.",
+    "manifest": {
+      "core_bytes": 1254213,
+      "total_bytes": 9199204,
+      "files": 184
+    },
+    "success": true
+  },
+  "cached_install_update": {
+    "site": "https://pocket-engineer.onrender.com/",
+    "checked_at": "2026-09-12T15:20:09.005Z",
+    "checks": [
+      "actual repair/update buttons",
+      "new public Render links",
+      "unsolved draft preserved across the update",
+      "updated install accepts and solves a question after offline reload"
+    ],
+    "before": "https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/download/v0.4.0-rc1/PocketEngineer-0.4.0-android-preview.apk",
+    "after": "https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-android-preview.apk",
+    "success": true
+  },
+  "supplement_downloads": [
+    {
+      "name": "BUILD_SOURCE.txt",
+      "bytes": 650,
+      "sha256": "875d1c9a5487b4814463942381c5cc4118738e81c1915fc81b3fd1d330110ca0",
+      "anonymous": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-demo-comparisons.tar.gz",
+      "bytes": 14842846,
+      "sha256": "3be9efbef6b0a5506994427942ea1ceddcc2fdc20117edf21c036dddac5095e5",
+      "anonymous": true
+    },
+    {
+      "name": "PocketEngineer-0.5.0-test-evidence.zip",
+      "bytes": 3846272,
+      "sha256": "4ddcb617321065b813b43af08e500ab678a2e1a13f78cb6853134546e5018275",
+      "anonymous": true
+    },
+    {
+      "name": "RELEASE_NOTES.txt",
+      "bytes": 5589,
+      "sha256": "8998fb31e02d4f8b968cf70fb506660627b1dabf0a9a97fc8eb4388b6237ddd8",
+      "anonymous": true
+    }
+  ],
+  "regression_scope": "825000 stored cases across 55 topics, 3 difficulties, 5000 cases per bank. All exported expected/actual records audited against hashed banks. Repeated runs are not new unique or independently proven answers.",
+  "limitations": [
+    "Physical ARM-phone smoothness and 16 KB Android runtime-device execution are not established.",
+    "Android is development-signed; desktop signing and macOS notarization remain open. macOS execution used arm64, not an Intel Mac.",
+    "Emulator frame traces retain stalls; no universal zero-lag or 60 FPS guarantee.",
+    "Offline revisits require an installation completed online in the same browser, with retained cache. First-ever offline visits and evicted storage cannot work.",
+    "Question preservation is tested across the app-update action, not as unsolved-draft autosave across every ordinary refresh. The initial over-broad harness failure is retained in the detailed history.",
+    "The original evidence ZIP records the build-validation checkpoint; this JSON records later public-download checks separately.",
+    "Source percentages cover maintained runtime code, including HTML/CSS for the 77 percent gate; they exclude generated artifacts, test data, tests and documentation consistently."
+  ]
+}

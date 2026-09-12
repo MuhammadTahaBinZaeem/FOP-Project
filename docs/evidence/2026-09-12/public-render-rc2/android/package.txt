@@ -1,0 +1,93 @@
+Activity Resolver Table:
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        d1c1dec com.pocketengineer.app/.MainActivity filter 69ed5b5
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+
+Domain verification status:
+
+Key Set Manager:
+  [com.pocketengineer.app]
+      Signing KeySets: 30
+
+Packages:
+  Package [com.pocketengineer.app] (ef2de9e):
+    appId=10163
+    pkg=Package{9711d7f com.pocketengineer.app}
+    codePath=/data/app/~~LUGjbHj0EY8K7fuEPM4RYA==/com.pocketengineer.app-NBElOfb0rhYASfyA4zP81w==
+    resourcePath=/data/app/~~LUGjbHj0EY8K7fuEPM4RYA==/com.pocketengineer.app-NBElOfb0rhYASfyA4zP81w==
+    legacyNativeLibraryDir=/data/app/~~LUGjbHj0EY8K7fuEPM4RYA==/com.pocketengineer.app-NBElOfb0rhYASfyA4zP81w==/lib
+    extractNativeLibs=false
+    primaryCpuAbi=x86_64
+    secondaryCpuAbi=null
+    cpuAbiOverride=null
+    versionCode=5 minSdk=24 targetSdk=35
+    minExtensionVersions=[]
+    versionName=0.5.0
+    hiddenApiEnforcementPolicy=2
+    usesNonSdkApi=false
+    splits=[base]
+    apkSigningVersion=2
+    flags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privateFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    forceQueryable=false
+    scannedAsStoppedSystemApp=false
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2026-09-12 20:16:18
+    lastUpdateTime=2026-09-12 20:16:18
+    installerPackageName=null
+    installerPackageUid=-1
+    initiatingPackageName=com.android.shell
+    originatingPackageName=null
+    packageSource=1
+    appMetadataFilePath=null
+    appMetadataSource=0
+    signatures=PackageSignatures{a79203b version:2, signatures:[a69f8493], past signatures:[]}
+    installPermissionsFixed=false
+    pkgFlags=[ HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    privatePkgFlags=[ PRIVATE_FLAG_ACTIVITIES_RESIZE_MODE_RESIZEABLE_VIA_SDK_VERSION ALLOW_AUDIO_PLAYBACK_CAPTURE PRIVATE_FLAG_ALLOW_NATIVE_HEAP_POINTER_TAGGING ]
+    apexModuleName=null
+    User 0: ceDataInode=352336 deDataInode=98377 installed=true hidden=false suspended=false distractionFlags=0 stopped=false notLaunched=false enabled=0 instant=false virtual=false quarantined=false
+      installReason=0
+      dataDir=/data/user/0/com.pocketengineer.app
+      firstInstallTime=2026-09-12 20:03:53
+      uninstallReason=0
+      overlay paths:
+        /data/resource-cache/com.android.systemui-neutral-GFa9.frro
+        /data/resource-cache/com.android.systemui-accent-bari.frro
+        /data/resource-cache/com.android.systemui-dynamic-yYHr.frro
+      runtime permissions:
+
+Queries:
+  system apps queryable: false
+  queries via forceQueryable:
+  queries via package name:
+    com.pocketengineer.app:
+      com.pocketengineer.app.test
+    com.pocketengineer.app.test:
+      com.pocketengineer.app
+  queries via component:
+    com.android.settings.intelligence:
+      com.pocketengineer.app
+  queryable via interaction:
+    User 0:
+      [com.android.providers.settings,android,com.android.settings,com.android.dynsystem,com.android.localtransport,com.android.DeviceAsWebcam,com.android.location.fused,com.android.server.telecom,com.android.inputdevices,com.android.keychain,com.android.emulator.multidisplay]:
+        com.pocketengineer.app
+      com.android.inputmethod.latin:
+        com.pocketengineer.app
+      com.android.webview:
+        com.pocketengineer.app
+      com.pocketengineer.app:
+        com.android.webview
+  queryable via uses-library:
+
+Dexopt state:
+  [com.pocketengineer.app]
+    path: /data/app/~~LUGjbHj0EY8K7fuEPM4RYA==/com.pocketengineer.app-NBElOfb0rhYASfyA4zP81w==/base.apk
+      x86_64: [status=verify] [reason=install] [primary-abi]
+        [location is /data/app/~~LUGjbHj0EY8K7fuEPM4RYA==/com.pocketengineer.app-NBElOfb0rhYASfyA4zP81w==/oat/x86_64/base.odex]
+
+Compiler stats:
+  [com.pocketengineer.app]
+     base.apk - 2366
