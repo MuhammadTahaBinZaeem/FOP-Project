@@ -2,7 +2,7 @@
 
 A local engineering study workbench, built around a C++20 solver. Flat-color, responsive interfaces for Android and the web; no account, API key, remote font, or cloud calculation.
 
-[Open the website — Render](https://pocket-engineer.onrender.com/) · [Public downloads](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/RELEASE_NOTES.txt) · [Builds and test artifacts — repository access required](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions)
+[Open the website — Render](https://pocket-engineer.onrender.com/) · [Public downloads](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/RELEASE_NOTES.txt) · [Builds and test artifacts](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions)
 
 ## What is implemented
 
@@ -42,7 +42,7 @@ complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/rele
 for installation, signing and device-validation limits. The website's “Get the
 app” page has direct, labelled downloads for each platform.
 
-The release also includes [all 825,000 exported UI comparisons](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-demo-comparisons.tar.gz): input, expected/actual answers, verification labels, per-case timings, per-bank summaries and an export audit. These are stored-snapshot comparisons, not an independent oracle. The GitHub repository remains private; authenticated GitHub CI downloads alone do not establish anonymous public access. All five actual Render download buttons now pass anonymous browser downloads and SHA-256 checks; the downloaded packages pass Windows/macOS/Linux execution, NixOS relocation, four Android emulator tests and 82 website tests. [Public download validation](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PUBLIC_DOWNLOAD_VALIDATION.json).
+The release also includes [all 825,000 exported UI comparisons](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-demo-comparisons.tar.gz): input, expected/actual answers, verification labels, per-case timings, per-bank summaries and an export audit. These are stored-snapshot comparisons, not an independent oracle. Render download delivery does not depend on GitHub repository visibility or authentication. All five actual Render download buttons now pass anonymous browser downloads and SHA-256 checks; the downloaded packages pass Windows/macOS/Linux execution, NixOS relocation, four Android emulator tests and 82 website tests. [Public download validation](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PUBLIC_DOWNLOAD_VALIDATION.json).
 
 The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB. The critical offline budget remains 1.5 MB, with a separate 12 MB limit including the demo bank. See [v5 implementation and validation](docs/ENGINEERING_LABS_V5.md), [previous hardening record](docs/JANK_INPUT_DOWNLOADS_V4.md), [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
 

@@ -1,5 +1,5 @@
-// Public binary delivery from the existing Render site; the source repo stays
-// private. Generated installers are never part of the app's offline manifest.
+// Public binary delivery independent of GitHub repository visibility.
+// Generated installers are never part of the app's offline manifest.
 import {readdir,readFile,mkdir,copyFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 import path from 'node:path';

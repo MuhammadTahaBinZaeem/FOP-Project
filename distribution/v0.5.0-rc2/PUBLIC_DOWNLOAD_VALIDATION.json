@@ -3,7 +3,8 @@
   "build_source": "81feb663ea870a998de948cfc368f1aaf564361a",
   "site": "https://pocket-engineer.onrender.com/",
   "checked_at": "2026-09-12T15:20:22.463Z",
-  "scope": "Actual anonymous downloads from the existing Render site; GitHub source visibility remains private. This supplement leaves all tested installer/archive bytes unchanged.",
+  "scope": "Actual anonymous downloads from the existing Render site, independent of GitHub repository visibility. This supplement leaves all tested installer/archive bytes unchanged.",
+  "metadata_correction": "A read-only GitHub check around 15:31 UTC on 2026-09-12 reported PUBLIC, superseding the earlier private-state observation. The implementation did not change repository visibility. Release notes and this report were corrected; installer/archive bytes are unchanged. Supplement-download hashes below record the earlier 15:20 checkpoint, before this notes-only correction; the current manifest identifies current metadata bytes.",
   "browser_downloads": [
     {
       "name": "PocketEngineer-0.5.0-android-preview.apk",

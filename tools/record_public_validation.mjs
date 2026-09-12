@@ -47,7 +47,7 @@ for(const file of supplements.downloads){assert.equal(file.anonymous,true);asser
 const report={
   release:'v0.5.0-rc2',build_source:'81feb663ea870a998de948cfc368f1aaf564361a',
   site:downloads.site,checked_at:supplements.checked_at,
-  scope:'Actual anonymous downloads from the existing Render site; GitHub source visibility remains private. This supplement leaves all tested installer/archive bytes unchanged.',
+  scope:'Actual anonymous downloads from the existing Render site, independent of GitHub repository visibility. This supplement leaves all tested installer/archive bytes unchanged.',
   browser_downloads:downloads.downloads,downloaded_desktop_execution:desktop,
   anonymous_desktop_ci:{url:ci.url,workflow_source:ci.headSha,passed_jobs:3},
   downloaded_android:{passed_tests:4,elapsed_seconds:49.329,device:'API35 x86_64 emulator',network:'Wi-Fi and mobile data disabled',build_type:'Release, non-debuggable, development-signed',apk_sha256:sums.get('PocketEngineer-0.5.0-android-preview.apk')},

@@ -1,6 +1,8 @@
 # Pocket Engineer 0.5.0-rc2 — anonymous Render downloads
 
-This corrective preview keeps the GitHub source repository private and delivers installers publicly from [Pocket Engineer on Render](https://pocket-engineer.onrender.com/). No GitHub account is needed for the Render download files. Build validation and post-publication anonymous access checks are recorded separately.
+This corrective preview delivers installers publicly from [Pocket Engineer on Render](https://pocket-engineer.onrender.com/), independently of GitHub repository visibility. No GitHub account is needed for the Render download files. Build validation and post-publication anonymous access checks are recorded separately.
+
+Post-publication results: all five actual browser downloads matched their checksums; downloaded packages passed Windows/macOS/Ubuntu/NixOS execution, four Android emulator tests and 82 website tests. The live site's offline restart and cached-app update also passed. See [public validation](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PUBLIC_DOWNLOAD_VALIDATION.json). These text-only metadata updates leave installer/archive bytes unchanged.
 
 ## Download and run
 
@@ -14,7 +16,7 @@ Keep the desktop launcher's terminal open. Executables are not code-signed; do n
 
 ## What changed
 
-Private GitHub release assets return 404 to anonymous visitors. Earlier authenticated CI downloads did not establish public availability. This release moves public delivery to a checksum-verified, versioned directory on the existing Render site. Repository visibility and signing credentials are unchanged.
+An earlier anonymous GitHub asset request returned 404 while the repository was reported private; authenticated CI downloads did not establish public availability. This release moves public delivery to a checksum-verified, versioned directory on the existing Render site. The implementation did not change repository visibility or signing credentials. A later read-only check on September 12 at approximately 15:31 UTC reports the repository public; Render downloads do not depend on that setting.
 
 Installers are excluded from service-worker caches, Android assets, desktop packages and the website ZIP, preventing recursive package growth. Download navigation bypasses the service worker so it cannot substitute the app's HTML for an APK, ZIP or checksum file. The desktop download workflow now uses unauthenticated requests to Render.
 
@@ -32,4 +34,4 @@ The unchanged numerical engine's independent/edge tests pass 1,606,929 checks; n
 
 Supported families and work limits are explicit; this is not unrestricted SPICE, symbolic ODE solving or universal natural-language interpretation. C++ remains above 77% of maintained runtime source including HTML/CSS; tests, documentation, archives and generated glue are excluded consistently.
 
-Physical-phone smoothness, production Android signing, desktop signing/notarization and 16 KB Android runtime-device testing remain unverified. Emulator traces include stalls; no universal zero-lag or 60 FPS claim is made. Repository and CI links in the detailed history require repository access, unlike the public Render files above.
+Physical-phone smoothness, production Android signing, desktop signing/notarization and 16 KB Android runtime-device testing remain unverified. Emulator traces include stalls; no universal zero-lag or 60 FPS claim is made. GitHub artifact access may require authentication; the Render files above are separately tested without it.
