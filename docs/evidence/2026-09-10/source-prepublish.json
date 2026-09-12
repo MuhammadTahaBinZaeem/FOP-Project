@@ -1,0 +1,170 @@
+{
+  "scope": "Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files",
+  "cpp": 423978,
+  "other_runtime_code": 92254,
+  "html_css": 33516,
+  "cpp_percent_runtime": 82.12935269413752,
+  "cpp_percent_including_html_css": 77.12224510139191,
+  "files": [
+    {
+      "file": "src/catalog.cpp",
+      "bytes": 11981,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/circuit_editor.cpp",
+      "bytes": 14658,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/circuit_network.cpp",
+      "bytes": 55244,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/digital_signals.cpp",
+      "bytes": 43853,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/engine.cpp",
+      "bytes": 83767,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/engineering_catalog.cpp",
+      "bytes": 10351,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/input.cpp",
+      "bytes": 41923,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/kmap_workbench.cpp",
+      "bytes": 16735,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/polynomial.cpp",
+      "bytes": 21381,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/request.cpp",
+      "bytes": 5702,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/signals.cpp",
+      "bytes": 32735,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/state_machine.cpp",
+      "bytes": 19848,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/workbench.cpp",
+      "bytes": 20473,
+      "kind": "cpp"
+    },
+    {
+      "file": "src/workbench_json.cpp",
+      "bytes": 19717,
+      "kind": "cpp"
+    },
+    {
+      "file": "include/pocket_engineer/engine.hpp",
+      "bytes": 2760,
+      "kind": "cpp"
+    },
+    {
+      "file": "include/pocket_engineer/input.hpp",
+      "bytes": 488,
+      "kind": "cpp"
+    },
+    {
+      "file": "include/pocket_engineer/polynomial.hpp",
+      "bytes": 485,
+      "kind": "cpp"
+    },
+    {
+      "file": "include/pocket_engineer/workbench.hpp",
+      "bytes": 5369,
+      "kind": "cpp"
+    },
+    {
+      "file": "apps/cli.cpp",
+      "bytes": 1931,
+      "kind": "cpp"
+    },
+    {
+      "file": "apps/server.cpp",
+      "bytes": 13012,
+      "kind": "cpp"
+    },
+    {
+      "file": "apps/wasm.cpp",
+      "bytes": 119,
+      "kind": "cpp"
+    },
+    {
+      "file": "android/app/src/main/cpp/jni_bridge.cpp",
+      "bytes": 1446,
+      "kind": "cpp"
+    },
+    {
+      "file": "android/app/src/main/java/com/pocketengineer/app/MainActivity.kt",
+      "bytes": 12244,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/app.js",
+      "bytes": 17839,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/demo-worker.js",
+      "bytes": 2809,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/demos.js",
+      "bytes": 10055,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/index.html",
+      "bytes": 14958,
+      "kind": "html_css"
+    },
+    {
+      "file": "www/lab-ui.js",
+      "bytes": 37040,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/offline.js",
+      "bytes": 5840,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/service-worker.js",
+      "bytes": 5071,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/solver-worker.js",
+      "bytes": 1356,
+      "kind": "other_runtime_code"
+    },
+    {
+      "file": "www/styles.css",
+      "bytes": 18558,
+      "kind": "html_css"
+    }
+  ]
+}

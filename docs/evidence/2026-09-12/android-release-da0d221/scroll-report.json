@@ -1,0 +1,41 @@
+{
+  "serial": "emulator-5556",
+  "version": "0.5.0",
+  "source": "da0d221495adedd7a2917aa0bb3b7c5a1455fbc6",
+  "runs": [
+    {
+      "run": 1,
+      "total_frames": 218,
+      "janky_frames": 13,
+      "jank_percent": 5.963302752293578,
+      "completion_latency": {
+        "samples": 119,
+        "median_ms": 33.43309,
+        "p95_ms": 33.495859
+      }
+    },
+    {
+      "run": 2,
+      "total_frames": 259,
+      "janky_frames": 13,
+      "jank_percent": 5.019305019305019,
+      "completion_latency": {
+        "samples": 119,
+        "median_ms": 50.134334,
+        "p95_ms": 66.791416
+      }
+    },
+    {
+      "run": 3,
+      "total_frames": 235,
+      "janky_frames": 27,
+      "jank_percent": 11.48936170212766,
+      "completion_latency": {
+        "samples": 119,
+        "median_ms": 50.138068,
+        "p95_ms": 67.113945
+      }
+    }
+  ],
+  "limitations": "Release APK in one API35 emulator on this host. Native counters are distinct from legacy counters. Completion latency is NOT displayed-frame spacing or FPS; use the separate Perfetto FrameTimeline trace for that. Not a physical-device or universal 60fps guarantee."
+}

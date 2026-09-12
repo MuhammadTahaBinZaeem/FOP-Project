@@ -90,7 +90,7 @@ test('copy, save, print, identify, empty input, navigation and install feedback'
   // Verify the application event lifecycle, separately from actual PWA install.
   await page.evaluate(()=>{const event=new Event('beforeinstallprompt');event.prompt=async()=>{window.installRequested=true;};event.userChoice=Promise.resolve({outcome:'dismissed'});window.dispatchEvent(event);});
   await page.locator('#install').click();expect(await page.evaluate(()=>window.installRequested)).toBe(true);await expect(page.locator('#install')).toBeHidden();
-  for(const link of await page.locator('#downloads a').all()){expect(await link.getAttribute('href')).toMatch(/^https:\/\/github.com\/MuhammadTahaBinZaeem\/FOP-Project\/(actions|releases(?:\/tag\/v\d+\.\d+\.\d+-rc\d+|\/download\/v\d+\.\d+\.\d+-rc\d+\/[\w.-]+)?)$/);}
+  for(const link of await page.locator('#downloads a').all()){expect(await link.getAttribute('href')).toMatch(/^https:\/\/pocket-engineer\.onrender\.com\/downloads\/v\d+\.\d+\.\d+-rc\d+\/[\w.-]+$/);}
   await expect(page.locator('[data-download]')).toHaveCount(5);
   for(const link of await page.locator('[data-download]').all()){
     expect(await link.getAttribute('href')).toContain('/'+await link.getAttribute('data-download'));

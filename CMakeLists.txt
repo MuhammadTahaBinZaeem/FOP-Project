@@ -132,7 +132,7 @@ if(NOT ANDROID AND NOT EMSCRIPTEN)
     include(GNUInstallDirs)
     install(TARGETS pocket-engineer pocket-engineer-server pe-generate-tests pe-verify-corpus pe-generate-explanations
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
-    install(DIRECTORY www/ DESTINATION ${CMAKE_INSTALL_DATADIR}/pocket-engineer/www)
+    install(DIRECTORY www/ DESTINATION ${CMAKE_INSTALL_DATADIR}/pocket-engineer/www PATTERN "downloads" EXCLUDE)
     install(FILES README.md DESTINATION ${CMAKE_INSTALL_DOCDIR})
     install(FILES packaging/START_HERE.txt DESTINATION .)
     if(WIN32)

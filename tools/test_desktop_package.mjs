@@ -7,6 +7,7 @@ import path from 'node:path';
 const [archiveArg,directoryArg,sumsArg]=process.argv.slice(2);
 if(!archiveArg||!directoryArg)throw Error('Provide a ZIP and a new extraction directory');
 const archive=path.resolve(archiveArg),directory=path.resolve(directoryArg);
+if(execFileSync('cmake',['-E','tar','tf',archive],{encoding:'utf8'}).split('\n').some(n=>n.includes('/www/downloads/')))throw Error('Installers must not be recursively bundled inside a desktop ZIP');
 const digest=createHash('sha256').update(await readFile(archive)).digest('hex');
 if(sumsArg){const expected=(await readFile(sumsArg,'utf8')).split('\n').find(line=>line.endsWith('  '+path.basename(archive)));if(expected!==digest+'  '+path.basename(archive))throw Error('Published SHA256 mismatch');}
 await mkdir(directory);execFileSync('cmake',['-E','tar','xf',archive],{cwd:directory});

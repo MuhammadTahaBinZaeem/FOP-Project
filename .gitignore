@@ -7,6 +7,7 @@
 /test-data-baseline/
 /www/engine.js
 /www/engine.wasm
+/www/downloads/
 /android/.gradle/
 /android/app/build/
 /android/app/.cxx/

@@ -1,0 +1,50 @@
+{
+  "release_id": 387594815,
+  "tag": "v0.5.0-rc1",
+  "source": "da0d221495adedd7a2917aa0bb3b7c5a1455fbc6",
+  "draft": true,
+  "checked_at": "2026-09-12T14:30:21.268Z",
+  "assets": [
+    {
+      "name": "BUILD_SOURCE.txt",
+      "bytes": 650,
+      "sha256": "db464b1cf35cedc6704a07a9334213ece8a718eddb55c167487711d6066e4a8f"
+    },
+    {
+      "name": "PocketEngineer-0.5.0-Linux-x64.zip",
+      "bytes": 16166997,
+      "sha256": "1c5d56251c1ddc51d8d3d8d3bb7edd84230460620b285da6713ca508aac187b7"
+    },
+    {
+      "name": "PocketEngineer-0.5.0-Windows-x64.zip",
+      "bytes": 12808887,
+      "sha256": "5554064bfb6761a6b3af291be5d3d3c3d530eca96b5b22a8d05f893d45b0d4d3"
+    },
+    {
+      "name": "PocketEngineer-0.5.0-android-preview.apk",
+      "bytes": 17642673,
+      "sha256": "2ef2cc90bd2922f3ed843f79f77dad29abcf6ee2dc3f2b0342b658ad837d7fe8"
+    },
+    {
+      "name": "PocketEngineer-0.5.0-demo-comparisons.tar.gz",
+      "bytes": 15072153,
+      "sha256": "4ee3bd7dc400e81c72d88c4e50b68735f2707aa2f2f10783e3bfbbf894322abc"
+    },
+    {
+      "name": "PocketEngineer-0.5.0-macOS-universal.zip",
+      "bytes": 14105617,
+      "sha256": "3b8d2b2fa52de589bc05e5605c5314b6e6c0fbf7c9f2d233f10786ccc5a60b4b"
+    },
+    {
+      "name": "PocketEngineer-0.5.0-offline-website.zip",
+      "bytes": 7768339,
+      "sha256": "b1c9ef1a567e4844032a4787653ba92e1f4c45f5ec568718efcc7fd3d630807a"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 719,
+      "sha256": "91d2daa52b6f879c78368d1f02c6e7f3362a72c4462694e2275bd534e10f88fe"
+    }
+  ],
+  "success": true
+}

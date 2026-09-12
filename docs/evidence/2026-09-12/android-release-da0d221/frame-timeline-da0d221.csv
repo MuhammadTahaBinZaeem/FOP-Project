@@ -1,0 +1,16 @@
+"name","jank_type","present_type","on_time_finish","frames","incomplete","completed_mean_ms"
+"/system/bin/surfaceflinger","Prediction Error","Early Present",1,480,0,2.689000
+"/system/bin/surfaceflinger","SurfaceFlinger CPU Deadline Missed","Late Present",0,4,0,48.306000
+"/system/bin/surfaceflinger","SurfaceFlinger Scheduling","Early Present",1,13,0,0.906000
+"com.pocketengineer.app","None","On-time Present",0,6,0,33.208000
+"com.pocketengineer.app","Prediction Error, App Deadline Missed","Late Present",0,16,0,32.202000
+"com.pocketengineer.app","Prediction Error, App Deadline Missed, Buffer Stuffing","Late Present",0,14,0,46.510000
+"com.pocketengineer.app","Prediction Error, Buffer Stuffing","Late Present",1,373,0,36.380000
+"com.pocketengineer.app","SurfaceFlinger CPU Deadline Missed, App Deadline Missed","Late Present",0,1,0,166.708000
+"com.pocketengineer.app","SurfaceFlinger CPU Deadline Missed, App Deadline Missed, Buffer Stuffing","Late Present",0,1,0,199.962000
+"com.pocketengineer.app","SurfaceFlinger CPU Deadline Missed, Buffer Stuffing","Late Present",1,1,0,33.270000
+"com.pocketengineer.app","SurfaceFlinger Scheduling, Buffer Stuffing","Late Present",1,7,0,44.716000
+"com.pocketengineer.app","Unknown Jank","Early Present",0,77,77,"[NULL]"
+
+"displayed_intervals","min_ms","median_ms","p95_ms","max_ms"
+418,6.945128,16.765331,24.625474,317.992282

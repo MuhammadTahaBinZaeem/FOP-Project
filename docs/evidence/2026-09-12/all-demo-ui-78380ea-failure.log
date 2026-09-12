@@ -1,0 +1,131 @@
+{"completed":1,"of":165,"domain":"algebra","topic":"factorisation","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":2535,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1909 ms elapsed","records":"algebra.factorisation.easy.json.gz"}
+{"completed":2,"of":165,"domain":"algebra","topic":"factorisation","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1998,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1726 ms elapsed","records":"algebra.factorisation.medium.json.gz"}
+{"completed":3,"of":165,"domain":"algebra","topic":"factorisation","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1450,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1186 ms elapsed","records":"algebra.factorisation.hard.json.gz"}
+{"completed":4,"of":165,"domain":"algebra","topic":"linear_equation","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1898,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1287 ms elapsed","records":"algebra.linear_equation.easy.json.gz"}
+{"completed":5,"of":165,"domain":"algebra","topic":"linear_equation","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1892,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1423 ms elapsed","records":"algebra.linear_equation.medium.json.gz"}
+{"completed":6,"of":165,"domain":"algebra","topic":"linear_equation","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":2002,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1616 ms elapsed","records":"algebra.linear_equation.hard.json.gz"}
+{"completed":7,"of":165,"domain":"algebra","topic":"logarithms","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":2002,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1364 ms elapsed","records":"algebra.logarithms.easy.json.gz"}
+{"completed":8,"of":165,"domain":"algebra","topic":"logarithms","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":2089,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1432 ms elapsed","records":"algebra.logarithms.medium.json.gz"}
+{"completed":9,"of":165,"domain":"algebra","topic":"logarithms","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1436,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1069 ms elapsed","records":"algebra.logarithms.hard.json.gz"}
+{"completed":10,"of":165,"domain":"algebra","topic":"numeric_evaluation","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1414,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1259 ms elapsed","records":"algebra.numeric_evaluation.easy.json.gz"}
+{"completed":11,"of":165,"domain":"algebra","topic":"numeric_evaluation","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1423,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1257 ms elapsed","records":"algebra.numeric_evaluation.medium.json.gz"}
+{"completed":12,"of":165,"domain":"algebra","topic":"numeric_evaluation","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1425,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1240 ms elapsed","records":"algebra.numeric_evaluation.hard.json.gz"}
+{"completed":13,"of":165,"domain":"algebra","topic":"quadratic_equation","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1451,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1272 ms elapsed","records":"algebra.quadratic_equation.easy.json.gz"}
+{"completed":14,"of":165,"domain":"algebra","topic":"quadratic_equation","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1951,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1362 ms elapsed","records":"algebra.quadratic_equation.medium.json.gz"}
+{"completed":15,"of":165,"domain":"algebra","topic":"quadratic_equation","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1941,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1448 ms elapsed","records":"algebra.quadratic_equation.hard.json.gz"}
+{"completed":16,"of":165,"domain":"algebra","topic":"simplify","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1395,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1225 ms elapsed","records":"algebra.simplify.easy.json.gz"}
+{"completed":17,"of":165,"domain":"algebra","topic":"simplify","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1424,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1077 ms elapsed","records":"algebra.simplify.medium.json.gz"}
+{"completed":18,"of":165,"domain":"algebra","topic":"simplify","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1431,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1169 ms elapsed","records":"algebra.simplify.hard.json.gz"}
+{"completed":19,"of":165,"domain":"algebra","topic":"trigonometry","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1422,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1125 ms elapsed","records":"algebra.trigonometry.easy.json.gz"}
+{"completed":20,"of":165,"domain":"algebra","topic":"trigonometry","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1411,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 965 ms elapsed","records":"algebra.trigonometry.medium.json.gz"}
+{"completed":21,"of":165,"domain":"algebra","topic":"trigonometry","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1429,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1010 ms elapsed","records":"algebra.trigonometry.hard.json.gz"}
+{"completed":22,"of":165,"domain":"calculus","topic":"curve_analysis","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1427,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1047 ms elapsed","records":"calculus.curve_analysis.easy.json.gz"}
+{"completed":23,"of":165,"domain":"calculus","topic":"curve_analysis","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1418,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 974 ms elapsed","records":"calculus.curve_analysis.medium.json.gz"}
+{"completed":24,"of":165,"domain":"calculus","topic":"curve_analysis","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1755,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1099 ms elapsed","records":"calculus.curve_analysis.hard.json.gz"}
+{"completed":25,"of":165,"domain":"calculus","topic":"definite_integral","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":6452,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5922 ms elapsed","records":"calculus.definite_integral.easy.json.gz"}
+{"completed":26,"of":165,"domain":"calculus","topic":"definite_integral","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":6626,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5980 ms elapsed","records":"calculus.definite_integral.medium.json.gz"}
+{"completed":27,"of":165,"domain":"calculus","topic":"definite_integral","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":6758,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 6099 ms elapsed","records":"calculus.definite_integral.hard.json.gz"}
+{"completed":28,"of":165,"domain":"calculus","topic":"differentiation","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":5960,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5691 ms elapsed","records":"calculus.differentiation.easy.json.gz"}
+{"completed":29,"of":165,"domain":"calculus","topic":"differentiation","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":6178,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5561 ms elapsed","records":"calculus.differentiation.medium.json.gz"}
+{"completed":30,"of":165,"domain":"calculus","topic":"differentiation","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":6659,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5670 ms elapsed","records":"calculus.differentiation.hard.json.gz"}
+{"completed":31,"of":165,"domain":"calculus","topic":"integration","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":5932,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5350 ms elapsed","records":"calculus.integration.easy.json.gz"}
+{"completed":32,"of":165,"domain":"calculus","topic":"integration","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":6037,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5748 ms elapsed","records":"calculus.integration.medium.json.gz"}
+{"completed":33,"of":165,"domain":"calculus","topic":"integration","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":6157,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5833 ms elapsed","records":"calculus.integration.hard.json.gz"}
+{"completed":34,"of":165,"domain":"calculus","topic":"limits","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":2373,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1784 ms elapsed","records":"calculus.limits.easy.json.gz"}
+{"completed":35,"of":165,"domain":"calculus","topic":"limits","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1962,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1431 ms elapsed","records":"calculus.limits.medium.json.gz"}
+{"completed":36,"of":165,"domain":"calculus","topic":"limits","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1968,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1313 ms elapsed","records":"calculus.limits.hard.json.gz"}
+{"completed":37,"of":165,"domain":"calculus","topic":"tangent_line","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":6458,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5833 ms elapsed","records":"calculus.tangent_line.easy.json.gz"}
+{"completed":38,"of":165,"domain":"calculus","topic":"tangent_line","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":6696,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5938 ms elapsed","records":"calculus.tangent_line.medium.json.gz"}
+{"completed":39,"of":165,"domain":"calculus","topic":"tangent_line","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":6447,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 5903 ms elapsed","records":"calculus.tangent_line.hard.json.gz"}
+{"completed":40,"of":165,"domain":"circuit","topic":"dc_nodal_analysis","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1441,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1268 ms elapsed","records":"circuit.dc_nodal_analysis.easy.json.gz"}
+{"completed":41,"of":165,"domain":"circuit","topic":"dc_nodal_analysis","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1939,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1500 ms elapsed","records":"circuit.dc_nodal_analysis.medium.json.gz"}
+{"completed":42,"of":165,"domain":"circuit","topic":"dc_nodal_analysis","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1952,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1501 ms elapsed","records":"circuit.dc_nodal_analysis.hard.json.gz"}
+{"completed":43,"of":165,"domain":"circuit","topic":"maximum_power","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1418,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1211 ms elapsed","records":"circuit.maximum_power.easy.json.gz"}
+{"completed":44,"of":165,"domain":"circuit","topic":"maximum_power","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1418,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1087 ms elapsed","records":"circuit.maximum_power.medium.json.gz"}
+{"completed":45,"of":165,"domain":"circuit","topic":"maximum_power","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1438,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1080 ms elapsed","records":"circuit.maximum_power.hard.json.gz"}
+{"completed":46,"of":165,"domain":"circuit","topic":"mesh_analysis","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1926,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1401 ms elapsed","records":"circuit.mesh_analysis.easy.json.gz"}
+{"completed":47,"of":165,"domain":"circuit","topic":"mesh_analysis","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1444,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1228 ms elapsed","records":"circuit.mesh_analysis.medium.json.gz"}
+{"completed":48,"of":165,"domain":"circuit","topic":"mesh_analysis","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1966,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1271 ms elapsed","records":"circuit.mesh_analysis.hard.json.gz"}
+{"completed":49,"of":165,"domain":"circuit","topic":"norton","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1452,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1205 ms elapsed","records":"circuit.norton.easy.json.gz"}
+{"completed":50,"of":165,"domain":"circuit","topic":"norton","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1413,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 987 ms elapsed","records":"circuit.norton.medium.json.gz"}
+{"completed":51,"of":165,"domain":"circuit","topic":"norton","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1421,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 985 ms elapsed","records":"circuit.norton.hard.json.gz"}
+{"completed":52,"of":165,"domain":"circuit","topic":"rc_transient","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1423,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1083 ms elapsed","records":"circuit.rc_transient.easy.json.gz"}
+{"completed":53,"of":165,"domain":"circuit","topic":"rc_transient","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1429,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1035 ms elapsed","records":"circuit.rc_transient.medium.json.gz"}
+{"completed":54,"of":165,"domain":"circuit","topic":"rc_transient","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1444,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1005 ms elapsed","records":"circuit.rc_transient.hard.json.gz"}
+{"completed":55,"of":165,"domain":"circuit","topic":"rl_transient","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1433,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 960 ms elapsed","records":"circuit.rl_transient.easy.json.gz"}
+{"completed":56,"of":165,"domain":"circuit","topic":"rl_transient","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1425,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1029 ms elapsed","records":"circuit.rl_transient.medium.json.gz"}
+{"completed":57,"of":165,"domain":"circuit","topic":"rl_transient","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1433,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 979 ms elapsed","records":"circuit.rl_transient.hard.json.gz"}
+{"completed":58,"of":165,"domain":"circuit","topic":"source_transformation","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1450,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 960 ms elapsed","records":"circuit.source_transformation.easy.json.gz"}
+{"completed":59,"of":165,"domain":"circuit","topic":"source_transformation","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1459,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 944 ms elapsed","records":"circuit.source_transformation.medium.json.gz"}
+{"completed":60,"of":165,"domain":"circuit","topic":"source_transformation","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1584,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 921 ms elapsed","records":"circuit.source_transformation.hard.json.gz"}
+{"completed":61,"of":165,"domain":"circuit","topic":"superposition","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1532,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1174 ms elapsed","records":"circuit.superposition.easy.json.gz"}
+{"completed":62,"of":165,"domain":"circuit","topic":"superposition","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1609,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1122 ms elapsed","records":"circuit.superposition.medium.json.gz"}
+{"completed":63,"of":165,"domain":"circuit","topic":"superposition","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1510,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1103 ms elapsed","records":"circuit.superposition.hard.json.gz"}
+{"completed":64,"of":165,"domain":"circuit","topic":"thevenin","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1537,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 923 ms elapsed","records":"circuit.thevenin.easy.json.gz"}
+{"completed":65,"of":165,"domain":"circuit","topic":"thevenin","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1474,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1059 ms elapsed","records":"circuit.thevenin.medium.json.gz"}
+{"completed":66,"of":165,"domain":"circuit","topic":"thevenin","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1486,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 940 ms elapsed","records":"circuit.thevenin.hard.json.gz"}
+{"completed":67,"of":165,"domain":"circuit","topic":"voltage_divider","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1458,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1154 ms elapsed","records":"circuit.voltage_divider.easy.json.gz"}
+{"completed":68,"of":165,"domain":"circuit","topic":"voltage_divider","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1459,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1015 ms elapsed","records":"circuit.voltage_divider.medium.json.gz"}
+{"completed":69,"of":165,"domain":"circuit","topic":"voltage_divider","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1464,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1087 ms elapsed","records":"circuit.voltage_divider.hard.json.gz"}
+{"completed":70,"of":165,"domain":"differential_equations","topic":"bernoulli","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1491,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1152 ms elapsed","records":"differential_equations.bernoulli.easy.json.gz"}
+{"completed":71,"of":165,"domain":"differential_equations","topic":"bernoulli","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1437,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1008 ms elapsed","records":"differential_equations.bernoulli.medium.json.gz"}
+{"completed":72,"of":165,"domain":"differential_equations","topic":"bernoulli","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1652,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 988 ms elapsed","records":"differential_equations.bernoulli.hard.json.gz"}
+{"completed":73,"of":165,"domain":"differential_equations","topic":"euler","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":2012,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1501 ms elapsed","records":"differential_equations.euler.easy.json.gz"}
+{"completed":74,"of":165,"domain":"differential_equations","topic":"euler","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1978,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1603 ms elapsed","records":"differential_equations.euler.medium.json.gz"}
+{"completed":75,"of":165,"domain":"differential_equations","topic":"euler","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":2014,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1551 ms elapsed","records":"differential_equations.euler.hard.json.gz"}
+{"completed":76,"of":165,"domain":"differential_equations","topic":"exact","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":2587,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1920 ms elapsed","records":"differential_equations.exact.easy.json.gz"}
+{"completed":77,"of":165,"domain":"differential_equations","topic":"exact","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1463,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 970 ms elapsed","records":"differential_equations.exact.medium.json.gz"}
+{"completed":78,"of":165,"domain":"differential_equations","topic":"exact","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1788,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 941 ms elapsed","records":"differential_equations.exact.hard.json.gz"}
+{"completed":79,"of":165,"domain":"differential_equations","topic":"first_order_linear","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1915,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1377 ms elapsed","records":"differential_equations.first_order_linear.easy.json.gz"}
+{"completed":80,"of":165,"domain":"differential_equations","topic":"first_order_linear","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1935,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1490 ms elapsed","records":"differential_equations.first_order_linear.medium.json.gz"}
+{"completed":81,"of":165,"domain":"differential_equations","topic":"first_order_linear","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1969,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1585 ms elapsed","records":"differential_equations.first_order_linear.hard.json.gz"}
+{"completed":82,"of":165,"domain":"differential_equations","topic":"homogeneous","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1450,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1149 ms elapsed","records":"differential_equations.homogeneous.easy.json.gz"}
+{"completed":83,"of":165,"domain":"differential_equations","topic":"homogeneous","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1998,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1557 ms elapsed","records":"differential_equations.homogeneous.medium.json.gz"}
+{"completed":84,"of":165,"domain":"differential_equations","topic":"homogeneous","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":2518,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1902 ms elapsed","records":"differential_equations.homogeneous.hard.json.gz"}
+{"completed":85,"of":165,"domain":"differential_equations","topic":"initial_value","difficulty":"easy","cases":5000,"mismatches":0,"elapsed_including_export_ms":1954,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1534 ms elapsed","records":"differential_equations.initial_value.easy.json.gz"}
+{"completed":86,"of":165,"domain":"differential_equations","topic":"initial_value","difficulty":"medium","cases":5000,"mismatches":0,"elapsed_including_export_ms":1431,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1119 ms elapsed","records":"differential_equations.initial_value.medium.json.gz"}
+{"completed":87,"of":165,"domain":"differential_equations","topic":"initial_value","difficulty":"hard","cases":5000,"mismatches":0,"elapsed_including_export_ms":1431,"ui_summary":"5000/5000 tested · 0 snapshot mismatches · 1129 ms elapsed","records":"differential_equations.initial_value.hard.json.gz"}
+ExpectError: expect(locator).toBeEnabled() failed
+
+Locator:  locator('#demo-all')
+Expected: enabled
+Received: disabled
+Timeout:  40000ms
+
+Call log:
+  - Expect "toBeEnabled" locator('#demo-all') with timeout 40000ms
+  - waiting for locator('#demo-all')
+    82 × locator resolved to <button disabled id="demo-all" class="secondary">Test all 5,000</button>
+       - unexpected value "disabled"
+
+    at captureRawStack (/home/zaruka/PocketEngineer/node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (/home/zaruka/PocketEngineer/node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBeEnabled (/home/zaruka/PocketEngineer/node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at /home/zaruka/PocketEngineer/tools/stress_all_demo_banks.cjs:18:259 {
+  matcherResult: {
+    message: 'expect(locator).toBeEnabled() failed\n' +
+      '\n' +
+      "Locator:  locator('#demo-all')\n" +
+      'Expected: enabled\n' +
+      'Received: disabled\n' +
+      'Timeout:  40000ms\n' +
+      '\n' +
+      'Call log:\n' +
+      `  - Expect "toBeEnabled" locator('#demo-all') with timeout 40000ms\n` +
+      "  - waiting for locator('#demo-all')\n" +
+      '    82 × locator resolved to <button disabled id="demo-all" class="secondary">Test all 5,000</button>\n' +
+      '       - unexpected value "disabled"\n',
+    pass: false,
+    actual: 'disabled',
+    name: 'toBeEnabled',
+    expected: 'enabled',
+    log: [
+      `  - Expect "toBeEnabled" locator('#demo-all') with timeout 40000ms`,
+      "  - waiting for locator('#demo-all')",
+      '    82 × locator resolved to <button disabled id="demo-all" class="secondary">Test all 5,000</button>',
+      '       - unexpected value "disabled"'
+    ],
+    timeout: 40000,
+    ariaSnapshot: '- button "Test all 5,000" [disabled]'
+  }
+}

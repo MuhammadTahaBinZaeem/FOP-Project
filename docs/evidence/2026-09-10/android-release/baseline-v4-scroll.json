@@ -1,0 +1,35 @@
+{
+  "serial": "emulator-5556",
+  "version": "0.4.0",
+  "source": "de7fa4eb1d49208338dd447b790b358fe432c57b",
+  "runs": [
+    {
+      "run": 1,
+      "total_frames": 264,
+      "janky_frames": 10,
+      "jank_percent": 3.787878787878788,
+      "samples": 119,
+      "median_ms": 50.076493,
+      "p95_ms": 64.731534
+    },
+    {
+      "run": 2,
+      "total_frames": 250,
+      "janky_frames": 9,
+      "jank_percent": 3.6,
+      "samples": 119,
+      "median_ms": 49.149554,
+      "p95_ms": 50.160457
+    },
+    {
+      "run": 3,
+      "total_frames": 239,
+      "janky_frames": 11,
+      "jank_percent": 4.602510460251046,
+      "samples": 119,
+      "median_ms": 32.078552,
+      "p95_ms": 33.520668
+    }
+  ],
+  "limitations": "Release APK in one API35 emulator on this host. Native counters are distinct from legacy counters; not a physical-device or universal 60fps guarantee."
+}

@@ -1,8 +1,13 @@
 const {test,expect}=require('@playwright/test');
 
-test('every manifest bank loads in the real worker, including digit-bearing RK4',async({page})=>{
-  test.setTimeout(120000);
+test('every manifest bank loads in the real worker, including digit-bearing RK4',async({page,context})=>{
+  test.setTimeout(240000);
   await page.goto('./');await expect(page.locator('#solve')).toBeEnabled();
+  // Await the real installation, then test the worker WITHOUT networking.
+  // Racing a cold CDN download against a 10-second local-worker timer measures
+  // network contention, not whether a prepared installation works offline.
+  await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:180000});
+  await context.setOffline(true);
   const checked=await page.evaluate(async()=>{
     const manifest=await(await fetch('demo-data/manifest.json')).json(),worker=new Worker('demo-worker.js');
     let id=0;

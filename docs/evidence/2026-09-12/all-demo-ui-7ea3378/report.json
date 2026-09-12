@@ -1,0 +1,1662 @@
+{
+  "source": "7ea3378",
+  "site": "http://127.0.0.1:8095",
+  "started_at": "2026-09-12T13:54:20.542Z",
+  "kind": "stored_snapshot_comparison_not_independent_mathematical_proof",
+  "banks": [
+    {
+      "domain": "algebra",
+      "topic": "factorisation",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2497,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1948 ms elapsed",
+      "records": "algebra.factorisation.easy.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "factorisation",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2062,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1764 ms elapsed",
+      "records": "algebra.factorisation.medium.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "factorisation",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2055,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1627 ms elapsed",
+      "records": "algebra.factorisation.hard.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "linear_equation",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2203,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1660 ms elapsed",
+      "records": "algebra.linear_equation.easy.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "linear_equation",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2469,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2031 ms elapsed",
+      "records": "algebra.linear_equation.medium.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "linear_equation",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2494,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1850 ms elapsed",
+      "records": "algebra.linear_equation.hard.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "logarithms",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1981,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1750 ms elapsed",
+      "records": "algebra.logarithms.easy.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "logarithms",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1945,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1388 ms elapsed",
+      "records": "algebra.logarithms.medium.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "logarithms",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 3058,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2674 ms elapsed",
+      "records": "algebra.logarithms.hard.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "numeric_evaluation",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 3556,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2996 ms elapsed",
+      "records": "algebra.numeric_evaluation.easy.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "numeric_evaluation",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2614,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1925 ms elapsed",
+      "records": "algebra.numeric_evaluation.medium.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "numeric_evaluation",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2562,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2065 ms elapsed",
+      "records": "algebra.numeric_evaluation.hard.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "quadratic_equation",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2474,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2123 ms elapsed",
+      "records": "algebra.quadratic_equation.easy.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "quadratic_equation",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1994,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1754 ms elapsed",
+      "records": "algebra.quadratic_equation.medium.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "quadratic_equation",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2494,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1852 ms elapsed",
+      "records": "algebra.quadratic_equation.hard.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "simplify",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1963,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1564 ms elapsed",
+      "records": "algebra.simplify.easy.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "simplify",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1958,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1728 ms elapsed",
+      "records": "algebra.simplify.medium.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "simplify",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1949,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1672 ms elapsed",
+      "records": "algebra.simplify.hard.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "trigonometry",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2000,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1425 ms elapsed",
+      "records": "algebra.trigonometry.easy.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "trigonometry",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1446,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1244 ms elapsed",
+      "records": "algebra.trigonometry.medium.json.gz"
+    },
+    {
+      "domain": "algebra",
+      "topic": "trigonometry",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1948,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1337 ms elapsed",
+      "records": "algebra.trigonometry.hard.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "curve_analysis",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1925,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1330 ms elapsed",
+      "records": "calculus.curve_analysis.easy.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "curve_analysis",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2508,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1804 ms elapsed",
+      "records": "calculus.curve_analysis.medium.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "curve_analysis",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1978,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1423 ms elapsed",
+      "records": "calculus.curve_analysis.hard.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "definite_integral",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 9124,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 8576 ms elapsed",
+      "records": "calculus.definite_integral.easy.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "definite_integral",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 8575,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 8153 ms elapsed",
+      "records": "calculus.definite_integral.medium.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "definite_integral",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 9240,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 8922 ms elapsed",
+      "records": "calculus.definite_integral.hard.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "differentiation",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 8505,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 7865 ms elapsed",
+      "records": "calculus.differentiation.easy.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "differentiation",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 7969,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 7598 ms elapsed",
+      "records": "calculus.differentiation.medium.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "differentiation",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 7460,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 7289 ms elapsed",
+      "records": "calculus.differentiation.hard.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "integration",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 7953,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 7627 ms elapsed",
+      "records": "calculus.integration.easy.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "integration",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 7436,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 7059 ms elapsed",
+      "records": "calculus.integration.medium.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "integration",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 6944,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 6571 ms elapsed",
+      "records": "calculus.integration.hard.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "limits",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1952,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1608 ms elapsed",
+      "records": "calculus.limits.easy.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "limits",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1975,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1750 ms elapsed",
+      "records": "calculus.limits.medium.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "limits",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1988,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1621 ms elapsed",
+      "records": "calculus.limits.hard.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "tangent_line",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 8512,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 8167 ms elapsed",
+      "records": "calculus.tangent_line.easy.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "tangent_line",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 9182,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 8786 ms elapsed",
+      "records": "calculus.tangent_line.medium.json.gz"
+    },
+    {
+      "domain": "calculus",
+      "topic": "tangent_line",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 6969,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 6558 ms elapsed",
+      "records": "calculus.tangent_line.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "dc_nodal_analysis",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2474,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2116 ms elapsed",
+      "records": "circuit.dc_nodal_analysis.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "dc_nodal_analysis",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2474,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1868 ms elapsed",
+      "records": "circuit.dc_nodal_analysis.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "dc_nodal_analysis",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 3118,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2491 ms elapsed",
+      "records": "circuit.dc_nodal_analysis.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "maximum_power",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1959,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1366 ms elapsed",
+      "records": "circuit.maximum_power.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "maximum_power",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1952,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1436 ms elapsed",
+      "records": "circuit.maximum_power.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "maximum_power",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1454,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1280 ms elapsed",
+      "records": "circuit.maximum_power.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "mesh_analysis",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1938,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1401 ms elapsed",
+      "records": "circuit.mesh_analysis.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "mesh_analysis",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1430,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1206 ms elapsed",
+      "records": "circuit.mesh_analysis.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "mesh_analysis",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1420,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1267 ms elapsed",
+      "records": "circuit.mesh_analysis.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "norton",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1430,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1099 ms elapsed",
+      "records": "circuit.norton.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "norton",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2001,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1315 ms elapsed",
+      "records": "circuit.norton.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "norton",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2513,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1874 ms elapsed",
+      "records": "circuit.norton.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "rc_transient",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 3005,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2473 ms elapsed",
+      "records": "circuit.rc_transient.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "rc_transient",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1422,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1265 ms elapsed",
+      "records": "circuit.rc_transient.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "rc_transient",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2064,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1624 ms elapsed",
+      "records": "circuit.rc_transient.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "rl_transient",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1473,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1324 ms elapsed",
+      "records": "circuit.rl_transient.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "rl_transient",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1907,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1318 ms elapsed",
+      "records": "circuit.rl_transient.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "rl_transient",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1390,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1018 ms elapsed",
+      "records": "circuit.rl_transient.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "source_transformation",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1457,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1085 ms elapsed",
+      "records": "circuit.source_transformation.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "source_transformation",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1443,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1196 ms elapsed",
+      "records": "circuit.source_transformation.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "source_transformation",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1436,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1079 ms elapsed",
+      "records": "circuit.source_transformation.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "superposition",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1956,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1311 ms elapsed",
+      "records": "circuit.superposition.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "superposition",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2039,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1350 ms elapsed",
+      "records": "circuit.superposition.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "superposition",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2013,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1410 ms elapsed",
+      "records": "circuit.superposition.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "thevenin",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1449,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1073 ms elapsed",
+      "records": "circuit.thevenin.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "thevenin",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1989,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1490 ms elapsed",
+      "records": "circuit.thevenin.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "thevenin",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1432,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1202 ms elapsed",
+      "records": "circuit.thevenin.hard.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "voltage_divider",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1504,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1108 ms elapsed",
+      "records": "circuit.voltage_divider.easy.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "voltage_divider",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1466,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1257 ms elapsed",
+      "records": "circuit.voltage_divider.medium.json.gz"
+    },
+    {
+      "domain": "circuit",
+      "topic": "voltage_divider",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1411,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1108 ms elapsed",
+      "records": "circuit.voltage_divider.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "bernoulli",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1422,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1066 ms elapsed",
+      "records": "differential_equations.bernoulli.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "bernoulli",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1413,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1038 ms elapsed",
+      "records": "differential_equations.bernoulli.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "bernoulli",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1464,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 930 ms elapsed",
+      "records": "differential_equations.bernoulli.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "euler",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2007,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1365 ms elapsed",
+      "records": "differential_equations.euler.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "euler",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2102,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1664 ms elapsed",
+      "records": "differential_equations.euler.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "euler",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 5093,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 4697 ms elapsed",
+      "records": "differential_equations.euler.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "exact",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1518,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1168 ms elapsed",
+      "records": "differential_equations.exact.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "exact",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2044,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1240 ms elapsed",
+      "records": "differential_equations.exact.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "exact",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2104,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1409 ms elapsed",
+      "records": "differential_equations.exact.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "first_order_linear",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2259,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1597 ms elapsed",
+      "records": "differential_equations.first_order_linear.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "first_order_linear",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1878,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1640 ms elapsed",
+      "records": "differential_equations.first_order_linear.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "first_order_linear",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2486,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1858 ms elapsed",
+      "records": "differential_equations.first_order_linear.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "homogeneous",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1475,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 972 ms elapsed",
+      "records": "differential_equations.homogeneous.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "homogeneous",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1488,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1174 ms elapsed",
+      "records": "differential_equations.homogeneous.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "homogeneous",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1942,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1409 ms elapsed",
+      "records": "differential_equations.homogeneous.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "initial_value",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1443,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1037 ms elapsed",
+      "records": "differential_equations.initial_value.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "initial_value",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1424,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1046 ms elapsed",
+      "records": "differential_equations.initial_value.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "initial_value",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1487,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1082 ms elapsed",
+      "records": "differential_equations.initial_value.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "rk4",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1975,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1499 ms elapsed",
+      "records": "differential_equations.rk4.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "rk4",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1995,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1358 ms elapsed",
+      "records": "differential_equations.rk4.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "rk4",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1966,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1694 ms elapsed",
+      "records": "differential_equations.rk4.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "second_order_constant_coefficient",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1545,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1258 ms elapsed",
+      "records": "differential_equations.second_order_constant_coefficient.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "second_order_constant_coefficient",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2070,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1478 ms elapsed",
+      "records": "differential_equations.second_order_constant_coefficient.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "second_order_constant_coefficient",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1672,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1340 ms elapsed",
+      "records": "differential_equations.second_order_constant_coefficient.hard.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "separable",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1438,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 983 ms elapsed",
+      "records": "differential_equations.separable.easy.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "separable",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1545,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1135 ms elapsed",
+      "records": "differential_equations.separable.medium.json.gz"
+    },
+    {
+      "domain": "differential_equations",
+      "topic": "separable",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 3378,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 2568 ms elapsed",
+      "records": "differential_equations.separable.hard.json.gz"
+    },
+    {
+      "domain": "engineering",
+      "topic": "unit_conversion",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1496,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1204 ms elapsed",
+      "records": "engineering.unit_conversion.easy.json.gz"
+    },
+    {
+      "domain": "engineering",
+      "topic": "unit_conversion",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1962,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1308 ms elapsed",
+      "records": "engineering.unit_conversion.medium.json.gz"
+    },
+    {
+      "domain": "engineering",
+      "topic": "unit_conversion",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1535,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1039 ms elapsed",
+      "records": "engineering.unit_conversion.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "determinant",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1440,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 974 ms elapsed",
+      "records": "linear_algebra.determinant.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "determinant",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1446,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 970 ms elapsed",
+      "records": "linear_algebra.determinant.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "determinant",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1479,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 957 ms elapsed",
+      "records": "linear_algebra.determinant.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "eigenvalues",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1469,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1171 ms elapsed",
+      "records": "linear_algebra.eigenvalues.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "eigenvalues",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1417,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 956 ms elapsed",
+      "records": "linear_algebra.eigenvalues.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "eigenvalues",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1467,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 891 ms elapsed",
+      "records": "linear_algebra.eigenvalues.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "inverse",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2480,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1849 ms elapsed",
+      "records": "linear_algebra.inverse.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "inverse",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2506,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1838 ms elapsed",
+      "records": "linear_algebra.inverse.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "inverse",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2722,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1935 ms elapsed",
+      "records": "linear_algebra.inverse.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "linear_system",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2008,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1723 ms elapsed",
+      "records": "linear_algebra.linear_system.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "linear_system",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1943,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1365 ms elapsed",
+      "records": "linear_algebra.linear_system.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "linear_system",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2081,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1483 ms elapsed",
+      "records": "linear_algebra.linear_system.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "multiply",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1454,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1002 ms elapsed",
+      "records": "linear_algebra.multiply.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "multiply",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1467,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 991 ms elapsed",
+      "records": "linear_algebra.multiply.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "multiply",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1476,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1010 ms elapsed",
+      "records": "linear_algebra.multiply.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "rank",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1476,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 861 ms elapsed",
+      "records": "linear_algebra.rank.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "rank",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1458,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 928 ms elapsed",
+      "records": "linear_algebra.rank.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "rank",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1438,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 858 ms elapsed",
+      "records": "linear_algebra.rank.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "rref",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1966,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1487 ms elapsed",
+      "records": "linear_algebra.rref.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "rref",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1965,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1483 ms elapsed",
+      "records": "linear_algebra.rref.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "rref",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1950,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1454 ms elapsed",
+      "records": "linear_algebra.rref.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "transpose",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1734,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1009 ms elapsed",
+      "records": "linear_algebra.transpose.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "transpose",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1529,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 926 ms elapsed",
+      "records": "linear_algebra.transpose.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "transpose",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1527,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1093 ms elapsed",
+      "records": "linear_algebra.transpose.hard.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "vectors",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1428,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 862 ms elapsed",
+      "records": "linear_algebra.vectors.easy.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "vectors",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1428,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 946 ms elapsed",
+      "records": "linear_algebra.vectors.medium.json.gz"
+    },
+    {
+      "domain": "linear_algebra",
+      "topic": "vectors",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1450,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 820 ms elapsed",
+      "records": "linear_algebra.vectors.hard.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "canonical_pos",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1922,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1429 ms elapsed",
+      "records": "logic.canonical_pos.easy.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "canonical_pos",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2792,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1609 ms elapsed",
+      "records": "logic.canonical_pos.medium.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "canonical_pos",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 4012,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 3328 ms elapsed",
+      "records": "logic.canonical_pos.hard.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "combinational_logic",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1425,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 936 ms elapsed",
+      "records": "logic.combinational_logic.easy.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "combinational_logic",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1408,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 879 ms elapsed",
+      "records": "logic.combinational_logic.medium.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "combinational_logic",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1523,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1386 ms elapsed",
+      "records": "logic.combinational_logic.hard.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "kmap_minimization",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1427,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 974 ms elapsed",
+      "records": "logic.kmap_minimization.easy.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "kmap_minimization",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1992,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1157 ms elapsed",
+      "records": "logic.kmap_minimization.medium.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "kmap_minimization",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1970,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1587 ms elapsed",
+      "records": "logic.kmap_minimization.hard.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "number_systems",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1425,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 872 ms elapsed",
+      "records": "logic.number_systems.easy.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "number_systems",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1719,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1031 ms elapsed",
+      "records": "logic.number_systems.medium.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "number_systems",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1445,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 939 ms elapsed",
+      "records": "logic.number_systems.hard.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "sequential_logic",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1401,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 945 ms elapsed",
+      "records": "logic.sequential_logic.easy.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "sequential_logic",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1390,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 788 ms elapsed",
+      "records": "logic.sequential_logic.medium.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "sequential_logic",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 918,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 777 ms elapsed",
+      "records": "logic.sequential_logic.hard.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "signed_arithmetic",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1512,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 982 ms elapsed",
+      "records": "logic.signed_arithmetic.easy.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "signed_arithmetic",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1580,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 963 ms elapsed",
+      "records": "logic.signed_arithmetic.medium.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "signed_arithmetic",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1600,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1085 ms elapsed",
+      "records": "logic.signed_arithmetic.hard.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "truth_table",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1521,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1049 ms elapsed",
+      "records": "logic.truth_table.easy.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "truth_table",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2007,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1549 ms elapsed",
+      "records": "logic.truth_table.medium.json.gz"
+    },
+    {
+      "domain": "logic",
+      "topic": "truth_table",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 4523,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 3438 ms elapsed",
+      "records": "logic.truth_table.hard.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "arrays",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1423,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1123 ms elapsed",
+      "records": "programming.arrays.easy.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "arrays",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1442,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1061 ms elapsed",
+      "records": "programming.arrays.medium.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "arrays",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1421,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 971 ms elapsed",
+      "records": "programming.arrays.hard.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "branches",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1981,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1448 ms elapsed",
+      "records": "programming.branches.easy.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "branches",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1977,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1776 ms elapsed",
+      "records": "programming.branches.medium.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "branches",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1983,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1399 ms elapsed",
+      "records": "programming.branches.hard.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "cpp_trace",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1940,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1462 ms elapsed",
+      "records": "programming.cpp_trace.easy.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "cpp_trace",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1559,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1058 ms elapsed",
+      "records": "programming.cpp_trace.medium.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "cpp_trace",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1548,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1137 ms elapsed",
+      "records": "programming.cpp_trace.hard.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "functions",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1916,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1459 ms elapsed",
+      "records": "programming.functions.easy.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "functions",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1416,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1165 ms elapsed",
+      "records": "programming.functions.medium.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "functions",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1407,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1226 ms elapsed",
+      "records": "programming.functions.hard.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "loops",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1408,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1204 ms elapsed",
+      "records": "programming.loops.easy.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "loops",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1420,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1207 ms elapsed",
+      "records": "programming.loops.medium.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "loops",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 2296,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 1723 ms elapsed",
+      "records": "programming.loops.hard.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "recursion",
+      "difficulty": "easy",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1985,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 910 ms elapsed",
+      "records": "programming.recursion.easy.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "recursion",
+      "difficulty": "medium",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1472,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 862 ms elapsed",
+      "records": "programming.recursion.medium.json.gz"
+    },
+    {
+      "domain": "programming",
+      "topic": "recursion",
+      "difficulty": "hard",
+      "cases": 5000,
+      "mismatches": 0,
+      "elapsed_including_export_ms": 1418,
+      "ui_summary": "5000/5000 tested · 0 snapshot mismatches · 977 ms elapsed",
+      "records": "programming.recursion.hard.json.gz"
+    }
+  ],
+  "page_errors": [],
+  "cases": 825000,
+  "finished_at": "2026-09-12T14:00:58.441Z",
+  "success": true
+}

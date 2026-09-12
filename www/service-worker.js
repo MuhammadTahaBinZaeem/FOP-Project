@@ -1,6 +1,6 @@
 'use strict';
-const VERSION='pocket-engineer-83c5e74604ce6a2f0097';
-const MANIFEST_HASH='83c5e74604ce6a2f0097d767b79ab3e34d1a196290e2db2e2a07f7bf0a760562';
+const VERSION='pocket-engineer-118cfd9431d43a734849';
+const MANIFEST_HASH='118cfd9431d43a7348494a1e5fc9b3e5aa9760f617a79434ac2810cc6226425f';
 const ROOT=new URL('./',self.location.href),MANIFEST=new URL('offline-manifest.json',ROOT).href;
 let repairJob,manifestJob,imagesJob;
 const digest=async response=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await response.clone().arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('');
@@ -46,7 +46,7 @@ self.addEventListener('activate',event=>event.waitUntil((async()=>{
 })()));
 self.addEventListener('fetch',event=>{
   const url=new URL(event.request.url);
-  if(event.request.method!=='GET'||url.origin!==ROOT.origin||!url.pathname.startsWith(ROOT.pathname)||url.pathname.includes('/api/'))return;
+  if(event.request.method!=='GET'||url.origin!==ROOT.origin||!url.pathname.startsWith(ROOT.pathname)||url.pathname.includes('/api/')||url.pathname.includes('/downloads/'))return;
   const navigation=event.request.mode==='navigate';url.search='';url.hash='';
   const target=navigation?new URL('index.html',ROOT).href:url.href;
   // Register respondWith synchronously; load the immutable file list within it

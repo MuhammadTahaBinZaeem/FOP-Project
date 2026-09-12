@@ -1,0 +1,21 @@
+{
+  "serial": "emulator-5556",
+  "checks": [
+    "actual readiness button",
+    "six-variable K-map native touch and solve",
+    "AC drawn circuit through JNI",
+    "native PNG save, real document output and pulled raster bytes",
+    "FFT through JNI",
+    "state-machine table and diagram",
+    "5000 stored demo comparisons with radios disabled"
+  ],
+  "limitations": "Actual debug APK and Android WebView/JNI in API35 emulator. Release instrumentation and frame measurement are separate.",
+  "png_export": {
+    "bytes": 61190,
+    "width": 1632,
+    "height": 1248,
+    "device_path": "/sdcard/Download/pe-test-1789064484144.png"
+  },
+  "memory": "Applications Memory Usage (in Kilobytes):\nUptime: 3410529 Realtime: 3410529\n\n** MEMINFO in pid 4927 [com.pocketengineer.app] **\n                   Pss  Private  Private     Swap      Rss     Heap     Heap     Heap\n                 Total    Dirty    Clean    Dirty    Total     Size    Alloc     Free\n                ------   ------   ------   ------   ------   ------   ------   ------\n  Native Heap    14580    14464        0        0    18504    29324    21990     3408\n  Dalvik Heap     3096     2852        0        0    10520     5752     2876     2876\n Dalvik Other     7012     1664        0        0    12976                           \n        Stack     1352     1352        0        0     1360                           \n       Ashmem     4350      108        0        0     9160                           \n    Other dev       15        0       12        0      332                           \n     .so mmap     2428      156      252        0    35908                           \n    .jar mmap     3045        0        4        0    43504                           \n    .apk mmap    40137      464    11912        0    70840                           \n    .dex mmap       55        4        0        0      980                           \n    .oat mmap       49        0        0        0     1580                           \n    .art mmap     8709     8016        0        0    29532                           \n   Other mmap     4554      244      484        0     9508                           \n      Unknown    16088    16076        0        0    16912                           \n        TOTAL   105470    45400    12664        0   261616    35076    24866     6284\n \n App Summary\n                       Pss(KB)                        Rss(KB)\n                        ------                         ------\n           Java Heap:    10868                          40052\n         Native Heap:    14464                          18504\n                Code:    12984                         163676\n               Stack:     1352                           1360\n            Graphics:        0                              0\n       Private Other:    18396\n              System:    47406\n             Unknown:                                   38024\n \n           TOTAL PSS:   105470            TOTAL RSS:   261616      TOTAL SWAP (KB):        0\n \n Objects\n               Views:        7         ViewRootImpl:        1\n         AppContexts:        6           Activities:        1\n              Assets:       10        AssetManagers:        0\n       Local Binders:       60        Proxy Binders:       61\n       Parcel memory:       11         Parcel count:       44\n    Death Recipients:        2             WebViews:        1\n \n SQL\n         MEMORY_USED:        0\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\n \n",
+  "success": true
+}

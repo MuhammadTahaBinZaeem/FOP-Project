@@ -114,7 +114,22 @@ One real failure was caught in superposition verification: a nearly-zero residua
 
 The first full browser run passed 56/58: the two failures measured only the checkbox glyph, ignoring its clickable label. The test now measures the actual label target. Expanded tests cover keyboard focus, update drafts, corrupted-cache repair, 320/390/768/1440 layouts and actual controls for all 13 signals operations. Final CI/Android/download results belong in [test history](TEST_HISTORY.md); local passes do not stand in for unrun platform tests.
 
-`node tools/source_audit.mjs` gates ≥80% C++ of maintained runtime code and ≥77% including HTML/CSS. The current result is approximately 82.13% / 77.12%. Tests, generated corpora, documentation, third-party code and Emscripten-generated JavaScript are excluded from both denominators; their bytes are not disguised as C++ implementation. `node tools/verify_web_assets.mjs` independently gates actual browser download size.
+`node tools/source_audit.mjs` gates ≥80% C++ of maintained runtime code and ≥77% including HTML/CSS. The current result is approximately 82.12% / 77.10%. Tests, generated corpora, documentation, third-party code and Emscripten-generated JavaScript are excluded from both denominators; their bytes are not disguised as C++ implementation. `node tools/verify_web_assets.mjs` independently gates actual browser download size.
+
+## Reproduce full UI comparisons
+
+Serve a built WASM website, then use a new evidence directory:
+
+```sh
+PE_SITE_URL=http://127.0.0.1:8091 PE_SOURCE_COMMIT="$(git rev-parse HEAD)" \
+  node tools/stress_all_demo_banks.cjs build-evidence/ui-all-banks
+node tools/verify_demo_exports.mjs build-evidence/ui-all-banks www \
+  build-evidence/ui-all-banks/export-audit.json
+```
+
+The first tool waits for verified offline readiness, disables networking, selects all 165 banks through UI controls, runs each complete 5,000-case set and captures the actual export-button downloads. Per-case JSON is compressed separately to keep evidence manageable. The second tool checks every exported input, expected/actual answer, verification label and unique index against the hashed bank bytes. Do not add these replay counts to the independent mathematical-check count.
+
+`tools/test_android_labs.cjs` inspects an explicitly selected diagnostic APK on a disposable emulator, including native PNG saving and hard RK4 batches. `tools/test_downloaded_android.sh` installs the matching Release and instrumentation APKs without silently removing history. `tools/profile_release_scroll.cjs` captures three native scrolling-counter runs; its completion-latency percentiles are not FPS. The separate `android_frames.pbtxt` and `android_frame_timeline.sql` retain the display-presentation measurement method.
 
 ## Primary algorithm references
 

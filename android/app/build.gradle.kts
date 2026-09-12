@@ -3,6 +3,11 @@ plugins {
     id("org.jetbrains.kotlin.android")
 }
 
+val syncPocketAssets by tasks.registering(Sync::class) {
+    from("../../www") { exclude("downloads/**") }
+    into(layout.buildDirectory.dir("generated/pocket-assets"))
+}
+
 android {
     namespace = "com.pocketengineer.app"
     compileSdk = 35
@@ -63,9 +68,11 @@ android {
     }
 
     sourceSets {
-        getByName("main").assets.srcDir("../../www")
+        getByName("main").assets.srcDir(layout.buildDirectory.dir("generated/pocket-assets"))
     }
 }
+
+tasks.named("preBuild") { dependsOn(syncPocketAssets) }
 
 dependencies {
     implementation("androidx.webkit:webkit:1.12.1")

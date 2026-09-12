@@ -40,7 +40,9 @@ jobs:
           .\build\Release\pe-generate-tests.exe test-data-smoke-ci 25
           .\build\Release\pe-verify-corpus.exe test-data-smoke-ci 0 corpus-comparison.json
       - name: Package offline desktop site
-        run: cpack --config build/CPackConfig.cmake -G ZIP -C Release
+        run: |
+          node -e "const fs=require('fs');fs.mkdirSync('www/downloads',{recursive:true});fs.writeFileSync('www/downloads/packaging-sentinel.apk','must not be packaged');"
+          cpack --config build/CPackConfig.cmake -G ZIP -C Release
       - name: Test extracted desktop ZIP
         shell: bash
         run: |
@@ -108,7 +110,9 @@ jobs:
             echo 'development-key; optimized release build, not production signed' > android-signing-status.txt
           fi
       - name: Assemble diagnostic debug and optimized installable release APK
-        run: gradle -p android :app:assembleDebug :app:assembleRelease --no-daemon
+        run: |
+          node -e "const fs=require('fs');fs.mkdirSync('www/downloads',{recursive:true});fs.writeFileSync('www/downloads/packaging-sentinel.apk','must not be packaged');"
+          gradle -p android :app:assembleDebug :app:assembleRelease --no-daemon
       - name: Assemble both instrumentation APKs before emulator startup
         run: |
           gradle -p android :app:assembleDebugAndroidTest --no-daemon

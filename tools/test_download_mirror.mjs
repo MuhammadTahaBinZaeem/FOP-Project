@@ -1,0 +1,17 @@
+import {mkdtemp,mkdir,writeFile,readFile} from 'node:fs/promises';
+import os from 'node:os';
+import path from 'node:path';
+import {createHash} from 'node:crypto';
+import {spawnSync} from 'node:child_process';
+import assert from 'node:assert/strict';
+const temp=await mkdtemp(path.join(os.tmpdir(),'pe-mirror-test-'));
+const input=path.join(temp,'input'),release=path.join(input,'v0.5.0-rc2'),output=path.join(temp,'published');
+await mkdir(release,{recursive:true});const bytes=Buffer.from('installer fixture'),hash=createHash('sha256').update(bytes).digest('hex');
+const run=()=>spawnSync(process.execPath,['tools/publish_download_mirror.mjs',input,output],{encoding:'utf8'});
+await writeFile(path.join(release,'test.apk'),bytes);await writeFile(path.join(release,'SHA256SUMS.txt'),hash+'  test.apk\n');
+assert.equal(run().status,0);assert.deepEqual(await readFile(path.join(output,'v0.5.0-rc2/test.apk')),bytes);
+await writeFile(path.join(release,'test.apk'),'corrupt');assert.notEqual(run().status,0);assert.deepEqual(await readFile(path.join(output,'v0.5.0-rc2/test.apk')),bytes);
+await writeFile(path.join(release,'test.apk'),bytes);await writeFile(path.join(release,'SHA256SUMS.txt'),hash+'  ../test.apk\n');assert.notEqual(run().status,0);
+await writeFile(path.join(release,'SHA256SUMS.txt'),hash+'  test.apk\n'+hash+'  test.apk\n');assert.notEqual(run().status,0);
+await writeFile(path.join(release,'SHA256SUMS.txt'),hash+'  test.apk\n');await writeFile(path.join(release,'unverified.txt'),'extra');assert.notEqual(run().status,0);
+console.log(JSON.stringify({checks:5,success:true,temporary_fixture:temp}));

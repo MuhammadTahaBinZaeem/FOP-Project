@@ -26,15 +26,16 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Download the public release and checksums
+      - name: Download public Render files without GitHub authentication
         shell: bash
         env:
-          GH_TOKEN: ${{ github.token }}
           PE_RELEASE_TAG: ${{ inputs.release_tag }}
           PE_ASSET: ${{ matrix.asset }}
         run: |
           [[ "$PE_RELEASE_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]]
-          gh release download "$PE_RELEASE_TAG" --pattern "$PE_ASSET" --pattern SHA256SUMS.txt --dir downloaded
+          mkdir downloaded
+          curl -q --fail --location --retry 3 "https://pocket-engineer.onrender.com/downloads/$PE_RELEASE_TAG/$PE_ASSET" --output "downloaded/$PE_ASSET"
+          curl -q --fail --location --retry 3 "https://pocket-engineer.onrender.com/downloads/$PE_RELEASE_TAG/SHA256SUMS.txt" --output downloaded/SHA256SUMS.txt
       - name: Verify downloaded bytes and execute extracted package
         env:
           PE_ASSET: ${{ matrix.asset }}

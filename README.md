@@ -2,7 +2,7 @@
 
 A local engineering study workbench, built around a C++20 solver. Flat-color, responsive interfaces for Android and the web; no account, API key, remote font, or cloud calculation.
 
-[Open the website — Render](https://pocket-engineer.onrender.com/) · [Downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases) · [Builds and test artifacts](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions)
+[Open the website — Render](https://pocket-engineer.onrender.com/) · [Public downloads](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/RELEASE_NOTES.txt) · [Builds and test artifacts — repository access required](https://github.com/MuhammadTahaBinZaeem/FOP-Project/actions)
 
 ## What is implemented
 
@@ -35,12 +35,14 @@ Both interfaces include subject search, natural question input, automatic correc
 
 See [platform instructions and limitations](docs/PLATFORM_SUPPORT.md).
 
-[0.4.0-rc1 downloads](https://github.com/MuhammadTahaBinZaeem/FOP-Project/releases/tag/v0.4.0-rc1)
+[0.5.0-rc2 Render downloads](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/RELEASE_NOTES.txt)
 include the optimized, non-debuggable, development-signed Android preview,
 Windows/macOS desktop launchers, a static Linux ZIP that runs on NixOS, and the
-complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/releases/v0.4.0-rc1.md)
+complete WASM website ZIP, with checksums. Read the [prerelease notes](docs/releases/v0.5.0-rc2.md)
 for installation, signing and device-validation limits. The website's “Get the
 app” page has direct, labelled downloads for each platform.
+
+The release also includes [all 825,000 exported UI comparisons](https://pocket-engineer.onrender.com/downloads/v0.5.0-rc2/PocketEngineer-0.5.0-demo-comparisons.tar.gz): input, expected/actual answers, verification labels, per-case timings, per-bank summaries and an export audit. These are stored-snapshot comparisons, not an independent oracle. The GitHub repository remains private; authenticated GitHub CI downloads alone do not establish anonymous public access. The corrective Render release is validated using unauthenticated download requests.
 
 The generated pocket-and-circuit logo is a raster image, not a letter monogram. Its header asset is 1.8 KB. The critical offline budget remains 1.5 MB, with a separate 12 MB limit including the demo bank. See [v5 implementation and validation](docs/ENGINEERING_LABS_V5.md), [previous hardening record](docs/JANK_INPUT_DOWNLOADS_V4.md), [UI/Android stress evidence](docs/UI_ANDROID_STRESS.md) and [brand sources](design/brand/README.md).
 
@@ -83,20 +85,22 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 [Test history](docs/TEST_HISTORY.md) records results, failures and corrections. Legacy reports with fields named “correct” mean **snapshot matches**, not proven mathematical correctness. A solver verification label describes a method check; numerical sampling is not a proof for all inputs.
 
-The 0.4 run passed **1,606,929 independent/edge checks**, **4,112 natural-input checks**,
-and all **825,000 regression snapshot comparisons**. The extended browser run
-passed **34/34 tests**, including **400 endurance UI solves**: 300 independently
-expected answers and 100 intentional invalid inputs. ASan/UBSan passed all three
-native suites. These are distinct coverage categories, not one inflated total.
-[Current Android, jank and download evidence](docs/JANK_INPUT_DOWNLOADS_V4.md)
-records failures and remaining limits; the [0.3 evidence](docs/UI_ANDROID_STRESS.md)
+The 0.5 run passes **1,606,929 independent/edge checks**, **4,112 natural-input checks**,
+and all **825,000 regression snapshot comparisons**, plus **23,374 workbench** and
+**31,941 engineering-study checks**. The browser suite passes **80/80 tests**,
+including loading every demo bank and a hard RK4 selection regression.
+ASan/UBSan passes all five native suites. Windows, macOS, Linux and Android CI
+pass; Android runs four instrumentation tests in each of Debug and Release.
+These are distinct coverage categories, not one inflated independent total.
+[Current tests, Android traces and download evidence](docs/TEST_HISTORY.md)
+record failures and remaining limits; the [0.4 evidence](docs/JANK_INPUT_DOWNLOADS_V4.md)
 is retained as history. No universal “100% correct” claim is made.
 
 ## C++ ownership and efficiency
 
 All solvers, mathematical parsing, classification, topic contracts, explanation steps, numerical checks and plot sampling are in C++. JavaScript handles presentation, caching, history and worker messaging; Kotlin hosts the native application.
 
-`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.13% and 77.12%, respectively; run the audit for exact bytes.
+`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.12% and 77.10%, respectively; run the audit for exact bytes.
 
 Input lengths, recursion depth, matrix dimensions, ODE iteration counts, history size and chart samples are bounded. The browser worker has a watchdog. The desktop server binds only to loopback and validates Host/Origin, body sizes and canonical file paths. No generated training corpus is downloaded by the app.
 

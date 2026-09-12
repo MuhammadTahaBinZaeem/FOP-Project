@@ -33,6 +33,7 @@ jobs:
         run: |
           npm ci
           npm run audit:source
+          node tools/test_download_mirror.mjs
           npx playwright install --with-deps chromium
           npm test
       - name: Upload browser evidence
@@ -45,7 +46,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: pocket-engineer-offline-website
-          path: www/
+          path: |
+            www/
+            !www/downloads/
       - uses: actions/upload-pages-artifact@v3
         if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
         with:

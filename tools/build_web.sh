@@ -24,3 +24,6 @@ emcmake cmake -S . -B build-wasm -DCMAKE_BUILD_TYPE=Release -DPE_ENABLE_IPO=OFF
 cmake --build build-wasm --parallel 2
 cp build-wasm/web/engine.js build-wasm/web/engine.wasm www/
 node tools/verify_web_assets.mjs
+# https://render.com/docs/environment-variables documents this built-in flag.
+# CI/desktop website artifacts must not recursively contain all installers.
+if [ "${RENDER:-}" = "true" ]; then node tools/publish_download_mirror.mjs; fi

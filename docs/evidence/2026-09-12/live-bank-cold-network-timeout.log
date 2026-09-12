@@ -1,0 +1,31 @@
+
+Running 2 tests using 1 worker
+
+(node:126031) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [desktop] › tests/browser/demo-bank-coverage.spec.cjs:3:1 › every manifest bank loads in the real worker, including digit-bearing RK4 (20.1s)
+(node:126343) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [android-layout] › tests/browser/demo-bank-coverage.spec.cjs:3:1 › every manifest bank loads in the real worker, including digit-bearing RK4 (35.3s)
+
+
+  1) [android-layout] › tests/browser/demo-bank-coverage.spec.cjs:3:1 › every manifest bank loads in the real worker, including digit-bearing RK4 
+
+    Error: page.evaluate: Error: Worker timeout
+        at eval (eval at evaluate (:311:30), <anonymous>:7:41)
+        at eval (eval at evaluate (:311:30), <anonymous>:7:41)
+        at /home/zaruka/PocketEngineer/tests/browser/demo-bank-coverage.spec.cjs:6:28
+
+    Error Context: test-results/demo-bank-coverage-every-m-efdc3-including-digit-bearing-RK4-android-layout/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/demo-bank-coverage-every-m-efdc3-including-digit-bearing-RK4-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/demo-bank-coverage-every-m-efdc3-including-digit-bearing-RK4-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [android-layout] › tests/browser/demo-bank-coverage.spec.cjs:3:1 › every manifest bank loads in the real worker, including digit-bearing RK4 
+  1 passed (1.0m)

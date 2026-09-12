@@ -1,0 +1,13 @@
+{
+  "runs": 50,
+  "samples_per_fft": 4096,
+  "independent_expected": "constant sequence has DC=4096 and other bins=0",
+  "renderer_cpu_throttle": 4,
+  "offline": true,
+  "dom_rows": 64,
+  "heap_growth_bytes": 415064,
+  "median_roundtrip_ms": 816,
+  "p95_roundtrip_ms": 960,
+  "page_errors": [],
+  "limitations": "Host-specific stress envelope; renderer throttling does not reproduce all worker scheduling, GPU or physical-phone behavior. Roundtrip includes automation and rendering."
+}

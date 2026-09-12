@@ -1,0 +1,52 @@
+{
+  "serial": "emulator-5556",
+  "checks": [
+    "actual readiness button",
+    "six-variable K-map native touch and solve",
+    "AC drawn circuit through JNI",
+    "native PNG save, real document output and pulled raster bytes",
+    "FFT through JNI",
+    "state-machine table and diagram",
+    "5000 stored demo comparisons with radios disabled",
+    "actual Android demo button layout",
+    "5000 hard RK4 comparisons through the actual offline Android loader"
+  ],
+  "limitations": "Actual debug APK and Android WebView/JNI in API35 emulator. Release instrumentation and frame measurement are separate.",
+  "png_export": {
+    "bytes": 61190,
+    "width": 1632,
+    "height": 1248,
+    "device_path": "/sdcard/Download/pe-test-1789221930665.png"
+  },
+  "demo_summary": "5000/5000 tested · 0 snapshot mismatches · 2895 ms elapsed",
+  "demo_buttons": [
+    {
+      "label": "Estimate solving time",
+      "width": 152.0595245361328,
+      "height": 44.720237731933594
+    },
+    {
+      "label": "Test this page · 25 cases",
+      "width": 172.60714721679688,
+      "height": 44.720237731933594
+    },
+    {
+      "label": "Test all 5,000",
+      "width": 108.35714721679688,
+      "height": 44.720237731933594
+    },
+    {
+      "label": "Stop test",
+      "width": 84.08928680419922,
+      "height": 44.720237731933594
+    },
+    {
+      "label": "Save test results",
+      "width": 125.51190948486328,
+      "height": 44.720237731933594
+    }
+  ],
+  "rk4_summary": "5000/5000 tested · 0 snapshot mismatches · 2139 ms elapsed",
+  "memory": "Applications Memory Usage (in Kilobytes):\nUptime: 1759935 Realtime: 1759935\n\n** MEMINFO in pid 3614 [com.pocketengineer.app] **\n                   Pss  Private  Private     Swap      Rss     Heap     Heap     Heap\n                 Total    Dirty    Clean    Dirty    Total     Size    Alloc     Free\n                ------   ------   ------   ------   ------   ------   ------   ------\n  Native Heap    14689    14568        0        0    18616    29324    22049     3510\n  Dalvik Heap     1989     1736        0        0     9408     5784     2892     2892\n Dalvik Other     7016     1568        0        0    13072                           \n        Stack     1332     1332        0        0     1344                           \n       Ashmem     4367       32        0        0     9268                           \n    Other dev       15        0       12        0      332                           \n     .so mmap     2423      156      252        0    35868                           \n    .jar mmap     3059        0        8        0    43648                           \n    .apk mmap    40136      464    12064        0    70660                           \n    .dex mmap       56        4        0        0      980                           \n    .oat mmap       50        0        0        0     1596                           \n    .art mmap     8733     8016        0        0    29532                           \n   Other mmap     4618      252      412        0     9708                           \n      Unknown    18021    18008        0        0    18836                           \n        TOTAL   106504    46136    12748        0   262868    35108    24941     6402\n \n App Summary\n                       Pss(KB)                        Rss(KB)\n                        ------                         ------\n           Java Heap:     9752                          38940\n         Native Heap:    14568                          18616\n                Code:    13044                         163716\n               Stack:     1332                           1344\n            Graphics:        0                              0\n       Private Other:    20188\n              System:    47620\n             Unknown:                                   40252\n \n           TOTAL PSS:   106504            TOTAL RSS:   262868      TOTAL SWAP (KB):        0\n \n Objects\n               Views:        7         ViewRootImpl:        1\n         AppContexts:        6           Activities:        1\n              Assets:       10        AssetManagers:        0\n       Local Binders:       57        Proxy Binders:       61\n       Parcel memory:       12         Parcel count:       50\n    Death Recipients:        2             WebViews:        1\n \n SQL\n         MEMORY_USED:        0\n  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0\n \n",
+  "success": true
+}

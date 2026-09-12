@@ -1,0 +1,16 @@
+{
+  "archive": "PocketEngineer-0.5.0-Linux.zip",
+  "sha256": "1c5d56251c1ddc51d8d3d8d3bb7edd84230460620b285da6713ca508aac187b7",
+  "published_checksum_verified": false,
+  "platform": "linux",
+  "architecture": "x64",
+  "cli": true,
+  "relocatable_server": true,
+  "bundled_ui": true,
+  "natural_input": true,
+  "wrong_type_correction": true,
+  "cross_origin_rejected": true,
+  "engineering_extension": true,
+  "offline_demo_bank": true,
+  "localhost_url": "http://127.0.0.1:38537"
+}
