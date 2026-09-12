@@ -6,7 +6,7 @@ self.onmessage=async({data})=>{
   const {id,method}=data;
   try{
     if(method==='load'){
-      const next=data.bank;if(!/^demo-data\/[a-z_]+\.[a-z_]+\.(easy|medium|hard)\.(pebank|json\.gz)$/.test(next.file)||next.count!==5000||next.expanded_bytes>8000000)throw Error('Invalid demo manifest entry');
+      const next=data.bank;if(!/^demo-data\/[a-z0-9_]+\.[a-z0-9_]+\.(easy|medium|hard)\.(pebank|json\.gz)$/.test(next.file)||next.count!==5000||next.expanded_bytes>8000000)throw Error('Invalid demo manifest entry');
       if(typeof DecompressionStream==='undefined')throw Error('This browser/WebView needs an update to load compressed demos (DecompressionStream is unavailable). Core solving is still available.');
       // Android AssetLoader serves document requests but not this worker's
       // fetch. The WebView transfers compressed bytes; hashing/inflation stay here.

@@ -192,6 +192,15 @@ class OfflineAppTest {
             tap(scenario,"#demo-run")
             waitFor(scenario,"document.getElementById('demo-status').textContent.includes('Completed: 25 cases; 0 differ')")
             screenshot("android-offline-demos")
+            evaluate(scenario,"document.getElementById('demo-domain').value='differential_equations';document.getElementById('demo-domain').dispatchEvent(new Event('change'))")
+            waitFor(scenario,"!document.getElementById('demo-all').disabled")
+            evaluate(scenario,"document.getElementById('demo-topic').value='rk4';document.getElementById('demo-topic').dispatchEvent(new Event('change'))")
+            waitFor(scenario,"!document.getElementById('demo-all').disabled")
+            evaluate(scenario,"document.getElementById('demo-difficulty').value='hard';document.getElementById('demo-difficulty').dispatchEvent(new Event('change'))")
+            waitFor(scenario,"!document.getElementById('demo-all').disabled")
+            tap(scenario,"#demo-run")
+            waitFor(scenario,"document.getElementById('demo-status').textContent.includes('Completed: 25 cases; 0 differ')")
+            screenshot("android-rk4-demos")
             assertTrue("Editor or demo page overflow",evaluate(scenario,"document.documentElement.scrollWidth <= innerWidth + 1")=="true")
         }
     }
