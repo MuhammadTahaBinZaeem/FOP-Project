@@ -10,6 +10,10 @@ The corrective release uses a versioned binary-only mirror on the existing Rende
 
 The anonymous access failure is retained. Mirror publication and anonymous execution results will be recorded only after testing; the private GitHub rc1 release is not advertised as an anonymous download solution.
 
+Corrective build source `81feb663ea870a998de948cfc368f1aaf564361a` passes [all package CI jobs](evidence/2026-09-12/package-ci-81feb66.json), including Debug/Release Android instrumentation and installer-exclusion sentinels. [Website CI](evidence/2026-09-12/website-ci-81feb66.json) passes 82/82 browser tests. Independently downloaded artifacts pass **82/82 local browser tests** and **4/4 installed Release APK tests**. [Downloaded website log](evidence/2026-09-12/downloaded-website-81feb66.log), [installed APK log](evidence/2026-09-12/android-release-81feb66/instrumentation.txt).
+
+The complete offline UI replay was repeated again at this source: **825,000/825,000 stored snapshot matches**. [Per-bank results](evidence/2026-09-12/all-demo-ui-81feb66/). Every exported record was also audited against the downloaded website's bank bytes. [Audit](evidence/2026-09-12/export-audit-downloaded-banks-81feb66.json). These repeats do not increase the unique-corpus count. C++ remains **82.116% runtime / 77.095% including HTML and CSS**. [Source denominator](evidence/2026-09-12/source-81feb66.json).
+
 ## 2026-09-12 — every-bank UI testing and downloaded candidates
 
 The expanded offline UI replay found a genuine missed boundary at source `78380ea`: after **87 banks / 435,000 matching comparisons**, opening RK4 failed with the demo loader's filename validation. Its topic name contains a digit, but the worker allowed only letters and underscores. The run is retained as a [failure](evidence/2026-09-12/all-demo-ui-78380ea-failure.log), not reported as a complete pass.

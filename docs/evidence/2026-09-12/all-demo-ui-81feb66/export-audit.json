@@ -1,0 +1,8 @@
+{
+  "source": "81feb66",
+  "checked_at": "2026-09-12T14:58:30.067Z",
+  "banks": 165,
+  "cases": 825000,
+  "success": true,
+  "comparison": "Every exported input, expected answer, actual answer, verification label and unique index matches its hashed source bank. Snapshot equality is not independent mathematical proof."
+}

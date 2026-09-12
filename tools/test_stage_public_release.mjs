@@ -1,0 +1,17 @@
+import {mkdtemp,mkdir,writeFile,readFile} from 'node:fs/promises';
+import {spawnSync} from 'node:child_process';
+import {createHash} from 'node:crypto';
+import path from 'node:path';
+import os from 'node:os';
+import assert from 'node:assert/strict';
+const script=path.resolve('tools/stage_public_release.mjs'),mirror=path.resolve('tools/publish_download_mirror.mjs');
+const temp=await mkdtemp(path.join(os.tmpdir(),'pe-stage-test-')),prepared=path.join(temp,'prepared');
+await mkdir(prepared);await mkdir(path.join(temp,'docs'));await writeFile(path.join(temp,'docs/history.txt'),'test evidence fixture');await writeFile(path.join(temp,'notes.txt'),'release notes fixture');
+const files={'BUILD_SOURCE.txt':'Source commit: '+'0'.repeat(40)+'\nVersion: 0.5.0-rc2\n','fixture.apk':'binary fixture'};
+for(const [name,data] of Object.entries(files))await writeFile(path.join(prepared,name),data);
+await writeFile(path.join(prepared,'SHA256SUMS.txt'),Object.entries(files).map(([n,d])=>createHash('sha256').update(d).digest('hex')+'  '+n).join('\n')+'\n');
+const run=tag=>spawnSync(process.execPath,[script,prepared,tag,path.join(temp,'notes.txt')],{cwd:temp,encoding:'utf8'});
+assert.notEqual(run('v0.5.0-rc1').status,0);assert.equal(run('v0.5.0-rc2').status,0);assert.notEqual(run('v0.5.0-rc2').status,0);
+assert.equal(spawnSync(process.execPath,[mirror,path.join(temp,'distribution'),path.join(temp,'public')],{encoding:'utf8'}).status,0);
+assert.equal(await readFile(path.join(temp,'public/v0.5.0-rc2/fixture.apk'),'utf8'),'binary fixture');
+console.log(JSON.stringify({checks:5,success:true,temporary_fixture:temp}));
