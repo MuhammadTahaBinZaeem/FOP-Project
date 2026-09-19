@@ -2,6 +2,25 @@
 
 This file separates independent correctness comparisons, same-engine regression snapshots, and platform execution. Re-running answers produced by the same engine cannot independently establish mathematical correctness. Historical “correct” counts below mean snapshot matches.
 
+## 2026-09-13–19 — visual labs rejected by an older cached calculation worker
+
+The reported **Unsupported engine request** is a real browser-dispatch failure, not a mathematical input rejection. Fresh live-site tests passed six circuit/signals/state-machine journeys, but that did not cover an existing browser cache. Only top-level scripts had content-versioned URLs; `app.js` still loaded unversioned `solver-worker.js`, which in turn loaded unversioned `engine.js` and `engine.wasm`. A current interface could therefore start an older worker whose dispatch table had no `workbench` method.
+
+The regression test reproduces the exact error using the old worker dispatch table: [failing test](evidence/2026-09-19/engine-version/stale-worker-before.log), [actual error context](evidence/2026-09-19/engine-version/stale-worker-error-context.md). A separate test-owned persistent browser on the real Render origin deliberately replaces only its cached worker with the historical worker and reproduces the same message. [Seed report](evidence/2026-09-19/engine-version/seed.json), [screenshot](evidence/2026-09-19/engine-version/before.png). This is controlled fault injection, not inspection of the user's device.
+
+The build now versions the complete dependency chain in child-to-parent order: WASM/loader → solver worker → app → entry HTML → offline manifest. Startup also checks actual visual-lab export availability and preserves a useful stale-engine error instead of hiding it behind a failed HTTP fallback. No numerical solver, Android native routing or published installer bytes are changed by this web-delivery fix.
+
+Initial binding tests caught a second implementation error: a broad replacement also changed the literal filename comparison, leaving the WASM URL unversioned. The failure is [retained](evidence/2026-09-19/engine-version/initial-binding-failure.log). Filename selection now uses an extension check, and generation requires exactly one dependency URL; unchanged rebuilds are idempotent.
+
+Checks completed September 13 and retained when work resumed September 19:
+
+- **90/90 browser tests pass**, including eight new desktop/phone-layout cases for stale worker/glue/WASM delivery, all three visual labs after offline reload, startup capability detection, and repair retaining history. [Full log](evidence/2026-09-19/engine-version/browser-full.log).
+- **5/5 native CTest suites pass** in 2.27 seconds. [Log](evidence/2026-09-19/engine-version/native-ctest.log). Numerical engine code is unchanged; the 825,000-case corpus is not counted as newly independent tests.
+- The existing Android preview's **165 banks / 825,000 stored records** still pass compressed and expanded integrity checks. [Report](evidence/2026-09-19/engine-version/android-bundle-integrity.json). This is an archive check, not a new installed-device run. Its native bridge already routes `workbench` requests.
+- C++ remains **82.0637% of maintained runtime code / 77.0489% including HTML/CSS**. [Exact denominator](evidence/2026-09-19/engine-version/source-audit.json).
+
+For an older installed website, use **Get the app → Prepare / repair offline access → Update cached app** while connected. Saved history is not cleared. Live deployment and full-shutdown/offline-restart recovery are recorded separately after execution; source tests alone are not treated as proof of production recovery.
+
 ## 2026-09-12 — anonymous-download access correction
 
 An actual unauthenticated browser check returned **404** for the 0.5.0-rc1 GitHub checksum URL. The repository was reported as **PRIVATE** at that checkpoint. The earlier workflow named `verify-published-downloads` used `GH_TOKEN`, so its successful Windows/macOS/Linux runs prove authenticated downloaded-package execution, **not anonymous public availability**. Previous uses of “public” for that workflow alone must not be interpreted as proof that guests could download. This implementation made no repository visibility change.

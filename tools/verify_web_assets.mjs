@@ -1,6 +1,19 @@
 import {readFile,stat,writeFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
 const assets=['index.html','styles.css','app.js','offline.js','lab-ui.js','demos.js','demo-worker.js','solver-worker.js','engine.js','engine.wasm','manifest.webmanifest','assets/logo.webp','assets/icon-32.png','assets/icon-180.png','assets/icon-192.png','assets/icon-512.png','assets/linear-algebra.webp'];
+// Version the whole executable chain, before hashing its parents. Versioning
+// only HTML scripts allowed a current UI to start an old cached solver worker.
+// Keep literal URLs for the offline cache, subdirectory hosting and APK loader.
+const keyFor=async name=>createHash('sha256').update(await readFile('www/'+name)).digest('hex').slice(0,16);
+async function bind(file,dependency){
+  const source=await readFile('www/'+file,'utf8');
+  const pattern=new RegExp("'"+dependency.replaceAll('.','\\.')+"(?:\\?pe=[a-f0-9]+)?'",'g');
+  if([...source.matchAll(pattern)].length!==1)throw Error('Expected one engine dependency: '+file+' -> '+dependency);
+  await writeFile('www/'+file,source.replace(pattern,"'"+dependency+'?pe='+await keyFor(dependency)+"'"));
+}
+await bind('solver-worker.js','engine.js');
+await bind('solver-worker.js','engine.wasm');
+await bind('app.js','solver-worker.js');
 // New entry HTML must not pick up a previous generation of its bootstrap code.
 // Hash query keys also work with the canonical offline cache and Android loader.
 let index=await readFile('www/index.html','utf8');

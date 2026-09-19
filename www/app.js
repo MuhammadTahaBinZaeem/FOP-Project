@@ -83,13 +83,14 @@ async function boot() {
       state.mode='wasm';
       try {
         if(!window.WebAssembly||!window.Worker)throw new Error('WebAssembly workers are not supported');
-        state.worker=new Worker('solver-worker.js');
+        state.worker=new Worker('solver-worker.js?pe=94396c20331ccdb1');
         state.worker.onmessage=e=>settle(e.data.id,e.data.result,e.data.error);
         state.worker.onerror=()=>{for(const id of [...state.pending.keys()])settle(id,null,'Browser engine could not load');};
         catalog=await request('catalog');
+        if(!catalog.workbench)throw Error('Cached engine is outdated. Open Get the app, prepare/repair offline access, then update and reload.');
       } catch(error) {
         if(state.worker)state.worker.terminate();state.worker=null;
-        state.mode='http';catalog=await request('catalog');
+        state.mode='http';try{catalog=await request('catalog');}catch{throw error;}
       }
     }
     if(!Array.isArray(catalog.topics)||!catalog.topics.length)throw new Error('Topic catalog unavailable');

@@ -1,0 +1,208 @@
+
+Running 6 tests using 1 worker
+
+(node:30716) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart (2.6s)
+(node:30898) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.js and solve after offline restart (2.6s)
+(node:31083) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.wasm and solve after offline restart (16.2s)
+(node:31428) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart (3.9s)
+(node:31600) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  5 [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.js and solve after offline restart (3.7s)
+(node:31770) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  6 [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.wasm and solve after offline restart (16.1s)
+
+
+  1) [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart 
+
+    TypeError: expect(received).toMatch(expected)
+
+    Matcher error: received value must be a string
+
+    Received has value: null
+
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-engine','wasm');
+      42 |     await solveLabs();
+    > 43 |     for(const name of ['solver-worker.js','engine.js','engine.wasm'])expect(seen.find(r=>r.name===name)?.key).toMatch(/^[a-f0-9]{16}$/);
+         |                                                                                                               ^
+      44 |     await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
+      45 |     await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
+      46 |     await page.locator('.nav[data-view=workbench]').click();await solveLabs();
+        at /home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:43:111
+
+    Error Context: test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.js and solve after offline restart 
+
+    TypeError: expect(received).toMatch(expected)
+
+    Matcher error: received value must be a string
+
+    Received has value: null
+
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-engine','wasm');
+      42 |     await solveLabs();
+    > 43 |     for(const name of ['solver-worker.js','engine.js','engine.wasm'])expect(seen.find(r=>r.name===name)?.key).toMatch(/^[a-f0-9]{16}$/);
+         |                                                                                                               ^
+      44 |     await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
+      45 |     await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
+      46 |     await page.locator('.nav[data-view=workbench]').click();await solveLabs();
+        at /home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:43:111
+
+    Error Context: test-results/engine-version-visual-labs-69265-solve-after-offline-restart-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/engine-version-visual-labs-69265-solve-after-offline-restart-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/engine-version-visual-labs-69265-solve-after-offline-restart-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.wasm and solve after offline restart 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator:  locator('#solve')
+    Expected: enabled
+    Received: disabled
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toBeEnabled" locator('#solve') with timeout 15000ms
+      - waiting for locator('#solve')
+        32 × locator resolved to <button disabled id="solve" type="submit" class="primary">…</button>
+           - unexpected value "disabled"
+
+
+      38 |   }
+      39 |   try{
+    > 40 |     await page.goto(url);await expect(page.locator('#solve')).toBeEnabled();
+         |                                                               ^
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-engine','wasm');
+      42 |     await solveLabs();
+      43 |     for(const name of ['solver-worker.js','engine.js','engine.wasm'])expect(seen.find(r=>r.name===name)?.key).toMatch(/^[a-f0-9]{16}$/);
+        at /home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:40:63
+
+    Error Context: test-results/engine-version-visual-labs-fda28-solve-after-offline-restart-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/engine-version-visual-labs-fda28-solve-after-offline-restart-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/engine-version-visual-labs-fda28-solve-after-offline-restart-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart 
+
+    TypeError: expect(received).toMatch(expected)
+
+    Matcher error: received value must be a string
+
+    Received has value: null
+
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-engine','wasm');
+      42 |     await solveLabs();
+    > 43 |     for(const name of ['solver-worker.js','engine.js','engine.wasm'])expect(seen.find(r=>r.name===name)?.key).toMatch(/^[a-f0-9]{16}$/);
+         |                                                                                                               ^
+      44 |     await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
+      45 |     await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
+      46 |     await page.locator('.nav[data-view=workbench]').click();await solveLabs();
+        at /home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:43:111
+
+    Error Context: test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-android-layout/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.js and solve after offline restart 
+
+    TypeError: expect(received).toMatch(expected)
+
+    Matcher error: received value must be a string
+
+    Received has value: null
+
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-engine','wasm');
+      42 |     await solveLabs();
+    > 43 |     for(const name of ['solver-worker.js','engine.js','engine.wasm'])expect(seen.find(r=>r.name===name)?.key).toMatch(/^[a-f0-9]{16}$/);
+         |                                                                                                               ^
+      44 |     await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
+      45 |     await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
+      46 |     await page.locator('.nav[data-view=workbench]').click();await solveLabs();
+        at /home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:43:111
+
+    Error Context: test-results/engine-version-visual-labs-69265-solve-after-offline-restart-android-layout/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/engine-version-visual-labs-69265-solve-after-offline-restart-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/engine-version-visual-labs-69265-solve-after-offline-restart-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.wasm and solve after offline restart 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator:  locator('#solve')
+    Expected: enabled
+    Received: disabled
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toBeEnabled" locator('#solve') with timeout 15000ms
+      - waiting for locator('#solve')
+        34 × locator resolved to <button disabled id="solve" type="submit" class="primary">…</button>
+           - unexpected value "disabled"
+
+
+      38 |   }
+      39 |   try{
+    > 40 |     await page.goto(url);await expect(page.locator('#solve')).toBeEnabled();
+         |                                                               ^
+      41 |     await expect(page.locator('body')).toHaveAttribute('data-engine','wasm');
+      42 |     await solveLabs();
+      43 |     for(const name of ['solver-worker.js','engine.js','engine.wasm'])expect(seen.find(r=>r.name===name)?.key).toMatch(/^[a-f0-9]{16}$/);
+        at /home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:40:63
+
+    Error Context: test-results/engine-version-visual-labs-fda28-solve-after-offline-restart-android-layout/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/engine-version-visual-labs-fda28-solve-after-offline-restart-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/engine-version-visual-labs-fda28-solve-after-offline-restart-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart 
+    [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.js and solve after offline restart 
+    [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.wasm and solve after offline restart 
+    [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart 
+    [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.js and solve after offline restart 
+    [android-layout] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale engine.wasm and solve after offline restart 

@@ -1,0 +1,12 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "phase": "seed",
+  "checked_at": "2026-09-13T08:33:51.721Z",
+  "checks": [
+    "current live installation seeded",
+    "arithmetic result 42 saved",
+    "exact unsupported-engine-request reproduced with old cached worker"
+  ],
+  "fault_injection": "Legacy worker deliberately placed in this test-owned cache; this is not inspection of the user browser.",
+  "success": true
+}

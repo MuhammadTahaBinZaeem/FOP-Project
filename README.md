@@ -31,6 +31,8 @@ Use **Test demos · 825k cases** to choose subject, problem type and difficulty.
 
 **Prepare / repair offline access** registers or repairs the offline worker, verifies SHA-256 content and includes all demo sets. Once **Ready offline** appears, revisit the same Render URL in the same browser without internet. A first-ever offline visit cannot work, and clearing/evicting site storage removes that installation. The complete download is about 9.2 MB; the critical app/engine is about 1.25 MB. Browser installation and persistent-storage grants depend on the browser.
 
+If an older browser installation says **Unsupported engine request** when opening visual labs, connect once, open **Get the app**, choose **Prepare / repair offline access**, then **Update cached app** when offered. This replaces the old calculation worker without clearing saved history. Current builds version the complete worker/loader/WASM chain and check visual-lab support before enabling the engine. [Failure reproduction and recovery evidence](docs/TEST_HISTORY.md).
+
 Both interfaces include subject search, natural question input, automatic correction of clearly wrong type selections, a manual-mode switch, example inputs, numbered calculation steps, numerical-check evidence, warnings, sampled charts/K-map tables, and the last 30 inputs in device-only history. The interpretation is shown and the original text is preserved. See [natural input examples and boundaries](docs/NATURAL_INPUT.md). There are no SVG assets in the maintained website.
 
 See [platform instructions and limitations](docs/PLATFORM_SUPPORT.md).
@@ -87,8 +89,8 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 The 0.5 run passes **1,606,929 independent/edge checks**, **4,112 natural-input checks**,
 and all **825,000 regression snapshot comparisons**, plus **23,374 workbench** and
-**31,941 engineering-study checks**. The browser suite passes **82/82 tests**,
-including loading every demo bank, a hard RK4 selection regression and binary-download routing.
+**31,941 engineering-study checks**. The browser suite passes **90/90 tests**,
+including every demo bank, hard RK4, binary-download routing, stale-engine delivery and cache repair without clearing history.
 ASan/UBSan passes all five native suites. Windows, macOS, Linux and Android CI
 pass; Android runs four instrumentation tests in each of Debug and Release.
 These are distinct coverage categories, not one inflated independent total.
@@ -100,7 +102,7 @@ is retained as history. No universal “100% correct” claim is made.
 
 All solvers, mathematical parsing, classification, topic contracts, explanation steps, numerical checks and plot sampling are in C++. JavaScript handles presentation, caching, history and worker messaging; Kotlin hosts the native application.
 
-`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.12% and 77.10%, respectively; run the audit for exact bytes.
+`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.06% and 77.05%, respectively; run the audit for exact bytes.
 
 Input lengths, recursion depth, matrix dimensions, ODE iteration counts, history size and chart samples are bounded. The browser worker has a watchdog. The desktop server binds only to loopback and validates Host/Origin, body sizes and canonical file paths. No generated training corpus is downloaded by the app.
 

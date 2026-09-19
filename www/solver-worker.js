@@ -4,8 +4,8 @@
 let modulePromise;
 function engine() {
   if(!modulePromise)modulePromise=Promise.resolve().then(()=>{
-    importScripts('engine.js');
-    return createPocketEngineer({locateFile:name=>new URL(name,self.location.href).href});
+    importScripts('engine.js?pe=9e34dbbd95be0de3');
+    return createPocketEngineer({locateFile:name=>new URL(name.endsWith('.wasm')?'engine.wasm?pe=138acf8ea6646e02':name,self.location.href).href});
   });
   return modulePromise;
 }
@@ -20,7 +20,7 @@ self.onmessage=async({data})=>{
     try {
       // ccall's string conversion exposes a non-owning UTF-8 view without a
       // second native request; UTF8ToString is exported for this purpose.
-      const result=JSON.parse(m.UTF8ToString(pointer));self.postMessage({id,result});
+      const result=JSON.parse(m.UTF8ToString(pointer));if(method==='catalog')result.workbench=!!m._pe_workbench_json;self.postMessage({id,result});
     }finally{m.ccall('pe_free_string',null,['number'],[pointer]);}
   }catch(error){self.postMessage({id,error:error.message||String(error)});}
 };

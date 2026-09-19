@@ -1,0 +1,44 @@
+
+Running 1 test using 1 worker
+
+(node:29904) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart (16.0s)
+
+
+  1) [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: locator('#circuit-canvas')
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" locator('#circuit-canvas') with timeout 15000ms
+      - waiting for locator('#circuit-canvas')
+
+
+      21 |   async function solveLabs(){
+      22 |     await page.locator('.tool-launcher [data-lab=circuit]').click();
+    > 23 |     await expect(page.locator('#circuit-canvas')).toBeVisible();
+         |                                                   ^
+      24 |     await page.getByRole('button',{name:'RC low-pass',exact:true}).click();
+      25 |     await page.locator('#circuit-analysis').selectOption('ac');
+      26 |     await page.getByRole('button',{name:'Solve this circuit',exact:true}).click();
+        at solveLabs (/home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:23:51)
+        at /home/zaruka/PocketEngineer/tests/browser/engine-version.spec.cjs:42:5
+
+    Error Context: test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-desktop/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/engine-version-visual-labs-c2c67-solve-after-offline-restart-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests/browser/engine-version.spec.cjs:4:67 › visual labs bypass stale solver-worker.js and solve after offline restart 
