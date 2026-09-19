@@ -1,0 +1,153 @@
+
+Running 4 tests using 1 worker
+
+(node:150042) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/entered-values.spec.cjs:3:1 › entered circuit, signal and transition-table values match independent answers online and offline (3.5s)
+(node:150204) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [desktop] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button (1.5m)
+(node:150774) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  3 [android-layout] › tests/browser/entered-values.spec.cjs:3:1 › entered circuit, signal and transition-table values match independent answers online and offline (2.8s)
+(node:150949) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  4 [android-layout] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button (48.8s)
+
+
+  1) [desktop] › tests/browser/entered-values.spec.cjs:3:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 5
+    + Received  + 5
+
+      Array [
+    -   1,
+    -   1,
+    -   0,
+    -   1,
+    -   1,
+    +   "1",
+    +   "1",
+    +   "0",
+    +   "1",
+    +   "1",
+      ]
+
+       7 |   const site=page.url();
+       8 |   async function check(label,expected,actual){
+    >  9 |     checks.push({label,expected,actual});expect(actual).toEqual(expected);
+         |                                                         ^
+      10 |     await expect(page.locator('#verification')).not.toContainText('Input could not be solved');
+      11 |     await info.attach(label+'.png',{body:await page.locator('#lab-result').screenshot(),contentType:'image/png'});
+      12 |   }
+        at check (/home/zaruka/PocketEngineer/tests/browser/entered-values.spec.cjs:9:57)
+        at /home/zaruka/PocketEngineer/tests/browser/entered-values.spec.cjs:33:11
+
+    Error Context: test-results/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button 
+
+    Test timeout of 90000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 90000ms exceeded.
+
+      20 |     await page.locator('#input').fill('23+19');await page.locator('#solve').click();await expect(page.locator('#answer')).toHaveText('42');
+      21 |     hold=true;
+    > 22 |     await page.evaluate(async()=>{await navigator.serviceWorker.register('service-worker.js?refresh=install-race',{scope:'./',updateViaCache:'none'});});
+         |                ^
+      23 |     await expect.poll(()=>page.evaluate(async()=>Boolean((await navigator.serviceWorker.getRegistration())?.installing))).toBe(true);
+      24 |     // The updatefound event happened in the previous document. The new page
+      25 |     // must subscribe to the existing installing worker, not just future ones.
+        at /home/zaruka/PocketEngineer/tests/browser/update-in-progress.spec.cjs:22:16
+
+    Error Context: test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [android-layout] › tests/browser/entered-values.spec.cjs:3:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 5
+    + Received  + 5
+
+      Array [
+    -   1,
+    -   1,
+    -   0,
+    -   1,
+    -   1,
+    +   "1",
+    +   "1",
+    +   "0",
+    +   "1",
+    +   "1",
+      ]
+
+       7 |   const site=page.url();
+       8 |   async function check(label,expected,actual){
+    >  9 |     checks.push({label,input:await page.evaluate(()=>PEApp.state.problem),expected,actual});expect(actual).toEqual(expected);
+         |                                                         ^
+      10 |     await expect(page.locator('#verification')).not.toContainText('Input could not be solved');
+      11 |     await info.attach(label+'.png',{body:await page.locator('#lab-result').screenshot(),contentType:'image/png'});
+      12 |   }
+        at check (/home/zaruka/PocketEngineer/tests/browser/entered-values.spec.cjs:9:57)
+        at /home/zaruka/PocketEngineer/tests/browser/entered-values.spec.cjs:33:11
+
+    Error Context: test-results/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [android-layout] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button 
+
+    Test was interrupted.
+
+    Error: page.evaluate: Test ended.
+
+      20 |     await page.locator('#input').fill('23+19');await page.locator('#solve').click();await expect(page.locator('#answer')).toHaveText('42');
+      21 |     hold=true;
+    > 22 |     await page.evaluate(async()=>{await navigator.serviceWorker.register('service-worker.js?refresh=install-race',{scope:'./',updateViaCache:'none'});});
+         |                ^
+      23 |     await expect.poll(()=>page.evaluate(async()=>Boolean((await navigator.serviceWorker.getRegistration())?.installing))).toBe(true);
+      24 |     // The updatefound event happened in the previous document. The new page
+      25 |     // must subscribe to the existing installing worker, not just future ones.
+        at /home/zaruka/PocketEngineer/tests/browser/update-in-progress.spec.cjs:22:16
+
+    Error Context: test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-android-layout/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3 failed
+    [desktop] › tests/browser/entered-values.spec.cjs:3:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+    [desktop] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button 
+    [android-layout] › tests/browser/entered-values.spec.cjs:3:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+  1 interrupted
+    [android-layout] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button 

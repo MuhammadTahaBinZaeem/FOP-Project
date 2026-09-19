@@ -105,7 +105,7 @@ async function boot() {
   } catch(error) {
     state.mode='failed';window.PEOffline.setMode('failed');
     $('engine-status').textContent='Engine unavailable';
-    tell('Could not start the local engine. Connect once to download the website, or use a native package. Reload to retry. '+error.message);
+    tell('Could not start the local engine. '+error.message);
     $('cache-status').textContent='Solver not loaded; offline solving is not ready.';
   }
 }

@@ -22,8 +22,11 @@ window.PEOffline=(()=>{
     if(!isSecureContext||!('serviceWorker' in navigator))throw Error('Offline installation requires HTTPS or localhost and service-worker support.');
     let registration=await navigator.serviceWorker.getRegistration();
     if((repair&&navigator.onLine)||!registration||(!registration.active&&!registration.installing&&!registration.waiting))registration=await navigator.serviceWorker.register('service-worker.js?refresh='+Date.now(),{scope:'./',updateViaCache:'none'});
-    get('update-offline').hidden=!registration.waiting;
-    registration.addEventListener('updatefound',()=>{const worker=registration.installing;worker?.addEventListener('statechange',()=>{get('update-offline').hidden=!registration.waiting;});});
+    const updated=()=>{get('update-offline').hidden=!registration.waiting;};
+    // An update may already be installing when this document starts.
+    registration.onupdatefound=()=>{if(registration.installing)registration.installing.onstatechange=updated;updated();};
+    registration.onupdatefound();
+    if(!repair&&navigator.onLine)registration.update().catch(()=>{});
     let worker=registration.active;
     if(!worker){
       const installing=registration.installing||registration.waiting;
@@ -37,12 +40,12 @@ window.PEOffline=(()=>{
       try{result=await message(worker,'REPAIR_OFFLINE');}finally{clearInterval(progress);}
     }
     if(result.error)throw Error(result.error);
-    display(result.ready?`Ready offline · solver and all 825,000 demos saved (${result.total} files). Revisit ${location.origin}${new URL('./',location.href).pathname} in this browser without internet.`:`Offline files incomplete (${result.completed}/${result.total}). Press Prepare / repair offline access while connected.`,result.ready);
+    display(result.ready?`Ready offline · solver and all 825,000 demos saved (${result.total} files; build ${result.version?.slice(-8)||'legacy'}). Revisit ${location.origin}${new URL('./',location.href).pathname} in this browser without internet.`:`Offline files incomplete (${result.completed}/${result.total}). Press Prepare / repair offline access while connected.`,result.ready);
     if(result.ready&&mode==='failed'&&repair)window.dispatchEvent(new Event('pe-retry-engine'));
     return result;
   }
   function check(repair=false){
-    if(job)return job;
+    if(job)return repair?job.then(()=>check(true)):job;
     const button=get('retry-cache');button.disabled=true;button.textContent=repair?'Preparing offline access…':'Checking offline files…';
     display(repair?'Preparing offline access…':'Checking offline files…');
     job=run(repair).catch(error=>display(error.message)).finally(()=>{button.disabled=false;button.textContent='Prepare / repair offline access';job=null;});

@@ -1,0 +1,19 @@
+
+Running 10 tests using 1 worker
+
+(node:146864) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop] › tests/browser/labs.spec.cjs:17:1 › circuit drawing solves AC, restores undo and produces PNG download (6.2s)
+  ✓   2 [desktop] › tests/browser/labs.spec.cjs:23:1 › signals operations run through the actual controls and reject invalid input (1.1s)
+  ✓   3 [desktop] › tests/browser/labs.spec.cjs:29:1 › transition-table UI generates a state diagram, equations and 101 detector trace (648ms)
+  ✓   4 [desktop] › tests/browser/labs.spec.cjs:39:1 › every C++ signals form solves its preset and rejects a missing numeric field (3.1s)
+  ✓   5 [desktop] › tests/browser/labs.spec.cjs:44:1 › network study controls solve equivalents, superposition, sensitivity and sweeps (1.5s)
+(node:147279) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   6 [android-layout] › tests/browser/labs.spec.cjs:17:1 › circuit drawing solves AC, restores undo and produces PNG download (8.3s)
+  ✓   7 [android-layout] › tests/browser/labs.spec.cjs:23:1 › signals operations run through the actual controls and reject invalid input (959ms)
+  ✓   8 [android-layout] › tests/browser/labs.spec.cjs:29:1 › transition-table UI generates a state diagram, equations and 101 detector trace (681ms)
+  ✓   9 [android-layout] › tests/browser/labs.spec.cjs:39:1 › every C++ signals form solves its preset and rejects a missing numeric field (3.8s)
+  ✓  10 [android-layout] › tests/browser/labs.spec.cjs:44:1 › network study controls solve equivalents, superposition, sensitivity and sweeps (969ms)
+
+  10 passed (30.4s)

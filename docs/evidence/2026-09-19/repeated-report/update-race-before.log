@@ -1,0 +1,45 @@
+
+Running 1 test using 1 worker
+
+(node:148046) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button (17.7s)
+
+
+  1) [desktop] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button 
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('#update-offline')
+    Expected: visible
+    Received: hidden
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toBeVisible" locator('#update-offline') with timeout 15000ms
+      - waiting for locator('#update-offline')
+        33 × locator resolved to <button hidden="" class="secondary" id="update-offline">Update cached app and reload</button>
+           - unexpected value "hidden"
+
+
+      28 |     await page.evaluate(async()=>(await navigator.serviceWorker.getRegistration()).installing.postMessage({type:'TEST_RELEASE_INSTALL'}));
+      29 |     await expect.poll(()=>page.evaluate(async()=>Boolean((await navigator.serviceWorker.getRegistration())?.waiting))).toBe(true);
+    > 30 |     await expect(page.locator('#update-offline')).toBeVisible();
+         |                                                   ^
+      31 |     await page.locator('.nav[data-view=workbench]').click();await page.locator('#input').fill('17+29');
+      32 |     await page.locator('.nav[data-view=downloads]').click();await page.locator('#update-offline').click();
+      33 |     await expect(page.locator('#input')).toHaveValue('17+29');
+        at /home/zaruka/PocketEngineer/tests/browser/update-in-progress.spec.cjs:30:51
+
+    Error Context: test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/update-in-progress-an-upda-4d4bf-oses-the-real-update-button-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests/browser/update-in-progress.spec.cjs:4:1 › an update already installing at page startup exposes the real update button 

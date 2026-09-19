@@ -2,6 +2,28 @@
 
 This file separates independent correctness comparisons, same-engine regression snapshots, and platform execution. Re-running answers produced by the same engine cannot independently establish mathematical correctness. Historical “correct” counts below mean snapshot matches.
 
+## 2026-09-19 — repeated report, entered-value UI checks and an update-button race
+
+The user still reported an error after the earlier deployment. A fresh run against the actual Render site passed **10/10 desktop/phone-layout lab tests**, including typed circuit and signal values, all thirteen signal forms, state diagrams and network studies. [Live log](evidence/2026-09-19/repeated-report/live-labs.log). This does **not** establish which version, origin or browser the user's failing installation is running; those details have been requested. No claim is made that the user's specific failure has been resolved.
+
+A separate, reproducible update defect was found: if a service-worker update was already installing when the document started, the interface listened only for a *future* `updatefound` event. The new worker could finish and wait while the update button remained hidden. The real-browser regression confirms both a waiting worker and a hidden button before the fix. [Failing log](evidence/2026-09-19/repeated-report/update-race-before.log).
+
+The updater now watches the existing installing worker as well as future updates, checks for updates while online, and exposes the update button above **every** workspace, including the labs. Explicit repair is queued if a readiness check is already running. Offline readiness displays a short build ID. No saved history or site data is erased. The regression clicks the actual update button from Signals and checks both edited lab fields and the unfinished main question after reload, then solves offline.
+
+The new entered-value test fills and submits the actual controls, rather than calling solver APIs to supply answers:
+
+| Entered problem | Independent expected answer |
+| --- | --- |
+| 12 V source; 1 kΩ upper and 2 kΩ lower resistor; port `out` to ground | Thévenin voltage 8 V |
+| Convolution `[2, -1, 3]` with `[4, 2]` | `[8, 0, 10, 6]` |
+| Edited two-state Mealy machine: input 1 toggles state, input 0 holds; output is the destination state's bit; sequence `1,0,1,1,0` | `1 1 0 1 1`, plus generated diagram and equations |
+
+Each runs online and after an offline page reload in both desktop and phone-sized Chromium. Per-case inputs, expected/actual outputs and screenshots are retained by the test. Phone-sized Chromium is **not** a physical Android device test.
+
+Early test-development failures are retained: [first corrected app run](evidence/2026-09-19/repeated-report/update-race-after.log) caught a test reading the document during reload; [fixture run](evidence/2026-09-19/repeated-report/targeted-fixed.log) caught binary output strings compared with numbers and an overly broad injected installation hold. The fixture now holds only its explicit test update URL, and the test waits for navigation. [Corrected targeted run](evidence/2026-09-19/repeated-report/targeted-final.log).
+
+The full local browser suite passes **98/98 tests in 2.9 minutes**, including the update race from the Signals view and preserved main/lab drafts. [Full log](evidence/2026-09-19/repeated-report/browser-full.log). The unchanged native engine passes **5/5 CTest suites**. [Log](evidence/2026-09-19/repeated-report/native.log). Maintained source remains **82.0243% C++ runtime / 77.0107% including HTML/CSS**, with the same audit exclusions and no denominator changes. [Audit](evidence/2026-09-19/repeated-report/source-audit.json). Public prerelease installer bytes are unchanged by this browser-update fix.
+
 ## 2026-09-13–19 — visual labs rejected by an older cached calculation worker
 
 The reported **Unsupported engine request** is a real browser-dispatch failure, not a mathematical input rejection. Fresh live-site tests passed six circuit/signals/state-machine journeys, but that did not cover an existing browser cache. Only top-level scripts had content-versioned URLs; `app.js` still loaded unversioned `solver-worker.js`, which in turn loaded unversioned `engine.js` and `engine.wasm`. A current interface could therefore start an older worker whose dispatch table had no `workbench` method.
