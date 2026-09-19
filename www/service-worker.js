@@ -19,6 +19,8 @@ async function manifest(){
   })().catch(error=>{manifestJob=null;throw error;});return manifestJob;
 }
 async function verifiedFile(file,data){
+  const prior=await caches.match(new URL(file.path,ROOT).href);
+  if(prior&&await digest(prior)===file.sha256)return prior;
   if(!file.archive)return verified(new URL(file.path,ROOT).href,file.sha256);
   if(!imagesJob)imagesJob=(async()=>{const archive=data.files.find(f=>f.path===file.archive);if(!archive)throw Error('Missing raster archive');const cache=await caches.open(VERSION),url=new URL(archive.path,ROOT).href;let r=await cache.match(url);if(!r||await digest(r)!==archive.sha256){r=await verified(url,archive.sha256);await cache.put(url,r.clone());}return r.json();})().catch(e=>{imagesJob=null;throw e;});
   const encoded=(await imagesJob)[file.path];if(typeof encoded!=='string'||encoded.length>300000)throw Error('Invalid raster archive');const bytes=Uint8Array.from(atob(encoded),c=>c.charCodeAt(0)),r=new Response(bytes,{headers:{'Content-Type':file.mime}});if(bytes.length!==file.bytes||await digest(r)!==file.sha256)throw Error('Raster integrity check failed');return r;

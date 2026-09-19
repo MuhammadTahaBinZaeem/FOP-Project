@@ -78,6 +78,9 @@ jobs:
           java-version: '17'
       - name: Set up Android SDK
         uses: android-actions/setup-android@v3
+        with:
+          # v3 defaults include the retired SDK package "tools".
+          packages: platform-tools
       - name: Install pinned native Android build tools
         run: |
           yes | sdkmanager --licenses > /dev/null || true

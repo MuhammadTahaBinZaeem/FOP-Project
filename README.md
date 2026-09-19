@@ -89,8 +89,8 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 The 0.5 run passes **1,606,929 independent/edge checks**, **4,112 natural-input checks**,
 and all **825,000 regression snapshot comparisons**, plus **23,374 workbench** and
-**31,941 engineering-study checks**. The browser suite passes **90/90 tests**,
-including every demo bank, hard RK4, binary-download routing, stale-engine delivery and cache repair without clearing history.
+**31,941 engineering-study checks**. The browser suite passes **94/94 tests**,
+including every demo bank, hard RK4, binary-download routing, stale-engine delivery, verified prior-cache reuse and repair without clearing history.
 ASan/UBSan passes all five native suites. Windows, macOS, Linux and Android CI
 pass; Android runs four instrumentation tests in each of Debug and Release.
 These are distinct coverage categories, not one inflated independent total.
@@ -102,7 +102,7 @@ is retained as history. No universal “100% correct” claim is made.
 
 All solvers, mathematical parsing, classification, topic contracts, explanation steps, numerical checks and plot sampling are in C++. JavaScript handles presentation, caching, history and worker messaging; Kotlin hosts the native application.
 
-`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.06% and 77.05%, respectively; run the audit for exact bytes.
+`npm run audit:source` measures maintained production runtime source bytes, excluding tests, generators, the archived original application, third-party code and generated WASM glue. Both gates are enforced: **80% C++ runtime and 77% including HTML/CSS**. Current values are approximately 82.04% and 77.03%, respectively; run the audit for exact bytes.
 
 Input lengths, recursion depth, matrix dimensions, ODE iteration counts, history size and chart samples are bounded. The browser worker has a watchdog. The desktop server binds only to loopback and validates Host/Origin, body sizes and canonical file paths. No generated training corpus is downloaded by the app.
 

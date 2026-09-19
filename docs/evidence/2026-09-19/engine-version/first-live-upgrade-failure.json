@@ -1,0 +1,9 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "phase": "repair",
+  "checked_at": "2026-09-19T09:18:34.093Z",
+  "checks": [],
+  "fault_injection": "Legacy worker deliberately placed in this test-owned cache; this is not inspection of the user browser.",
+  "success": false,
+  "error": "expect(locator).toBeVisible() failed\n\nLocator:  locator('#update-offline')\nExpected: visible\nReceived: hidden\nTimeout:  180000ms\n\nCall log:\n  - Expect \"toBeVisible\" locator('#update-offline') with timeout 180000ms\n  - waiting for locator('#update-offline')\n    355 × locator resolved to <button hidden=\"\" class=\"secondary\" id=\"update-offline\">Update cached app and reload</button>\n        - unexpected value \"hidden\"\n"
+}

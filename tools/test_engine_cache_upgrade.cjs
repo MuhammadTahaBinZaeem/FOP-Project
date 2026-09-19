@@ -30,7 +30,7 @@ const fs=require('node:fs/promises'),path=require('node:path'),{execFileSync}=re
   }else{
    const draft='Please find the determinant of [[2,3],[4,5]]';await page.locator('#input').fill(draft);
    await page.locator('.nav[data-view=downloads]').click();await expect(page.locator('#retry-cache')).toBeEnabled({timeout:180000});await page.locator('#retry-cache').click();await expect(page.locator('#update-offline')).toBeVisible({timeout:180000});await page.locator('#update-offline').click();
-   await expect.poll(()=>page.evaluate(async()=>!!(await PEApp.request('catalog')).workbench),{timeout:60000}).toBe(true);
+   await expect.poll(()=>page.evaluate(async()=>!!(await PEApp.request('catalog')).workbench).catch(()=>false),{timeout:60000}).toBe(true);
    await expect(page.locator('#input')).toHaveValue(draft);expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('pocket-engineer.history.v3')).some(row=>row.input==='23+19'))).toBe(true);
    await labs(page);report.checks.push('actual repair and update buttons','draft and history retained','AC circuit, convolution and state diagram solved');
    await context.close();context=await chromium.launchPersistentContext(profile,{...options,offline:true});page=context.pages()[0]||await context.newPage();await page.goto(site);await expect(page.locator('#solve')).toBeEnabled({timeout:60000});await labs(page);

@@ -21,6 +21,16 @@ Checks completed September 13 and retained when work resumed September 19:
 
 For an older installed website, use **Get the app → Prepare / repair offline access → Update cached app** while connected. Saved history is not cleared. Live deployment and full-shutdown/offline-restart recovery are recorded separately after execution; source tests alone are not treated as proof of production recovery.
 
+### September 19 production checks and follow-up hardening
+
+Source `2e13524` reached Render in deployment `dep-dan55p7lk1mc73f1grbg` and [website CI passed](evidence/2026-09-19/engine-version/website-ci-2e13524.json). The first live run had **8/10 passes**: two cases exceeded the test's 15-second startup readiness wait, before a lab request. [First log](evidence/2026-09-19/engine-version/live-labs-first.log). The unchanged repeat passed **10/10**, including circuit drawing/AC/PNG export, all thirteen signals forms, network studies and state diagrams in desktop/phone layouts. [Repeat log](evidence/2026-09-19/engine-version/live-labs-repeat.log). This repeat does not establish a universal startup-latency bound.
+
+The first controlled cached-install upgrade did **not** pass: its update button never became available, and the old installation reported a file-version mismatch. [Failure](evidence/2026-09-19/engine-version/first-live-upgrade-failure.json). Inspection found the new cache only partially downloaded, while valid unchanged demo banks still existed in the old cache. Updates now reuse prior cached responses **only after SHA-256 matches the new manifest**, reducing repeated downloads without trusting corrupt bytes. Separate offline tests require valid old-cache recovery and rejection of corrupted prior copies. No cache or saved history is cleared to make the test pass.
+
+Android CI run `35434239696` failed during SDK setup, before app compilation: the setup action's default requested SDK package `tools`, which sdkmanager could not find. The workflow now explicitly requests `platform-tools`; the pinned Android platform, NDK and build tools remain separate. The option/default are documented in [the action's v3 definition](https://github.com/android-actions/setup-android/blob/v3/action.yml). This provisioning failure is not an Android application-test result; its correction must pass a new run.
+
+The follow-up local suite passes **94/94 browser tests in 2.5 minutes**, including valid/corrupted prior-cache cases in both layouts. [Full log](evidence/2026-09-19/engine-version/browser-full-reuse.log). The final maintained runtime share is **82.0440% C++ / 77.0316% including HTML/CSS**. [Audit](evidence/2026-09-19/engine-version/source-audit-reuse.json).
+
 ## 2026-09-12 — anonymous-download access correction
 
 An actual unauthenticated browser check returned **404** for the 0.5.0-rc1 GitHub checksum URL. The repository was reported as **PRIVATE** at that checkpoint. The earlier workflow named `verify-published-downloads` used `GH_TOKEN`, so its successful Windows/macOS/Linux runs prove authenticated downloaded-package execution, **not anonymous public availability**. Previous uses of “public” for that workflow alone must not be interpreted as proof that guests could download. This implementation made no repository visibility change.

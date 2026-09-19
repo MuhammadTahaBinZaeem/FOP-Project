@@ -1,4 +1,15 @@
 const {test,expect}=require('@playwright/test');
+for(const valid of [true,false])test(`repair ${valid?'reuses verified':'rejects corrupt'} assets from a previous cache without network`,async({page,context})=>{
+  await page.goto('./');await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
+  const current=await page.evaluate(async valid=>{
+    const key=(await caches.keys()).find(k=>k.startsWith('pocket-engineer-')),cache=await caches.open(key),url=new URL('engine.wasm',location.href).href;
+    const prior=await caches.open('pocket-engineer-prior-test');await prior.put(url,valid?await cache.match(url):new Response('invalid prior bytes'));await cache.delete(url);return key;
+  },valid);
+  await context.setOffline(true);await page.locator('.nav[data-view=downloads]').click();await expect(page.locator('#retry-cache')).toBeEnabled();await page.locator('#retry-cache').click();await expect(page.locator('#retry-cache')).toBeEnabled({timeout:35000});
+  await expect(page.locator('body')).toHaveAttribute('data-offline-ready',String(valid));
+  expect(await page.evaluate(async key=>Boolean(await(await caches.open(key)).match(new URL('engine.wasm',location.href).href)),current)).toBe(valid);
+  if(valid){await page.reload();await expect(page.locator('#solve')).toBeEnabled();await page.locator('#input').fill('23+19');await page.locator('#solve').click();await expect(page.locator('#answer')).toHaveText('42');}
+});
 test('readiness button repairs a missing cached solver before an offline revisit',async({page,context})=>{
   await page.goto('./');await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
   await page.evaluate(async()=>{for(const key of await caches.keys())if(key.startsWith('pocket-engineer-'))await (await caches.open(key)).delete(new URL('engine.wasm',location.href).href);});

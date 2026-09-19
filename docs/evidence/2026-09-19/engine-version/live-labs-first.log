@@ -1,0 +1,97 @@
+
+Running 10 tests using 1 worker
+
+(node:80658) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   1 [desktop] › tests/browser/labs.spec.cjs:17:1 › circuit drawing solves AC, restores undo and produces PNG download (25.8s)
+(node:81056) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘   2 [desktop] › tests/browser/labs.spec.cjs:23:1 › signals operations run through the actual controls and reject invalid input (15.6s)
+(node:81343) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   3 [desktop] › tests/browser/labs.spec.cjs:29:1 › transition-table UI generates a state diagram, equations and 101 detector trace (5.3s)
+  ✓   4 [desktop] › tests/browser/labs.spec.cjs:39:1 › every C++ signals form solves its preset and rejects a missing numeric field (2.8s)
+  ✓   5 [desktop] › tests/browser/labs.spec.cjs:44:1 › network study controls solve equivalents, superposition, sensitivity and sweeps (921ms)
+(node:81597) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   6 [android-layout] › tests/browser/labs.spec.cjs:17:1 › circuit drawing solves AC, restores undo and produces PNG download (8.1s)
+  ✓   7 [android-layout] › tests/browser/labs.spec.cjs:23:1 › signals operations run through the actual controls and reject invalid input (861ms)
+  ✓   8 [android-layout] › tests/browser/labs.spec.cjs:29:1 › transition-table UI generates a state diagram, equations and 101 detector trace (606ms)
+  ✓   9 [android-layout] › tests/browser/labs.spec.cjs:39:1 › every C++ signals form solves its preset and rejects a missing numeric field (2.5s)
+  ✓  10 [android-layout] › tests/browser/labs.spec.cjs:44:1 › network study controls solve equivalents, superposition, sensitivity and sweeps (913ms)
+
+
+  1) [desktop] › tests/browser/labs.spec.cjs:17:1 › circuit drawing solves AC, restores undo and produces PNG download 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator:  locator('#solve')
+    Expected: enabled
+    Received: disabled
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toBeEnabled" locator('#solve') with timeout 15000ms
+      - waiting for locator('#solve')
+        34 × locator resolved to <button disabled id="solve" type="submit" class="primary">…</button>
+           - unexpected value "disabled"
+
+
+      1 | const {test,expect}=require('@playwright/test');
+    > 2 | async function ready(page){await page.goto('./');await expect(page.locator('#solve')).toBeEnabled();}
+        |                                                                                       ^
+      3 | async function lab(page,name){await page.locator(`.tool-launcher [data-lab="${name}"]`).click();await expect(page.locator('#labs')).toBeVisible();}
+      4 | async function statusOK(page){await expect(page.locator('#verification')).not.toContainText('Input could not be solved');}
+      5 | test('guided matrix cells serialize and solve, with safe dimension changes',async({page})=>{
+        at ready (/home/zaruka/PocketEngineer/tests/browser/labs.spec.cjs:2:87)
+        at /home/zaruka/PocketEngineer/tests/browser/labs.spec.cjs:18:3
+
+    Error Context: test-results/labs-circuit-drawing-solve-abac4-o-and-produces-PNG-download-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/labs-circuit-drawing-solve-abac4-o-and-produces-PNG-download-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/labs-circuit-drawing-solve-abac4-o-and-produces-PNG-download-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests/browser/labs.spec.cjs:23:1 › signals operations run through the actual controls and reject invalid input 
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator:  locator('#solve')
+    Expected: enabled
+    Received: disabled
+    Timeout:  15000ms
+
+    Call log:
+      - Expect "toBeEnabled" locator('#solve') with timeout 15000ms
+      - waiting for locator('#solve')
+        34 × locator resolved to <button disabled id="solve" type="submit" class="primary">…</button>
+           - unexpected value "disabled"
+
+
+      1 | const {test,expect}=require('@playwright/test');
+    > 2 | async function ready(page){await page.goto('./');await expect(page.locator('#solve')).toBeEnabled();}
+        |                                                                                       ^
+      3 | async function lab(page,name){await page.locator(`.tool-launcher [data-lab="${name}"]`).click();await expect(page.locator('#labs')).toBeVisible();}
+      4 | async function statusOK(page){await expect(page.locator('#verification')).not.toContainText('Input could not be solved');}
+      5 | test('guided matrix cells serialize and solve, with safe dimension changes',async({page})=>{
+        at ready (/home/zaruka/PocketEngineer/tests/browser/labs.spec.cjs:2:87)
+        at /home/zaruka/PocketEngineer/tests/browser/labs.spec.cjs:24:3
+
+    Error Context: test-results/labs-signals-operations-ru-877b7-ls-and-reject-invalid-input-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/labs-signals-operations-ru-877b7-ls-and-reject-invalid-input-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/labs-signals-operations-ru-877b7-ls-and-reject-invalid-input-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests/browser/labs.spec.cjs:17:1 › circuit drawing solves AC, restores undo and produces PNG download 
+    [desktop] › tests/browser/labs.spec.cjs:23:1 › signals operations run through the actual controls and reject invalid input 
+  8 passed (1.1m)

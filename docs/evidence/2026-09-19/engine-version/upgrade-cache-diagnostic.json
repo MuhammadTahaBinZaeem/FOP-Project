@@ -1,0 +1,168 @@
+{
+  "status": "Ready offline · solver and all 825,000 demos saved (184 files). Revisit https://pocket-engineer.onrender.com/ in this browser without internet.",
+  "registrations": [
+    {
+      "scope": "https://pocket-engineer.onrender.com/",
+      "active": "activated"
+    }
+  ],
+  "caches": [
+    {
+      "key": "pocket-engineer-f496029242e74ce90978",
+      "count": 185,
+      "missing": [],
+      "bad": [
+        "solver-worker.js"
+      ],
+      "probes": []
+    },
+    {
+      "key": "pocket-engineer-c1a2572cf81bc1564f60",
+      "count": 138,
+      "missing": [
+        "demo-data/linear_algebra.rref.hard.pebank",
+        "demo-data/linear_algebra.transpose.easy.pebank",
+        "demo-data/linear_algebra.transpose.medium.pebank",
+        "demo-data/linear_algebra.transpose.hard.pebank",
+        "demo-data/linear_algebra.vectors.easy.pebank",
+        "demo-data/linear_algebra.vectors.medium.pebank",
+        "demo-data/linear_algebra.vectors.hard.pebank",
+        "demo-data/logic.canonical_pos.easy.pebank",
+        "demo-data/logic.canonical_pos.medium.pebank",
+        "demo-data/logic.canonical_pos.hard.pebank",
+        "demo-data/logic.combinational.easy.pebank",
+        "demo-data/logic.combinational.medium.pebank",
+        "demo-data/logic.combinational.hard.pebank",
+        "demo-data/logic.kmap.easy.pebank",
+        "demo-data/logic.kmap.medium.pebank",
+        "demo-data/logic.kmap.hard.pebank",
+        "demo-data/logic.number_systems.easy.pebank",
+        "demo-data/logic.number_systems.medium.pebank",
+        "demo-data/logic.number_systems.hard.pebank",
+        "demo-data/logic.sequential.easy.pebank",
+        "demo-data/logic.sequential.medium.pebank",
+        "demo-data/logic.sequential.hard.pebank",
+        "demo-data/logic.signed_arithmetic.easy.pebank",
+        "demo-data/logic.signed_arithmetic.medium.pebank",
+        "demo-data/logic.signed_arithmetic.hard.pebank",
+        "demo-data/logic.truth_table.easy.pebank",
+        "demo-data/logic.truth_table.medium.pebank",
+        "demo-data/logic.truth_table.hard.pebank",
+        "demo-data/programming.arrays.easy.pebank",
+        "demo-data/programming.arrays.medium.pebank",
+        "demo-data/programming.arrays.hard.pebank",
+        "demo-data/programming.branches.easy.pebank",
+        "demo-data/programming.branches.medium.pebank",
+        "demo-data/programming.branches.hard.pebank",
+        "demo-data/programming.cpp_trace.easy.pebank",
+        "demo-data/programming.cpp_trace.medium.pebank",
+        "demo-data/programming.cpp_trace.hard.pebank",
+        "demo-data/programming.functions.easy.pebank",
+        "demo-data/programming.functions.medium.pebank",
+        "demo-data/programming.functions.hard.pebank",
+        "demo-data/programming.loops.easy.pebank",
+        "demo-data/programming.loops.medium.pebank",
+        "demo-data/programming.loops.hard.pebank",
+        "demo-data/programming.recursion.easy.pebank",
+        "demo-data/programming.recursion.medium.pebank",
+        "demo-data/programming.recursion.hard.pebank",
+        "demo-data/manifest.json"
+      ],
+      "bad": [],
+      "probes": [
+        {
+          "path": "demo-data/linear_algebra.rref.hard.pebank",
+          "status": 200,
+          "expected": "a60a41f632cdd804d742e6d2152021a566a2865d2de53a290ae9462c46f43916",
+          "actual": "a60a41f632cdd804d742e6d2152021a566a2865d2de53a290ae9462c46f43916",
+          "headers": {
+            "accept-ranges": "bytes",
+            "alt-svc": "h3=\":443\"; ma=86400",
+            "cache-control": "public, max-age=0, s-maxage=300",
+            "cf-cache-status": "EXPIRED",
+            "cf-ray": "a3a5d01f7c7395b6-ISB",
+            "content-length": "45101",
+            "content-type": "binary/octet-stream",
+            "date": "Sun, 13 Sep 2026 08:34:28 GMT",
+            "etag": "\"85da562b6a2e17580f6d2a33e058817f\"",
+            "last-modified": "Sat, 12 Sep 2026 15:34:43 UTC",
+            "rndr-id": "151ca22a-438c-49f5",
+            "server": "cloudflare",
+            "strict-transport-security": "max-age=315360000; includeSubdomains; preload",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff"
+          }
+        },
+        {
+          "path": "demo-data/linear_algebra.transpose.easy.pebank",
+          "status": 200,
+          "expected": "fe6f6568acffe00fd6ac50579b9bf100977871d05a87fedc4f18028681db8127",
+          "actual": "fe6f6568acffe00fd6ac50579b9bf100977871d05a87fedc4f18028681db8127",
+          "headers": {
+            "accept-ranges": "bytes",
+            "alt-svc": "h3=\":443\"; ma=86400",
+            "cache-control": "public, max-age=0, s-maxage=300",
+            "cf-cache-status": "EXPIRED",
+            "cf-ray": "a3a5d022194d95b6-ISB",
+            "content-length": "64869",
+            "content-type": "binary/octet-stream",
+            "date": "Sun, 13 Sep 2026 08:34:29 GMT",
+            "etag": "\"2b45f89f331ff178924ea97016fd718d\"",
+            "last-modified": "Sat, 12 Sep 2026 15:34:43 UTC",
+            "rndr-id": "0116bf04-6f06-474b",
+            "server": "cloudflare",
+            "strict-transport-security": "max-age=315360000; includeSubdomains; preload",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff"
+          }
+        },
+        {
+          "path": "demo-data/linear_algebra.transpose.medium.pebank",
+          "status": 200,
+          "expected": "c318da9d65347b84a3bf4998e1a2f41a8fd9b57c737d0e4e986fc1421352cd35",
+          "actual": "c318da9d65347b84a3bf4998e1a2f41a8fd9b57c737d0e4e986fc1421352cd35",
+          "headers": {
+            "accept-ranges": "bytes",
+            "alt-svc": "h3=\":443\"; ma=86400",
+            "cache-control": "public, max-age=0, s-maxage=300",
+            "cf-cache-status": "EXPIRED",
+            "cf-ray": "a3a5d022195095b6-ISB",
+            "content-length": "69978",
+            "content-type": "binary/octet-stream",
+            "date": "Sun, 13 Sep 2026 08:34:29 GMT",
+            "etag": "\"7be914947878e891eb7a404cf6aeef74\"",
+            "last-modified": "Sat, 12 Sep 2026 15:34:43 UTC",
+            "rndr-id": "3ea7f544-f220-4eb8",
+            "server": "cloudflare",
+            "strict-transport-security": "max-age=315360000; includeSubdomains; preload",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff"
+          }
+        },
+        {
+          "path": "demo-data/linear_algebra.transpose.hard.pebank",
+          "status": 200,
+          "expected": "a5bf739486019f7bb722e3f65341aeaebe9b57b4d48525fe7f473ddc93cd2120",
+          "actual": "a5bf739486019f7bb722e3f65341aeaebe9b57b4d48525fe7f473ddc93cd2120",
+          "headers": {
+            "accept-ranges": "bytes",
+            "alt-svc": "h3=\":443\"; ma=86400",
+            "cache-control": "public, max-age=0, s-maxage=300",
+            "cf-cache-status": "EXPIRED",
+            "cf-ray": "a3a5d022195495b6-ISB",
+            "content-length": "73454",
+            "content-type": "binary/octet-stream",
+            "date": "Sun, 13 Sep 2026 08:34:29 GMT",
+            "etag": "\"dd269a84a89b3d2f6a2038c0cc0663aa\"",
+            "last-modified": "Sat, 12 Sep 2026 15:34:43 UTC",
+            "rndr-id": "97aad50d-2840-4667",
+            "server": "cloudflare",
+            "strict-transport-security": "max-age=315360000; includeSubdomains; preload",
+            "vary": "Accept-Encoding",
+            "x-content-type-options": "nosniff"
+          }
+        }
+      ]
+    }
+  ]
+}
