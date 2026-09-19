@@ -1,0 +1,124 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "checked_at": "2026-09-19T16:14:19.874Z",
+  "layout": "android-layout",
+  "checks": [
+    {
+      "label": "online-12V-divider",
+      "input": {
+        "domain": "circuit",
+        "topic": "port_equivalent",
+        "input": "V V1 in 0 12; R R1 in out 1000; R R2 out 0 2000",
+        "payload": "{\"analysis\":\"dc\",\"operation\":\"port\",\"positive\":\"out\",\"negative\":\"0\",\"load_real\":1000,\"load_imag\":0}",
+        "mode": "manual"
+      },
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "label": "online-convolution",
+      "input": {
+        "domain": "signals",
+        "topic": "convolution",
+        "input": "{\"h\":\"4,2\",\"operation\":\"convolution\",\"x\":\"2,-1,3\"}",
+        "payload": "",
+        "mode": "manual"
+      },
+      "expected": [
+        8,
+        0,
+        10,
+        6
+      ],
+      "actual": [
+        8,
+        0,
+        10,
+        6
+      ]
+    },
+    {
+      "label": "online-edited-toggle-machine",
+      "input": {
+        "domain": "logic",
+        "topic": "state_machine",
+        "input": "{\"kind\":\"mealy\",\"input_bits\":1,\"output_bits\":1,\"initial\":\"S0\",\"states\":[{\"name\":\"S0\"},{\"name\":\"S1\"}],\"transitions\":[{\"from\":\"S0\",\"input\":0,\"to\":\"S0\",\"output\":0},{\"from\":\"S0\",\"input\":1,\"to\":\"S1\",\"output\":1},{\"from\":\"S1\",\"input\":0,\"to\":\"S1\",\"output\":1},{\"from\":\"S1\",\"input\":1,\"to\":\"S0\",\"output\":0}],\"sequence\":\"1,0,1,1,0\"}",
+        "payload": "",
+        "mode": "manual"
+      },
+      "expected": [
+        "1",
+        "1",
+        "0",
+        "1",
+        "1"
+      ],
+      "actual": [
+        "1",
+        "1",
+        "0",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "label": "offline-12V-divider",
+      "input": {
+        "domain": "circuit",
+        "topic": "port_equivalent",
+        "input": "V V1 in 0 12; R R1 in out 1000; R R2 out 0 2000",
+        "payload": "{\"analysis\":\"dc\",\"operation\":\"port\",\"positive\":\"out\",\"negative\":\"0\",\"load_real\":1000,\"load_imag\":0}",
+        "mode": "manual"
+      },
+      "expected": 8,
+      "actual": 8
+    },
+    {
+      "label": "offline-convolution",
+      "input": {
+        "domain": "signals",
+        "topic": "convolution",
+        "input": "{\"h\":\"4,2\",\"operation\":\"convolution\",\"x\":\"2,-1,3\"}",
+        "payload": "",
+        "mode": "manual"
+      },
+      "expected": [
+        8,
+        0,
+        10,
+        6
+      ],
+      "actual": [
+        8,
+        0,
+        10,
+        6
+      ]
+    },
+    {
+      "label": "offline-edited-toggle-machine",
+      "input": {
+        "domain": "logic",
+        "topic": "state_machine",
+        "input": "{\"kind\":\"mealy\",\"input_bits\":1,\"output_bits\":1,\"initial\":\"S0\",\"states\":[{\"name\":\"S0\"},{\"name\":\"S1\"}],\"transitions\":[{\"from\":\"S0\",\"input\":0,\"to\":\"S0\",\"output\":0},{\"from\":\"S0\",\"input\":1,\"to\":\"S1\",\"output\":1},{\"from\":\"S1\",\"input\":0,\"to\":\"S1\",\"output\":1},{\"from\":\"S1\",\"input\":1,\"to\":\"S0\",\"output\":0}],\"sequence\":\"1,0,1,1,0\"}",
+        "payload": "",
+        "mode": "manual"
+      },
+      "expected": [
+        "1",
+        "1",
+        "0",
+        "1",
+        "1"
+      ],
+      "actual": [
+        "1",
+        "1",
+        "0",
+        "1",
+        "1"
+      ]
+    }
+  ],
+  "page_errors": []
+}

@@ -1,0 +1,61 @@
+
+Running 2 tests using 1 worker
+
+(node:166250) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline (1.1m)
+(node:166888) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [android-layout] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline (18.3s)
+
+
+  1) [desktop] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('body')
+    Expected: "true"
+    Received: "false"
+    Timeout:  60000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('body') with timeout 60000ms
+      - waiting for locator('body')
+        117 × locator resolved to <body data-view="labs" data-engine="wasm" data-offline-ready="false">…</body>
+            - unexpected value "false"
+
+
+      15 |   for(const mode of ['online','offline']){
+      16 |     if(mode==='offline'){
+    > 17 |       await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:60000});
+         |                                          ^
+      18 |       await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
+      19 |     }
+      20 |     await page.locator('.nav[data-view=workbench]').click();await page.locator('.tool-launcher [data-lab=circuit]').click();
+        at /home/zaruka/PocketEngineer/tests/browser/entered-values.spec.cjs:17:42
+
+    attachment #1: online-12V-divider.png (image/png) ──────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-pool-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/attachments/online-12V-divider-png-decde10357116c101663268bfdf8326eab024c6a.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: online-convolution.png (image/png) ──────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-pool-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/attachments/online-convolution-png-8f9ed483f0f15b99ff5c95a510d8b2b3ada49126.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: online-edited-toggle-machine.png (image/png) ────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-pool-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/attachments/online-edited-toggle-machine-png-8e6b346b1f4355ee663468e42411884801e7a634.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: build-evidence/2026-09-19/repeat-user-report/live-pool-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-pool-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace build-evidence/2026-09-19/repeat-user-report/live-pool-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+  1 passed (1.5m)

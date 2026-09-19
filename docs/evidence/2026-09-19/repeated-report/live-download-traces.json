@@ -1,0 +1,83 @@
+[
+  {
+    "folder": "live-value-artifacts",
+    "responses": 68,
+    "non200": [],
+    "last_responses": [
+      {
+        "path": "/demo-data/calculus.tangent_line.hard.pebank",
+        "status": 200,
+        "milliseconds": 1117.5819999999999
+      },
+      {
+        "path": "/demo-data/calculus.tangent_line.easy.pebank",
+        "status": 200,
+        "milliseconds": 2653.9700000000003
+      },
+      {
+        "path": "/demo-data/circuit.dc_nodal.medium.pebank",
+        "status": 200,
+        "milliseconds": 679.4559999999999
+      },
+      {
+        "path": "/demo-data/circuit.dc_nodal.easy.pebank",
+        "status": 200,
+        "milliseconds": 971.383
+      },
+      {
+        "path": "/demo-data/circuit.dc_nodal.hard.pebank",
+        "status": 200,
+        "milliseconds": 511.754
+      }
+    ],
+    "ui_messages": [
+      "Downloading the app and all 825,000 demos (about 10 MB)… Keep this tab open."
+    ]
+  },
+  {
+    "folder": "live-pool-artifacts",
+    "responses": 170,
+    "non200": [
+      {
+        "path": "/demo-data/logic.signed_arithmetic.medium.pebank",
+        "status": -1,
+        "milliseconds": -1
+      },
+      {
+        "path": "/demo-data/logic.signed_arithmetic.hard.pebank",
+        "status": -1,
+        "milliseconds": -1
+      }
+    ],
+    "last_responses": [
+      {
+        "path": "/demo-data/logic.sequential.hard.pebank",
+        "status": 200,
+        "milliseconds": 515.441
+      },
+      {
+        "path": "/demo-data/logic.signed_arithmetic.easy.pebank",
+        "status": 200,
+        "milliseconds": 423.918
+      },
+      {
+        "path": "/demo-data/logic.number_systems.medium.pebank",
+        "status": 200,
+        "milliseconds": 790.805
+      },
+      {
+        "path": "/demo-data/logic.signed_arithmetic.medium.pebank",
+        "status": -1,
+        "milliseconds": -1
+      },
+      {
+        "path": "/demo-data/logic.signed_arithmetic.hard.pebank",
+        "status": -1,
+        "milliseconds": -1
+      }
+    ],
+    "ui_messages": [
+      "Downloading the app and all 825,000 demos (about 10 MB)… Keep this tab open."
+    ]
+  }
+]

@@ -89,7 +89,7 @@ Render builds `main` with `bash tools/build_web.sh` and publishes `www` as a sta
 
 The 0.5 run passes **1,606,929 independent/edge checks**, **4,112 natural-input checks**,
 and all **825,000 regression snapshot comparisons**, plus **23,374 workbench** and
-**31,941 engineering-study checks**. The browser suite passes **98/98 tests**,
+**31,941 engineering-study checks**. The browser suite passes **100/100 tests**,
 including every demo bank, hard RK4, binary-download routing, stale-engine delivery, verified prior-cache reuse, entered-value online/offline comparisons and update races without clearing history.
 ASan/UBSan passes all five native suites. Windows, macOS, Linux and Android CI
 pass; Android runs four instrumentation tests in each of Debug and Release.
