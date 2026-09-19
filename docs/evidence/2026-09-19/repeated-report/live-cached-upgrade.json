@@ -1,0 +1,13 @@
+{
+  "site": "https://pocket-engineer.onrender.com/",
+  "phase": "repair",
+  "checked_at": "2026-09-19T16:05:58.010Z",
+  "checks": [
+    "actual repair and update buttons",
+    "draft and history retained",
+    "AC circuit, convolution and state diagram solved",
+    "all three labs solved after full browser shutdown and offline restart"
+  ],
+  "fault_injection": "Legacy worker deliberately placed in this test-owned cache; this is not inspection of the user browser.",
+  "success": true
+}

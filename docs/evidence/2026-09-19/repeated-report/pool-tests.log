@@ -1,0 +1,23 @@
+
+Running 14 tests using 1 worker
+
+(node:160615) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop] › tests/browser/offline-download-pool.spec.cjs:4:1 › a slow offline asset does not block later banks or exceed three simultaneous downloads (1.8s)
+  ✓   2 [desktop] › tests/browser/offline-repair.spec.cjs:2:33 › repair reuses verified assets from a previous cache without network (2.0s)
+  ✓   3 [desktop] › tests/browser/offline-repair.spec.cjs:2:33 › repair rejects corrupt assets from a previous cache without network (1.6s)
+  ✓   4 [desktop] › tests/browser/offline-repair.spec.cjs:13:1 › readiness button repairs a missing cached solver before an offline revisit (3.9s)
+  ✓   5 [desktop] › tests/browser/offline-repair.spec.cjs:22:1 › readiness retry registers again after an offline registration was removed (1.5s)
+  ✓   6 [desktop] › tests/browser/offline-repair.spec.cjs:29:1 › explicit repair replaces corrupt cached content, not just missing files (1.3s)
+  ✓   7 [desktop] › tests/browser/offline-repair.spec.cjs:35:1 › offline rasters are reconstructed exactly even when the CDN image URL changes bytes (1.2s)
+(node:161077) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   8 [android-layout] › tests/browser/offline-download-pool.spec.cjs:4:1 › a slow offline asset does not block later banks or exceed three simultaneous downloads (1.3s)
+  ✓   9 [android-layout] › tests/browser/offline-repair.spec.cjs:2:33 › repair reuses verified assets from a previous cache without network (1.6s)
+  ✓  10 [android-layout] › tests/browser/offline-repair.spec.cjs:2:33 › repair rejects corrupt assets from a previous cache without network (1.2s)
+  ✓  11 [android-layout] › tests/browser/offline-repair.spec.cjs:13:1 › readiness button repairs a missing cached solver before an offline revisit (3.6s)
+  ✓  12 [android-layout] › tests/browser/offline-repair.spec.cjs:22:1 › readiness retry registers again after an offline registration was removed (1.5s)
+  ✓  13 [android-layout] › tests/browser/offline-repair.spec.cjs:29:1 › explicit repair replaces corrupt cached content, not just missing files (1.4s)
+  ✓  14 [android-layout] › tests/browser/offline-repair.spec.cjs:35:1 › offline rasters are reconstructed exactly even when the CDN image URL changes bytes (1.2s)
+
+  14 passed (28.0s)

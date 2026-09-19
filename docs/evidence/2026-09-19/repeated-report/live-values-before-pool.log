@@ -1,0 +1,108 @@
+
+Running 2 tests using 1 worker
+
+(node:158365) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline (1.2m)
+(node:159440) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [android-layout] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline (1.1m)
+
+
+  1) [desktop] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('body')
+    Expected: "true"
+    Received: "false"
+    Timeout:  60000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('body') with timeout 60000ms
+      - waiting for locator('body')
+        118 × locator resolved to <body data-view="labs" data-engine="wasm" data-offline-ready="false">…</body>
+            - unexpected value "false"
+
+
+      15 |   for(const mode of ['online','offline']){
+      16 |     if(mode==='offline'){
+    > 17 |       await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:60000});
+         |                                          ^
+      18 |       await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
+      19 |     }
+      20 |     await page.locator('.nav[data-view=workbench]').click();await page.locator('.tool-launcher [data-lab=circuit]').click();
+        at /home/zaruka/PocketEngineer/tests/browser/entered-values.spec.cjs:17:42
+
+    attachment #1: online-12V-divider.png (image/png) ──────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/attachments/online-12V-divider-png-673b6803a4a2e7723e95f7bbb796edec0630b5f9.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: online-convolution.png (image/png) ──────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/attachments/online-convolution-png-1440db683ba0899ee135f420fa253f09419f0067.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: online-edited-toggle-machine.png (image/png) ────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/attachments/online-edited-toggle-machine-png-390b0130077c1a15e62b1a0679a4949056661b96.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [android-layout] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+
+    Error: expect(locator).toHaveAttribute(expected) failed
+
+    Locator:  locator('body')
+    Expected: "true"
+    Received: "false"
+    Timeout:  60000ms
+
+    Call log:
+      - Expect "toHaveAttribute" locator('body') with timeout 60000ms
+      - waiting for locator('body')
+        118 × locator resolved to <body data-view="labs" data-engine="wasm" data-offline-ready="false">…</body>
+            - unexpected value "false"
+
+
+      15 |   for(const mode of ['online','offline']){
+      16 |     if(mode==='offline'){
+    > 17 |       await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:60000});
+         |                                          ^
+      18 |       await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
+      19 |     }
+      20 |     await page.locator('.nav[data-view=workbench]').click();await page.locator('.tool-launcher [data-lab=circuit]').click();
+        at /home/zaruka/PocketEngineer/tests/browser/entered-values.spec.cjs:17:42
+
+    attachment #1: online-12V-divider.png (image/png) ──────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/attachments/online-12V-divider-png-c1d58284fdaa87c5a6770ee8cda788ac0683da94.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: online-convolution.png (image/png) ──────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/attachments/online-convolution-png-ebac21569ce6c45ad5f4c7b0bdb8237c27675938.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #3: online-edited-toggle-machine.png (image/png) ────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/attachments/online-edited-toggle-machine-png-8b382e84635e4a837a8c276276ca21aac4f35a77.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace build-evidence/2026-09-19/repeat-user-report/live-value-artifacts/entered-values-entered-cir-05a75--answers-online-and-offline-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline 
+    [android-layout] › tests/browser/entered-values.spec.cjs:4:1 › entered circuit, signal and transition-table values match independent answers online and offline 

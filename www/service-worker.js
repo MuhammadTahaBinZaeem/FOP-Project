@@ -35,9 +35,10 @@ async function repair(checkExisting=false){
   if(repairJob)return repairJob;
   repairJob=(async()=>{
     const data=await manifest(),cache=await caches.open(VERSION);
-    for(let i=0;i<data.files.length;i+=3)await Promise.all(data.files.slice(i,i+3).map(async file=>{
-      const url=new URL(file.path,ROOT).href,cached=await cache.match(url);
-      if(!cached||(checkExisting&&await digest(cached)!==file.sha256))await cache.put(url,await verifiedFile(file,data));
+    let next=0;
+    await Promise.all([0,1,2].map(async()=>{while(next<data.files.length){
+      const file=data.files[next++],url=new URL(file.path,ROOT).href,cached=await cache.match(url);
+      if(!cached||(checkExisting&&await digest(cached)!==file.sha256))await cache.put(url,await verifiedFile(file,data));}
     }));return status();
   })().finally(()=>{repairJob=null;});return repairJob;
 }
