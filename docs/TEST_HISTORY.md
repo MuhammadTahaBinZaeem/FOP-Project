@@ -31,6 +31,12 @@ Android CI run `35434239696` failed during SDK setup, before app compilation: th
 
 The follow-up local suite passes **94/94 browser tests in 2.5 minutes**, including valid/corrupted prior-cache cases in both layouts. [Full log](evidence/2026-09-19/engine-version/browser-full-reuse.log). The final maintained runtime share is **82.0440% C++ / 77.0316% including HTML/CSS**. [Audit](evidence/2026-09-19/engine-version/source-audit-reuse.json).
 
+Source `969b9e3` reached Render in deployment `dep-dan5b6e8bjmc73a89sog` at **09:29:09 UTC, September 19**. The same fault-injected persistent installation then passed the actual **Prepare / repair offline access → Update cached app and reload** journey, preserving both the unfinished question and saved history. AC circuit analysis, convolution and the state-machine diagram passed through real controls, then passed again after a **full browser shutdown and offline restart at the same Render URL**. [Recovery report](evidence/2026-09-19/engine-version/live-repair.json), [actual offline screenshot](evidence/2026-09-19/engine-version/after-offline.png). No site-data clearing or clean-profile substitution was used for this recovery.
+
+[Website CI at the same source](evidence/2026-09-19/engine-version/website-ci-969b9e3.json) passes the browser/native checks and deployment. Existing `v0.5.0-rc2` installer bytes remain unchanged; the cached-browser repair is delivered through the updated website.
+
+[Package CI `35434760578`](evidence/2026-09-19/engine-version/package-ci-969b9e3.json) also passes at `969b9e3`: Windows, macOS and Linux builds/extracted-package execution, Android SDK provisioning, APK assembly/integrity and both Debug/Release emulator instrumentation. This resolves the observed SDK setup failure; no physical-phone or universal zero-lag claim is inferred.
+
 ## 2026-09-12 — anonymous-download access correction
 
 An actual unauthenticated browser check returned **404** for the 0.5.0-rc1 GitHub checksum URL. The repository was reported as **PRIVATE** at that checkpoint. The earlier workflow named `verify-published-downloads` used `GH_TOKEN`, so its successful Windows/macOS/Linux runs prove authenticated downloaded-package execution, **not anonymous public availability**. Previous uses of “public” for that workflow alone must not be interpreted as proof that guests could download. This implementation made no repository visibility change.
