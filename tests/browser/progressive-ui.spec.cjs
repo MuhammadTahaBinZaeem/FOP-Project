@@ -39,6 +39,8 @@ test('state setup, transitions and optional simulation remain in the same worksp
 });
 test('conditional transform fields do not ask for irrelevant values',async({page})=>{
   await ready(page);await page.locator('[data-lab=signals]').click();await page.locator('#signal-operation').selectOption('laplace');await next(page,'enter values');await expect(page.locator('#signal-power')).toBeVisible();await expect(page.locator('#signal-omega')).toBeHidden();await page.locator('#signal-kind').selectOption('sine');await expect(page.locator('#signal-power')).toBeHidden();await expect(page.locator('#signal-omega')).toBeVisible();
+  await page.locator('#signal-kind').selectOption('power');await page.locator('#signal-power').fill('');await page.locator('#signal-kind').selectOption('sine');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#answer')).toContainText('(1)*exp(-s*0)*(2/((s-(0))^2+4))');await expect(page.locator('#lab-status')).toBeEmpty();
+  await page.locator('#signal-kind').selectOption('power');await expect(page.locator('#signal-power')).toHaveValue('');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#lab-status')).toContainText('Enter a value for Power');
 });
 test('update drafts keep the active input stage and do not jump from questions to a previous tool',async({page})=>{
   await ready(page);await page.locator('[data-lab=signals]').click();await next(page,'enter values');await page.locator('#signal-x').fill('9,8,7,6');

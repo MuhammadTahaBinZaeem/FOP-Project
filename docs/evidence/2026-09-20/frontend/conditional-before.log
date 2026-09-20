@@ -1,0 +1,45 @@
+
+Running 1 test using 1 worker
+
+(node:264882) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values (16.8s)
+
+
+  1) [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#answer')
+    Expected substring: "s^2"
+    Received string:    ""
+    Timeout: 15000ms
+
+    Call log:
+      - Expect "toContainText" locator('#answer') with timeout 15000ms
+      - waiting for locator('#answer')
+        34 × locator resolved to <pre id="answer"></pre>
+           - unexpected value ""
+
+
+      40 | test('conditional transform fields do not ask for irrelevant values',async({page})=>{
+      41 |   await ready(page);await page.locator('[data-lab=signals]').click();await page.locator('#signal-operation').selectOption('laplace');await next(page,'enter values');await expect(page.locator('#signal-power')).toBeVisible();await expect(page.locator('#signal-omega')).toBeHidden();await page.locator('#signal-kind').selectOption('sine');await expect(page.locator('#signal-power')).toBeHidden();await expect(page.locator('#signal-omega')).toBeVisible();
+    > 42 |   await page.locator('#signal-kind').selectOption('power');await page.locator('#signal-power').fill('');await page.locator('#signal-kind').selectOption('sine');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#answer')).toContainText('s^2');await expect(page.locator('#lab-status')).toBeEmpty();
+         |                                                                                                                                                                                                                                                                                    ^
+      43 |   await page.locator('#signal-kind').selectOption('power');await expect(page.locator('#signal-power')).toHaveValue('');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#lab-status')).toContainText('Enter a value for Power');
+      44 | });
+      45 | test('update drafts keep the active input stage and do not jump from questions to a previous tool',async({page})=>{
+        at /home/zaruka/PocketEngineer/tests/browser/progressive-ui.spec.cjs:42:276
+
+    Error Context: build-evidence/2026-09-20/frontend/conditional-before/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    build-evidence/2026-09-20/frontend/conditional-before/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace build-evidence/2026-09-20/frontend/conditional-before/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values 

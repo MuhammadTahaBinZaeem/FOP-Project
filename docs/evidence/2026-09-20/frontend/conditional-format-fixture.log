@@ -1,0 +1,94 @@
+
+Running 2 tests using 1 worker
+
+(node:265307) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  1 [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values (17.3s)
+(node:265580) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✘  2 [android-layout] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values (16.2s)
+
+
+  1) [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#answer')
+    Timeout: 15000ms
+    - Expected substring  - 1
+    + Received string     + 2
+
+    - s^2
+    + (1)*exp(-s*0)*(2/((s-(0))^2+4))
+    + Sufficient common region of convergence: Re(s) > 0.
+
+    Call log:
+      - Expect "toContainText" locator('#answer') with timeout 15000ms
+      - waiting for locator('#answer')
+        34 × locator resolved to <pre id="answer">(1)*exp(-s*0)*(2/((s-(0))^2+4))↵Sufficient common…</pre>
+           - unexpected value "(1)*exp(-s*0)*(2/((s-(0))^2+4))
+    Sufficient common region of convergence: Re(s) > 0."
+
+
+      40 | test('conditional transform fields do not ask for irrelevant values',async({page})=>{
+      41 |   await ready(page);await page.locator('[data-lab=signals]').click();await page.locator('#signal-operation').selectOption('laplace');await next(page,'enter values');await expect(page.locator('#signal-power')).toBeVisible();await expect(page.locator('#signal-omega')).toBeHidden();await page.locator('#signal-kind').selectOption('sine');await expect(page.locator('#signal-power')).toBeHidden();await expect(page.locator('#signal-omega')).toBeVisible();
+    > 42 |   await page.locator('#signal-kind').selectOption('power');await page.locator('#signal-power').fill('');await page.locator('#signal-kind').selectOption('sine');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#answer')).toContainText('s^2');await expect(page.locator('#lab-status')).toBeEmpty();
+         |                                                                                                                                                                                                                                                                                    ^
+      43 |   await page.locator('#signal-kind').selectOption('power');await expect(page.locator('#signal-power')).toHaveValue('');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#lab-status')).toContainText('Enter a value for Power');
+      44 | });
+      45 | test('update drafts keep the active input stage and do not jump from questions to a previous tool',async({page})=>{
+        at /home/zaruka/PocketEngineer/tests/browser/progressive-ui.spec.cjs:42:276
+
+    Error Context: build-evidence/2026-09-20/frontend/conditional-after/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    build-evidence/2026-09-20/frontend/conditional-after/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace build-evidence/2026-09-20/frontend/conditional-after/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [android-layout] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#answer')
+    Timeout: 15000ms
+    - Expected substring  - 1
+    + Received string     + 2
+
+    - s^2
+    + (1)*exp(-s*0)*(2/((s-(0))^2+4))
+    + Sufficient common region of convergence: Re(s) > 0.
+
+    Call log:
+      - Expect "toContainText" locator('#answer') with timeout 15000ms
+      - waiting for locator('#answer')
+        34 × locator resolved to <pre id="answer">(1)*exp(-s*0)*(2/((s-(0))^2+4))↵Sufficient common…</pre>
+           - unexpected value "(1)*exp(-s*0)*(2/((s-(0))^2+4))
+    Sufficient common region of convergence: Re(s) > 0."
+
+
+      40 | test('conditional transform fields do not ask for irrelevant values',async({page})=>{
+      41 |   await ready(page);await page.locator('[data-lab=signals]').click();await page.locator('#signal-operation').selectOption('laplace');await next(page,'enter values');await expect(page.locator('#signal-power')).toBeVisible();await expect(page.locator('#signal-omega')).toBeHidden();await page.locator('#signal-kind').selectOption('sine');await expect(page.locator('#signal-power')).toBeHidden();await expect(page.locator('#signal-omega')).toBeVisible();
+    > 42 |   await page.locator('#signal-kind').selectOption('power');await page.locator('#signal-power').fill('');await page.locator('#signal-kind').selectOption('sine');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#answer')).toHaveText('(1)*exp(-s*0)*(2/((s-(0))^2+4))');await expect(page.locator('#lab-status')).toBeEmpty();
+         |                                                                                                                                                                                                                                                                                    ^
+      43 |   await page.locator('#signal-kind').selectOption('power');await expect(page.locator('#signal-power')).toHaveValue('');await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#lab-status')).toContainText('Enter a value for Power');
+      44 | });
+      45 | test('update drafts keep the active input stage and do not jump from questions to a previous tool',async({page})=>{
+        at /home/zaruka/PocketEngineer/tests/browser/progressive-ui.spec.cjs:42:276
+
+    Error Context: build-evidence/2026-09-20/frontend/conditional-after/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-android-layout/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    build-evidence/2026-09-20/frontend/conditional-after/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace build-evidence/2026-09-20/frontend/conditional-after/progressive-ui-conditional-3685b-t-ask-for-irrelevant-values-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values 
+    [android-layout] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values 

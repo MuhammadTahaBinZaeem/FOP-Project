@@ -1,6 +1,6 @@
 'use strict';
-const VERSION='pocket-engineer-8647d2fe104147f59c09';
-const MANIFEST_HASH='8647d2fe104147f59c09d09603f58962992620c54bc66adadbf5ab7eee3307e9';
+const VERSION='pocket-engineer-04a18e66c3783d56f0e6';
+const MANIFEST_HASH='04a18e66c3783d56f0e65c45fdc81e83bce7c9e50674f393d6498c6be11e9b89';
 const ROOT=new URL('./',self.location.href),MANIFEST=new URL('offline-manifest.json',ROOT).href;
 let repairJob,manifestJob,imagesJob;
 const digest=async response=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',await response.clone().arrayBuffer()))].map(x=>x.toString(16).padStart(2,'0')).join('');

@@ -1,10 +1,10 @@
 {
   "scope": "Maintained production runtime source bytes; excludes tests, generators, archives, vendor and generated files",
   "cpp": 425245,
-  "other_runtime_code": 97813,
+  "other_runtime_code": 97856,
   "html_css": 29033,
-  "cpp_percent_runtime": 81.29977937437148,
-  "cpp_percent_including_html_css": 77.02443981155281,
+  "cpp_percent_runtime": 81.29309636188805,
+  "cpp_percent_including_html_css": 77.01844117551174,
   "files": [
     {
       "file": "src/catalog.cpp",
@@ -143,7 +143,7 @@
     },
     {
       "file": "www/lab-ui.js",
-      "bytes": 40396,
+      "bytes": 40439,
       "kind": "other_runtime_code"
     },
     {

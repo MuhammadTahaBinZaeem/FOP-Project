@@ -1,0 +1,11 @@
+
+Running 2 tests using 1 worker
+
+(node:267845) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  1 [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values (976ms)
+(node:267996) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  2 [android-layout] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values (858ms)
+
+  2 passed (3.9s)

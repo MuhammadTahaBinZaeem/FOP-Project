@@ -37,13 +37,27 @@ route. The fixture now clicks Workbench after reload, with no timeout relaxation
 After correcting that fixture and tightening the mobile state table, the
 [focused run passes 34/34](evidence/2026-09-20/frontend/progressive-focused.log)
 across both desktop and phone layouts, including both previously failing cases.
+The [complete corrected suite passes 120/120](evidence/2026-09-20/frontend/browser-full.log)
+in 3.7 minutes, with no skips or retries.
+
+A subsequent exploratory check found an additional input issue: clearing the
+Laplace power, then changing the kernel to sine, still requested the now-hidden
+power value. [Failure and call log](evidence/2026-09-20/frontend/conditional-before.log),
+[visible error](evidence/2026-09-20/frontend/conditional-before-context.md).
+Serialization now uses the catalog default for an inapplicable conditional
+field, without overwriting its editor value. Applicable Advanced fields are
+still validated. The regression checks the sine transform and that returning to
+power restores the unfinished edit and requests its value. A test expectation
+also needed correction to account for the unsimplified shifted expression and
+the region-of-convergence text; [fixture diagnostic](evidence/2026-09-20/frontend/conditional-format-fixture.log).
+The expanded regression then [passed on both layouts](evidence/2026-09-20/frontend/conditional-pass.log).
 
 Native validation passes [5/5 suites](evidence/2026-09-20/frontend/native.log),
 including 31,960 engineering-study checks (19 new presentation-metadata checks).
 The [unchanged-scope source audit](evidence/2026-09-20/frontend/source-audit.json)
-reports 425,245 C++ bytes: **81.2998% runtime / 77.0244% including HTML/CSS**.
+reports 425,245 C++ bytes: **81.2931% runtime / 77.0184% including HTML/CSS**.
 No generated corpus or padding was added to reach the percentage. The critical
-offline bundle is 1,258,360 bytes; complete preparation is 9,203,351 bytes,
+offline bundle is 1,258,403 bytes; complete preparation is 9,203,394 bytes,
 including all 825,000 original-topic demo snapshots.
 
 Screenshots: [phone question](evidence/2026-09-20/frontend/home-390.png),
