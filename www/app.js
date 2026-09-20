@@ -4,18 +4,31 @@ const $ = id => document.getElementById(id);
 const subjects = {algebra:'Algebra',calculus:'Calculus',linear_algebra:'Linear algebra',differential_equations:'Differential equations',logic:'Digital logic · DLD',circuit:'Circuits · LCA / ENA',engineering:'Engineering units',programming:'C++ fundamentals'};
 const state = {catalog:[],mode:'',worker:null,sequence:0,pending:new Map(),result:null,problem:null,busy:false,history:[]};
 const storageKey = 'pocket-engineer.history.v3';
+state.results=new Map();
+for(const id of ['labs','demos']){$(id).classList.remove('view');$('workbench').insertBefore($(id),$('workbench').querySelector('footer'));}
 function node(tag,text,className) { const n=document.createElement(tag);if(text!==undefined)n.textContent=text;if(className)n.className=className;return n; }
 function tell(message) { $('notice').textContent=message; }
 function view(id) {
   if(!['workbench','subjects','history','downloads','labs','demos'].includes(id))return;
-  if(id==='workbench')$('workbench').insertBefore($('result'),$('workbench').querySelector('footer'));
-  document.querySelectorAll('.view').forEach(n=>n.hidden=n.id!==id);
-  document.querySelectorAll('.nav').forEach(n=>{const active=n.dataset.view===id;n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});
+  const workspace=['workbench','labs','demos'].includes(id),route=id==='labs'?state.lab:id;
+  document.querySelectorAll('.view').forEach(n=>n.hidden=n.id!==(workspace?'workbench':id));
+  document.querySelectorAll('.nav').forEach(n=>{const active=n.dataset.view===(workspace?'workbench':id);n.classList.toggle('active',active);if(active)n.setAttribute('aria-current','page');else n.removeAttribute('aria-current');});
+  if(workspace){
+    for(const panel of ['question-panel','labs','demos'])$(panel).hidden=panel!==(id==='workbench'?'question-panel':id);
+    document.querySelectorAll('.tool-launcher button').forEach(b=>b.setAttribute('aria-pressed',String((b.dataset.lab||b.dataset.view)===route)));
+    if(id!=='demos'){
+      $(id==='labs'?'lab-result':'question-panel').append($('result'));
+      if(state.owner!==route){const saved=state.results.get(route);state.owner=route;state.result=saved?.result;state.problem=saved?.problem;if(saved)renderResult(saved.result);else $('result').hidden=true;}
+    }
+  }
   if(id==='history')renderHistory();
   document.body.dataset.view=id;
+  if(location.hash!=='#'+route)history.pushState(null,'','#'+route);
   window.dispatchEvent(new CustomEvent('pe-view',{detail:id}));
   window.scrollTo({top:0,behavior:'instant'});
 }
+function fromHash(){const route=location.hash.slice(1);if(['circuit','signals','fsm'].includes(route))window.PELabs?.openLab(route);else view(['subjects','history','downloads','demos'].includes(route)?route:'workbench');}
+window.addEventListener('popstate',fromHash);
 document.querySelectorAll('[data-view]').forEach(n=>n.addEventListener('click',event=>{event.preventDefault();view(n.dataset.view);}));
 window.peHandleBack=()=>{if(document.body.dataset.view&&document.body.dataset.view!=='workbench'){view('workbench');return true;}return false;};
 function currentTopic() { return state.catalog.find(t=>t.domain===$('domain').value&&t.topic===$('topic').value); }
@@ -26,7 +39,7 @@ function updateTopics(preferred) {
   updateHint();
 }
 function updateHint() { const t=currentTopic();if(!t)return;$('syntax').textContent=t.syntax;$('scope').textContent=t.scope;$('input').placeholder=t.example;window.dispatchEvent(new CustomEvent('pe-topic',{detail:t})); }
-function selectTopic(t,example=true) { if(state.busy)return; $('domain').value=t.domain;updateTopics(t.topic);if(example)$('input').value=t.example;view('workbench');$('input').scrollIntoView({block:'center',behavior:'instant'}); }
+function selectTopic(t,example=true) { if(state.busy)return;window.PELabs?.textMode();$('question-options').open=true;$('domain').value=t.domain;updateTopics(t.topic);if(example)$('input').value=t.example;view('workbench');$('input').scrollIntoView({block:'center',behavior:'instant'}); }
 $('domain').addEventListener('change',()=>updateTopics());
 $('topic').addEventListener('change',updateHint);
 $('example').addEventListener('click',()=>{const t=currentTopic();if(t){$('input').value=t.example;tell('Example loaded. You can change the values before solving.');}});
@@ -83,7 +96,7 @@ async function boot() {
       state.mode='wasm';
       try {
         if(!window.WebAssembly||!window.Worker)throw new Error('WebAssembly workers are not supported');
-        state.worker=new Worker('solver-worker.js?pe=94396c20331ccdb1');
+        state.worker=new Worker('solver-worker.js?pe=3fce3cb8003b258a');
         state.worker.onmessage=e=>settle(e.data.id,e.data.result,e.data.error);
         state.worker.onerror=()=>{for(const id of [...state.pending.keys()])settle(id,null,'Browser engine could not load');};
         catalog=await request('catalog');
@@ -96,12 +109,12 @@ async function boot() {
     if(!Array.isArray(catalog.topics)||!catalog.topics.length)throw new Error('Topic catalog unavailable');
     state.catalog=catalog.topics;
     $('domain').replaceChildren(...Object.entries(subjects).map(([value,label])=>new Option(label,value)));
-    updateTopics();$('input').value=currentTopic().example;
+    updateTopics();
     try{const draft=JSON.parse(sessionStorage.getItem('pocket-engineer.draft')||'null');if(draft&&state.catalog.some(t=>t.domain===draft.domain&&t.topic===draft.topic)){$('domain').value=draft.domain;updateTopics(draft.topic);$('input').value=String(draft.input).slice(0,4096);$('auto-type').checked=draft.auto!==false;sessionStorage.removeItem('pocket-engineer.draft');}}catch{}
     ['domain','topic','solve','identify','example'].forEach(id=>$(id).disabled=false);
     document.body.dataset.engine=state.mode;
     $('engine-status').textContent=state.mode==='wasm'?'C++ · on your device':state.mode==='android'?'Native C++ · offline':'Native C++ · local server';
-    $('engine-status').classList.add('ready');renderSubjects();loadHistory();setupOffline();$('guided-toggle').disabled=false;window.dispatchEvent(new Event('pe-ready'));
+    $('engine-status').classList.add('ready');renderSubjects();loadHistory();setupOffline();$('guided-toggle').disabled=false;try{if(!sessionStorage.getItem('pocket-engineer.lab-draft'))fromHash();}catch{fromHash();}window.dispatchEvent(new Event('pe-ready'));
   } catch(error) {
     state.mode='failed';window.PEOffline.setMode('failed');
     $('engine-status').textContent='Engine unavailable';
@@ -117,7 +130,7 @@ $('solve-form').addEventListener('submit',async event=>{
   setBusy(true);tell('Working locally…');
   $('input').blur();
   try {
-    const result=await request('solve',JSON.stringify(problem));state.problem=problem;state.result=result;
+    const result=await request('solve',JSON.stringify(problem));remember('workbench',result,problem);
     if(result.interpretation?.status==='resolved'&&state.catalog.some(t=>t.domain===result.domain&&t.topic===result.topic)){$('domain').value=result.domain;updateTopics(result.topic);}
     renderResult(result);tell(result.status==='error'?'Your original question is unchanged. Review the explanation below, then adjust it or choose an example.':'');
     if(result.status==='success')saveHistory({...problem,domain:result.domain,topic:result.topic});
@@ -186,9 +199,10 @@ $('copy').addEventListener('click',async()=>{try{if(state.mode==='android')windo
 $('export').addEventListener('click',()=>{if(!state.result)return;if(state.mode==='android'){window.PocketEngineerAndroid.saveSolution(JSON.stringify({problem:state.problem,result:state.result},null,2));return;}const url=URL.createObjectURL(new Blob([JSON.stringify({problem:state.problem,result:state.result},null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download='pocket-engineer-solution.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);});
 $('print').addEventListener('click',()=>state.mode==='android'?window.PocketEngineerAndroid.printSolution():window.print());
 function setupOffline(){return window.PEOffline.setMode(state.mode);}
+function remember(owner,result,problem){state.owner=owner;state.result=result;state.problem=problem;state.results.set(owner,{result,problem});}
 window.addEventListener('pe-save-draft',()=>{try{sessionStorage.setItem('pocket-engineer.draft',JSON.stringify({domain:$('domain').value,topic:$('topic').value,input:$('input').value,auto:$('auto-type').checked}));}catch{}});
 window.addEventListener('pe-retry-engine',()=>{if(state.mode==='failed')boot();});
 window.PEApp={state,subjects,request,view,selectTopic,currentTopic,setBusy,node,tell,
-  present(result,problem,inLab=false){state.result=result;state.problem=problem;renderResult(result);if(inLab)$('lab-result').append($('result'));else view('workbench');$('result').focus({preventScroll:true});$('result').scrollIntoView({block:'start',behavior:'instant'});},
+  present(result,problem,inLab=false){if(!inLab&&result.status==='success'&&state.catalog.some(t=>t.domain===problem.domain&&t.topic===problem.topic))saveHistory(problem);remember(inLab?state.lab:'workbench',result,problem);renderResult(result);if(inLab)$('lab-result').append($('result'));else view('workbench');$('result').focus({preventScroll:true});$('result').scrollIntoView({block:'start',behavior:'instant'});},
   exportData(data,name){if(state.mode==='android'){window.PocketEngineerAndroid.saveSolution(JSON.stringify(data));return;}const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'})),a=node('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}};
 boot();

@@ -1,0 +1,24 @@
+
+Running 17 tests using 1 worker
+
+(node:247760) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   1 [desktop] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale solver-worker.js and solve after offline restart (5.7s)
+  ✓   2 [desktop] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale engine.js and solve after offline restart (5.6s)
+  ✓   3 [desktop] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale engine.wasm and solve after offline restart (4.9s)
+  ✓   4 [desktop] › tests/browser/engine-version.spec.cjs:51:1 › legacy worker capability is rejected at startup and repair retains history (4.3s)
+  ✓   5 [desktop] › tests/browser/labs.spec.cjs:6:1 › guided matrix cells serialize and solve, with safe dimension changes (1.3s)
+  ✓   6 [desktop] › tests/browser/labs.spec.cjs:11:1 › clickable K-map supports six variables, X cells, Gray panels and a checked solution (1.9s)
+  ✓   7 [desktop] › tests/browser/labs.spec.cjs:18:1 › circuit drawing solves AC, restores undo and produces PNG download (2.1s)
+  ✓   8 [desktop] › tests/browser/labs.spec.cjs:24:1 › signals operations run through the actual controls and reject invalid input (1.5s)
+  ✓   9 [desktop] › tests/browser/labs.spec.cjs:30:1 › transition-table UI generates a state diagram, equations and 101 detector trace (790ms)
+  ✓  10 [desktop] › tests/browser/labs.spec.cjs:34:1 › preloaded demos work offline, compare stored answers, calibrate, page and cancel (2.7s)
+  ✓  11 [desktop] › tests/browser/labs.spec.cjs:40:1 › every C++ signals form solves its preset and rejects a missing numeric field (4.8s)
+  ✓  12 [desktop] › tests/browser/labs.spec.cjs:45:1 › network study controls solve equivalents, superposition, sensitivity and sweeps (2.8s)
+  ✓  13 [desktop] › tests/browser/labs.spec.cjs:51:1 › lab switching retains edited signal and circuit input (1.3s)
+  ✓  14 [desktop] › tests/browser/labs.spec.cjs:54:1 › guided values and keyboard K-map focus survive closing and reopening (1.3s)
+  ✓  15 [desktop] › tests/browser/labs.spec.cjs:58:1 › update drafts restore edited signal fields, circuit text and manual map state (2.2s)
+  ✓  16 [desktop] › tests/browser/labs.spec.cjs:62:1 › new editors contain tables on narrow screens and keep labels separate (1.8s)
+  ✓  17 [desktop] › tests/browser/labs.spec.cjs:66:1 › manual K-map exports replay the same groups and blank circuit coordinates are rejected (1.7s)
+
+  17 passed (48.6s)

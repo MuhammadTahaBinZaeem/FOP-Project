@@ -1,7 +1,8 @@
+const {ui}=require('./ui.cjs');
 const {test,expect}=require('@playwright/test');
 test('maximum-size supported matrix, ODE, polynomial and expression through the UI',async({page})=>{
   test.setTimeout(90000);await page.goto('./');await expect(page.locator('#solve')).toBeEnabled();await page.emulateMedia({reducedMotion:'reduce'});
-  async function solve(domain,topic,input){await page.locator('#domain').selectOption(domain);await page.locator('#topic').selectOption(topic);await page.locator('#input').fill(input);await page.locator('#solve').click();await expect(page.locator('#solve-form')).toHaveAttribute('aria-busy','false');}
+  async function solve(domain,topic,input){await ui(page.locator('#domain')).selectOption(domain);await ui(page.locator('#topic')).selectOption(topic);await ui(page.locator('#input')).fill(input);await ui(page.locator('#solve')).click();await expect(page.locator('#solve-form')).toHaveAttribute('aria-busy','false');}
   const system=Array.from({length:16},(_,r)=>[...Array.from({length:16},(_,c)=>r===c?1:0),r-8].join(',')).join(';');
   await solve('linear_algebra','linear_system',system);
   await expect(page.locator('#answer')).toHaveText(Array.from({length:16},(_,i)=>`x${i+1} = ${i-8}`).join(', '));

@@ -1,3 +1,4 @@
+const {ui}=require('./ui.cjs');
 const {test,expect}=require('@playwright/test');
 const http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path');
 
@@ -19,20 +20,20 @@ for(const stale of ['solver-worker.js','engine.js','engine.wasm'])test(`visual l
   });
   await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));const url=`http://127.0.0.1:${server.address().port}/`;
   async function solveLabs(){
-    await page.locator('.tool-launcher [data-lab=circuit]').click();
+    await ui(page.locator('.tool-launcher [data-lab=circuit]')).click();
     await expect(page.locator('#circuit-canvas')).toBeVisible();
-    await page.getByRole('button',{name:'RC low-pass',exact:true}).click();
-    await page.locator('#circuit-analysis').selectOption('ac');
-    await page.getByRole('button',{name:'Solve this circuit',exact:true}).click();
+    await ui(page.getByRole('button',{includeHidden:true,name:'RC low-pass',exact:true})).click();
+    await ui(page.locator('#circuit-analysis')).selectOption('ac');
+    await ui(page.getByRole('button',{includeHidden:true,name:'Solve this circuit',exact:true})).click();
     await expect(page.locator('#answer')).toContainText('Node voltages');
     await expect(page.locator('#verification')).toContainText('KCL');
-    await page.locator('.lab-tabs [data-lab=signals]').click();
-    await page.locator('#signal-operation').selectOption('convolution');
-    await page.locator('#signal-x').fill('1,2,3');await page.locator('#signal-h').fill('4,5');
-    await page.getByRole('button',{name:'Calculate locally',exact:true}).click();
+    await ui(page.locator('.lab-tabs [data-lab=signals]')).click();
+    await ui(page.locator('#signal-operation')).selectOption('convolution');
+    await ui(page.locator('#signal-x')).fill('1,2,3');await ui(page.locator('#signal-h')).fill('4,5');
+    await ui(page.getByRole('button',{includeHidden:true,name:'Calculate locally',exact:true})).click();
     await expect(page.locator('#answer')).toContainText('4, 13, 22, 15');
-    await page.locator('.lab-tabs [data-lab=fsm]').click();
-    await page.getByRole('button',{name:'Generate diagram & equations',exact:true}).click();
+    await ui(page.locator('.lab-tabs [data-lab=fsm]')).click();
+    await ui(page.getByRole('button',{includeHidden:true,name:'Generate diagram & equations',exact:true})).click();
     await expect(page.locator('#answer')).toContainText('Simulation outputs: 0 0 1 0 1');
     await expect(page.locator('#visual canvas')).toHaveCount(1);
   }
@@ -43,7 +44,7 @@ for(const stale of ['solver-worker.js','engine.js','engine.wasm'])test(`visual l
     for(const name of ['solver-worker.js','engine.js','engine.wasm'])expect(seen.find(r=>r.name===name)?.key).toMatch(/^[a-f0-9]{16}$/);
     await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
     await context.setOffline(true);await page.reload();await expect(page.locator('#solve')).toBeEnabled();
-    await page.locator('.nav[data-view=workbench]').click();await solveLabs();
+    await ui(page.locator('.nav[data-view=workbench]')).click();await solveLabs();
   }finally{await test.info().attach('engine-requests',{body:JSON.stringify(seen),contentType:'application/json'});server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });
 
@@ -57,12 +58,12 @@ test('legacy worker capability is rejected at startup and repair retains history
   await expect(page.locator('#notice')).toContainText('Cached engine is outdated');
   await expect(page.locator('#solve')).toBeDisabled();
   await context.unroute('**/solver-worker.js*');
-  await page.locator('.nav[data-view=downloads]').click();
-  await expect(page.locator('#retry-cache')).toBeEnabled({timeout:45000});await page.locator('#retry-cache').click();
+  await ui(page.locator('.nav[data-view=downloads]')).click();
+  await expect(page.locator('#retry-cache')).toBeEnabled({timeout:45000});await ui(page.locator('#retry-cache')).click();
   await expect(page.locator('#solve')).toBeEnabled({timeout:45000});
   await expect(page.locator('body')).toHaveAttribute('data-engine','wasm');
   expect(await page.evaluate(()=>JSON.parse(localStorage.getItem('pocket-engineer.history.v3'))[0].input)).toBe('23+19');
-  await page.locator('.nav[data-view=workbench]').click();await page.locator('.tool-launcher [data-lab=signals]').click();
-  await page.locator('#signal-operation').selectOption('convolution');await page.locator('#signal-x').fill('1,2,3');await page.locator('#signal-h').fill('4,5');
-  await page.getByRole('button',{name:'Calculate locally',exact:true}).click();await expect(page.locator('#answer')).toContainText('4, 13, 22, 15');
+  await ui(page.locator('.nav[data-view=workbench]')).click();await ui(page.locator('.tool-launcher [data-lab=signals]')).click();
+  await ui(page.locator('#signal-operation')).selectOption('convolution');await ui(page.locator('#signal-x')).fill('1,2,3');await ui(page.locator('#signal-h')).fill('4,5');
+  await ui(page.getByRole('button',{includeHidden:true,name:'Calculate locally',exact:true})).click();await expect(page.locator('#answer')).toContainText('4, 13, 22, 15');
 });

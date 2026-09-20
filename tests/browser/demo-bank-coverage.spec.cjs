@@ -1,3 +1,4 @@
+const {ui}=require('./ui.cjs');
 const {test,expect}=require('@playwright/test');
 
 test('every manifest bank loads in the real worker, including digit-bearing RK4',async({page,context})=>{
@@ -30,9 +31,9 @@ test('every manifest bank loads in the real worker, including digit-bearing RK4'
     }finally{worker.terminate();}
   });
   expect(checked).toEqual({banks:165,cases:825000});
-  await page.locator('.tool-launcher [data-view=demos]').click();await expect(page.locator('#demo-all')).toBeEnabled();
-  await page.locator('#demo-domain').selectOption('differential_equations');await expect(page.locator('#demo-all')).toBeEnabled();
-  await page.locator('#demo-topic').selectOption('rk4');await expect(page.locator('#demo-all')).toBeEnabled();
-  await page.locator('#demo-difficulty').selectOption('hard');await expect(page.locator('#demo-all')).toBeEnabled();
-  await page.locator('#demo-run').click();await expect(page.locator('#demo-status')).toContainText('Completed: 25 cases; 0 differ');
+  await ui(page.locator('.tool-launcher [data-view=demos]')).click();await expect(page.locator('#demo-all')).toBeEnabled();
+  await ui(page.locator('#demo-domain')).selectOption('differential_equations');await expect(page.locator('#demo-all')).toBeEnabled();
+  await ui(page.locator('#demo-topic')).selectOption('rk4');await expect(page.locator('#demo-all')).toBeEnabled();
+  await ui(page.locator('#demo-difficulty')).selectOption('hard');await expect(page.locator('#demo-all')).toBeEnabled();
+  await ui(page.locator('#demo-run')).click();await expect(page.locator('#demo-status')).toContainText('Completed: 25 cases; 0 differ');
 });

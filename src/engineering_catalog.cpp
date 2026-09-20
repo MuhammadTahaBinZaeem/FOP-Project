@@ -125,8 +125,28 @@ Json describe(const Operation &operation) {
     Json::Array choices;
     for (const auto &choice : field.choices)
       choices.emplace_back(choice);
+    // Presentation metadata only: hidden settings retain the same validated
+    // defaults and remain editable. These flags never alter solver inputs.
+    const auto &id = field.id;
+    const bool advanced = field.optional || id == "window" || id == "pad" ||
+        id == "phase" || id == "offset" || id == "rate" || id == "delay" ||
+        id == "origin" || id == "z_real" || id == "z_imag" ||
+        (id == "count" && operation.id != "generator") ||
+        (id == "fs" && (operation.id == "fft" || operation.id == "ifft" ||
+                        operation.id == "filter"));
+    Json when = Json::Object{};
+    if (operation.id == "laplace" && (id == "power" || id == "omega"))
+      when = Json::Object{{"field", "kind"}, {"values", id == "power"
+          ? Json::Array{"power"} : Json::Array{"sine", "cosine"}}};
+    if (operation.id == "fir_design" && id == "cutoff_high")
+      when = Json::Object{{"field", "kind"},
+                          {"values", Json::Array{"bandpass", "bandstop"}}};
+    if (operation.id == "generator" && id == "frequency")
+      when = Json::Object{{"field", "waveform"},
+          {"values", Json::Array{"sine", "cosine", "square", "triangle"}}};
     fields.emplace_back(Json::Object{{"id", field.id}, {"label", field.label},
                                      {"value", field.initial}, {"type", field.type},
+                                     {"advanced", advanced}, {"when", when},
                                      {"options", choices}, {"optional", field.optional}});
   }
   return Json::Object{{"status", "success"}, {"operation", operation.id},

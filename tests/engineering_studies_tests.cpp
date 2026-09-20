@@ -123,7 +123,26 @@ void form_tests() {
   const auto catalog=engineering_schema({"workbench","engineering_schema",{}, {}});
   check(catalog.at("operations").array().size()==13,"13 runnable engineering forms");
   for(const auto &entry:catalog.at("operations").array()){
-    Json::Object fields;for(const auto &field:entry.at("fields").array())fields[field.at("id").string()]=field.at("value");
+    Json::Object fields;
+    for(const auto &field:entry.at("fields").array()){
+      const auto id=field.at("id").string();
+      fields[id]=field.at("value");
+      const bool advanced=field.at("advanced").boolean();
+      if(field.at("optional").boolean())check(advanced,"optional fields disclosed in Advanced");
+      if(entry.at("operation").string()=="fft"){
+        if(id=="x")check(!advanced,"FFT samples are a basic input");
+        if(id=="fs")check(advanced,"FFT sample-rate default is editable in Advanced");
+      }
+      const auto &when=field.at("when");
+      if(!when.object().empty()){
+        const auto driver=when.at("field").string();
+        const auto &all=entry.at("fields").array();
+        const auto found=std::find_if(all.begin(),all.end(),[&](const auto &f){return f.at("id").string()==driver;});
+        check(found!=all.end(),"conditional field references an existing control");
+        if(found!=all.end())for(const auto &value:when.at("values").array())
+          check(std::any_of(found->at("options").array().begin(),found->at("options").array().end(),[&](const auto &choice){return choice.string()==value.string();}),"conditional choice is selectable");
+      }
+    }
     const auto converted=engineering_form_input({"workbench","engineering_input",Json(Json::Object{{"operation",entry.at("operation")},{"values",fields}}).dump(),{}});
     const auto solved=signals({"signals","signals",converted.at("input").dump(),{}});check(solved.status=="success","engineering form default solves: "+entry.at("operation").string()+" "+solved.answer.substr(0,80));
   }

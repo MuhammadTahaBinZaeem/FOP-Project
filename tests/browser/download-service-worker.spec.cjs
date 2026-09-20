@@ -1,3 +1,4 @@
+const {ui}=require('./ui.cjs');
 const {test,expect}=require('@playwright/test');
 const http=require('node:http'),fs=require('node:fs/promises'),path=require('node:path');
 test('prepared service worker bypasses installer navigation and never caches installers',async({page,context})=>{
@@ -16,9 +17,9 @@ test('prepared service worker bypasses installer navigation and never caches ins
   try{
     await page.goto(root);await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});await page.reload();
     expect(await page.evaluate(()=>!!navigator.serviceWorker.controller)).toBe(true);
-    await page.locator('.nav[data-view=downloads]').click();
+    await ui(page.locator('.nav[data-view=downloads]')).click();
     await page.locator('[data-download]').first().evaluate((a,href)=>a.href=href,root+'/downloads/fixture.apk');
-    const event=page.waitForEvent('download');await page.locator('[data-download]').first().click();const download=await event;
+    const event=page.waitForEvent('download');await ui(page.locator('[data-download]').first()).click();const download=await event;
     expect(download.suggestedFilename()).toBe('fixture.apk');const chunks=[];for await(const chunk of await download.createReadStream())chunks.push(chunk);expect(Buffer.concat(chunks)).toEqual(payload);
     expect(await page.evaluate(async()=>{for(const key of await caches.keys())if(await(await caches.open(key)).match('/downloads/fixture.apk'))return true;return false;})).toBe(false);
     await page.goto(root+'/downloads/help.txt');await expect(page.locator('body')).toHaveText('Installer help, not the app shell');

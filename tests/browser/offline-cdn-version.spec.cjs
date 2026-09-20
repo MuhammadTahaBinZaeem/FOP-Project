@@ -1,3 +1,4 @@
+const {ui}=require('./ui.cjs');
 const {test,expect}=require('@playwright/test');
 const http=require('node:http');
 const fs=require('node:fs/promises');
@@ -21,6 +22,6 @@ test('fresh installation bypasses stale CDN worker, manifest and demo cache keys
     await page.goto(url);await expect(page.locator('body')).toHaveAttribute('data-offline-ready','true',{timeout:40000});
     expect(seen.worker).toBeGreaterThan(0);expect(seen.manifest).toBeGreaterThan(0);expect(seen.banks).toBe(165);
     await context.setOffline(true);await page.goto(url);await expect(page.locator('#solve')).toBeEnabled();
-    await page.locator('.tool-launcher [data-view=demos]').click();await expect(page.locator('#demo-run')).toBeEnabled();await page.locator('#demo-run').click();await expect(page.locator('#demo-status')).toContainText('Completed: 25 cases; 0 differ');
+    await ui(page.locator('.tool-launcher [data-view=demos]')).click();await expect(page.locator('#demo-run')).toBeEnabled();await ui(page.locator('#demo-run')).click();await expect(page.locator('#demo-status')).toContainText('Completed: 25 cases; 0 differ');
   }finally{server.closeAllConnections();await new Promise(resolve=>server.close(resolve));}
 });

@@ -1,0 +1,229 @@
+
+Running 120 tests using 1 worker
+
+(node:249455) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓    1 [desktop] › tests/browser/android-demo-transport.spec.cjs:4:1 › Android strategy transfers bytes and batches comparisons when worker fetch is unavailable (2.3s)
+  ✓    2 [desktop] › tests/browser/app.spec.cjs:5:1 › local C++ calculation and accessible responsive layout (869ms)
+  ✓    3 [desktop] › tests/browser/app.spec.cjs:15:1 › selected topic is not silently overridden; matrix rank cases (1.0s)
+  ✓    4 [desktop] › tests/browser/app.spec.cjs:22:1 › K-map renders a raster-free native table, RK4 renders canvas (888ms)
+  ✓    5 [desktop] › tests/browser/app.spec.cjs:29:1 › offline cold reload still solves without API or network (1.5s)
+  ✓    6 [desktop] › tests/browser/app.spec.cjs:36:1 › history survives reload and can be cleared; no stored markup injection (1.2s)
+  ✓    7 [desktop] › tests/browser/app.spec.cjs:45:1 › catalog search, keyboard submit, JSON export (697ms)
+  ✓    8 [desktop] › tests/browser/app.spec.cjs:51:1 › bounded input failure leaves engine available for next solve (827ms)
+  ✓    9 [desktop] › tests/browser/app.spec.cjs:55:1 › all 55 C++ catalog examples solve in WebAssembly (363ms)
+  ✓   10 [desktop] › tests/browser/boundaries.spec.cjs:3:1 › maximum-size supported matrix, ODE, polynomial and expression through the UI (2.1s)
+  ✓   11 [desktop] › tests/browser/demo-bank-coverage.spec.cjs:4:1 › every manifest bank loads in the real worker, including digit-bearing RK4 (2.5s)
+  ✓   12 [desktop] › tests/browser/demo-button-layout.spec.cjs:3:1 › demo action labels do not collapse into vertical strips near phone breakpoints (978ms)
+  ✓   13 [desktop] › tests/browser/download-service-worker.spec.cjs:4:1 › prepared service worker bypasses installer navigation and never caches installers (1.5s)
+  ✓   14 [desktop] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale solver-worker.js and solve after offline restart (2.5s)
+  ✓   15 [desktop] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale engine.js and solve after offline restart (2.8s)
+  ✓   16 [desktop] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale engine.wasm and solve after offline restart (2.4s)
+  ✓   17 [desktop] › tests/browser/engine-version.spec.cjs:51:1 › legacy worker capability is rejected at startup and repair retains history (1.8s)
+  ✓   18 [desktop] › tests/browser/entered-values.spec.cjs:5:1 › entered circuit, signal and transition-table values match independent answers online and offline (5.5s)
+  ✓   19 [desktop] › tests/browser/lab-endurance.spec.cjs:4:1 › complete 5000-case UI run exports every comparison while yielding to the interface (2.2s)
+  ✓   20 [desktop] › tests/browser/lab-endurance.spec.cjs:12:1 › maximum FFT uses bounded output rows and remains usable after a rejected request (1.7s)
+  ✓   21 [desktop] › tests/browser/labs.spec.cjs:6:1 › guided matrix cells serialize and solve, with safe dimension changes (668ms)
+  ✓   22 [desktop] › tests/browser/labs.spec.cjs:11:1 › clickable K-map supports six variables, X cells, Gray panels and a checked solution (1.5s)
+  ✓   23 [desktop] › tests/browser/labs.spec.cjs:18:1 › circuit drawing solves AC, restores undo and produces PNG download (1.3s)
+  ✓   24 [desktop] › tests/browser/labs.spec.cjs:24:1 › signals operations run through the actual controls and reject invalid input (1.3s)
+  ✓   25 [desktop] › tests/browser/labs.spec.cjs:30:1 › transition-table UI generates a state diagram, equations and 101 detector trace (569ms)
+  ✓   26 [desktop] › tests/browser/labs.spec.cjs:34:1 › preloaded demos work offline, compare stored answers, calibrate, page and cancel (1.9s)
+  ✓   27 [desktop] › tests/browser/labs.spec.cjs:40:1 › every C++ signals form solves its preset and rejects a missing numeric field (4.5s)
+  ✓   28 [desktop] › tests/browser/labs.spec.cjs:45:1 › network study controls solve equivalents, superposition, sensitivity and sweeps (1.2s)
+  ✓   29 [desktop] › tests/browser/labs.spec.cjs:51:1 › lab switching retains edited signal and circuit input (802ms)
+  ✓   30 [desktop] › tests/browser/labs.spec.cjs:54:1 › guided values and keyboard K-map focus survive closing and reopening (1.0s)
+  ✓   31 [desktop] › tests/browser/labs.spec.cjs:58:1 › update drafts restore edited signal fields, circuit text and manual map state (1.3s)
+  ✓   32 [desktop] › tests/browser/labs.spec.cjs:62:1 › new editors contain tables on narrow screens and keep labels separate (1.3s)
+  ✓   33 [desktop] › tests/browser/labs.spec.cjs:66:1 › manual K-map exports replay the same groups and blank circuit coordinates are rejected (1.2s)
+  ✓   34 [desktop] › tests/browser/natural-input.spec.cjs:3:1 › human question corrects a wrong type and preserves the original text (703ms)
+  ✓   35 [desktop] › tests/browser/natural-input.spec.cjs:15:1 › manual mode stays explicit, then automatic interpretation can recover (647ms)
+  ✓   36 [desktop] › tests/browser/natural-input.spec.cjs:21:1 › natural input works offline and ambiguity is visible without an invented answer (1.5s)
+  ✓   37 [desktop] › tests/browser/offline-cdn-version.spec.cjs:6:1 › fresh installation bypasses stale CDN worker, manifest and demo cache keys (1.3s)
+  ✓   38 [desktop] › tests/browser/offline-download-pool.spec.cjs:4:1 › a slow offline asset does not block later banks or exceed three simultaneous downloads (1.2s)
+  ✘   39 [desktop] › tests/browser/offline-repair.spec.cjs:3:33 › repair reuses verified assets from a previous cache without network (45.4s)
+(node:251680) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   40 [desktop] › tests/browser/offline-repair.spec.cjs:3:33 › repair rejects corrupt assets from a previous cache without network (2.9s)
+  ✓   41 [desktop] › tests/browser/offline-repair.spec.cjs:14:1 › readiness button repairs a missing cached solver before an offline revisit (1.7s)
+  ✓   42 [desktop] › tests/browser/offline-repair.spec.cjs:23:1 › readiness retry registers again after an offline registration was removed (1.5s)
+  ✓   43 [desktop] › tests/browser/offline-repair.spec.cjs:30:1 › explicit repair replaces corrupt cached content, not just missing files (1.6s)
+  ✓   44 [desktop] › tests/browser/offline-repair.spec.cjs:36:1 › offline rasters are reconstructed exactly even when the CDN image URL changes bytes (1.2s)
+  ✓   45 [desktop] › tests/browser/progressive-ui.spec.cjs:4:1 › one workspace, neutral demos, correct selection and browser Back retain the question (502ms)
+  ✓   46 [desktop] › tests/browser/progressive-ui.spec.cjs:11:1 › natural input needs no type selection and advanced controls are disclosed explicitly (443ms)
+  ✓   47 [desktop] › tests/browser/progressive-ui.spec.cjs:16:1 › guided matrix solves directly without exposing serialized text (552ms)
+  ✓   48 [desktop] › tests/browser/progressive-ui.spec.cjs:21:1 › circuit flow exposes only the analysis fields that apply (655ms)
+  ✓   49 [desktop] › tests/browser/progressive-ui.spec.cjs:28:1 › signals retain edited operations and advanced sample rates are explicit (939ms)
+  ✓   50 [desktop] › tests/browser/progressive-ui.spec.cjs:35:1 › state setup, transitions and optional simulation remain in the same workspace (638ms)
+  ✓   51 [desktop] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values (414ms)
+  ✓   52 [desktop] › tests/browser/progressive-ui.spec.cjs:43:1 › update drafts keep the active input stage and do not jump from questions to a previous tool (778ms)
+  ✓   53 [desktop] › tests/browser/progressive-ui.spec.cjs:49:1 › offline deep links, tool results and guided history preserve context (1.8s)
+  ✓   54 [desktop] › tests/browser/progressive-ui.spec.cjs:56:1 › both stages fit small screens and keyboard navigation opens only the requested stage (1.8s)
+  ✓   55 [desktop] › tests/browser/ui-stress.spec.cjs:11:1 › every catalog topic through actual dropdowns, example and solve buttons (11.5s)
+  ✓   56 [desktop] › tests/browser/ui-stress.spec.cjs:25:1 › spacing and touch targets across phone, landscape, tablet and desktop views (2.5s)
+  ✓   57 [desktop] › tests/browser/ui-stress.spec.cjs:62:1 › trajectory labels retain CSS size after phone resize and hidden-view navigation (978ms)
+  ✓   58 [desktop] › tests/browser/ui-stress.spec.cjs:78:1 › copy, save, print, identify, empty input, navigation and install feedback (2.0s)
+  ✓   59 [desktop] › tests/browser/ui-stress.spec.cjs:101:1 › UI endurance with independent expected answers, failures, offline reload and bounded history (6.0s)
+  ✓   60 [desktop] › tests/browser/update-in-progress.spec.cjs:5:1 › an update already installing at page startup exposes the real update button (3.9s)
+(node:252939) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓   61 [android-layout] › tests/browser/android-demo-transport.spec.cjs:4:1 › Android strategy transfers bytes and batches comparisons when worker fetch is unavailable (2.0s)
+  ✓   62 [android-layout] › tests/browser/app.spec.cjs:5:1 › local C++ calculation and accessible responsive layout (685ms)
+  ✓   63 [android-layout] › tests/browser/app.spec.cjs:15:1 › selected topic is not silently overridden; matrix rank cases (926ms)
+  ✓   64 [android-layout] › tests/browser/app.spec.cjs:22:1 › K-map renders a raster-free native table, RK4 renders canvas (761ms)
+  ✓   65 [android-layout] › tests/browser/app.spec.cjs:29:1 › offline cold reload still solves without API or network (1.6s)
+  ✓   66 [android-layout] › tests/browser/app.spec.cjs:36:1 › history survives reload and can be cleared; no stored markup injection (1.1s)
+  ✓   67 [android-layout] › tests/browser/app.spec.cjs:45:1 › catalog search, keyboard submit, JSON export (1.2s)
+  ✓   68 [android-layout] › tests/browser/app.spec.cjs:51:1 › bounded input failure leaves engine available for next solve (696ms)
+  ✓   69 [android-layout] › tests/browser/app.spec.cjs:55:1 › all 55 C++ catalog examples solve in WebAssembly (333ms)
+  ✓   70 [android-layout] › tests/browser/boundaries.spec.cjs:3:1 › maximum-size supported matrix, ODE, polynomial and expression through the UI (1.9s)
+  ✓   71 [android-layout] › tests/browser/demo-bank-coverage.spec.cjs:4:1 › every manifest bank loads in the real worker, including digit-bearing RK4 (2.4s)
+  ✓   72 [android-layout] › tests/browser/demo-button-layout.spec.cjs:3:1 › demo action labels do not collapse into vertical strips near phone breakpoints (1.1s)
+  ✓   73 [android-layout] › tests/browser/download-service-worker.spec.cjs:4:1 › prepared service worker bypasses installer navigation and never caches installers (1.6s)
+  ✓   74 [android-layout] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale solver-worker.js and solve after offline restart (2.4s)
+  ✓   75 [android-layout] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale engine.js and solve after offline restart (2.9s)
+  ✓   76 [android-layout] › tests/browser/engine-version.spec.cjs:5:67 › visual labs bypass stale engine.wasm and solve after offline restart (2.8s)
+  ✓   77 [android-layout] › tests/browser/engine-version.spec.cjs:51:1 › legacy worker capability is rejected at startup and repair retains history (1.7s)
+  ✓   78 [android-layout] › tests/browser/entered-values.spec.cjs:5:1 › entered circuit, signal and transition-table values match independent answers online and offline (5.4s)
+  ✓   79 [android-layout] › tests/browser/lab-endurance.spec.cjs:4:1 › complete 5000-case UI run exports every comparison while yielding to the interface (2.6s)
+  ✓   80 [android-layout] › tests/browser/lab-endurance.spec.cjs:12:1 › maximum FFT uses bounded output rows and remains usable after a rejected request (2.0s)
+  ✓   81 [android-layout] › tests/browser/labs.spec.cjs:6:1 › guided matrix cells serialize and solve, with safe dimension changes (667ms)
+  ✓   82 [android-layout] › tests/browser/labs.spec.cjs:11:1 › clickable K-map supports six variables, X cells, Gray panels and a checked solution (1.6s)
+  ✓   83 [android-layout] › tests/browser/labs.spec.cjs:18:1 › circuit drawing solves AC, restores undo and produces PNG download (1.5s)
+  ✓   84 [android-layout] › tests/browser/labs.spec.cjs:24:1 › signals operations run through the actual controls and reject invalid input (1.4s)
+  ✓   85 [android-layout] › tests/browser/labs.spec.cjs:30:1 › transition-table UI generates a state diagram, equations and 101 detector trace (540ms)
+  ✓   86 [android-layout] › tests/browser/labs.spec.cjs:34:1 › preloaded demos work offline, compare stored answers, calibrate, page and cancel (2.1s)
+  ✓   87 [android-layout] › tests/browser/labs.spec.cjs:40:1 › every C++ signals form solves its preset and rejects a missing numeric field (5.2s)
+  ✓   88 [android-layout] › tests/browser/labs.spec.cjs:45:1 › network study controls solve equivalents, superposition, sensitivity and sweeps (1.2s)
+  ✓   89 [android-layout] › tests/browser/labs.spec.cjs:51:1 › lab switching retains edited signal and circuit input (892ms)
+  ✓   90 [android-layout] › tests/browser/labs.spec.cjs:54:1 › guided values and keyboard K-map focus survive closing and reopening (1.1s)
+  ✓   91 [android-layout] › tests/browser/labs.spec.cjs:58:1 › update drafts restore edited signal fields, circuit text and manual map state (1.6s)
+  ✓   92 [android-layout] › tests/browser/labs.spec.cjs:62:1 › new editors contain tables on narrow screens and keep labels separate (841ms)
+  ✓   93 [android-layout] › tests/browser/labs.spec.cjs:66:1 › manual K-map exports replay the same groups and blank circuit coordinates are rejected (1.4s)
+  ✓   94 [android-layout] › tests/browser/natural-input.spec.cjs:3:1 › human question corrects a wrong type and preserves the original text (718ms)
+  ✓   95 [android-layout] › tests/browser/natural-input.spec.cjs:15:1 › manual mode stays explicit, then automatic interpretation can recover (698ms)
+  ✓   96 [android-layout] › tests/browser/natural-input.spec.cjs:21:1 › natural input works offline and ambiguity is visible without an invented answer (1.5s)
+  ✓   97 [android-layout] › tests/browser/offline-cdn-version.spec.cjs:6:1 › fresh installation bypasses stale CDN worker, manifest and demo cache keys (1.4s)
+  ✓   98 [android-layout] › tests/browser/offline-download-pool.spec.cjs:4:1 › a slow offline asset does not block later banks or exceed three simultaneous downloads (1.1s)
+  ✘   99 [android-layout] › tests/browser/offline-repair.spec.cjs:3:33 › repair reuses verified assets from a previous cache without network (45.5s)
+(node:255156) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ✓  100 [android-layout] › tests/browser/offline-repair.spec.cjs:3:33 › repair rejects corrupt assets from a previous cache without network (1.9s)
+  ✓  101 [android-layout] › tests/browser/offline-repair.spec.cjs:14:1 › readiness button repairs a missing cached solver before an offline revisit (4.1s)
+  ✓  102 [android-layout] › tests/browser/offline-repair.spec.cjs:23:1 › readiness retry registers again after an offline registration was removed (1.8s)
+  ✓  103 [android-layout] › tests/browser/offline-repair.spec.cjs:30:1 › explicit repair replaces corrupt cached content, not just missing files (1.3s)
+  ✓  104 [android-layout] › tests/browser/offline-repair.spec.cjs:36:1 › offline rasters are reconstructed exactly even when the CDN image URL changes bytes (1.1s)
+  ✓  105 [android-layout] › tests/browser/progressive-ui.spec.cjs:4:1 › one workspace, neutral demos, correct selection and browser Back retain the question (562ms)
+  ✓  106 [android-layout] › tests/browser/progressive-ui.spec.cjs:11:1 › natural input needs no type selection and advanced controls are disclosed explicitly (436ms)
+  ✓  107 [android-layout] › tests/browser/progressive-ui.spec.cjs:16:1 › guided matrix solves directly without exposing serialized text (543ms)
+  ✓  108 [android-layout] › tests/browser/progressive-ui.spec.cjs:21:1 › circuit flow exposes only the analysis fields that apply (679ms)
+  ✓  109 [android-layout] › tests/browser/progressive-ui.spec.cjs:28:1 › signals retain edited operations and advanced sample rates are explicit (963ms)
+  ✓  110 [android-layout] › tests/browser/progressive-ui.spec.cjs:35:1 › state setup, transitions and optional simulation remain in the same workspace (696ms)
+  ✓  111 [android-layout] › tests/browser/progressive-ui.spec.cjs:40:1 › conditional transform fields do not ask for irrelevant values (413ms)
+  ✓  112 [android-layout] › tests/browser/progressive-ui.spec.cjs:43:1 › update drafts keep the active input stage and do not jump from questions to a previous tool (723ms)
+  ✓  113 [android-layout] › tests/browser/progressive-ui.spec.cjs:49:1 › offline deep links, tool results and guided history preserve context (1.9s)
+  ✓  114 [android-layout] › tests/browser/progressive-ui.spec.cjs:56:1 › both stages fit small screens and keyboard navigation opens only the requested stage (1.7s)
+  ✓  115 [android-layout] › tests/browser/ui-stress.spec.cjs:11:1 › every catalog topic through actual dropdowns, example and solve buttons (10.4s)
+  ✓  116 [android-layout] › tests/browser/ui-stress.spec.cjs:25:1 › spacing and touch targets across phone, landscape, tablet and desktop views (2.3s)
+  ✓  117 [android-layout] › tests/browser/ui-stress.spec.cjs:62:1 › trajectory labels retain CSS size after phone resize and hidden-view navigation (1.1s)
+  ✓  118 [android-layout] › tests/browser/ui-stress.spec.cjs:78:1 › copy, save, print, identify, empty input, navigation and install feedback (2.8s)
+  ✓  119 [android-layout] › tests/browser/ui-stress.spec.cjs:101:1 › UI endurance with independent expected answers, failures, offline reload and bounded history (4.9s)
+  ✓  120 [android-layout] › tests/browser/update-in-progress.spec.cjs:5:1 › an update already installing at page startup exposes the real update button (2.9s)
+
+
+  1) [desktop] › tests/browser/offline-repair.spec.cjs:3:33 › repair reuses verified assets from a previous cache without network 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.fill: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for locator('#input')
+        - locator resolved to <textarea rows="3" id="input" maxlength="4096" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="2*(3+4)^2" aria-describedby="input-help"></textarea>
+        - fill("23+19")
+      - attempting fill action
+        2 × waiting for element to be visible, enabled and editable
+          - element is not visible
+        - retrying fill action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and editable
+          - element is not visible
+        - retrying fill action
+          - waiting 100ms
+        85 × waiting for element to be visible, enabled and editable
+           - element is not visible
+         - retrying fill action
+           - waiting 500ms
+
+
+       at ui.cjs:14
+
+      12 |   const visible=target.filter({visible:true});
+      13 |   const control=await target.count()>1&&await visible.count()===1?visible:target;
+    > 14 |   await reveal(control);return control[method](...args);
+         |                                               ^
+      15 | }]))}
+      16 | module.exports={ui,reveal};
+      17 |
+        at Object.fill (/home/zaruka/PocketEngineer/tests/browser/ui.cjs:14:47)
+        at /home/zaruka/PocketEngineer/tests/browser/offline-repair.spec.cjs:12:84
+
+    Error Context: test-results/offline-repair-repair-reus-e4481-vious-cache-without-network-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/offline-repair-repair-reus-e4481-vious-cache-without-network-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/offline-repair-repair-reus-e4481-vious-cache-without-network-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [android-layout] › tests/browser/offline-repair.spec.cjs:3:33 › repair reuses verified assets from a previous cache without network 
+
+    Test timeout of 45000ms exceeded.
+
+    Error: locator.fill: Test timeout of 45000ms exceeded.
+    Call log:
+      - waiting for locator('#input')
+        - locator resolved to <textarea rows="3" id="input" maxlength="4096" spellcheck="false" autocomplete="off" autocapitalize="off" placeholder="2*(3+4)^2" aria-describedby="input-help"></textarea>
+        - fill("23+19")
+      - attempting fill action
+        2 × waiting for element to be visible, enabled and editable
+          - element is not visible
+        - retrying fill action
+        - waiting 20ms
+        2 × waiting for element to be visible, enabled and editable
+          - element is not visible
+        - retrying fill action
+          - waiting 100ms
+        87 × waiting for element to be visible, enabled and editable
+           - element is not visible
+         - retrying fill action
+           - waiting 500ms
+
+
+       at ui.cjs:14
+
+      12 |   const visible=target.filter({visible:true});
+      13 |   const control=await target.count()>1&&await visible.count()===1?visible:target;
+    > 14 |   await reveal(control);return control[method](...args);
+         |                                               ^
+      15 | }]))}
+      16 | module.exports={ui,reveal};
+      17 |
+        at Object.fill (/home/zaruka/PocketEngineer/tests/browser/ui.cjs:14:47)
+        at /home/zaruka/PocketEngineer/tests/browser/offline-repair.spec.cjs:12:84
+
+    Error Context: test-results/offline-repair-repair-reus-e4481-vious-cache-without-network-android-layout/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results/offline-repair-repair-reus-e4481-vious-cache-without-network-android-layout/trace.zip
+    Usage:
+
+        npx playwright show-trace test-results/offline-repair-repair-reus-e4481-vious-cache-without-network-android-layout/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests/browser/offline-repair.spec.cjs:3:33 › repair reuses verified assets from a previous cache without network 
+    [android-layout] › tests/browser/offline-repair.spec.cjs:3:33 › repair reuses verified assets from a previous cache without network 
+  118 passed (5.1m)

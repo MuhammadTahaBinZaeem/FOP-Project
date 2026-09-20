@@ -5,7 +5,7 @@ let modulePromise;
 function engine() {
   if(!modulePromise)modulePromise=Promise.resolve().then(()=>{
     importScripts('engine.js?pe=9e34dbbd95be0de3');
-    return createPocketEngineer({locateFile:name=>new URL(name.endsWith('.wasm')?'engine.wasm?pe=138acf8ea6646e02':name,self.location.href).href});
+    return createPocketEngineer({locateFile:name=>new URL(name.endsWith('.wasm')?'engine.wasm?pe=f7ef87c157c2cc62':name,self.location.href).href});
   });
   return modulePromise;
 }

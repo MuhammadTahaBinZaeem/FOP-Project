@@ -2,6 +2,57 @@
 
 This file separates independent correctness comparisons, same-engine regression snapshots, and platform execution. Re-running answers produced by the same engine cannot independently establish mathematical correctness. Historical “correct” counts below mean snapshot matches.
 
+## 2026-09-20 — progressive input and a single workspace
+
+The frontend now keeps Question, Circuits, Signals, State diagrams and Test demos
+under one toolbar. Demo selection is no longer a permanently green primary
+action. Natural questions start with an empty input and automatic interpretation;
+subject/type selection is optional. Guided forms solve directly. Circuit, signal
+and state-machine forms have two input stages with optional controls in Advanced.
+The C++ catalog supplies presentation metadata for optional/conditional signal
+fields; numerical algorithms, defaults and mathematical coverage are unchanged.
+See the [input/navigation guide](FRONTEND_GUIDE.md).
+
+The revision preserves tool-specific inputs/results, compatible edited transition
+cells, per-operation signal values and active lab stages across an app update.
+Question updates no longer jump back to a previously visited lab. Browser
+Back/Forward and offline deep links have explicit regressions. Mobile state-table
+labels are retained for accessibility without repeating them visually in every
+cell. The default table fits 390px screens; larger/narrower tables scroll inside
+their container instead of widening the page.
+
+Tests open the real numbered stage buttons and Advanced summaries before typing
+or clicking. The shared test helper does not force clicks or modify hidden/open
+attributes. Fresh-user tests use no disclosure helper and verify collapsed
+defaults explicitly. Existing Android native-touch tests were updated to tap
+Next before solving; phone-sized Chromium alone is not Android-device evidence.
+
+An initial old-selector run was interrupted when role lookups could not find
+intentionally hidden controls. A corrected focused run passed
+[17/17 desktop lab/cache tests](evidence/2026-09-20/frontend/navigation-targeted.log).
+The first complete run passed 118/120: both failures were an older offline-repair
+test trying to type in Question after reloading the now-preserved Downloads
+route. The fixture now clicks Workbench after reload, with no timeout relaxation.
+[Original failures](evidence/2026-09-20/frontend/browser-before-fixture-correction.log).
+After correcting that fixture and tightening the mobile state table, the
+[focused run passes 34/34](evidence/2026-09-20/frontend/progressive-focused.log)
+across both desktop and phone layouts, including both previously failing cases.
+
+Native validation passes [5/5 suites](evidence/2026-09-20/frontend/native.log),
+including 31,960 engineering-study checks (19 new presentation-metadata checks).
+The [unchanged-scope source audit](evidence/2026-09-20/frontend/source-audit.json)
+reports 425,245 C++ bytes: **81.2998% runtime / 77.0244% including HTML/CSS**.
+No generated corpus or padding was added to reach the percentage. The critical
+offline bundle is 1,258,360 bytes; complete preparation is 9,203,351 bytes,
+including all 825,000 original-topic demo snapshots.
+
+Screenshots: [phone question](evidence/2026-09-20/frontend/home-390.png),
+[phone signal input](evidence/2026-09-20/frontend/signals-390.png),
+[phone transitions](evidence/2026-09-20/frontend/fsm-390.png),
+[desktop question](evidence/2026-09-20/frontend/home-1440.png).
+These are browser captures, not a physical-phone smoothness claim. Existing
+versioned installer downloads are not replaced by this website revision.
+
 ## 2026-09-19 — repeated report, entered-value UI checks and an update-button race
 
 The user still reported an error after the earlier deployment. A fresh run against the actual Render site passed **10/10 desktop/phone-layout lab tests**, including typed circuit and signal values, all thirteen signal forms, state diagrams and network studies. [Live log](evidence/2026-09-19/repeated-report/live-labs.log). This does **not** establish which version, origin or browser the user's failing installation is running; those details have been requested. No claim is made that the user's specific failure has been resolved.
