@@ -67,6 +67,31 @@ Screenshots: [phone question](evidence/2026-09-20/frontend/home-390.png),
 These are browser captures, not a physical-phone smoothness claim. Existing
 versioned installer downloads are not replaced by this website revision.
 
+Final source `f7bdc74` passes the [full 120/120 browser suite again](evidence/2026-09-20/frontend/browser-release.log)
+in 4.0 minutes, including the expanded hidden-field regression. It reached
+[Render deployment `dep-danpr24s728c73b1vltg`](evidence/2026-09-20/frontend/render-deployment.json)
+at **08:48:26 UTC**. The public root returned HTTP 200 and the expected new script
+hash; Render reported no error logs after deployment.
+
+The actual public URL then passed [22/22 live desktop/phone-layout tests](evidence/2026-09-20/frontend/live-ui.log)
+in 1.7 minutes, with no retries. These cover the new navigation, form disclosures,
+conditional inputs, retained edits, keyboard controls and offline reloads.
+Entered values produced the independent expected results online **and** offline:
+12 V / 1 kΩ / 2 kΩ divider port voltage **8 V**; convolution `[2,-1,3] * [4,2]`
+**[8,0,10,6]**; edited toggle-machine sequence `1,0,1,1,0` outputs **1,1,0,1,1**.
+[Desktop inputs/actuals](evidence/2026-09-20/frontend/live-desktop-comparisons.json),
+[phone inputs/actuals](evidence/2026-09-20/frontend/live-phone-comparisons.json),
+[phone offline output](evidence/2026-09-20/frontend/live-phone-offline-convolution.png).
+Both reports contain zero page errors. Initial preparation still depends on
+network/storage: the desktop entered-value journey took 45.0 seconds including
+downloads, versus 10.2 seconds for the phone-layout journey. These are not solver
+latency measurements or universal download-time guarantees.
+
+The [package CI](evidence/2026-09-20/frontend/package-ci-status.json) and
+[website CI](evidence/2026-09-20/frontend/website-ci-status.json) files are status
+snapshots, not assertions that unfinished jobs passed. A fresh physical Android
+run and a new public installer release are not claimed by this frontend update.
+
 ## 2026-09-19 — repeated report, entered-value UI checks and an update-button race
 
 The user still reported an error after the earlier deployment. A fresh run against the actual Render site passed **10/10 desktop/phone-layout lab tests**, including typed circuit and signal values, all thirteen signal forms, state diagrams and network studies. [Live log](evidence/2026-09-19/repeated-report/live-labs.log). This does **not** establish which version, origin or browser the user's failing installation is running; those details have been requested. No claim is made that the user's specific failure has been resolved.
